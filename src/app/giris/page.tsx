@@ -2,13 +2,12 @@
 
 import { Suspense, useRef, useState } from 'react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import type { TurnstileInstance } from '@marsidev/react-turnstile';
 import { createSupabaseBrowserClient } from '@/lib/supabase/client';
 import { CaptchaField } from '@/components/auth/CaptchaField';
 
 function LoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -48,8 +47,11 @@ function LoginForm() {
       return;
     }
 
-    router.push(searchParams.get('redirectTo') ?? '/hesabim');
-    router.refresh();
+    // TAM SAYFA yönlendirmesi (router.push değil): signInWithPassword çerezi
+    // istemcide yazar; router.push hemen ardından çalışınca middleware'in
+    // sunucu tarafı okuması çerezi henüz görmez ve kullanıcıyı /giris'e geri atar.
+    // window.location ile tarayıcı isteği baştan yapar, taze çerezle.
+    window.location.assign(searchParams.get('redirectTo') ?? '/hesabim');
   }
 
   return (
