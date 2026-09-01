@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Kökten Aktar | Doğadan Gelen Şifa & Yöresel Lezzetler</title>
+<meta name="description" content="Hakiki bal, soğuk sıkım yağlar, taze baharatlar ve şifalı bitki çayları. %100 doğal ve yöresel ürünler.">
+
+<!-- Google Fonts: Inter & Poppins -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: { DEFAULT: '#1b4332', dark: '#0f2921', light: '#2d6a4f' },
+          accent: { DEFAULT: '#d4a373', light: '#e9c46a', dark: '#b9895a' },
+          cream: '#f4f1ea',
+          carbon: '#212529'
+        },
+        fontFamily: {
+          sans: ['Inter', 'sans-serif'],
+          display: ['Poppins', 'sans-serif']
+        },
+        boxShadow: {
+          card: '0 4px 20px -4px rgba(27,67,50,0.12)',
+          soft: '0 2px 10px rgba(0,0,0,0.06)'
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  /* ==== Genel Kaydırma & Scrollbar ==== */
+  html { scroll-behavior: smooth; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #f4f1ea; }
+  ::-webkit-scrollbar-thumb { background: #b9895a; border-radius: 8px; }
+
+  body { -webkit-tap-highlight-color: transparent; overscroll-behavior-y: none; }
+
+  /* Dokunmatik dostu min. hedef boyutu */
+  .touch-target { min-height: 44px; min-width: 44px; }
+
+  /* Yükleniyor iskeleti (skeleton) animasyonu */
+  @keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+  .skeleton { background: linear-gradient(90deg, #eee 25%, #f5f5f5 37%, #eee 63%); background-size: 400px 100%; animation: shimmer 1.4s infinite linear; }
+
+  /* Slide-over sepet paneli geçişleri */
+  .cart-panel { transition: transform 0.35s cubic-bezier(.4,0,.2,1); }
+  .cart-panel.translate-x-full { transform: translateX(100%); }
+
+  /* Drawer menü */
+  .drawer-panel { transition: transform 0.3s ease; }
+
+  /* Modal fade */
+  .modal-backdrop { transition: opacity .25s ease; }
+  .modal-box { transition: opacity .25s ease, transform .25s ease; }
+
+  /* Ürün kartı hover büyütme */
+  .product-img { transition: transform .5s ease; }
+  .product-card:hover .product-img { transform: scale(1.08); }
+
+  /* Rozet stilleri */
+  .badge { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; }
+
+  /* Kredi kartı 3D simülasyon */
+  .card-flip { perspective: 1000px; }
+  .card-inner { transition: transform .6s; transform-style: preserve-3d; }
+  .card-flip.flipped .card-inner { transform: rotateY(180deg); }
+  .card-face { backface-visibility: hidden; }
+  .card-back { transform: rotateY(180deg); }
+
+  /* Aktif nav ikon rengi */
+  .bottom-nav-item.active { color: #1b4332; }
+  .bottom-nav-item.active svg { fill: #1b4332; }
+
+  /* Yatay kategori kaydırma çubuğunu gizle */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Toast bildirim */
+  #toast { transition: transform .35s ease, opacity .35s ease; }
+
+  /* WhatsApp nabız animasyonu */
+  @keyframes pulseRing { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,.55); } 100% { box-shadow: 0 0 0 18px rgba(37,211,102,0); } }
+  .whatsapp-pulse { animation: pulseRing 2s infinite; }
+
+  /* iOS safe-area desteği */
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+  .pt-safe { padding-top: env(safe-area-inset-top); }
+</style>
+</head>
+
+<body class="bg-cream text-carbon font-sans antialiased pb-16 lg:pb-0">
+
+<!-- ============================================================ -->
+<!-- ÜST BİLGİ ŞERİDİ (Duyuru Barı)                                -->
+<!-- ============================================================ -->
+<div class="bg-primary-dark text-cream text-xs sm:text-sm py-2 text-center px-4">
+  🌿 150₺ ve üzeri alışverişlerde <span class="font-semibold text-accent-light">kargo bedava</span>! Hakiki Anzer Balı yeni geldi.
+</div>
+
+<!-- ============================================================ -->
+<!-- HEADER & NAVBAR                                               -->
+<!-- ============================================================ -->
+<header class="sticky top-0 z-40 bg-cream/95 backdrop-blur border-b border-primary/10 pt-safe">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="flex items-center justify-between h-16 sm:h-20 gap-3">
+
+      <!-- Mobil: Drawer aç butonu -->
+      <button id="drawerOpenBtn" class="lg:hidden touch-target flex items-center justify-center rounded-full hover:bg-primary/10 -ml-2" aria-label="Menüyü Aç">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1b4332" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2 shrink-0">
+        <span class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-primary flex items-center justify-center text-accent-light text-xl">🌿</span>
+        <div class="leading-none">
+          <div class="font-display font-bold text-lg sm:text-xl text-primary">Kökten <span class="text-accent-dark">Aktar</span></div>
+          <div class="hidden sm:block text-[11px] tracking-wide text-primary/60 font-medium">Doğadan Gelen Şifa</div>
+        </div>
+      </a>
+
+      <!-- Masaüstü Kategori Menüsü -->
+      <nav class="hidden lg:flex items-center gap-1 mx-auto">
+        <button class="nav-cat-btn px-4 py-2 rounded-full text-sm font-semibold text-primary hover:bg-primary/10 transition" data-cat="all">Tümü</button>
+        <button class="nav-cat-btn px-4 py-2 rounded-full text-sm font-semibold text-primary hover:bg-primary/10 transition" data-cat="yoresel">Yöresel Ürünler</button>
+        <button class="nav-cat-btn px-4 py-2 rounded-full text-sm font-semibold text-primary hover:bg-primary/10 transition" data-cat="baharat">Taze Baharatlar</button>
+        <button class="nav-cat-btn px-4 py-2 rounded-full text-sm font-semibold text-primary hover:bg-primary/10 transition" data-cat="macun">Macunlar & Bitkiler</button>
+        <button class="nav-cat-btn px-4 py-2 rounded-full text-sm font-semibold text-primary hover:bg-primary/10 transition" data-cat="yag">Botanik Yağlar</button>
+        <button class="nav-cat-btn px-4 py-2 rounded-full text-sm font-semibold text-primary hover:bg-primary/10 transition" data-cat="cay">Bitki Çayları</button>
+      </nav>
+
+      <!-- Sağ: Arama + Hesap + Sepet -->
+      <div class="flex items-center gap-1 sm:gap-2">
+        <!-- Arama (masaüstü inline, mobilde ikon) -->
+        <div class="relative hidden md:block">
+          <input id="searchInputDesktop" type="text" placeholder="Ürün ara... (örn. bal, çörek otu)" class="w-56 xl:w-72 bg-white border border-primary/15 rounded-full py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-accent/60 transition">
+          <svg class="absolute left-3.5 top-1/2 -translate-y-1/2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1b4332" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <button id="searchOpenBtnMobile" class="md:hidden touch-target flex items-center justify-center rounded-full hover:bg-primary/10" aria-label="Ara">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1b4332" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+
+        <button class="hidden sm:flex touch-target items-center justify-center rounded-full hover:bg-primary/10" aria-label="Hesabım">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1b4332" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+
+        <button id="cartOpenBtn" class="relative touch-target flex items-center justify-center rounded-full hover:bg-primary/10" aria-label="Sepetim">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#1b4332" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span id="cartCountBadge" class="absolute -top-0.5 -right-0.5 bg-accent text-primary-dark text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobil Arama Çubuğu (açılır) -->
+    <div id="searchBarMobile" class="hidden md:hidden pb-3">
+      <div class="relative">
+        <input id="searchInputMobile" type="text" placeholder="Ürün ara..." class="w-full bg-white border border-primary/15 rounded-full py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-accent/60">
+        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1b4332" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+    </div>
+
+    <!-- Kategori yatay kaydırma (mobil) -->
+    <div class="lg:hidden flex gap-2 overflow-x-auto no-scrollbar pb-3 -mx-1 px-1">
+      <button class="nav-cat-btn shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-primary text-white" data-cat="all">Tümü</button>
+      <button class="nav-cat-btn shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-white border border-primary/15 text-primary" data-cat="yoresel">Yöresel</button>
+      <button class="nav-cat-btn shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-white border border-primary/15 text-primary" data-cat="baharat">Baharatlar</button>
+      <button class="nav-cat-btn shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-white border border-primary/15 text-primary" data-cat="macun">Macunlar</button>
+      <button class="nav-cat-btn shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-white border border-primary/15 text-primary" data-cat="yag">Yağlar</button>
+      <button class="nav-cat-btn shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-white border border-primary/15 text-primary" data-cat="cay">Çaylar</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- DOKUNMATİK YAN MENÜ (DRAWER)                                  -->
+<!-- ============================================================ -->
+<div id="drawerBackdrop" class="fixed inset-0 bg-black/50 z-50 hidden opacity-0 modal-backdrop"></div>
+<aside id="drawerPanel" class="drawer-panel fixed top-0 left-0 h-full w-[82%] max-w-xs bg-white z-50 -translate-x-full shadow-2xl flex flex-col">
+  <div class="flex items-center justify-between p-5 border-b border-primary/10">
+    <div class="flex items-center gap-2">
+      <span class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-accent-light">🌿</span>
+      <span class="font-display font-bold text-primary">Kökten Aktar</span>
+    </div>
+    <button id="drawerCloseBtn" class="touch-target flex items-center justify-center rounded-full hover:bg-primary/10" aria-label="Kapat">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1b4332" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="flex-1 overflow-y-auto p-4 space-y-1">
+    <button class="nav-cat-btn drawer-cat-btn w-full text-left px-4 py-3.5 rounded-xl font-semibold text-primary hover:bg-cream flex items-center gap-3" data-cat="all">🏠 Tüm Ürünler</button>
+    <button class="nav-cat-btn drawer-cat-btn w-full text-left px-4 py-3.5 rounded-xl font-semibold text-primary hover:bg-cream flex items-center gap-3" data-cat="yoresel">🍯 Yöresel Ürünler</button>
+    <button class="nav-cat-btn drawer-cat-btn w-full text-left px-4 py-3.5 rounded-xl font-semibold text-primary hover:bg-cream flex items-center gap-3" data-cat="baharat">🌶️ Taze Baharatlar</button>
+    <button class="nav-cat-btn drawer-cat-btn w-full text-left px-4 py-3.5 rounded-xl font-semibold text-primary hover:bg-cream flex items-center gap-3" data-cat="macun">🌱 Özel Macunlar & Bitkiler</button>
+    <button class="nav-cat-btn drawer-cat-btn w-full text-left px-4 py-3.5 rounded-xl font-semibold text-primary hover:bg-cream flex items-center gap-3" data-cat="yag">💧 Soğuk Sıkım Yağlar</button>
+    <button class="nav-cat-btn drawer-cat-btn w-full text-left px-4 py-3.5 rounded-xl font-semibold text-primary hover:bg-cream flex items-center gap-3" data-cat="cay">🍵 Şifalı Bitki Çayları</button>
+    <div class="border-t border-primary/10 my-3"></div>
+    <a href="#" class="w-full text-left px-4 py-3.5 rounded-xl font-semibold text-primary hover:bg-cream flex items-center gap-3">👤 Hesabım</a>
+    <a href="#" class="w-full text-left px-4 py-3.5 rounded-xl font-semibold text-primary hover:bg-cream flex items-center gap-3">📦 Siparişlerim</a>
+    <a href="#footer" class="w-full text-left px-4 py-3.5 rounded-xl font-semibold text-primary hover:bg-cream flex items-center gap-3">☎️ İletişim</a>
+  </nav>
+  <div class="p-4 border-t border-primary/10 text-center text-xs text-carbon/50">© 2026 Kökten Aktar</div>
+</aside>
+
+<!-- ============================================================ -->
+<!-- HERO BANNER                                                   -->
+<!-- ============================================================ -->
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0">
+    <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&w=1600&q=70" alt="Doğal Baharatlar" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-r from-primary-dark/90 via-primary-dark/70 to-primary-dark/30"></div>
+  </div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28 lg:py-36">
+    <div class="max-w-xl">
+      <span class="inline-block bg-accent/90 text-primary-dark text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full mb-5 badge">🌿 1998'den Beri Aktarlık Geleneği</span>
+      <h1 class="font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white leading-tight mb-5">
+        Doğadan Gelen <span class="text-accent-light">Şifa</span> & Yöresel Lezzetler
+      </h1>
+      <p class="text-cream/85 text-base sm:text-lg mb-8 max-w-md">
+        Hiçbir katkı maddesi içermeyen, doğrudan üreticiden sofranıza gelen hakiki bal, soğuk sıkım yağlar ve şifalı bitkiler.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href="#urunler" class="touch-target inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-primary-dark font-bold px-7 py-3.5 rounded-full transition shadow-lg">
+          Şimdi Keşfet
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#hakkimizda" class="touch-target inline-flex items-center gap-2 border-2 border-white/40 hover:border-white text-white font-semibold px-7 py-3.5 rounded-full transition">
+          Hikayemiz
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ÖNE ÇIKAN ÖZELLİKLER BARI                                     -->
+<!-- ============================================================ -->
+<section class="bg-white border-b border-primary/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 text-xl">🚚</div>
+      <div>
+        <div class="font-semibold text-sm sm:text-base leading-tight">Kargo Bedava</div>
+        <div class="text-xs text-carbon/55">150₺ üzeri siparişte</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 text-xl">🌿</div>
+      <div>
+        <div class="font-semibold text-sm sm:text-base leading-tight">%100 Taze & Doğal</div>
+        <div class="text-xs text-carbon/55">Katkı maddesiz</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 text-xl">🔒</div>
+      <div>
+        <div class="font-semibold text-sm sm:text-base leading-tight">Güvenli 3D Ödeme</div>
+        <div class="text-xs text-carbon/55">SSL korumalı işlem</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 text-xl">🏺</div>
+      <div>
+        <div class="font-semibold text-sm sm:text-base leading-tight">Geleneksel Üretim</div>
+        <div class="text-xs text-carbon/55">Yöresel ustalardan</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ÜRÜNLER                                                        -->
+<!-- ============================================================ -->
+<main id="urunler" class="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+  <div class="flex items-end justify-between mb-6 sm:mb-8">
+    <div>
+      <h2 id="sectionTitle" class="font-display font-bold text-2xl sm:text-3xl text-primary">Tüm Ürünler</h2>
+      <p id="resultCount" class="text-sm text-carbon/55 mt-1"></p>
+    </div>
+    <select id="sortSelect" class="hidden sm:block bg-white border border-primary/15 rounded-full px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent/50">
+      <option value="default">Önerilen Sıralama</option>
+      <option value="price-asc">Fiyat: Düşükten Yükseğe</option>
+      <option value="price-desc">Fiyat: Yüksekten Düşüğe</option>
+      <option value="name-asc">İsim: A-Z</option>
+    </select>
+  </div>
+
+  <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"></div>
+
+  <div id="emptyState" class="hidden text-center py-20">
+    <div class="text-5xl mb-4">🔍</div>
+    <p class="font-semibold text-lg text-primary">Aradığınız ürün bulunamadı</p>
+    <p class="text-carbon/50 text-sm mt-1">Farklı bir kelime veya kategori deneyin.</p>
+  </div>
+</main>
+
+<!-- Ürün Kartı Şablonu (JS ile çoğaltılır) -->
+<template id="productCardTemplate">
+  <div class="product-card bg-white rounded-2xl shadow-soft hover:shadow-card overflow-hidden flex flex-col transition-shadow">
+    <div class="relative overflow-hidden aspect-square bg-cream cursor-pointer quick-view-trigger">
+      <img class="product-img w-full h-full object-cover" loading="lazy">
+      <div class="badge-wrap absolute top-2 left-2 flex flex-col gap-1"></div>
+      <button class="quick-view-btn absolute bottom-2 right-2 bg-white/95 hover:bg-white text-primary text-[11px] font-bold px-3 py-1.5 rounded-full shadow touch-target opacity-0 sm:opacity-0 group-hover:opacity-100 transition sm:group-hover:opacity-100">
+        Hızlı İncele
+      </button>
+    </div>
+    <div class="p-3 sm:p-4 flex flex-col flex-1">
+      <div class="cat-label text-[11px] font-semibold text-accent-dark uppercase tracking-wide mb-1"></div>
+      <h3 class="prod-title font-semibold text-sm sm:text-[15px] leading-snug mb-2 flex-1"></h3>
+      <div class="flex items-center gap-1.5 mb-3">
+        <label class="text-[11px] text-carbon/50 mr-1">Gramaj:</label>
+        <select class="variant-select text-xs font-medium bg-cream border border-primary/15 rounded-lg px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-accent flex-1"></select>
+      </div>
+      <div class="flex items-center justify-between gap-2">
+        <span class="price-label font-display font-bold text-primary text-base sm:text-lg"></span>
+        <button class="add-to-cart-btn touch-target bg-primary hover:bg-primary-dark text-white rounded-full w-10 h-10 flex items-center justify-center shrink-0 transition active:scale-90">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- ============================================================ -->
+<!-- HAKKIMIZDA / GÜVEN ŞERİDİ                                     -->
+<!-- ============================================================ -->
+<section id="hakkimizda" class="bg-primary text-cream">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14 grid lg:grid-cols-2 gap-10 items-center">
+    <div>
+      <span class="text-accent-light font-semibold text-sm">Bizim Hikayemiz</span>
+      <h2 class="font-display font-bold text-2xl sm:text-3xl mt-2 mb-4">Topraktan sofranıza, güvenle.</h2>
+      <p class="text-cream/75 leading-relaxed mb-6">
+        Kökten Aktar olarak, Anadolu'nun dört bir yanındaki güvenilir üreticilerle çalışıyor; balımızı, yağlarımızı ve
+        bitkilerimizi hiçbir katkı maddesi ve işlem uygulamadan, geleneksel yöntemlerle sizlere ulaştırıyoruz.
+      </p>
+      <div class="grid grid-cols-3 gap-4 text-center">
+        <div><div class="font-display font-extrabold text-2xl sm:text-3xl text-accent-light">25+</div><div class="text-xs text-cream/60 mt-1">Yıllık Tecrübe</div></div>
+        <div><div class="font-display font-extrabold text-2xl sm:text-3xl text-accent-light">120+</div><div class="text-xs text-cream/60 mt-1">Doğal Ürün</div></div>
+        <div><div class="font-display font-extrabold text-2xl sm:text-3xl text-accent-light">40K+</div><div class="text-xs text-cream/60 mt-1">Mutlu Müşteri</div></div>
+      </div>
+    </div>
+    <img src="https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=1000&q=70" alt="Aktar Dükkanı" class="rounded-2xl shadow-2xl w-full h-72 sm:h-96 object-cover">
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- FOOTER                                                        -->
+<!-- ============================================================ -->
+<footer id="footer" class="bg-primary-dark text-cream/80">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div>
+      <div class="flex items-center gap-2 mb-4">
+        <span class="w-9 h-9 rounded-full bg-accent flex items-center justify-center text-primary-dark">🌿</span>
+        <span class="font-display font-bold text-white text-lg">Kökten Aktar</span>
+      </div>
+      <p class="text-sm text-cream/60 leading-relaxed">Doğadan gelen şifa, yöresel lezzetlerle sofranızda. Güvenilir aktarlık, 1998'den beri.</p>
+    </div>
+    <div>
+      <h4 class="font-semibold text-white mb-4">Kategoriler</h4>
+      <ul class="space-y-2 text-sm text-cream/60">
+        <li><a href="#" class="nav-cat-btn hover:text-accent-light" data-cat="yoresel">Yöresel Ürünler</a></li>
+        <li><a href="#" class="nav-cat-btn hover:text-accent-light" data-cat="baharat">Taze Baharatlar</a></li>
+        <li><a href="#" class="nav-cat-btn hover:text-accent-light" data-cat="macun">Macunlar & Bitkiler</a></li>
+        <li><a href="#" class="nav-cat-btn hover:text-accent-light" data-cat="yag">Botanik Yağlar</a></li>
+        <li><a href="#" class="nav-cat-btn hover:text-accent-light" data-cat="cay">Bitki Çayları</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-semibold text-white mb-4">İletişim</h4>
+      <ul class="space-y-2 text-sm text-cream/60">
+        <li>📍 Mısır Çarşısı No:14, Eminönü / İstanbul</li>
+        <li>📞 0 (212) 555 34 21</li>
+        <li>✉️ info@koktenaktar.com.tr</li>
+        <li>🕐 Her gün 09:00 - 20:00</li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-semibold text-white mb-4">Güvenli Alışveriş</h4>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span class="bg-white/10 rounded-lg px-3 py-2 text-xs font-semibold">🔒 SSL 256-bit</span>
+        <span class="bg-white/10 rounded-lg px-3 py-2 text-xs font-semibold">✅ 3D Secure</span>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <span class="bg-white text-carbon rounded px-2.5 py-1.5 text-[11px] font-bold">VISA</span>
+        <span class="bg-white text-carbon rounded px-2.5 py-1.5 text-[11px] font-bold">Mastercard</span>
+        <span class="bg-white text-carbon rounded px-2.5 py-1.5 text-[11px] font-bold">Troy</span>
+        <span class="bg-white text-carbon rounded px-2.5 py-1.5 text-[11px] font-bold">PayTR</span>
+        <span class="bg-white text-carbon rounded px-2.5 py-1.5 text-[11px] font-bold">iyzico</span>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-white/10 py-5 text-center text-xs text-cream/45">
+    © 2026 Kökten Aktar — Tüm hakları saklıdır. | Mesafeli Satış Sözleşmesi | KVKK Aydınlatma Metni
+  </div>
+</footer>
+
+<!-- ============================================================ -->
+<!-- WHATSAPP FLOATING BUTON                                       -->
+<!-- ============================================================ -->
+<a href="https://wa.me/905555554321?text=Merhaba%2C%20%C3%BCr%C3%BCnler%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum."
+   target="_blank" rel="noopener"
+   class="whatsapp-pulse fixed right-4 sm:right-6 bottom-20 lg:bottom-6 z-30 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-xl touch-target"
+   aria-label="WhatsApp Destek">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.02 4a7.94 7.94 0 0 0-6.87 11.87L4 20l4.24-1.11a7.9 7.9 0 0 0 3.78.96h.01a7.94 7.94 0 0 0 5.57-13.53zM12.03 18.4a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.66.67-2.44-.16-.25a6.58 6.58 0 0 1 10.2-8.2 6.5 6.5 0 0 1 1.95 4.67 6.6 6.6 0 0 1-6.56 6.62zm3.6-4.93c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.45.1-.13.2-.51.64-.63.77-.11.13-.23.14-.43.05a5.4 5.4 0 0 1-1.59-.98 5.95 5.95 0 0 1-1.1-1.37c-.11-.2 0-.3.09-.4.09-.1.2-.23.3-.35.1-.11.13-.2.2-.33.06-.13.03-.25-.02-.35-.05-.1-.45-1.08-.61-1.48-.16-.39-.33-.33-.45-.34h-.38c-.13 0-.35.05-.53.25s-.7.68-.7 1.66.71 1.93.81 2.06c.1.13 1.4 2.14 3.39 3 .47.2.84.32 1.13.42.47.15.9.13 1.24.08.38-.06 1.17-.48 1.33-.94.17-.46.17-.85.12-.94-.05-.09-.18-.14-.38-.24z"/></svg>
+</a>
+
+<!-- ============================================================ -->
+<!-- MOBİL ALT NAVİGASYON BARI                                     -->
+<!-- ============================================================ -->
+<nav class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-primary/10 pb-safe">
+  <div class="grid grid-cols-4">
+    <a href="#urunler" class="bottom-nav-item active flex flex-col items-center justify-center py-2.5 gap-1 text-[11px] font-semibold text-carbon/50 touch-target" data-nav="home">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Anasayfa
+    </a>
+    <button id="mobileCatBtn" class="bottom-nav-item flex flex-col items-center justify-center py-2.5 gap-1 text-[11px] font-semibold text-carbon/50 touch-target" data-nav="cats">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Kategoriler
+    </button>
+    <button id="mobileCartBtn" class="bottom-nav-item relative flex flex-col items-center justify-center py-2.5 gap-1 text-[11px] font-semibold text-carbon/50 touch-target" data-nav="cart">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Sepet
+      <span id="cartCountBadgeMobile" class="hidden absolute top-0.5 right-6 bg-accent text-primary-dark text-[9px] font-bold w-4 h-4 rounded-full items-center justify-center">0</span>
+    </button>
+    <a href="#" class="bottom-nav-item flex flex-col items-center justify-center py-2.5 gap-1 text-[11px] font-semibold text-carbon/50 touch-target" data-nav="account">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Hesabım
+    </a>
+  </div>
+</nav>
+
+<!-- ============================================================ -->
+<!-- HIZLI İNCELE (QUICK VIEW) MODAL                               -->
+<!-- ============================================================ -->
+<div id="quickViewBackdrop" class="fixed inset-0 bg-black/50 z-[60] hidden opacity-0 modal-backdrop flex items-end sm:items-center justify-center">
+  <div id="quickViewBox" class="modal-box opacity-0 translate-y-6 sm:translate-y-0 sm:scale-95 bg-white rounded-t-3xl sm:rounded-3xl w-full sm:max-w-2xl max-h-[92vh] overflow-y-auto">
+    <div class="flex justify-end p-3 sticky top-0 bg-white z-10">
+      <button id="quickViewCloseBtn" class="touch-target flex items-center justify-center rounded-full hover:bg-primary/10">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1b4332" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="quickViewContent" class="px-5 sm:px-8 pb-8 grid sm:grid-cols-2 gap-6"></div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SEPET (SLIDE-OVER)                                            -->
+<!-- ============================================================ -->
+<div id="cartBackdrop" class="fixed inset-0 bg-black/50 z-[60] hidden opacity-0 modal-backdrop"></div>
+<aside id="cartPanel" class="cart-panel translate-x-full fixed top-0 right-0 h-full w-full sm:w-[420px] bg-white z-[60] shadow-2xl flex flex-col">
+  <div class="flex items-center justify-between p-5 border-b border-primary/10">
+    <h3 class="font-display font-bold text-lg text-primary flex items-center gap-2">🛒 Sepetim <span id="cartItemCount" class="text-sm font-normal text-carbon/50"></span></h3>
+    <button id="cartCloseBtn" class="touch-target flex items-center justify-center rounded-full hover:bg-primary/10">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1b4332" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <!-- Ücretsiz kargo bilgi barı -->
+  <div class="px-5 py-4 border-b border-primary/10">
+    <div id="shippingBarText" class="text-xs font-medium text-carbon/70 mb-2"></div>
+    <div class="w-full h-2 bg-cream rounded-full overflow-hidden">
+      <div id="shippingBarFill" class="h-full bg-accent transition-all duration-500 rounded-full" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div id="cartItemsWrap" class="flex-1 overflow-y-auto p-5 space-y-4"></div>
+
+  <div id="cartEmptyState" class="hidden flex-1 flex flex-col items-center justify-center text-center p-8">
+    <div class="text-5xl mb-4">🛍️</div>
+    <p class="font-semibold text-primary">Sepetiniz boş</p>
+    <p class="text-sm text-carbon/50 mt-1">Doğal ürünlerimizi keşfetmeye başlayın!</p>
+  </div>
+
+  <div id="cartFooter" class="border-t border-primary/10 p-5 space-y-3">
+    <div class="flex items-center justify-between text-sm text-carbon/60">
+      <span>Ara Toplam</span><span id="cartSubtotal" class="font-medium text-carbon">0,00 ₺</span>
+    </div>
+    <div class="flex items-center justify-between text-sm text-carbon/60">
+      <span>Kargo</span><span id="cartShippingCost" class="font-medium text-carbon">0,00 ₺</span>
+    </div>
+    <div class="flex items-center justify-between font-display font-bold text-lg text-primary pt-2 border-t border-dashed border-primary/15">
+      <span>Toplam</span><span id="cartTotal">0,00 ₺</span>
+    </div>
+    <button id="checkoutOpenBtn" class="touch-target w-full bg-primary hover:bg-primary-dark text-white font-bold py-3.5 rounded-full transition flex items-center justify-center gap-2">
+      Siparişi Tamamla
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </div>
+</aside>
+
+<!-- Sepet Ürün Satırı Şablonu -->
+<template id="cartItemTemplate">
+  <div class="cart-item-row flex gap-3 items-center">
+    <img class="ci-img w-16 h-16 rounded-xl object-cover shrink-0 bg-cream">
+    <div class="flex-1 min-w-0">
+      <div class="ci-title font-semibold text-sm truncate"></div>
+      <div class="ci-variant text-xs text-carbon/50"></div>
+      <div class="flex items-center justify-between mt-1.5">
+        <div class="flex items-center gap-2 bg-cream rounded-full px-1 py-1">
+          <button class="ci-minus touch-target w-7 h-7 flex items-center justify-center rounded-full hover:bg-white font-bold text-primary">−</button>
+          <span class="ci-qty text-sm font-semibold w-4 text-center"></span>
+          <button class="ci-plus touch-target w-7 h-7 flex items-center justify-center rounded-full hover:bg-white font-bold text-primary">+</button>
+        </div>
+        <span class="ci-price font-display font-bold text-sm text-primary"></span>
+      </div>
+    </div>
+    <button class="ci-remove touch-target flex items-center justify-center rounded-full hover:bg-red-50 text-red-400 shrink-0" aria-label="Kaldır">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>
+    </button>
+  </div>
+</template>
+
+<!-- ============================================================ -->
+<!-- GÜVENLİ ÖDEME (CHECKOUT) MODAL                                -->
+<!-- ============================================================ -->
+<div id="checkoutBackdrop" class="fixed inset-0 bg-black/60 z-[70] hidden opacity-0 modal-backdrop flex items-end sm:items-center justify-center">
+  <div id="checkoutBox" class="modal-box opacity-0 translate-y-6 sm:translate-y-0 sm:scale-95 bg-cream rounded-t-3xl sm:rounded-2xl w-full sm:max-w-4xl max-h-[94vh] overflow-y-auto">
+
+    <div class="flex items-center justify-between p-5 bg-white sticky top-0 z-10 border-b border-primary/10">
+      <h3 class="font-display font-bold text-lg text-primary">Güvenli Ödeme</h3>
+      <button id="checkoutCloseBtn" class="touch-target flex items-center justify-center rounded-full hover:bg-primary/10">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1b4332" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Adım göstergesi -->
+    <div class="flex items-center justify-center gap-2 py-4 px-5 text-xs font-semibold">
+      <span class="checkout-step-dot text-primary" data-step="1">① Adres</span>
+      <span class="w-6 h-px bg-primary/20"></span>
+      <span class="checkout-step-dot text-carbon/40" data-step="2">② Ödeme</span>
+      <span class="w-6 h-px bg-primary/20"></span>
+      <span class="checkout-step-dot text-carbon/40" data-step="3">③ Onay</span>
+    </div>
+
+    <form id="checkoutForm" class="p-5 sm:p-6 pt-0 grid lg:grid-cols-5 gap-6">
+      <div class="lg:col-span-3 space-y-6">
+
+        <!-- ADIM 1: Adres ve Teslimat -->
+        <div id="checkoutStep1" class="checkout-step bg-white rounded-2xl p-5 shadow-soft space-y-4">
+          <h4 class="font-display font-bold text-primary flex items-center gap-2">📍 Adres ve Teslimat Bilgileri</h4>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <input required type="text" placeholder="Ad Soyad" class="chk-input bg-cream border border-primary/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 sm:col-span-2">
+            <input required type="tel" placeholder="Telefon (05xx xxx xx xx)" class="chk-input bg-cream border border-primary/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50">
+            <input required type="email" placeholder="E-posta" class="chk-input bg-cream border border-primary/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50">
+            <input required type="text" placeholder="İl" class="chk-input bg-cream border border-primary/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50">
+            <input required type="text" placeholder="İlçe" class="chk-input bg-cream border border-primary/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50">
+            <textarea required placeholder="Açık Adres (Mahalle, Sokak, No, Daire)" rows="2" class="chk-input bg-cream border border-primary/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 sm:col-span-2"></textarea>
+          </div>
+        </div>
+
+        <!-- ADIM 2: Ödeme Yöntemleri -->
+        <div id="checkoutStep2" class="checkout-step bg-white rounded-2xl p-5 shadow-soft space-y-4">
+          <h4 class="font-display font-bold text-primary flex items-center gap-2">💳 Ödeme Yöntemi</h4>
+
+          <div class="grid sm:grid-cols-2 gap-3">
+            <label class="pay-method-label flex items-center gap-3 border-2 border-primary rounded-xl p-3.5 cursor-pointer bg-primary/5">
+              <input type="radio" name="payMethod" value="card" checked class="accent-primary w-4 h-4">
+              <span class="text-sm font-semibold">Kredi/Banka Kartı <span class="block text-[11px] font-normal text-carbon/50">3D Secure · PayTR / iyzico</span></span>
+            </label>
+            <label class="pay-method-label flex items-center gap-3 border-2 border-primary/10 rounded-xl p-3.5 cursor-pointer">
+              <input type="radio" name="payMethod" value="cod" class="accent-primary w-4 h-4">
+              <span class="text-sm font-semibold">Kapıda Ödeme <span class="block text-[11px] font-normal text-carbon/50">Nakit veya kartla</span></span>
+            </label>
+          </div>
+
+          <!-- Kredi Kartı Alanı -->
+          <div id="cardPaymentArea" class="space-y-4 pt-2">
+
+            <!-- Canlı Kart Simülasyonu -->
+            <div class="card-flip mx-auto w-full max-w-[340px] h-[195px]" id="cardFlipWrap">
+              <div class="card-inner relative w-full h-full">
+                <!-- Ön yüz -->
+                <div class="card-face absolute inset-0 rounded-2xl p-5 text-white flex flex-col justify-between shadow-xl" style="background: linear-gradient(135deg,#1b4332,#2d6a4f 60%,#40916c);">
+                  <div class="flex justify-between items-start">
+                    <span class="text-2xl">🌿</span>
+                    <span class="font-display font-bold tracking-wide text-sm opacity-90">Kökten Aktar</span>
+                  </div>
+                  <div id="cardNumberPreview" class="font-mono text-xl sm:text-2xl tracking-widest">•••• •••• •••• ••••</div>
+                  <div class="flex justify-between items-end text-xs">
+                    <div>
+                      <div class="opacity-60 text-[10px] mb-0.5">KART SAHİBİ</div>
+                      <div id="cardNamePreview" class="font-semibold tracking-wide uppercase">AD SOYAD</div>
+                    </div>
+                    <div>
+                      <div class="opacity-60 text-[10px] mb-0.5">SKT</div>
+                      <div id="cardExpPreview" class="font-semibold">AA/YY</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Arka yüz (CVV) -->
+                <div class="card-face card-back absolute inset-0 rounded-2xl text-white shadow-xl overflow-hidden" style="background: linear-gradient(135deg,#1b4332,#2d6a4f 60%,#40916c);">
+                  <div class="w-full h-10 bg-black/60 mt-5"></div>
+                  <div class="px-5 mt-6 flex justify-end">
+                    <div class="bg-white text-carbon font-mono text-sm px-3 py-1.5 rounded" id="cardCvvPreview">•••</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid gap-3">
+              <input id="cardNumberInput" maxlength="19" inputmode="numeric" type="text" placeholder="Kart Numarası" class="chk-input bg-cream border border-primary/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 font-mono tracking-wider">
+              <input id="cardNameInput" type="text" placeholder="Kart Üzerindeki İsim" class="chk-input bg-cream border border-primary/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50">
+              <div class="grid grid-cols-2 gap-3">
+                <input id="cardExpInput" maxlength="5" inputmode="numeric" type="text" placeholder="AA/YY" class="chk-input bg-cream border border-primary/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50">
+                <input id="cardCvvInput" maxlength="3" inputmode="numeric" type="text" placeholder="CVV" class="chk-input bg-cream border border-primary/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50">
+              </div>
+            </div>
+            <p class="text-[11px] text-carbon/45 flex items-center gap-1.5">🔒 Kart bilgileriniz 256-bit SSL ile şifrelenir, sunucularımızda saklanmaz.</p>
+          </div>
+
+          <div id="codInfoArea" class="hidden bg-accent/10 border border-accent/30 rounded-xl p-4 text-sm text-primary-dark">
+            📦 Siparişiniz kapınıza geldiğinde nakit veya kredi kartı ile ödeme yapabilirsiniz. Kapıda ödemelerde <b>10₺</b> hizmet bedeli uygulanır.
+          </div>
+        </div>
+
+        <!-- Onay kutucukları -->
+        <div class="bg-white rounded-2xl p-5 shadow-soft space-y-3">
+          <label class="flex items-start gap-3 text-xs sm:text-sm text-carbon/70 cursor-pointer">
+            <input required type="checkbox" class="mt-0.5 accent-primary w-4 h-4 shrink-0">
+            <span><b>Mesafeli Satış Sözleşmesi</b>'ni okudum ve kabul ediyorum.</span>
+          </label>
+          <label class="flex items-start gap-3 text-xs sm:text-sm text-carbon/70 cursor-pointer">
+            <input required type="checkbox" class="mt-0.5 accent-primary w-4 h-4 shrink-0">
+            <span><b>KVKK Aydınlatma Metni</b> kapsamında kişisel verilerimin işlenmesini kabul ediyorum.</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Sipariş Özeti -->
+      <div class="lg:col-span-2">
+        <div class="bg-white rounded-2xl p-5 shadow-soft lg:sticky lg:top-4 space-y-4">
+          <h4 class="font-display font-bold text-primary">Sipariş Özeti</h4>
+          <div id="checkoutItemsSummary" class="space-y-3 max-h-56 overflow-y-auto pr-1"></div>
+          <div class="border-t border-dashed border-primary/15 pt-3 space-y-2 text-sm">
+            <div class="flex justify-between text-carbon/60"><span>Ara Toplam</span><span id="chkSubtotal">0,00 ₺</span></div>
+            <div class="flex justify-between text-carbon/60"><span>Kargo</span><span id="chkShipping">0,00 ₺</span></div>
+            <div class="flex justify-between font-display font-bold text-lg text-primary pt-2 border-t border-dashed border-primary/15"><span>Genel Toplam</span><span id="chkTotal">0,00 ₺</span></div>
+          </div>
+          <button type="submit" class="touch-target w-full bg-accent hover:bg-accent-dark text-primary-dark font-bold py-3.5 rounded-full transition flex items-center justify-center gap-2">
+            🔒 Güvenle Ödemeyi Tamamla
+          </button>
+          <p class="text-[11px] text-center text-carbon/40">Ödemeniz PayTR / iyzico altyapısı ile 3D Secure korumalı olarak işlenir.</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SİPARİŞ BAŞARILI MODAL                                        -->
+<!-- ============================================================ -->
+<div id="successBackdrop" class="fixed inset-0 bg-black/60 z-[80] hidden opacity-0 modal-backdrop flex items-center justify-center px-4">
+  <div id="successBox" class="modal-box opacity-0 scale-95 bg-white rounded-3xl w-full max-w-sm p-8 text-center">
+    <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center text-4xl mx-auto mb-5">✅</div>
+    <h3 class="font-display font-bold text-xl text-primary mb-2">Siparişiniz Alındı!</h3>
+    <p class="text-sm text-carbon/60 mb-6">Teşekkür ederiz. Sipariş numaranız <b id="orderNumberText" class="text-primary"></b>. Onay e-postası kısa süre içinde gönderilecektir.</p>
+    <button id="successCloseBtn" class="touch-target w-full bg-primary hover:bg-primary-dark text-white font-bold py-3.5 rounded-full transition">Alışverişe Devam Et</button>
+  </div>
+</div>
+
+<!-- Toast Bildirim -->
+<div id="toast" class="fixed bottom-24 lg:bottom-6 left-1/2 -translate-x-1/2 translate-y-24 opacity-0 bg-carbon text-white text-sm font-medium px-5 py-3 rounded-full shadow-xl z-[90] flex items-center gap-2 whitespace-nowrap">
+  <span id="toastIcon">✅</span> <span id="toastText">Ürün sepete eklendi</span>
+</div>
+
+<script>
+/* ================================================================
+   VERİ KATMANI: Ürün Listesi
+   Gerçekçi yöresel aktar ürünleri, kategori, rozet, varyant ve stok bilgileriyle.
+   ================================================================ */
+const CATEGORIES = {
+  yoresel: 'Yöresel Ürünler',
+  baharat: 'Taze Baharatlar',
+  macun:   'Macunlar & Bitkiler',
+  yag:     'Botanik Yağlar',
+  cay:     'Bitki Çayları'
+};
+
+const PRODUCTS = [
+  // ---- YÖRESEL ÜRÜNLER ----
+  {
+    id: 'p01', name: 'Hakiki Anzer Balı', category: 'yoresel',
+    badges: ['100% Doğal', 'Yöresel'], stock: 18,
+    desc: 'Rize Anzer Yaylası\'ndan, katkısız ve doğal süzme bal. Yüksek polen çeşitliliği ile şifa deposu.',
+    image: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'250g', price:340}, {label:'500g', price:620}, {label:'1000g', price:1150} ]
+  },
+  {
+    id: 'p02', name: 'Karakovan Balı', category: 'yoresel',
+    badges: ['Yöresel', 'Sınırlı Stok'], stock: 7,
+    desc: 'Geleneksel kütük kovanlarda, doğal petek üretim yöntemiyle elde edilen özel karakovan balı.',
+    image: 'https://images.unsplash.com/photo-1471943311424-646960669fbc?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'250g', price:290}, {label:'500g', price:540} ]
+  },
+  {
+    id: 'p03', name: 'Taş Baskı Zeytinyağı', category: 'yoresel',
+    badges: ['Soğuk Sıkım', '100% Doğal'], stock: 24,
+    desc: 'Ayvalık zeytininden, geleneksel taş değirmende soğuk sıkım yöntemiyle üretilen erken hasat zeytinyağı.',
+    image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'500ml', price:280}, {label:'1000ml', price:520} ]
+  },
+  {
+    id: 'p04', name: 'Dut Pekmezi', category: 'yoresel',
+    badges: ['Yöresel', '100% Doğal'], stock: 15,
+    desc: 'Malatya kara dutundan, katkısız ve ilave şeker içermeyen geleneksel usul pekmez.',
+    image: 'https://images.unsplash.com/photo-1615484477778-ca3b77940c25?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'350g', price:165}, {label:'700g', price:300} ]
+  },
+  {
+    id: 'p05', name: 'Keçiboynuzu Pekmezi', category: 'yoresel',
+    badges: ['Yöresel', '100% Doğal'], stock: 12,
+    desc: 'Ege bölgesi keçiboynuzundan soğuk yöntemle elde edilen, demir deposu doğal pekmez.',
+    image: 'https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'350g', price:150}, {label:'700g', price:275} ]
+  },
+
+  // ---- TAZE BAHARATLAR ----
+  {
+    id: 'p06', name: 'Tane Sumak', category: 'baharat',
+    badges: ['Yöresel', '100% Doğal'], stock: 40,
+    desc: 'Güneydoğu Anadolu\'dan, elle toplanmış ve doğal kurutulmuş tane sumak.',
+    image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'100g', price:60}, {label:'250g', price:130}, {label:'500g', price:230} ]
+  },
+  {
+    id: 'p07', name: 'Yaprak Isırgan', category: 'baharat',
+    badges: ['100% Doğal'], stock: 33,
+    desc: 'Doğal ortamda yetişen, gölgede kurutulmuş kuru ısırgan yaprağı.',
+    image: 'https://images.unsplash.com/photo-1600231616726-cd5960e77c48?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'50g', price:45}, {label:'100g', price:80} ]
+  },
+  {
+    id: 'p08', name: 'Çörek Otu (Tane)', category: 'baharat',
+    badges: ['100% Doğal', 'Yöresel'], stock: 55,
+    desc: 'Soğuk sıkım yağı ve tane olarak tüketilen, bağışıklık destekçisi doğal çörek otu.',
+    image: 'https://images.unsplash.com/photo-1509358271058-acd22cc93898?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'100g', price:55}, {label:'250g', price:120} ]
+  },
+  {
+    id: 'p09', name: 'Hakiki Safran', category: 'baharat',
+    badges: ['Yöresel', 'Sınırlı Stok'], stock: 9,
+    desc: 'Safranbolu\'dan, elle hasat edilmiş üstün kalite iplik safran.',
+    image: 'https://images.unsplash.com/photo-1633436375392-4816bfd8f5f1?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'1g', price:180}, {label:'2g', price:340} ]
+  },
+  {
+    id: 'p10', name: 'Kudret Narı Kurusu', category: 'baharat',
+    badges: ['Yöresel', '100% Doğal'], stock: 20,
+    desc: 'Doğal kurutulmuş, şifalı kudret narı dilimleri.',
+    image: 'https://images.unsplash.com/photo-1615485500704-8e990f9900f7?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'50g', price:70}, {label:'100g', price:125} ]
+  },
+
+  // ---- ÖZEL MACUNLAR & BİTKİLER ----
+  {
+    id: 'p11', name: 'Çakşır Kökü', category: 'macun',
+    badges: ['Yöresel', '100% Doğal'], stock: 14,
+    desc: 'Doğu Anadolu\'ya özgü, kurutulmuş doğal çakşır kökü.',
+    image: 'https://images.unsplash.com/photo-1509442724476-1c7f5a2c9ec3?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'100g', price:95}, {label:'250g', price:210} ]
+  },
+  {
+    id: 'p12', name: 'Çakşır Macunu', category: 'macun',
+    badges: ['Yöresel', 'Geleneksel'], stock: 11,
+    desc: 'Bal ve doğal bitkilerle harmanlanmış geleneksel çakşır kökü macunu.',
+    image: 'https://images.unsplash.com/photo-1587049016823-c1b0a6c4f9a2?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'250g', price:380}, {label:'500g', price:700} ]
+  },
+  {
+    id: 'p13', name: 'Epimedyumlu Karışım', category: 'macun',
+    badges: ['Geleneksel', '100% Doğal'], stock: 10,
+    desc: 'Epimedyum otu, bal, ceviz ve doğal bitki karışımından oluşan özel formül macun.',
+    image: 'https://images.unsplash.com/photo-1600617288674-3247ea34c9d7?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'250g', price:420}, {label:'500g', price:780} ]
+  },
+  {
+    id: 'p14', name: 'Ginsengli Karma Macun', category: 'macun',
+    badges: ['100% Doğal'], stock: 16,
+    desc: 'Kore ginsengi, bal ve kuruyemiş karışımından hazırlanan enerji macunu.',
+    image: 'https://images.unsplash.com/photo-1615486364191-27a1e9c8dfc5?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'250g', price:395}, {label:'500g', price:730} ]
+  },
+
+  // ---- SOĞUK SIKIM & BOTANİK YAĞLAR ----
+  {
+    id: 'p15', name: 'Keten Tohumu Yağı', category: 'yag',
+    badges: ['Soğuk Sıkım', '100% Doğal'], stock: 26,
+    desc: 'Omega-3 açısından zengin, birinci soğuk sıkım keten tohumu yağı.',
+    image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'250ml', price:150}, {label:'500ml', price:270} ]
+  },
+  {
+    id: 'p16', name: 'Kabak Çekirdeği Yağı', category: 'yag',
+    badges: ['Soğuk Sıkım', 'Yöresel'], stock: 22,
+    desc: 'Ege bölgesi kabak çekirdeğinden soğuk sıkım yöntemiyle elde edilen doğal yağ.',
+    image: 'https://images.unsplash.com/photo-1615485291234-6b5b7a2c1e0f?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'250ml', price:190}, {label:'500ml', price:350} ]
+  },
+  {
+    id: 'p17', name: 'Çam Terebentin Yağı', category: 'yag',
+    badges: ['100% Doğal', 'Yöresel'], stock: 19,
+    desc: 'Anadolu çamlarından elde edilen saf, doğal terebentin yağı.',
+    image: 'https://images.unsplash.com/photo-1601049676869-702ea24cfd58?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'100ml', price:110}, {label:'250ml', price:230} ]
+  },
+  {
+    id: 'p18', name: 'Tatlı Badem Yağı', category: 'yag',
+    badges: ['Soğuk Sıkım', '100% Doğal'], stock: 30,
+    desc: 'Cilt ve saç bakımında kullanılan, birinci sıkım tatlı badem yağı.',
+    image: 'https://images.unsplash.com/photo-1611080541599-8c6dbde6ea21?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'100ml', price:120}, {label:'250ml', price:250} ]
+  },
+  {
+    id: 'p19', name: 'Susam Yağı (Soğuk Sıkım)', category: 'yag',
+    badges: ['Soğuk Sıkım', 'Yöresel'], stock: 21,
+    desc: 'Kavrulmamış susamdan, geleneksel taş baskı yöntemiyle sıkılan doğal susam yağı.',
+    image: 'https://images.unsplash.com/photo-1584270354949-1d6c6e0d1d0d?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'250ml', price:175}, {label:'500ml', price:320} ]
+  },
+
+  // ---- ŞİFALI BİTKİ ÇAYLARI ----
+  {
+    id: 'p20', name: 'Kış Çayı Karışımı', category: 'cay',
+    badges: ['Yöresel', '100% Doğal'], stock: 45,
+    desc: 'Zencefil, tarçın, karanfil ve portakal kabuğundan oluşan bağışıklık destekleyici karışım.',
+    image: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'100g', price:75}, {label:'250g', price:160} ]
+  },
+  {
+    id: 'p21', name: 'Papatya Çayı', category: 'cay',
+    badges: ['100% Doğal'], stock: 50,
+    desc: 'Doğal kurutulmuş, tam çiçek papatya. Rahatlatıcı ve sindirim dostu.',
+    image: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'50g', price:40}, {label:'100g', price:70} ]
+  },
+  {
+    id: 'p22', name: 'Ihlamur (Dal Sürgün)', category: 'cay',
+    badges: ['Yöresel', '100% Doğal'], stock: 38,
+    desc: 'Doğal ortamda yetişen, elle toplanmış taze ıhlamur çiçeği.',
+    image: 'https://images.unsplash.com/photo-1597481499547-9c1d1c1f9c7d?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'50g', price:45}, {label:'100g', price:80} ]
+  },
+  {
+    id: 'p23', name: 'Biberiye Çayı', category: 'cay',
+    badges: ['100% Doğal', 'Yöresel'], stock: 28,
+    desc: 'Akdeniz kökenli, doğal kurutulmuş biberiye yaprakları.',
+    image: 'https://images.unsplash.com/photo-1515586000433-45406d8e6662?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'50g', price:38}, {label:'100g', price:65} ]
+  },
+  {
+    id: 'p24', name: 'Adaçayı', category: 'cay',
+    badges: ['Yöresel', '100% Doğal'], stock: 42,
+    desc: 'Ege yaylalarından toplanan, doğal kurutulmuş tam yaprak adaçayı.',
+    image: 'https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=600&q=70',
+    variants: [ {label:'50g', price:35}, {label:'100g', price:60} ]
+  }
+];
+
+/* ================================================================
+   YARDIMCI FONKSİYONLAR
+   ================================================================ */
+const fmtPrice = (n) => n.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ₺';
+const $  = (sel, ctx=document) => ctx.querySelector(sel);
+const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+
+const FREE_SHIPPING_THRESHOLD = 150;
+const STANDARD_SHIPPING = 39.9;
+
+/* ================================================================
+   SEPET (CART) — LocalStorage ile kalıcı durum yönetimi
+   Sepet öğesi: { productId, variantLabel, qty }
+   ================================================================ */
+const Cart = {
+  KEY: 'koktenAktarCartV1',
+  items: [],
+
+  load() {
+    try {
+      const raw = localStorage.getItem(this.KEY);
+      this.items = raw ? JSON.parse(raw) : [];
+    } catch (e) { this.items = []; }
+  },
+  save() {
+    localStorage.setItem(this.KEY, JSON.stringify(this.items));
+  },
+  find(productId, variantLabel) {
+    return this.items.find(i => i.productId === productId && i.variantLabel === variantLabel);
+  },
+  add(productId, variantLabel, qty = 1) {
+    const existing = this.find(productId, variantLabel);
+    if (existing) existing.qty += qty;
+    else this.items.push({ productId, variantLabel, qty });
+    this.save();
+  },
+  updateQty(productId, variantLabel, qty) {
+    const item = this.find(productId, variantLabel);
+    if (!item) return;
+    if (qty <= 0) { this.remove(productId, variantLabel); return; }
+    item.qty = qty;
+    this.save();
+  },
+  remove(productId, variantLabel) {
+    this.items = this.items.filter(i => !(i.productId === productId && i.variantLabel === variantLabel));
+    this.save();
+  },
+  totalCount() {
+    return this.items.reduce((sum, i) => sum + i.qty, 0);
+  },
+  detailedItems() {
+    return this.items.map(i => {
+      const product = PRODUCTS.find(p => p.id === i.productId);
+      const variant = product?.variants.find(v => v.label === i.variantLabel);
+      return { ...i, product, variant };
+    }).filter(i => i.product && i.variant);
+  },
+  subtotal() {
+    return this.detailedItems().reduce((sum, i) => sum + i.variant.price * i.qty, 0);
+  },
+  shippingCost() {
+    const sub = this.subtotal();
+    if (sub === 0) return 0;
+    return sub >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING;
+  },
+  total() {
+    return this.subtotal() + this.shippingCost();
+  }
+};
+Cart.load();
+
+/* ================================================================
+   TOAST BİLDİRİM
+   ================================================================ */
+let toastTimer = null;
+function showToast(text, icon = '✅') {
+  const toast = $('#toast');
+  $('#toastText').textContent = text;
+  $('#toastIcon').textContent = icon;
+  toast.classList.remove('translate-y-24', 'opacity-0');
+  toast.classList.add('translate-y-0', 'opacity-100');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.add('translate-y-24', 'opacity-0');
+    toast.classList.remove('translate-y-0', 'opacity-100');
+  }, 2200);
+}
+
+/* ================================================================
+   ÜRÜN LİSTELEME / FİLTRELEME / ARAMA
+   ================================================================ */
+let state = { category: 'all', query: '', sort: 'default' };
+
+function badgeColor(badge) {
+  const map = {
+    '100% Doğal': 'bg-primary text-white',
+    'Soğuk Sıkım': 'bg-blue-600 text-white',
+    'Yöresel': 'bg-accent text-primary-dark',
+    'Sınırlı Stok': 'bg-red-500 text-white',
+    'Geleneksel': 'bg-primary-dark text-cream'
+  };
+  return map[badge] || 'bg-carbon text-white';
+}
+
+function getFilteredProducts() {
+  let list = [...PRODUCTS];
+  if (state.category !== 'all') list = list.filter(p => p.category === state.category);
+  if (state.query.trim()) {
+    const q = state.query.trim().toLocaleLowerCase('tr-TR');
+    list = list.filter(p =>
+      p.name.toLocaleLowerCase('tr-TR').includes(q) ||
+      p.desc.toLocaleLowerCase('tr-TR').includes(q) ||
+      CATEGORIES[p.category].toLocaleLowerCase('tr-TR').includes(q)
+    );
+  }
+  if (state.sort === 'price-asc') list.sort((a,b) => a.variants[0].price - b.variants[0].price);
+  if (state.sort === 'price-desc') list.sort((a,b) => b.variants[0].price - a.variants[0].price);
+  if (state.sort === 'name-asc') list.sort((a,b) => a.name.localeCompare(b.name, 'tr'));
+  return list;
+}
+
+function renderProducts() {
+  const grid = $('#productGrid');
+  const list = getFilteredProducts();
+  const tpl = $('#productCardTemplate');
+
+  grid.innerHTML = '';
+  $('#emptyState').classList.toggle('hidden', list.length > 0);
+  grid.classList.toggle('hidden', list.length === 0);
+
+  $('#sectionTitle').textContent = state.category === 'all' ? 'Tüm Ürünler' : CATEGORIES[state.category];
+  $('#resultCount').textContent = `${list.length} ürün bulundu`;
+
+  list.forEach(product => {
+    const node = tpl.content.cloneNode(true);
+    const card = node.querySelector('.product-card');
+    card.classList.add('group');
+    card.dataset.id = product.id;
+
+    const img = node.querySelector('.product-img');
+    img.src = product.image;
+    img.alt = product.name;
+
+    const badgeWrap = node.querySelector('.badge-wrap');
+    product.badges.forEach(b => {
+      const span = document.createElement('span');
+      span.className = `badge px-2 py-1 rounded-full ${badgeColor(b)}`;
+      span.textContent = b;
+      badgeWrap.appendChild(span);
+    });
+
+    node.querySelector('.cat-label').textContent = CATEGORIES[product.category];
+    node.querySelector('.prod-title').textContent = product.name;
+
+    const variantSelect = node.querySelector('.variant-select');
+    product.variants.forEach((v, idx) => {
+      const opt = document.createElement('option');
+      opt.value = v.label;
+      opt.textContent = `${v.label} — ${fmtPrice(v.price)}`;
+      variantSelect.appendChild(opt);
+    });
+
+    const priceLabel = node.querySelector('.price-label');
+    const updatePrice = () => {
+      const v = product.variants.find(v => v.label === variantSelect.value);
+      priceLabel.textContent = fmtPrice(v.price);
+    };
+    updatePrice();
+    variantSelect.addEventListener('change', updatePrice);
+    variantSelect.addEventListener('click', e => e.stopPropagation());
+
+    node.querySelector('.add-to-cart-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      Cart.add(product.id, variantSelect.value, 1);
+      renderCart();
+      showToast(`${product.name} sepete eklendi`);
+      pulseCartIcon();
+    });
+
+    node.querySelector('.quick-view-trigger').addEventListener('click', () => openQuickView(product.id));
+    node.querySelector('.quick-view-btn').addEventListener('click', (e) => { e.stopPropagation(); openQuickView(product.id); });
+
+    grid.appendChild(node);
+  });
+}
+
+function pulseCartIcon() {
+  const btn = $('#cartOpenBtn');
+  btn.classList.add('scale-90');
+  setTimeout(() => btn.classList.remove('scale-90'), 150);
+}
+
+/* Kategori butonları (header, drawer, footer, mobil) */
+function bindCategoryButtons() {
+  $$('.nav-cat-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      state.category = btn.dataset.cat;
+      renderProducts();
+      highlightActiveCategory();
+      closeDrawer();
+      document.getElementById('urunler').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+}
+function highlightActiveCategory() {
+  $$('.nav-cat-btn').forEach(btn => {
+    const active = btn.dataset.cat === state.category;
+    if (btn.closest('header')?.querySelector('nav.hidden.lg\\:flex')?.contains(btn)) {
+      btn.classList.toggle('bg-primary', active);
+      btn.classList.toggle('text-white', active);
+      btn.classList.toggle('text-primary', !active);
+    }
+    if (btn.classList.contains('shrink-0')) {
+      btn.classList.toggle('bg-primary', active);
+      btn.classList.toggle('text-white', active);
+      btn.classList.toggle('bg-white', !active);
+      btn.classList.toggle('text-primary', !active);
+    }
+  });
+}
+
+/* Arama */
+function bindSearch() {
+  const handler = (val) => { state.query = val; renderProducts(); };
+  $('#searchInputDesktop').addEventListener('input', e => handler(e.target.value));
+  $('#searchInputMobile').addEventListener('input', e => handler(e.target.value));
+  $('#searchOpenBtnMobile').addEventListener('click', () => {
+    $('#searchBarMobile').classList.toggle('hidden');
+    if (!$('#searchBarMobile').classList.contains('hidden')) $('#searchInputMobile').focus();
+  });
+  $('#sortSelect').addEventListener('change', e => { state.sort = e.target.value; renderProducts(); });
+}
+
+/* ================================================================
+   DRAWER (MOBİL YAN MENÜ)
+   ================================================================ */
+function openDrawer() {
+  $('#drawerBackdrop').classList.remove('hidden');
+  requestAnimationFrame(() => {
+    $('#drawerBackdrop').classList.remove('opacity-0');
+    $('#drawerPanel').classList.remove('-translate-x-full');
+  });
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  $('#drawerPanel').classList.add('-translate-x-full');
+  $('#drawerBackdrop').classList.add('opacity-0');
+  setTimeout(() => $('#drawerBackdrop').classList.add('hidden'), 300);
+  document.body.style.overflow = '';
+}
+$('#drawerOpenBtn').addEventListener('click', openDrawer);
+$('#drawerCloseBtn').addEventListener('click', closeDrawer);
+$('#drawerBackdrop').addEventListener('click', closeDrawer);
+$('#mobileCatBtn').addEventListener('click', openDrawer);
+
+/* ================================================================
+   SEPET SLIDE-OVER PANEL
+   ================================================================ */
+function openCart() {
+  $('#cartBackdrop').classList.remove('hidden');
+  requestAnimationFrame(() => {
+    $('#cartBackdrop').classList.remove('opacity-0');
+    $('#cartPanel').classList.remove('translate-x-full');
+  });
+  document.body.style.overflow = 'hidden';
+}
+function closeCart() {
+  $('#cartPanel').classList.add('translate-x-full');
+  $('#cartBackdrop').classList.add('opacity-0');
+  setTimeout(() => $('#cartBackdrop').classList.add('hidden'), 350);
+  document.body.style.overflow = '';
+}
+$('#cartOpenBtn').addEventListener('click', openCart);
+$('#mobileCartBtn').addEventListener('click', openCart);
+$('#cartCloseBtn').addEventListener('click', closeCart);
+$('#cartBackdrop').addEventListener('click', closeCart);
+
+function renderCart() {
+  const items = Cart.detailedItems();
+  const wrap = $('#cartItemsWrap');
+  const tpl = $('#cartItemTemplate');
+  wrap.innerHTML = '';
+
+  const count = Cart.totalCount();
+  ['#cartCountBadge', '#cartCountBadgeMobile'].forEach(sel => {
+    const el = $(sel);
+    el.textContent = count > 99 ? '99+' : count;
+    if (sel === '#cartCountBadgeMobile') {
+      el.classList.toggle('hidden', count === 0);
+      el.classList.toggle('flex', count > 0);
+    } else {
+      el.classList.toggle('hidden', count === 0);
+    }
+  });
+
+  $('#cartItemCount').textContent = count > 0 ? `(${count} ürün)` : '';
+  $('#cartEmptyState').classList.toggle('hidden', items.length > 0);
+  wrap.classList.toggle('hidden', items.length === 0);
+  $('#cartFooter').classList.toggle('hidden', items.length === 0);
+
+  items.forEach(item => {
+    const node = tpl.content.cloneNode(true);
+    node.querySelector('.ci-img').src = item.product.image;
+    node.querySelector('.ci-img').alt = item.product.name;
+    node.querySelector('.ci-title').textContent = item.product.name;
+    node.querySelector('.ci-variant').textContent = item.variantLabel;
+    node.querySelector('.ci-qty').textContent = item.qty;
+    node.querySelector('.ci-price').textContent = fmtPrice(item.variant.price * item.qty);
+
+    node.querySelector('.ci-minus').addEventListener('click', () => {
+      Cart.updateQty(item.productId, item.variantLabel, item.qty - 1);
+      renderCart();
+    });
+    node.querySelector('.ci-plus').addEventListener('click', () => {
+      Cart.updateQty(item.productId, item.variantLabel, item.qty + 1);
+      renderCart();
+    });
+    node.querySelector('.ci-remove').addEventListener('click', () => {
+      Cart.remove(item.productId, item.variantLabel);
+      renderCart();
+      showToast('Ürün sepetten kaldırıldı', '🗑️');
+    });
+
+    wrap.appendChild(node);
+  });
+
+  // Ücretsiz kargo barı
+  const sub = Cart.subtotal();
+  const remaining = FREE_SHIPPING_THRESHOLD - sub;
+  const pct = Math.min(100, (sub / FREE_SHIPPING_THRESHOLD) * 100);
+  $('#shippingBarFill').style.width = pct + '%';
+  $('#shippingBarText').innerHTML = remaining > 0
+    ? `🚚 <b>${fmtPrice(remaining)}</b> daha ekleyin, kargo <b>bedava</b> olsun!`
+    : `🎉 Tebrikler, kargonuz <b>bedava</b>!`;
+
+  $('#cartSubtotal').textContent = fmtPrice(sub);
+  const ship = Cart.shippingCost();
+  $('#cartShippingCost').textContent = ship === 0 ? 'Bedava' : fmtPrice(ship);
+  $('#cartTotal').textContent = fmtPrice(Cart.total());
+}
+
+/* ================================================================
+   HIZLI İNCELE (QUICK VIEW) MODAL
+   ================================================================ */
+function openQuickView(productId) {
+  const product = PRODUCTS.find(p => p.id === productId);
+  if (!product) return;
+  const content = $('#quickViewContent');
+
+  const badgesHtml = product.badges.map(b => `<span class="badge px-2 py-1 rounded-full ${badgeColor(b)}">${b}</span>`).join(' ');
+  const variantOptions = product.variants.map(v => `<option value="${v.label}">${v.label} — ${fmtPrice(v.price)}</option>`).join('');
+
+  content.innerHTML = `
+    <div class="rounded-2xl overflow-hidden aspect-square bg-cream">
+      <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+    </div>
+    <div class="flex flex-col">
+      <div class="flex gap-1.5 mb-3">${badgesHtml}</div>
+      <div class="text-xs font-semibold text-accent-dark uppercase tracking-wide mb-1">${CATEGORIES[product.category]}</div>
+      <h3 class="font-display font-bold text-xl sm:text-2xl text-primary mb-3">${product.name}</h3>
+      <p class="text-sm text-carbon/60 leading-relaxed mb-4">${product.desc}</p>
+      <div class="text-xs font-medium ${product.stock < 10 ? 'text-red-500' : 'text-primary'} mb-4">
+        ${product.stock < 10 ? `⚠️ Son ${product.stock} adet!` : `✅ Stokta var (${product.stock} adet)`}
+      </div>
+      <label class="text-xs font-semibold text-carbon/60 mb-1.5">Gramaj / Boyut Seçin</label>
+      <select id="qvVariantSelect" class="bg-cream border border-primary/15 rounded-xl px-4 py-3 text-sm font-medium mb-5 focus:outline-none focus:ring-2 focus:ring-accent/50">
+        ${variantOptions}
+      </select>
+      <div class="flex items-center gap-3 mt-auto">
+        <span id="qvPrice" class="font-display font-bold text-2xl text-primary"></span>
+      </div>
+      <button id="qvAddToCartBtn" class="touch-target mt-4 w-full bg-primary hover:bg-primary-dark text-white font-bold py-3.5 rounded-full transition flex items-center justify-center gap-2">
+        🛒 Sepete Ekle
+      </button>
+    </div>
+  `;
+
+  const select = $('#qvVariantSelect');
+  const priceEl = $('#qvPrice');
+  const updateQvPrice = () => {
+    const v = product.variants.find(v => v.label === select.value);
+    priceEl.textContent = fmtPrice(v.price);
+  };
+  updateQvPrice();
+  select.addEventListener('change', updateQvPrice);
+
+  $('#qvAddToCartBtn').addEventListener('click', () => {
+    Cart.add(product.id, select.value, 1);
+    renderCart();
+    showToast(`${product.name} sepete eklendi`);
+    closeQuickView();
+  });
+
+  $('#quickViewBackdrop').classList.remove('hidden');
+  requestAnimationFrame(() => {
+    $('#quickViewBackdrop').classList.remove('opacity-0');
+    $('#quickViewBox').classList.remove('opacity-0', 'translate-y-6', 'sm:scale-95');
+  });
+  document.body.style.overflow = 'hidden';
+}
+function closeQuickView() {
+  $('#quickViewBox').classList.add('opacity-0', 'translate-y-6', 'sm:scale-95');
+  $('#quickViewBackdrop').classList.add('opacity-0');
+  setTimeout(() => $('#quickViewBackdrop').classList.add('hidden'), 250);
+  document.body.style.overflow = '';
+}
+$('#quickViewCloseBtn').addEventListener('click', closeQuickView);
+$('#quickViewBackdrop').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeQuickView(); });
+
+/* ================================================================
+   GÜVENLİ ÖDEME (CHECKOUT) MODAL
+   ================================================================ */
+function renderCheckoutSummary() {
+  const items = Cart.detailedItems();
+  const wrap = $('#checkoutItemsSummary');
+  wrap.innerHTML = items.map(item => `
+    <div class="flex items-center gap-3">
+      <img src="${item.product.image}" class="w-12 h-12 rounded-lg object-cover bg-cream shrink-0">
+      <div class="flex-1 min-w-0">
+        <div class="text-xs font-semibold truncate">${item.product.name}</div>
+        <div class="text-[11px] text-carbon/45">${item.variantLabel} × ${item.qty}</div>
+      </div>
+      <span class="text-xs font-bold text-primary shrink-0">${fmtPrice(item.variant.price * item.qty)}</span>
+    </div>
+  `).join('');
+
+  $('#chkSubtotal').textContent = fmtPrice(Cart.subtotal());
+  const ship = Cart.shippingCost();
+  $('#chkShipping').textContent = ship === 0 ? 'Bedava' : fmtPrice(ship);
+  $('#chkTotal').textContent = fmtPrice(Cart.total());
+}
+
+function openCheckout() {
+  if (Cart.items.length === 0) { showToast('Sepetiniz boş', '⚠️'); return; }
+  renderCheckoutSummary();
+  closeCart();
+  $('#checkoutBackdrop').classList.remove('hidden');
+  requestAnimationFrame(() => {
+    $('#checkoutBackdrop').classList.remove('opacity-0');
+    $('#checkoutBox').classList.remove('opacity-0', 'translate-y-6', 'sm:scale-95');
+  });
+  document.body.style.overflow = 'hidden';
+}
+function closeCheckout() {
+  $('#checkoutBox').classList.add('opacity-0', 'translate-y-6', 'sm:scale-95');
+  $('#checkoutBackdrop').classList.add('opacity-0');
+  setTimeout(() => $('#checkoutBackdrop').classList.add('hidden'), 250);
+  document.body.style.overflow = '';
+}
+$('#checkoutOpenBtn').addEventListener('click', openCheckout);
+$('#checkoutCloseBtn').addEventListener('click', closeCheckout);
+$('#checkoutBackdrop').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeCheckout(); });
+
+/* Ödeme yöntemi seçimi (Kart / Kapıda Ödeme) */
+$$('input[name="payMethod"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    const isCard = radio.value === 'card';
+    if (radio.checked) {
+      $('#cardPaymentArea').classList.toggle('hidden', !isCard);
+      $('#codInfoArea').classList.toggle('hidden', isCard);
+      $$('.pay-method-label').forEach(label => {
+        const active = label.querySelector('input').value === radio.value;
+        label.classList.toggle('border-primary', active);
+        label.classList.toggle('bg-primary/5', active);
+        label.classList.toggle('border-primary/10', !active);
+      });
+    }
+  });
+});
+
+/* Kredi Kartı Canlı Simülasyon */
+const cardNumberInput = $('#cardNumberInput');
+const cardNameInput = $('#cardNameInput');
+const cardExpInput = $('#cardExpInput');
+const cardCvvInput = $('#cardCvvInput');
+
+cardNumberInput.addEventListener('input', (e) => {
+  let digits = e.target.value.replace(/\D/g, '').slice(0, 16);
+  e.target.value = digits.replace(/(.{4})/g, '$1 ').trim();
+  const grouped = digits.padEnd(16, '•').replace(/(.{4})/g, '$1 ').trim();
+  $('#cardNumberPreview').textContent = grouped;
+});
+cardNameInput.addEventListener('input', (e) => {
+  $('#cardNamePreview').textContent = e.target.value.trim() ? e.target.value.toLocaleUpperCase('tr-TR') : 'AD SOYAD';
+});
+cardExpInput.addEventListener('input', (e) => {
+  let digits = e.target.value.replace(/\D/g, '').slice(0, 4);
+  if (digits.length >= 3) digits = digits.slice(0,2) + '/' + digits.slice(2);
+  e.target.value = digits;
+  $('#cardExpPreview').textContent = digits || 'AA/YY';
+});
+cardCvvInput.addEventListener('input', (e) => {
+  const digits = e.target.value.replace(/\D/g, '').slice(0, 3);
+  e.target.value = digits;
+  $('#cardCvvPreview').textContent = digits.padEnd(3, '•');
+});
+cardCvvInput.addEventListener('focus', () => $('#cardFlipWrap').classList.add('flipped'));
+cardCvvInput.addEventListener('blur', () => $('#cardFlipWrap').classList.remove('flipped'));
+
+/* Sipariş Gönderimi (Simülasyon) */
+$('#checkoutForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const orderNumber = 'KA-' + Math.floor(100000 + Math.random() * 899999);
+  $('#orderNumberText').textContent = orderNumber;
+
+  Cart.items = [];
+  Cart.save();
+  renderCart();
+
+  closeCheckout();
+  setTimeout(openSuccessModal, 300);
+});
+
+/* ================================================================
+   SİPARİŞ BAŞARILI MODAL
+   ================================================================ */
+function openSuccessModal() {
+  $('#successBackdrop').classList.remove('hidden');
+  requestAnimationFrame(() => {
+    $('#successBackdrop').classList.remove('opacity-0');
+    $('#successBox').classList.remove('opacity-0', 'scale-95');
+  });
+  document.body.style.overflow = 'hidden';
+}
+function closeSuccessModal() {
+  $('#successBox').classList.add('opacity-0', 'scale-95');
+  $('#successBackdrop').classList.add('opacity-0');
+  setTimeout(() => $('#successBackdrop').classList.add('hidden'), 250);
+  document.body.style.overflow = '';
+}
+$('#successCloseBtn').addEventListener('click', closeSuccessModal);
+
+/* ================================================================
+   MOBİL ALT NAVİGASYON — Aktif Durum
+   ================================================================ */
+$$('.bottom-nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    $$('.bottom-nav-item').forEach(i => i.classList.remove('active', 'text-primary'));
+    item.classList.add('active');
+  });
+});
+
+/* ================================================================
+   BAŞLANGIÇ (INIT)
+   ================================================================ */
+bindCategoryButtons();
+bindSearch();
+renderProducts();
+renderCart();
+highlightActiveCategory();
+</script>
+</body>
+</html>
