@@ -86,7 +86,12 @@ function LoginForm() {
           {loading ? 'Giriş yapılıyor...' : 'Giriş Yap'}
         </button>
       </form>
-      <p className="text-center text-sm text-carbon/60 mt-6">
+      <p className="text-center text-sm text-carbon/60 mt-4">
+        <Link href="/sifremi-unuttum" className="text-primary font-semibold">
+          Şifremi unuttum
+        </Link>
+      </p>
+      <p className="text-center text-sm text-carbon/60 mt-2">
         Hesabınız yok mu?{' '}
         <Link href="/kayit" className="text-primary font-semibold">
           Kayıt Olun
