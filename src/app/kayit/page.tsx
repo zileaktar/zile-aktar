@@ -5,37 +5,13 @@ import Link from 'next/link';
 import type { TurnstileInstance } from '@marsidev/react-turnstile';
 import { createSupabaseBrowserClient } from '@/lib/supabase/client';
 import { CaptchaField } from '@/components/auth/CaptchaField';
-
-function EyeToggleButton({ visible, onClick }: { visible: boolean; onClick: () => void }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="absolute right-3 top-1/2 -translate-y-1/2 touch-target flex items-center justify-center text-carbon/40 hover:text-carbon/70"
-      aria-label={visible ? 'Şifreyi gizle' : 'Şifreyi göster'}
-      tabIndex={-1}
-    >
-      {visible ? (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a18.6 18.6 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
-          <line x1="1" y1="1" x2="23" y2="23" />
-        </svg>
-      ) : (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-          <circle cx="12" cy="12" r="3" />
-        </svg>
-      )}
-    </button>
-  );
-}
+import { PasswordInput } from '@/components/auth/PasswordInput';
 
 export default function SignupPage() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [marketingConsent, setMarketingConsent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -119,33 +95,14 @@ export default function SignupPage() {
           className="w-full bg-white border border-primary/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50"
         />
 
-        <div className="relative">
-          <input
-            required
-            type={showPassword ? 'text' : 'password'}
-            placeholder="Şifre (en az 8 karakter)"
-            autoComplete="new-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full bg-white border border-primary/15 rounded-xl px-4 py-3 pr-11 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50"
-          />
-          <EyeToggleButton visible={showPassword} onClick={() => setShowPassword((v) => !v)} />
-        </div>
-
-        <div className="relative">
-          <input
-            required
-            type={showPassword ? 'text' : 'password'}
-            placeholder="Şifre (Tekrar)"
-            autoComplete="new-password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            className={`w-full bg-white border rounded-xl px-4 py-3 pr-11 text-sm focus:outline-none focus:ring-2 ${
-              passwordsFilled && !passwordsMatch ? 'border-red-300 focus:ring-red-300' : 'border-primary/15 focus:ring-accent/50'
-            }`}
-          />
-          <EyeToggleButton visible={showPassword} onClick={() => setShowPassword((v) => !v)} />
-        </div>
+        <PasswordInput value={password} onChange={setPassword} placeholder="Şifre (en az 8 karakter)" autoComplete="new-password" />
+        <PasswordInput
+          value={confirmPassword}
+          onChange={setConfirmPassword}
+          placeholder="Şifre (Tekrar)"
+          autoComplete="new-password"
+          className={passwordsFilled && !passwordsMatch ? '!border-red-300 focus:!ring-red-300' : ''}
+        />
         {passwordsFilled && !passwordsMatch && <p className="text-xs text-red-600 -mt-2">Şifreler eşleşmiyor.</p>}
         {passwordsFilled && passwordsMatch && (
           <p className="text-xs text-green-600 -mt-2 flex items-center gap-1">

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { createSupabaseBrowserClient } from '@/lib/supabase/client';
+import { PasswordInput } from '@/components/auth/PasswordInput';
 
 export default function ResetPasswordPage() {
   const [ready, setReady] = useState<'checking' | 'ok' | 'invalid'>('checking');
@@ -95,24 +96,8 @@ export default function ResetPasswordPage() {
       <h1 className="font-display font-bold text-2xl text-primary mb-6 text-center">Yeni Şifre Belirle</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl p-3 text-sm">{error}</div>}
-        <input
-          required
-          type="password"
-          placeholder="Yeni şifre (en az 8 karakter)"
-          autoComplete="new-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full bg-white border border-primary/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50"
-        />
-        <input
-          required
-          type="password"
-          placeholder="Yeni şifre (tekrar)"
-          autoComplete="new-password"
-          value={confirm}
-          onChange={(e) => setConfirm(e.target.value)}
-          className="w-full bg-white border border-primary/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50"
-        />
+        <PasswordInput value={password} onChange={setPassword} placeholder="Yeni şifre (en az 8 karakter)" autoComplete="new-password" />
+        <PasswordInput value={confirm} onChange={setConfirm} placeholder="Yeni şifre (tekrar)" autoComplete="new-password" />
         <button
           disabled={loading}
           type="submit"

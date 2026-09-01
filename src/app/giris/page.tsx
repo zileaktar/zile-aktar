@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import type { TurnstileInstance } from '@marsidev/react-turnstile';
 import { createSupabaseBrowserClient } from '@/lib/supabase/client';
 import { CaptchaField } from '@/components/auth/CaptchaField';
+import { PasswordInput } from '@/components/auth/PasswordInput';
 
 function LoginForm() {
   const searchParams = useSearchParams();
@@ -68,15 +69,7 @@ function LoginForm() {
           onChange={(e) => setEmail(e.target.value)}
           className="w-full bg-white border border-primary/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50"
         />
-        <input
-          required
-          type="password"
-          placeholder="Şifre"
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full bg-white border border-primary/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50"
-        />
+        <PasswordInput value={password} onChange={setPassword} placeholder="Şifre" autoComplete="current-password" />
         <CaptchaField ref={captchaRef} onToken={setCaptchaToken} />
         <button
           disabled={loading || !captchaToken}
