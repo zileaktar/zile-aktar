@@ -62,6 +62,10 @@ const nextConfig = {
             value: [
               "default-src 'self'",
               scriptSrc,
+              // Sentry oturum kaydı (session replay), sıkıştırmayı bir blob: URL'den
+              // yüklenen web worker'da yapar. worker-src tanımlı değilse tarayıcı
+              // script-src'ye düşer ve blob: engellenir.
+              "worker-src 'self' blob:",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: https://*.supabase.co https://images.unsplash.com",
