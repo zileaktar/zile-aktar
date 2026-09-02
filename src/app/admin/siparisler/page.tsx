@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { createSupabaseServerClient, createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { assertRole } from '@/lib/rbac';
 import { formatPriceFromCents } from '@/lib/format';
+import { sendOrderShippedEmail, sendOrderDeliveredEmail } from '@/lib/email';
 import type { OrderStatus } from '@/lib/supabase/types';
 
 // Siparişler /api/checkout üzerinden (bu sayfayı revalidate etmeden) oluşturulur;
@@ -45,7 +46,18 @@ async function updateOrderStatus(formData: FormData) {
   assertRole(profile?.role, 'moderator');
 
   const serviceClient = createSupabaseServiceRoleClient();
-  await serviceClient.from('orders').update({ status }).eq('id', orderId);
+  const { data: current } = await serviceClient.from('orders').select('status').eq('id', orderId).single();
+  const previousStatus = current?.status;
+
+  if (previousStatus === status) return;
+
+  const patch: { status: OrderStatus; shipped_at?: string } = { status };
+  if (status === 'shipped') patch.shipped_at = new Date().toISOString();
+  await serviceClient.from('orders').update(patch).eq('id', orderId);
+
+  // Durum geçişinde müşteriye bilgi e-postası (best-effort; sipariş akışını bozmaz).
+  if (status === 'shipped') await sendOrderShippedEmail(orderId);
+  else if (status === 'delivered') await sendOrderDeliveredEmail(orderId);
 
   revalidatePath('/admin/siparisler');
 }

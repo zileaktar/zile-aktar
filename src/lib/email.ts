@@ -214,3 +214,37 @@ export async function sendOrderShippedEmail(orderId: string): Promise<void> {
     replyTo: { email: LEGAL.eposta, name: LEGAL.markaAdi }
   });
 }
+
+/**
+ * Sipariş "teslim edildi" durumuna alınınca müşteriye kısa bir teşekkür +
+ * yorum daveti e-postası gönderir. Best-effort.
+ */
+export async function sendOrderDeliveredEmail(orderId: string): Promise<void> {
+  const supabase = createSupabaseServiceRoleClient();
+  const { data } = await supabase
+    .from('orders')
+    .select('order_number, contact_email')
+    .eq('id', orderId)
+    .single();
+  if (!data) return;
+  const order = data as unknown as { order_number: string; contact_email: string };
+
+  const html = `
+    <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#222">
+      <h2 style="color:#1b4332">Siparişiniz Teslim Edildi ✅</h2>
+      <p style="font-size:14px">Sipariş numaranız: <b>${escapeHtml(order.order_number)}</b></p>
+      <p style="font-size:14px">Bizi tercih ettiğiniz için teşekkür ederiz. Ürünlerimizi beğendiyseniz, sitemizden değerlendirme yazarak diğer müşterilerimize yardımcı olabilirsiniz.</p>
+      <p style="font-size:14px">Bir sorun olursa bize <b>${LEGAL.telefon}</b> numarasından veya <b>${LEGAL.eposta}</b> adresinden ulaşabilirsiniz.</p>
+      <p style="font-size:12px;color:#888;margin-top:24px">
+        ${LEGAL.markaAdi} — ${LEGAL.adres}
+      </p>
+    </div>`;
+
+  await sendBrevo({
+    sender: SENDER,
+    to: [{ email: order.contact_email }],
+    subject: `${LEGAL.markaAdi} — Siparişiniz teslim edildi (${order.order_number})`,
+    htmlContent: html,
+    replyTo: { email: LEGAL.eposta, name: LEGAL.markaAdi }
+  });
+}
