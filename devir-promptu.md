@@ -16,9 +16,11 @@ Sen, "Zile Aktar" adlı bir aktar/yöresel ürünler e-ticaret sitesi üzerinde 
 
 ## 2. Teknoloji Yığını
 
-Next.js 14 (App Router, TS strict) + Supabase (Postgres/Auth/Storage/RLS) + iyzico (3D Secure ödeme) + Cloudflare Turnstile (giriş/kayıt CAPTCHA) + Sentry (hata izleme) + Upstash Redis (rate limiting) + Vercel (deploy hedefi, henüz deploy edilmedi). **Migration 0001–0014.**
+Next.js 14 (App Router, TS strict) + Supabase (Postgres/Auth/Storage/RLS) + iyzico (3D Secure ödeme, SANDBOX) + Cloudflare Turnstile (CAPTCHA) + Sentry (hata izleme) + Upstash Redis (rate limiting) + Brevo (transactional e-posta) + Vercel. **Migration 0001–0015.**
 
 Supabase proje referansı: `gabdklnlojfbdaxtgmtg`.
+
+**CANLI:** `https://zile-aktar.vercel.app` (özel domain yok). GitHub: private repo `zileaktar/zile-aktar`. Her `git push` → Vercel otomatik deploy. Vercel hâlâ Hobby planı (ticari kullanım için Pro şart — kullanıcı tarafı iş). Ayrıntılı kalan-işler listesi: `YAYIN-KONTROL-LISTESI.md`.
 
 ## 3. Tamamlanmış Olanlar (güvenle üzerine inşa et)
 
@@ -71,14 +73,33 @@ Supabase proje referansı: `gabdklnlojfbdaxtgmtg`.
   - **0013/0014 UI TAMAMLANDI.** Kalan admin UI eksiği yok.
 - **Hesap otomatik doldurma + kaydetme:** `/checkout` artık server component (`page.tsx`) + `CheckoutForm.tsx` (client). `getCheckoutPrefill()` (`src/lib/data/account.ts`) giriş yapmış kullanıcının ad/e-posta/telefon/adresini profil → `addresses` → son sipariş sırasıyla doldurur. `/api/checkout` başarılı siparişten sonra telefonu `profiles`'a, adresi `addresses`'e (tek varsayılan adres: delete+insert) kaydeder. `/hesabim` sayfası artık ad/telefon düzenleme formu (`ProfileForm` + `src/app/hesabim/actions.ts` `updateProfileAction`) + kayıtlı adres gösterimi içeriyor. `addresses` tablosu ilk kez fiilen kullanılıyor (tek adres modeli; çoklu adres UI'si ileride).
 
-## 5. Henüz Hiç Başlanmamış (iş/altyapı tarafı)
+### Bu oturumda (deploy sonrası) yapılanlar
 
-- ~~Sentry~~ ✅ **YAPILDI:** `zileaktar` org / `zile-aktar` proje (EU/Frankfurt). `.env.local`'de `NEXT_PUBLIC_SENTRY_DSN` + `SENTRY_ORG` + `SENTRY_PROJECT` + `SENTRY_AUTH_TOKEN` (Organization Token) girili, test edildi (hata Sentry Issues'a düştü). `next.config.mjs` güncellendi: token varsa kaynak haritalar Sentry'ye yüklenip build çıktısından silinir (`sourcemaps.deleteSourcemapsAfterUpload`), yoksa hiç üretilmez (`sourcemaps.disable`) — eski v7 `hideSourceMaps` seçeneği kaldırıldı. Deploy'da bu 4 env Vercel'e de girilecek.
-- ~~WhatsApp/telefon~~ ✅ **YAPILDI:** `+90 551 173 00 94` — `WhatsAppButton.tsx` ve footer İletişim bölümüne eklendi (tel: + wa.me linkleri).
-- **Yasal metinler** (`/kvkk`, `/mesafeli-satis-sozlesmesi`) hâlâ ŞABLON — avukata onaylatılması gerektiği söylendi.
-- **Domain** (muhtemelen hosting.com.tr'den sadece domain — hosting Vercel'de).
-- **Deploy:** GitHub'a push → Vercel'e bağlama → **Vercel Pro** (ticari kullanım için şart, netleşti) → env değişkenlerini Vercel'e girme (`NEXT_PUBLIC_TURNSTILE_SITE_KEY` dahil) → Cloudflare Turnstile widget'ına Vercel/gerçek domain'i hostname olarak ekleme → DNS/SSL (Vercel otomatik).
+- ~~Sentry~~ ✅ `zileaktar` org / `zile-aktar` proje (EU). 4 env hem `.env.local` hem Vercel'de. Test edildi. `next.config.mjs`: token varsa source map Sentry'ye yüklenip silinir, yoksa üretilmez. Session replay açık (`replaysSessionSampleRate: 0.05`) — CSP'ye `worker-src 'self' blob:` eklendi (sıkıştırma worker'ı).
+- ~~WhatsApp/telefon~~ ✅ `+90 551 173 00 94` — `WhatsAppButton.tsx` + footer.
+- ~~Deploy~~ ✅ GitHub (private) + Vercel — `zile-aktar.vercel.app` canlı. Tüm env Vercel'de. Turnstile hostname'e Vercel domaini eklendi.
+- ~~Brevo custom SMTP~~ ✅ Supabase Auth e-postaları (kayıt doğrulama + şifre sıfırlama) Brevo SMTP relay ile gidiyor (`smtp-relay.brevo.com:587`, gönderen `zileaktar@gmail.com`). Supabase'in yerleşik e-posta limiti aşıldığı için kuruldu.
+- **Sipariş e-postaları** ✅ `src/lib/email.ts` (Brevo REST API, `BREVO_API_KEY` + `ORDER_NOTIFY_EMAIL` env). (a) Sipariş oluşunca müşteriye onay + yöneticiye bildirim (`sendOrderPlacedEmail`, kart onayı pending→paid geçişinde / havale siparişi oluşunca). (b) **Kargo/teslimat** (migration 0015: `orders.shipping_carrier/tracking_number/shipped_at`): `/admin/siparisler/[id]` "Kargo Bilgisi" formundan kargo firması+takip no ile, VEYA `/admin/siparisler` liste menüsünden durum "Kargoya Verildi"/"Teslim Edildi" yapınca müşteriye e-posta (`sendOrderShippedEmail` / `sendOrderDeliveredEmail`; aynı duruma tekrar çekilirse tekrar göndermez).
+- **Şifre sıfırlama** ✅ `/sifremi-unuttum` (CAPTCHA'lı, `resetPasswordForEmail`) + `/sifre-yenile` (`onAuthStateChange` + `getSession()` ile recovery oturumu). `/giris`'te "Şifremi unuttum" linki. Ortak `PasswordInput` bileşeni (göz aç/kapa) giriş + kayıt + sıfırlamada.
+- **Giriş sonrası yönlendirme** ✅ `router.push`+`refresh` yerine `window.location.assign()` (çerez yarış durumu — giriş sonrası parola ekranında takılıp kalma düzeltmesi).
+- **Yasal metin TASLAKLARI** ✅ `/on-bilgilendirme-formu`, `/mesafeli-satis-sozlesmesi`, `/iptal-iade-kosullari`, `/teslimat-ve-kargo`, `/kvkk`, `/cerez-politikasi` — hepsi `src/components/legal/LegalPage.tsx` (⚠️ TASLAK uyarısı) + `src/lib/legal.ts` (`LEGAL` sabiti). **`src/lib/legal.ts` içinde `[...]` yer tutucular DOLDURULMADI** (ticari unvan, vergi dairesi/no, MERSİS, ticaret sicil no, kargo firması) — kullanıcı tarafı iş. Avukat onayı da gerekli.
+- **Schema.org** ✅ `Store` yapısal verisi (`layout.tsx`, `safeJsonLd`), ürün sayfasında `Product` + `aggregateRating`.
+- `package.json` engines → `"node": "22.x"` (Vercel otomatik major yükseltme uyarısı).
+
+## 5. Kullanıcı tarafı — YAYINI ENGELLEYEN işler (kod değil)
+
+Tam liste `YAYIN-KONTROL-LISTESI.md`'de. Özet:
+
+- **iyzico PRODUCTION hesabı** — şu an sandbox, gerçek tahsilat yok. İşletme başvurusu + sözleşme + onay (haftalar). Onaylanınca Vercel'de `IYZICO_API_KEY`/`IYZICO_SECRET_KEY`/`IYZICO_BASE_URL` güncellenir.
+- **Vercel Pro** (~20 USD/ay) — Hobby ticari kullanıma kapalı.
+- **Özel domain** — satın al + Vercel/Supabase/Turnstile/iyzico/Brevo'da URL güncellemeleri (checklist C bölümü).
+- **`src/lib/legal.ts` `[...]` alanları** + avukat onayı.
+- **Havale IBAN'ı** — `/admin/ayarlar` → "Havale/EFT Banka Bilgisi". Girilene kadar havale "banka bilgileri tanımlı değil" der.
+- **Gerçek ürün fotoğrafları** — 198 ürün placeholder SVG, admin panelden yüklenir.
+- **Vercel + Supabase 2FA.**
+
 - **L1 (opsiyonel):** CSP'de `script-src 'unsafe-inline'` var; nonce tabanlı CSP'ye geçiş ayrı bir oturumda yapılabilir, yayın engeli değil.
+- **Opsiyonel kod işleri:** ~187 ürün için zengin açıklama (kullanıcı istemedikçe yazma); çoklu adres yönetimi UI'si (`/hesabim`); anasayfa hero görseli hâlâ Unsplash (telif).
 
 ## 6. Sohbet Tarzı Notları
 
