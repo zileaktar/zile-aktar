@@ -12,6 +12,8 @@ import { MobileDrawer } from '@/components/layout/MobileDrawer';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { getCategories } from '@/lib/data/products';
 import { getSiteSettings } from '@/lib/data/settings';
+import { safeJsonLd } from '@/lib/format';
+import { LEGAL } from '@/lib/legal';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
@@ -46,9 +48,31 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [categories, { logoPath }] = await Promise.all([getCategories(), getSiteSettings()]);
 
+  const orgJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Store',
+    name: LEGAL.markaAdi,
+    url: env.NEXT_PUBLIC_APP_URL,
+    telephone: '+90 551 173 00 94',
+    email: LEGAL.eposta,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Dutlupınar Mah., Cumhuriyet Cd., Kültür Sitesi D:26/G',
+      addressLocality: 'Zile',
+      addressRegion: 'Tokat',
+      postalCode: '60400',
+      addressCountry: 'TR'
+    },
+    priceRange: '₺₺',
+    currenciesAccepted: 'TRY',
+    paymentAccepted: 'Kredi Kartı, Banka Kartı, Havale/EFT'
+  };
+
   return (
     <html lang="tr" className={`${inter.variable} ${poppins.variable}`}>
       <body className="bg-cream text-carbon font-sans antialiased pb-16 lg:pb-0">
+        {/* eslint-disable-next-line react/no-danger */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(orgJsonLd) }} />
         <Providers>
           {/* SiteHeader içinde useSearchParams() kullanılıyor (kategori/arama filtreleme
               için); Next.js, bu API'yi kullanan istemci bileşenlerinin bir Suspense
