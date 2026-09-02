@@ -40,6 +40,7 @@ export function SearchBox({ wrapperClassName = '', placeholder = 'Ürün ara... 
 
     const controller = new AbortController();
     setLoading(true);
+    setOpen(true);
     const timer = setTimeout(async () => {
       try {
         const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`, { signal: controller.signal });
@@ -134,8 +135,17 @@ export function SearchBox({ wrapperClassName = '', placeholder = 'Ürün ara... 
       )}
 
       {showDropdown && (
-        <div className="absolute left-0 right-0 top-full mt-2 z-50 bg-white rounded-2xl shadow-xl border border-primary/10 overflow-hidden">
-          {items.length > 0 ? (
+        <div className="absolute left-0 right-0 top-full mt-2 z-[60] min-w-[280px] bg-white rounded-2xl shadow-xl border border-primary/10 overflow-hidden">
+          {loading && items.length === 0 && (
+            <div className="px-4 py-4 flex items-center gap-2 text-sm text-carbon/60">
+              <svg className="animate-spin" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+              </svg>
+              Aranıyor…
+            </div>
+          )}
+
+          {items.length > 0 && (
             <ul className="max-h-[min(70vh,420px)] overflow-y-auto py-1">
               {items.map((item) => (
                 <li key={item.slug}>
@@ -161,13 +171,13 @@ export function SearchBox({ wrapperClassName = '', placeholder = 'Ürün ara... 
                 </li>
               ))}
             </ul>
-          ) : (
-            searched && !loading && (
-              <div className="px-4 py-6 text-center">
-                <div className="text-2xl mb-1">🔍</div>
-                <p className="text-sm text-carbon/60">Eşleşen ürün bulunamadı</p>
-              </div>
-            )
+          )}
+
+          {searched && !loading && items.length === 0 && (
+            <div className="px-4 py-6 text-center">
+              <div className="text-2xl mb-1">🔍</div>
+              <p className="text-sm text-carbon/60">Eşleşen ürün bulunamadı</p>
+            </div>
           )}
 
           {items.length > 0 && (
