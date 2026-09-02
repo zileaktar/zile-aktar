@@ -16,6 +16,7 @@ export interface ProductFormState {
 function variantExtras(v: ProductInput['variants'][number]) {
   return {
     price_cents: v.priceCents,
+    compare_at_price_cents: v.compareAtPriceCents ?? null,
     stock: v.stock,
     lot_no: v.lotNo?.trim() || null,
     expiry_date: v.expiryDate?.trim() || null

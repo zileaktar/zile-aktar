@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import { getCategories, getProducts, getAvailableForms } from '@/lib/data/products';
+import { getActiveCampaignBanners } from '@/lib/data/banners';
 import { ProductCard } from '@/components/product/ProductCard';
+import { CampaignCarousel } from '@/components/home/CampaignCarousel';
 import { PRODUCT_FORMS, PRODUCT_FORM_LABELS } from '@/lib/validations/product';
 
 export const metadata: Metadata = {
@@ -21,9 +22,10 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const { kategori, q, form, sayfa } = await searchParams;
   const activeForm = form && (PRODUCT_FORMS as readonly string[]).includes(form) ? form : undefined;
   const page = Math.max(1, Number.parseInt(sayfa ?? '1', 10) || 1);
-  const [categories, availableForms, { products, totalCount, totalPages }] = await Promise.all([
+  const [categories, availableForms, banners, { products, totalCount, totalPages }] = await Promise.all([
     getCategories(),
     getAvailableForms(),
+    getActiveCampaignBanners(),
     getProducts({ categorySlug: kategori, searchQuery: q, form: activeForm, page })
   ]);
   const formChips = PRODUCT_FORMS.filter((f) => availableForms.includes(f));
@@ -49,44 +51,38 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
   return (
     <>
-      {/* HERO BANNER */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&w=1600&q=70"
-            alt="Doğal Baharatlar"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 via-primary-dark/70 to-primary-dark/30" />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28 lg:py-36">
-          <div className="max-w-xl">
-            <span className="inline-block bg-accent/90 text-primary-dark text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full mb-5">
-              🌿 1998&apos;den Beri Aktarlık Geleneği
-            </span>
-            <h1 className="font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white leading-tight mb-5">
-              Doğadan Gelen <span className="text-accent-light">Şifa</span> & Yöresel Lezzetler
-            </h1>
-            <p className="text-cream/85 text-base sm:text-lg mb-8 max-w-md">
-              Hiçbir katkı maddesi içermeyen, doğrudan üreticiden sofranıza gelen hakiki bal, soğuk sıkım yağlar ve şifalı
-              bitkiler.
-            </p>
-            <a
-              href="#urunler"
-              className="touch-target inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-primary-dark font-bold px-7 py-3.5 rounded-full transition shadow-lg"
-            >
-              Şimdi Keşfet
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </a>
+      {/* KAMPANYA AFİŞLERİ — admin panelinden (/admin/afisler) yönetilir.
+          Afiş yoksa sade bir tanıtım başlığı gösterilir. */}
+      {banners.length > 0 ? (
+        <CampaignCarousel banners={banners} />
+      ) : (
+        <section className="bg-gradient-to-r from-primary-dark to-primary">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
+            <div className="max-w-xl">
+              <span className="inline-block bg-accent/90 text-primary-dark text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full mb-5">
+                🌿 1998&apos;den Beri Aktarlık Geleneği
+              </span>
+              <h1 className="font-display font-extrabold text-3xl sm:text-5xl text-white leading-tight mb-5">
+                Doğadan Gelen <span className="text-accent-light">Şifa</span> & Yöresel Lezzetler
+              </h1>
+              <p className="text-cream/85 text-base sm:text-lg mb-8 max-w-md">
+                Hiçbir katkı maddesi içermeyen, doğrudan üreticiden sofranıza gelen hakiki bal, soğuk sıkım yağlar ve
+                şifalı bitkiler.
+              </p>
+              <a
+                href="#urunler"
+                className="touch-target inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-primary-dark font-bold px-7 py-3.5 rounded-full transition shadow-lg"
+              >
+                Şimdi Keşfet
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ÖNE ÇIKAN ÖZELLİKLER */}
       <section className="bg-white border-b border-primary/10">

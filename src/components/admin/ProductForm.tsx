@@ -22,10 +22,13 @@ interface VariantRow {
   id?: string; // yalnızca düzenleme modunda, mevcut (veritabanındaki) varyantlarda dolu
   label: string;
   price: string; // TL cinsinden, kullanıcının yazdığı ham metin (örn. "150" veya "150,50")
+  compareAtPrice: string; // indirimsiz (üstü çizili) fiyat, TL — boş ise indirim yok
   stock: string;
   lotNo: string;
   expiryDate: string; // YYYY-AA-GG veya ''
 }
+
+const EMPTY_VARIANT: VariantRow = { label: '', price: '', compareAtPrice: '', stock: '', lotNo: '', expiryDate: '' };
 
 interface Category {
   id: string;
@@ -115,9 +118,7 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
   const [storageInfo, setStorageInfo] = useState(initialProduct?.storageInfo ?? '');
   const [allergenInfo, setAllergenInfo] = useState(initialProduct?.allergenInfo ?? '');
   const [shelfLifeNote, setShelfLifeNote] = useState(initialProduct?.shelfLifeNote ?? '');
-  const [variants, setVariants] = useState<VariantRow[]>(
-    initialProduct?.variants ?? [{ label: '', price: '', stock: '', lotNo: '', expiryDate: '' }]
-  );
+  const [variants, setVariants] = useState<VariantRow[]>(initialProduct?.variants ?? [{ ...EMPTY_VARIANT }]);
 
   const [imagePath, setImagePath] = useState(initialProduct?.imagePath ?? '');
   const [uploading, setUploading] = useState(false);
@@ -169,7 +170,7 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
   }
 
   function addVariantRow() {
-    setVariants((rows) => [...rows, { label: '', price: '', stock: '', lotNo: '', expiryDate: '' }]);
+    setVariants((rows) => [...rows, { ...EMPTY_VARIANT }]);
   }
 
   function removeVariantRow(index: number) {
@@ -208,6 +209,7 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
       .map((v) => ({
         label: v.label.trim(),
         priceCents: tlToCents(v.price),
+        compareAtPriceCents: v.compareAtPrice.trim() ? tlToCents(v.compareAtPrice) : null,
         stock: Number.parseInt(v.stock, 10) || 0,
         lotNo: v.lotNo.trim(),
         expiryDate: v.expiryDate.trim()
@@ -434,21 +436,39 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
                   ✕
                 </button>
               </div>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-3 gap-2">
+                <div>
+                  <input
+                    placeholder="İndirimsiz fiyat (TL)"
+                    inputMode="decimal"
+                    title="İndirimden önceki fiyat — boş bırakırsanız indirim gösterilmez"
+                    value={v.compareAtPrice}
+                    onChange={(e) => updateVariant(i, { compareAtPrice: e.target.value })}
+                    className="w-full bg-cream border border-primary/15 rounded-lg px-3 py-2 text-xs"
+                  />
+                  {v.compareAtPrice.trim() && v.price.trim() && tlToCents(v.compareAtPrice) > tlToCents(v.price) && (
+                    <p className="text-[10px] text-accent-dark mt-0.5">
+                      %{Math.round((1 - tlToCents(v.price) / tlToCents(v.compareAtPrice)) * 100)} indirim
+                    </p>
+                  )}
+                </div>
                 <input
                   placeholder="Parti / Lot No (ops.)"
                   value={v.lotNo}
                   onChange={(e) => updateVariant(i, { lotNo: e.target.value })}
-                  className="bg-cream border border-primary/15 rounded-lg px-3 py-2 text-xs"
+                  className="bg-cream border border-primary/15 rounded-lg px-3 py-2 text-xs self-start"
                 />
                 <input
                   type="date"
                   title="Son Tüketim Tarihi"
                   value={v.expiryDate}
                   onChange={(e) => updateVariant(i, { expiryDate: e.target.value })}
-                  className="bg-cream border border-primary/15 rounded-lg px-3 py-2 text-xs text-carbon/70"
+                  className="bg-cream border border-primary/15 rounded-lg px-3 py-2 text-xs text-carbon/70 self-start"
                 />
               </div>
+              {state.fieldErrors?.[`variants.${i}.compareAtPriceCents`] && (
+                <p className="text-xs text-red-600">{state.fieldErrors[`variants.${i}.compareAtPriceCents`]}</p>
+              )}
             </div>
           ))}
         </div>

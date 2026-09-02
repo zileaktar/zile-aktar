@@ -10,19 +10,26 @@ export const PRODUCT_FORM_LABELS: Record<(typeof PRODUCT_FORMS)[number], string>
   yag: 'Yağ', sivi: 'Sıvı', recine: 'Reçine / Sakız', sabun: 'Sabun', macun: 'Macun', diger: 'Diğer'
 };
 
-export const productVariantInputSchema = z.object({
-  label: z.string().trim().min(1, 'Gramaj/boyut etiketi zorunlu (örn. 250g).').max(30),
-  priceCents: z.number().int().positive("Fiyat 0'dan büyük olmalı."),
-  stock: z.number().int().min(0, 'Stok negatif olamaz.'),
-  // Parti/lot numarası + son tüketim tarihi (migration 0013) — opsiyonel, parti değişince güncellenir.
-  lotNo: z.string().trim().max(60).optional().default(''),
-  expiryDate: z
-    .string()
-    .trim()
-    .optional()
-    .default('')
-    .refine((v) => v === '' || /^\d{4}-\d{2}-\d{2}$/.test(v), 'Tarih YYYY-AA-GG biçiminde olmalı.')
-});
+export const productVariantInputSchema = z
+  .object({
+    label: z.string().trim().min(1, 'Gramaj/boyut etiketi zorunlu (örn. 250g).').max(30),
+    priceCents: z.number().int().positive("Fiyat 0'dan büyük olmalı."),
+    // İndirimsiz (üstü çizili) fiyat — migration 0016. NULL ise indirim yok.
+    compareAtPriceCents: z.number().int().positive().nullable().optional().default(null),
+    stock: z.number().int().min(0, 'Stok negatif olamaz.'),
+    // Parti/lot numarası + son tüketim tarihi (migration 0013) — opsiyonel, parti değişince güncellenir.
+    lotNo: z.string().trim().max(60).optional().default(''),
+    expiryDate: z
+      .string()
+      .trim()
+      .optional()
+      .default('')
+      .refine((v) => v === '' || /^\d{4}-\d{2}-\d{2}$/.test(v), 'Tarih YYYY-AA-GG biçiminde olmalı.')
+  })
+  .refine((v) => v.compareAtPriceCents == null || v.compareAtPriceCents > v.priceCents, {
+    message: 'İndirimsiz fiyat, satış fiyatından yüksek olmalı.',
+    path: ['compareAtPriceCents']
+  });
 
 /**
  * Sağlık beyanı mevzuatı (Tarım ve Orman Bakanlığı / Sağlık Bakanlığı): bitkisel
@@ -82,5 +89,5 @@ export const presignedUploadRequestSchema = z.object({
     .trim()
     .regex(/^[a-zA-Z0-9_-]+\.(jpe?g|png|webp)$/i, 'Yalnızca jpg, png veya webp dosyaları yüklenebilir.'),
   contentType: z.enum(['image/jpeg', 'image/png', 'image/webp']),
-  folder: z.enum(['products', 'site']).default('products')
+  folder: z.enum(['products', 'site', 'banners']).default('products')
 });

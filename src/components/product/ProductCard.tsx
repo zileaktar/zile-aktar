@@ -26,6 +26,9 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
   const imageUrl = getProductImageUrl(product.image_path);
   const outOfStock = selectedVariant.stock <= 0;
   const isLowStock = selectedVariant.stock > 0 && selectedVariant.stock < 10;
+  const compareAt = selectedVariant.compare_at_price_cents;
+  const hasDiscount = compareAt != null && compareAt > selectedVariant.price_cents;
+  const discountPct = hasDiscount ? Math.round((1 - selectedVariant.price_cents / compareAt) * 100) : 0;
   // "Sınırlı Stok" artık sabit/elle atanan bir etiket DEĞİL — aşağıda gerçek
   // stok sayısından her render'da yeniden hesaplanır (isLowStock). Veritabanında
   // henüz düzenlenmemiş eski ürünlerde bu etiket hâlâ kayıtlı olabileceğinden,
@@ -58,6 +61,9 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
           className="object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute top-2 left-2 flex flex-col gap-1">
+          {hasDiscount && (
+            <span className="text-[10.5px] font-extrabold px-2 py-1 rounded-full bg-red-600 text-white">%{discountPct} İNDİRİM</span>
+          )}
           {displayBadges.map((b) => (
             <span key={b} className={`text-[10.5px] font-bold px-2 py-1 rounded-full ${BADGE_STYLES[b] ?? 'bg-carbon text-white'}`}>
               {b}
@@ -70,23 +76,41 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
         <div className="text-[11px] font-semibold text-accent-dark uppercase tracking-wide mb-1">{product.categories.name}</div>
         <h3 className="font-semibold text-sm sm:text-[15px] leading-snug mb-2 flex-1">{product.name}</h3>
 
-        <div className="flex items-center gap-1.5 mb-3">
-          <label className="text-[11px] text-carbon/50 mr-1">Gramaj:</label>
-          <select
-            value={selectedVariantId}
-            onChange={(e) => setSelectedVariantId(e.target.value)}
-            className="text-xs font-medium bg-cream border border-primary/15 rounded-lg px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-accent flex-1"
-          >
-            {variants.map((v) => (
-              <option key={v.id} value={v.id} disabled={v.stock <= 0}>
-                {v.label} — {formatPriceFromCents(v.price_cents)} {v.stock <= 0 ? '(Tükendi)' : ''}
-              </option>
-            ))}
-          </select>
-        </div>
+        {variants.length > 1 && (
+          <div className="flex flex-wrap gap-1 mb-3">
+            {variants.map((v) => {
+              const soldOut = v.stock <= 0;
+              const active = v.id === selectedVariant.id;
+              return (
+                <button
+                  key={v.id}
+                  type="button"
+                  disabled={soldOut}
+                  onClick={() => setSelectedVariantId(v.id)}
+                  className={`text-[11px] font-semibold px-2 py-1 rounded-lg border transition ${
+                    active
+                      ? 'bg-primary text-white border-primary'
+                      : soldOut
+                        ? 'bg-cream text-carbon/30 border-primary/10 line-through cursor-not-allowed'
+                        : 'bg-white text-carbon/70 border-primary/20 hover:border-primary/40'
+                  }`}
+                >
+                  {v.label}
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         <div className="flex items-center justify-between gap-2">
-          <span className="font-display font-bold text-primary text-base sm:text-lg">{formatPriceFromCents(selectedVariant.price_cents)}</span>
+          <span className="flex flex-col leading-tight">
+            {hasDiscount && (
+              <span className="text-[11px] text-carbon/40 line-through">{formatPriceFromCents(compareAt)}</span>
+            )}
+            <span className={`font-display font-bold text-base sm:text-lg ${hasDiscount ? 'text-red-600' : 'text-primary'}`}>
+              {formatPriceFromCents(selectedVariant.price_cents)}
+            </span>
+          </span>
           <button
             onClick={handleAdd}
             disabled={outOfStock}

@@ -16,7 +16,7 @@ Sen, "Zile Aktar" adlı bir aktar/yöresel ürünler e-ticaret sitesi üzerinde 
 
 ## 2. Teknoloji Yığını
 
-Next.js 14 (App Router, TS strict) + Supabase (Postgres/Auth/Storage/RLS) + iyzico (3D Secure ödeme, SANDBOX) + Cloudflare Turnstile (CAPTCHA) + Sentry (hata izleme) + Upstash Redis (rate limiting) + Brevo (transactional e-posta) + Vercel. **Migration 0001–0015.**
+Next.js 14 (App Router, TS strict) + Supabase (Postgres/Auth/Storage/RLS) + iyzico (3D Secure ödeme, SANDBOX) + Cloudflare Turnstile (CAPTCHA) + Sentry (hata izleme) + Upstash Redis (rate limiting) + Brevo (transactional e-posta) + Vercel. **Migration 0001–0017.**
 
 Supabase proje referansı: `gabdklnlojfbdaxtgmtg`.
 
@@ -85,6 +85,10 @@ Supabase proje referansı: `gabdklnlojfbdaxtgmtg`.
 - **Yasal metin TASLAKLARI** ✅ `/on-bilgilendirme-formu`, `/mesafeli-satis-sozlesmesi`, `/iptal-iade-kosullari`, `/teslimat-ve-kargo`, `/kvkk`, `/cerez-politikasi` — hepsi `src/components/legal/LegalPage.tsx` (⚠️ TASLAK uyarısı) + `src/lib/legal.ts` (`LEGAL` sabiti). **`src/lib/legal.ts` içinde `[...]` yer tutucular DOLDURULMADI** (ticari unvan, vergi dairesi/no, MERSİS, ticaret sicil no, kargo firması) — kullanıcı tarafı iş. Avukat onayı da gerekli.
 - **Schema.org** ✅ `Store` yapısal verisi (`layout.tsx`, `safeJsonLd`), ürün sayfasında `Product` + `aggregateRating`.
 - `package.json` engines → `"node": "22.x"` (Vercel otomatik major yükseltme uyarısı).
+- **Arama:** SiteHeader'daki `<input>` → `SearchBox.tsx` (canlı typeahead açılır liste, `/api/search` ucu, `quickSearchProducts` — ad+açıklamada `ilike` kısmi eşleşme). Ana arama (`getProducts`) da tam-metin yerine `ilike` kullanıyor (yarım kelime eşleşsin).
+- **İndirim (migration 0016):** `product_variants.compare_at_price_cents` = indirimsiz/eski fiyat (NULL = indirim yok). Ödeme hesabı sadece `price_cents` kullanır. Admin ürün formunda varyant başına "İndirimsiz fiyat" kutusu; ürün kart/detayında üstü çizili eski fiyat + "%X İNDİRİM" rozeti.
+- **Gramaj seçimi:** ürün kart + detayında `<select>` yerine ekranda tıklanabilir varyant butonları (kart: tek varyantsa gizli). Varyant verisini (500g/1kg/2kg + fiyat) mağaza sahibi admin panelinden girer.
+- **Kampanya afişleri (migration 0017):** `campaign_banners` tablosu (RLS: aktifleri herkes, hepsini staff). Anasayfada hero'nun YERİNE `CampaignCarousel.tsx` (kaydırmalı, ok+nokta, 6sn otomatik); afiş yoksa sade tanıtım başlığı. Yönetim: `/admin/afisler` (`BannerManager.tsx` + `afisler/actions.ts`). Görseller `product-images` bucket'ında `banners/` klasörü (`presignedUploadRequestSchema` folder enum'a `banners` eklendi). Görselleri mağaza sahibi yükler.
 
 ## 5. Kullanıcı tarafı — YAYINI ENGELLEYEN işler (kod değil)
 

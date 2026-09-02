@@ -24,6 +24,9 @@ export function ProductDetailClient({ product }: { product: ProductWithVariants 
   if (!selectedVariant) return null;
   const outOfStock = selectedVariant.stock <= 0;
   const isLowStock = selectedVariant.stock > 0 && selectedVariant.stock < 10;
+  const compareAt = selectedVariant.compare_at_price_cents;
+  const hasDiscount = compareAt != null && compareAt > selectedVariant.price_cents;
+  const discountPct = hasDiscount ? Math.round((1 - selectedVariant.price_cents / compareAt) * 100) : 0;
   // bkz. ProductCard.tsx — "Sınırlı Stok" artık canlı stok sayısından
   // hesaplanır, sabit/elle atanan etiket olarak saklanmaz.
   const displayBadges = product.badges.filter((b) => b !== 'Sınırlı Stok');
@@ -51,6 +54,7 @@ export function ProductDetailClient({ product }: { product: ProductWithVariants 
           </span>
         ))}
         {isLowStock && <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-red-500 text-white">Sınırlı Stok</span>}
+        {hasDiscount && <span className="text-[11px] font-extrabold px-2.5 py-1 rounded-full bg-red-600 text-white">%{discountPct} İNDİRİM</span>}
       </div>
       <div className="text-xs font-semibold text-accent-dark uppercase tracking-wide mb-1">{product.categories.name}</div>
       <h1 className="font-display font-bold text-2xl sm:text-3xl text-primary mb-6">{product.name}</h1>
@@ -63,18 +67,40 @@ export function ProductDetailClient({ product }: { product: ProductWithVariants 
             : `✅ Stokta var (${selectedVariant.stock} adet)`}
       </div>
 
-      <label className="text-xs font-semibold text-carbon/60 mb-1.5">Gramaj / Boyut Seçin</label>
-      <select
-        value={selectedVariantId}
-        onChange={(e) => setSelectedVariantId(e.target.value)}
-        className="bg-cream border border-primary/15 rounded-xl px-4 py-3 text-sm font-medium mb-5 focus:outline-none focus:ring-2 focus:ring-accent/50"
-      >
-        {product.product_variants.map((v) => (
-          <option key={v.id} value={v.id} disabled={v.stock <= 0}>
-            {v.label} — {formatPriceFromCents(v.price_cents)} {v.stock <= 0 ? '(Tükendi)' : ''}
-          </option>
-        ))}
-      </select>
+      <div className="text-xs font-semibold text-carbon/60 mb-1.5">Gramaj / Boyut Seçin</div>
+      <div className="flex flex-wrap gap-2 mb-5">
+        {product.product_variants.map((v) => {
+          const soldOut = v.stock <= 0;
+          const active = v.id === selectedVariant.id;
+          const vHasDiscount = v.compare_at_price_cents != null && v.compare_at_price_cents > v.price_cents;
+          return (
+            <button
+              key={v.id}
+              type="button"
+              disabled={soldOut}
+              onClick={() => setSelectedVariantId(v.id)}
+              className={`rounded-xl border px-4 py-2.5 text-left transition ${
+                active
+                  ? 'border-primary bg-primary/5 ring-1 ring-primary'
+                  : soldOut
+                    ? 'border-primary/10 text-carbon/30 cursor-not-allowed'
+                    : 'border-primary/20 hover:border-primary/50'
+              }`}
+            >
+              <span className="block text-sm font-semibold">
+                {v.label}
+                {soldOut && ' — Tükendi'}
+              </span>
+              <span className={`block text-xs mt-0.5 ${active ? 'text-primary font-semibold' : 'text-carbon/50'}`}>
+                {vHasDiscount && (
+                  <span className="line-through text-carbon/30 mr-1">{formatPriceFromCents(v.compare_at_price_cents!)}</span>
+                )}
+                {formatPriceFromCents(v.price_cents)}
+              </span>
+            </button>
+          );
+        })}
+      </div>
 
       {(selectedVariant.expiry_date || selectedVariant.lot_no) && (
         <p className="text-[11px] text-carbon/50 -mt-3 mb-5">
@@ -84,8 +110,16 @@ export function ProductDetailClient({ product }: { product: ProductWithVariants 
         </p>
       )}
 
-      <div className="flex items-center gap-3 mt-auto mb-4">
-        <span className="font-display font-bold text-2xl text-primary">{formatPriceFromCents(selectedVariant.price_cents)}</span>
+      <div className="flex items-baseline gap-3 mt-auto mb-4">
+        {hasDiscount && (
+          <span className="text-base text-carbon/40 line-through">{formatPriceFromCents(compareAt)}</span>
+        )}
+        <span className={`font-display font-bold text-2xl ${hasDiscount ? 'text-red-600' : 'text-primary'}`}>
+          {formatPriceFromCents(selectedVariant.price_cents)}
+        </span>
+        {hasDiscount && (
+          <span className="text-xs font-bold text-red-600">%{discountPct} indirim</span>
+        )}
       </div>
 
       <button

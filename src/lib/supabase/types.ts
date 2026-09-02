@@ -124,16 +124,21 @@ export interface Database {
           sku: string;
           label: string;
           price_cents: number;
+          compare_at_price_cents: number | null;
           stock: number;
           sort_order: number;
           lot_no: string | null;
           expiry_date: string | null;
           created_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['product_variants']['Row'], 'id' | 'created_at' | 'lot_no' | 'expiry_date'> & {
+        Insert: Omit<
+          Database['public']['Tables']['product_variants']['Row'],
+          'id' | 'created_at' | 'lot_no' | 'expiry_date' | 'compare_at_price_cents'
+        > & {
           id?: string;
           lot_no?: string | null;
           expiry_date?: string | null;
+          compare_at_price_cents?: number | null;
         };
         Update: Partial<Database['public']['Tables']['product_variants']['Row']>;
         Relationships: [
@@ -358,6 +363,34 @@ export interface Database {
           }
         ];
       };
+      campaign_banners: {
+        Row: {
+          id: string;
+          title: string | null;
+          subtitle: string | null;
+          image_path: string;
+          link_url: string | null;
+          cta_label: string | null;
+          is_active: boolean;
+          sort_order: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Omit<
+          Database['public']['Tables']['campaign_banners']['Row'],
+          'id' | 'created_at' | 'updated_at' | 'title' | 'subtitle' | 'link_url' | 'cta_label' | 'is_active' | 'sort_order'
+        > & {
+          id?: string;
+          title?: string | null;
+          subtitle?: string | null;
+          link_url?: string | null;
+          cta_label?: string | null;
+          is_active?: boolean;
+          sort_order?: number;
+        };
+        Update: Partial<Database['public']['Tables']['campaign_banners']['Row']>;
+        Relationships: [];
+      };
     };
     // `supabase gen types typescript` her zaman Views/Enums/CompositeTypes anahtarlarını
     // BOŞ olsa dahi üretir — postgrest-js'in GenericSchema kısıtı bu anahtarların
@@ -407,6 +440,7 @@ export interface Database {
 
 export type ProductRow = Database['public']['Tables']['products']['Row'];
 export type ProductVariantRow = Database['public']['Tables']['product_variants']['Row'];
+export type CampaignBannerRow = Database['public']['Tables']['campaign_banners']['Row'];
 export type OrderRow = Database['public']['Tables']['orders']['Row'];
 export type ProfileRow = Database['public']['Tables']['profiles']['Row'];
 export type ReviewRow = Database['public']['Tables']['reviews']['Row'];
