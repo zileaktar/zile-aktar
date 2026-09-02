@@ -13,8 +13,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8
   }));
 
+  const staticPaths = [
+    '/on-bilgilendirme-formu',
+    '/mesafeli-satis-sozlesmesi',
+    '/iptal-iade-kosullari',
+    '/teslimat-ve-kargo',
+    '/kvkk',
+    '/cerez-politikasi'
+  ];
+  const staticUrls: MetadataRoute.Sitemap = staticPaths.map((path) => ({
+    url: `${env.NEXT_PUBLIC_APP_URL}${path}`,
+    changeFrequency: 'yearly',
+    priority: 0.3
+  }));
+
   return [
     { url: env.NEXT_PUBLIC_APP_URL, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
-    ...productUrls
+    ...productUrls,
+    ...staticUrls
   ];
 }

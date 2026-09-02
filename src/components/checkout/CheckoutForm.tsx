@@ -232,13 +232,15 @@ export function CheckoutForm({ prefill }: { prefill: CheckoutPrefill | null }) {
             <label className="flex items-start gap-3 text-xs sm:text-sm text-carbon/70 cursor-pointer">
               <input required type="checkbox" className="mt-0.5 accent-primary w-4 h-4 shrink-0" checked={acceptedDistanceSalesAgreement} onChange={(e) => setAcceptedDistanceSalesAgreement(e.target.checked)} />
               <span>
-                <b>Mesafeli Satış Sözleşmesi</b>&apos;ni okudum ve kabul ediyorum.
+                <a href="/on-bilgilendirme-formu" target="_blank" className="text-primary underline">Ön Bilgilendirme Formu</a>&apos;nu ve{' '}
+                <a href="/mesafeli-satis-sozlesmesi" target="_blank" className="text-primary underline">Mesafeli Satış Sözleşmesi</a>&apos;ni
+                okudum, kabul ediyorum.
               </span>
             </label>
             <label className="flex items-start gap-3 text-xs sm:text-sm text-carbon/70 cursor-pointer">
               <input required type="checkbox" className="mt-0.5 accent-primary w-4 h-4 shrink-0" checked={acceptedKvkk} onChange={(e) => setAcceptedKvkk(e.target.checked)} />
               <span>
-                <b>KVKK Aydınlatma Metni</b> kapsamında kişisel verilerimin işlenmesini kabul ediyorum.
+                <a href="/kvkk" target="_blank" className="text-primary underline">KVKK Aydınlatma Metni</a> kapsamında kişisel verilerimin işlenmesini kabul ediyorum.
               </span>
             </label>
             <HealthDisclaimer compact />

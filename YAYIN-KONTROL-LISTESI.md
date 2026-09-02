@@ -19,14 +19,10 @@ Canlı adres: `https://zile-aktar.vercel.app` (henüz özel domain yok)
 
 ## B. YASAL OLARAK ZORUNLU (TR e-ticaret mevzuatı)
 
-- [ ] **Mesafeli Satış Sözleşmesi** (`/mesafeli-satis-sozlesmesi`) — şu an ŞABLON, avukat onayı gerekli.
-- [ ] **KVKK Aydınlatma Metni** (`/kvkk`) — şu an ŞABLON, avukat onayı gerekli.
-- [ ] **Ön Bilgilendirme Formu** — henüz YOK. Mesafeli sözleşmelerde zorunlu.
-- [ ] **İptal / İade / Cayma Hakkı koşulları** sayfası — henüz YOK (14 gün cayma hakkı vb.).
-- [ ] **Teslimat & Kargo koşulları** sayfası — henüz YOK.
-- [ ] **Çerez Politikası** — `CookieConsent` bileşeni var ama ayrı bir politika sayfası yok.
-- [ ] **Sağlık beyanı disclaimer'ı** — ✅ eklendi (`HealthDisclaimer`), admin ürün formunda yasaklı ifade kontrolü var. Yine de ürün açıklamaları mevzuata göre gözden geçirilmeli.
-- [ ] İşletme bilgileri (unvan, adres, vergi no, MERSİS, ticaret sicil) footer'da / sözleşmelerde eksiksiz olmalı.
+- [~] **Yasal metin TASLAKLARI hazır** (avukat onayı hâlâ gerekli): `/on-bilgilendirme-formu`, `/mesafeli-satis-sozlesmesi`, `/iptal-iade-kosullari`, `/teslimat-ve-kargo`, `/kvkk`, `/cerez-politikasi`. Hepsi `src/components/legal/LegalPage.tsx` sarmalayıcısını + `src/lib/legal.ts` bilgilerini kullanıyor. Footer'a ve checkout onay kutularına link verildi.
+- [ ] **`src/lib/legal.ts` içindeki [...] alanlarını DOLDUR:** ticari unvan, vergi dairesi/no, MERSİS no, ticaret sicil no, anlaşmalı kargo firması. Bunlar boşken sözleşmeler eksik.
+- [ ] **Avukat / mali müşavir onayı** — tüm yasal metinler bir uzmana kontrol ettirilmeli (özellikle cayma hakkı istisnaları, KVKK saklama süreleri, işletme türüne göre unvan).
+- [x] **Sağlık beyanı disclaimer'ı** — `HealthDisclaimer` + admin ürün formunda yasaklı ifade kontrolü.
 
 ## C. ALTYAPI — YAYIN ÖNCESİ
 

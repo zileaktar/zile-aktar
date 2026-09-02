@@ -64,11 +64,23 @@ export function SiteFooter({ categories, logoPath }: { categories: Category[]; l
             ))}
           </div>
           <div className="flex flex-col gap-1 mt-4 text-xs text-cream/50">
+            <Link href="/on-bilgilendirme-formu" className="hover:text-accent-light">
+              Ön Bilgilendirme Formu
+            </Link>
             <Link href="/mesafeli-satis-sozlesmesi" className="hover:text-accent-light">
               Mesafeli Satış Sözleşmesi
             </Link>
+            <Link href="/iptal-iade-kosullari" className="hover:text-accent-light">
+              İptal, İade ve Cayma Hakkı
+            </Link>
+            <Link href="/teslimat-ve-kargo" className="hover:text-accent-light">
+              Teslimat ve Kargo
+            </Link>
             <Link href="/kvkk" className="hover:text-accent-light">
               KVKK Aydınlatma Metni
+            </Link>
+            <Link href="/cerez-politikasi" className="hover:text-accent-light">
+              Çerez Politikası
             </Link>
           </div>
         </div>
