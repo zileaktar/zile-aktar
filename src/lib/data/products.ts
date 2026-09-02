@@ -106,10 +106,16 @@ export async function getProducts({ categorySlug, searchQuery, form, page = 1 }:
   }
 
   if (searchQuery && searchQuery.trim().length > 0) {
-    // search_vector, migration 0001'de GENERATED STORED bir tsvector sütunudur
-    // (name + description birleşimi); websearch_to_tsquery kullanıcı girdisini
-    // güvenli şekilde ts_query'e çevirir (ham SQL enjeksiyonuna kapalı).
-    query = query.textSearch('search_vector', searchQuery.trim(), { type: 'websearch', config: 'turkish' });
+    // Arama çubuğu anlık önerisiyle (quickSearchProducts) AYNI eşleştirme:
+    // ürün adı VEYA açıklamasında büyük/küçük harf duyarsız kısmi eşleşme.
+    // Böylece açılır listede önerilen ürün, "tüm sonuçları gör" sayfasında da
+    // görünür. `websearch_to_tsquery` yarım kelimeyi ("çör") eşleştirmediği için
+    // tam metin aramadan buna geçildi (katalog küçük, ilike yeterince hızlı).
+    // PostgREST `.or()` filtresini bozan karakterler temizlenir.
+    const safe = searchQuery.replace(/[%_,()*\\]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (safe.length > 0) {
+      query = query.or(`name.ilike.%${safe}%,description.ilike.%${safe}%`);
+    }
   }
 
   const { data, error, count } = await query;
@@ -128,6 +134,65 @@ export async function getProducts({ categorySlug, searchQuery, form, page = 1 }:
     pageSize: PRODUCTS_PAGE_SIZE,
     totalPages: Math.max(1, Math.ceil(totalCount / PRODUCTS_PAGE_SIZE))
   };
+}
+
+export interface QuickSearchItem {
+  slug: string;
+  name: string;
+  imagePath: string;
+  categoryName: string;
+  minPriceCents: number;
+}
+
+/**
+ * Arama çubuğu "anlık öneri" (typeahead) sonuçları. Ürün adı VE açıklamasında
+ * büyük/küçük harf duyarsız kısmi eşleşme (ilike) yapar — kullanıcı "çör" yazınca
+ * "Çörek Otu" önerilir (tam metin arama `tsquery`'si ön-ek eşleştirmediği için
+ * yarım kelimede sonuç vermez). Açıklamada geçen eşleşmeler "benzer ürün" etkisi
+ * verir. Anon istemci + küçük katalog (~200 satır) olduğundan hızlıdır; sonuç
+ * önbelleklenmez (stok/fiyat güncel kalmalı).
+ */
+export async function quickSearchProducts(rawQuery: string, limit = 8): Promise<QuickSearchItem[]> {
+  // PostgREST `.or()` filtresini bozan karakterleri (virgül, parantez) ve ilike
+  // joker karakterlerini (%, _) temizle — kullanıcı girdisi doğrudan desene giriyor.
+  const safe = rawQuery.replace(/[%_,()*\\]/g, ' ').replace(/\s+/g, ' ').trim();
+  if (safe.length < 2) return [];
+
+  const supabase = createSupabaseAnonServerClient();
+  const { data, error } = await supabase
+    .from('products')
+    .select('slug, name, image_path, categories!inner(name), product_variants(price_cents)')
+    .eq('is_active', true)
+    .or(`name.ilike.%${safe}%,description.ilike.%${safe}%`)
+    .limit(limit * 2);
+
+  if (error || !data) return [];
+
+  const needle = safe.toLocaleLowerCase('tr');
+  return (
+    data as unknown as Array<{
+      slug: string;
+      name: string;
+      image_path: string;
+      categories: { name: string };
+      product_variants: { price_cents: number }[];
+    }>
+  )
+    .filter((p) => p.product_variants.length > 0)
+    .map((p) => ({
+      slug: p.slug,
+      name: p.name,
+      imagePath: p.image_path,
+      categoryName: p.categories.name,
+      minPriceCents: Math.min(...p.product_variants.map((v) => v.price_cents))
+    }))
+    // Adı eşleşenler önce (açıklamada geçen "benzer" ürünler sonra).
+    .sort((a, b) => {
+      const am = a.name.toLocaleLowerCase('tr').includes(needle) ? 0 : 1;
+      const bm = b.name.toLocaleLowerCase('tr').includes(needle) ? 0 : 1;
+      return am - bm;
+    })
+    .slice(0, limit);
 }
 
 export async function getProductBySlug(slug: string): Promise<ProductWithVariants | null> {

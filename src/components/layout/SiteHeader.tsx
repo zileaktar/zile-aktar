@@ -6,6 +6,7 @@ import { useState, useTransition } from 'react';
 import { useCartCount } from '@/store/cart-store';
 import { useUiStore } from '@/store/ui-store';
 import { SiteLogo } from '@/components/layout/SiteLogo';
+import { SearchBox } from '@/components/layout/SearchBox';
 
 interface Category {
   id: string;
@@ -31,13 +32,6 @@ export function SiteHeader({ categories, logoPath }: { categories: Category[]; l
     else params.set('kategori', slug);
     startTransition(() => router.push(`/?${params.toString()}`));
     setIsCategoryMenuOpen(false);
-  }
-
-  function handleSearchChange(value: string) {
-    const params = new URLSearchParams(searchParams.toString());
-    if (value.trim()) params.set('q', value);
-    else params.delete('q');
-    startTransition(() => router.push(`/?${params.toString()}`));
   }
 
   return (
@@ -119,19 +113,7 @@ export function SiteHeader({ categories, logoPath }: { categories: Category[]; l
           </nav>
 
           <div className="flex items-center gap-1 sm:gap-2">
-            <div className="relative hidden md:block">
-              <input
-                type="text"
-                defaultValue={searchParams.get('q') ?? ''}
-                onChange={(e) => handleSearchChange(e.target.value)}
-                placeholder="Ürün ara... (örn. bal, çörek otu)"
-                className="w-56 xl:w-72 bg-white border border-primary/15 rounded-full py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-accent/60 transition"
-              />
-              <svg className="absolute left-3.5 top-1/2 -translate-y-1/2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1b4332" strokeWidth="2">
-                <circle cx="11" cy="11" r="7" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-            </div>
+            <SearchBox wrapperClassName="hidden md:block w-56 xl:w-72" />
 
             <button onClick={() => setMobileSearchOpen((v) => !v)} className="md:hidden touch-target flex items-center justify-center rounded-full hover:bg-primary/10" aria-label="Ara">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1b4332" strokeWidth="2">
@@ -164,20 +146,7 @@ export function SiteHeader({ categories, logoPath }: { categories: Category[]; l
 
         {mobileSearchOpen && (
           <div className="md:hidden pb-3">
-            <div className="relative">
-              <input
-                type="text"
-                autoFocus
-                defaultValue={searchParams.get('q') ?? ''}
-                onChange={(e) => handleSearchChange(e.target.value)}
-                placeholder="Ürün ara..."
-                className="w-full bg-white border border-primary/15 rounded-full py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-accent/60"
-              />
-              <svg className="absolute left-3.5 top-1/2 -translate-y-1/2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1b4332" strokeWidth="2">
-                <circle cx="11" cy="11" r="7" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-            </div>
+            <SearchBox wrapperClassName="block" placeholder="Ürün ara..." autoFocus />
           </div>
         )}
 

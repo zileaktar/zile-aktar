@@ -28,7 +28,11 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   ]);
   const formChips = PRODUCT_FORMS.filter((f) => availableForms.includes(f));
 
-  const activeCategoryName = kategori && kategori !== 'all' ? categories.find((c) => c.slug === kategori)?.name : 'Tüm Ürünler';
+  const activeCategoryName = q?.trim()
+    ? `"${q.trim()}" için sonuçlar`
+    : kategori && kategori !== 'all'
+      ? categories.find((c) => c.slug === kategori)?.name
+      : 'Tüm Ürünler';
 
   function buildHref(overrides: { form?: string | null; sayfa?: number }) {
     const params = new URLSearchParams();
