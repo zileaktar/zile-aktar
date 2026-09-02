@@ -42,6 +42,7 @@ export function ProductDetailClient({ product }: { product: ProductWithVariants 
       productName: product.name,
       variantLabel: selectedVariant.label,
       priceCents: selectedVariant.price_cents,
+      compareAtCents: selectedVariant.compare_at_price_cents,
       imageUrl: getProductImageUrl(product.image_path),
       deal
     });

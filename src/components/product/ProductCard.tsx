@@ -46,6 +46,7 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
       productName: product.name,
       variantLabel: selectedVariant.label,
       priceCents: selectedVariant.price_cents,
+      compareAtCents: selectedVariant.compare_at_price_cents,
       imageUrl,
       deal
     });

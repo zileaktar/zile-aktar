@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useUiStore } from '@/store/ui-store';
 import { useCartStore } from '@/store/cart-store';
 import { formatPriceFromCents } from '@/lib/format';
-import { FREE_SHIPPING_THRESHOLD_CENTS, calculateShippingCents } from '@/lib/pricing';
+import { FREE_SHIPPING_THRESHOLD_CENTS, calculateShippingCents, lineDealDiscountCents, dealNudge } from '@/lib/pricing';
 
 export function CartDrawer() {
   const { isCartOpen, closeCart } = useUiStore();
@@ -13,8 +13,13 @@ export function CartDrawer() {
   const router = useRouter();
 
   const subtotal = items.reduce((sum, i) => sum + i.priceCents * i.quantity, 0);
+  const dealDiscount = items.reduce((sum, i) => sum + lineDealDiscountCents(i.priceCents, i.quantity, i.deal), 0);
+  const compareSavings = items.reduce(
+    (sum, i) => sum + (i.compareAtCents && i.compareAtCents > i.priceCents ? (i.compareAtCents - i.priceCents) * i.quantity : 0),
+    0
+  );
   const shipping = calculateShippingCents(subtotal);
-  const total = subtotal + shipping;
+  const total = subtotal - dealDiscount + shipping;
   const remaining = FREE_SHIPPING_THRESHOLD_CENTS - subtotal;
   const shippingPct = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD_CENTS) * 100);
 
@@ -71,34 +76,58 @@ export function CartDrawer() {
               <p className="text-sm text-carbon/50 mt-1">Doğal ürünlerimizi keşfetmeye başlayın!</p>
             </div>
           ) : (
-            items.map((item) => (
-              <div key={item.variantId} className="flex gap-3 items-center">
-                <Image src={item.imageUrl} alt={item.productName} width={64} height={64} className="w-16 h-16 rounded-xl object-cover shrink-0 bg-cream" />
-                <div className="flex-1 min-w-0">
-                  <div className="font-semibold text-sm truncate">{item.productName}</div>
-                  <div className="text-xs text-carbon/50">{item.variantLabel}</div>
-                  <div className="flex items-center justify-between mt-1.5">
-                    <div className="flex items-center gap-2 bg-cream rounded-full px-1 py-1">
-                      <button onClick={() => updateQuantity(item.variantId, item.quantity - 1)} className="touch-target w-7 h-7 flex items-center justify-center rounded-full hover:bg-white font-bold text-primary">
-                        −
-                      </button>
-                      <span className="text-sm font-semibold w-4 text-center">{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.variantId, item.quantity + 1)} className="touch-target w-7 h-7 flex items-center justify-center rounded-full hover:bg-white font-bold text-primary">
-                        +
-                      </button>
+            items.map((item) => {
+              const nudge = dealNudge(item.quantity, item.deal);
+              const hasCompare = item.compareAtCents != null && item.compareAtCents > item.priceCents;
+              return (
+                <div key={item.variantId} className="space-y-1.5">
+                  <div className="flex gap-3 items-center">
+                    <Image src={item.imageUrl} alt={item.productName} width={64} height={64} className="w-16 h-16 rounded-xl object-cover shrink-0 bg-cream" />
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold text-sm truncate">{item.productName}</div>
+                      <div className="text-xs text-carbon/50">{item.variantLabel}</div>
+                      <div className="flex items-center justify-between mt-1.5">
+                        <div className="flex items-center gap-2 bg-cream rounded-full px-1 py-1">
+                          <button onClick={() => updateQuantity(item.variantId, item.quantity - 1)} className="touch-target w-7 h-7 flex items-center justify-center rounded-full hover:bg-white font-bold text-primary">
+                            −
+                          </button>
+                          <span className="text-sm font-semibold w-4 text-center">{item.quantity}</span>
+                          <button onClick={() => updateQuantity(item.variantId, item.quantity + 1)} className="touch-target w-7 h-7 flex items-center justify-center rounded-full hover:bg-white font-bold text-primary">
+                            +
+                          </button>
+                        </div>
+                        <span className="text-right leading-tight">
+                          {hasCompare && (
+                            <span className="block text-[11px] text-carbon/40 line-through">
+                              {formatPriceFromCents(item.compareAtCents! * item.quantity)}
+                            </span>
+                          )}
+                          <span className={`font-display font-bold text-sm ${hasCompare ? 'text-red-600' : 'text-primary'}`}>
+                            {formatPriceFromCents(item.priceCents * item.quantity)}
+                          </span>
+                        </span>
+                      </div>
                     </div>
-                    <span className="font-display font-bold text-sm text-primary">{formatPriceFromCents(item.priceCents * item.quantity)}</span>
+                    <button onClick={() => removeItem(item.variantId)} className="touch-target flex items-center justify-center rounded-full hover:bg-red-50 text-red-400 shrink-0" aria-label="Kaldır">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                        <path d="M10 11v6M14 11v6" />
+                      </svg>
+                    </button>
                   </div>
+                  {nudge && (
+                    <button
+                      type="button"
+                      onClick={() => updateQuantity(item.variantId, item.quantity + nudge.addQty)}
+                      className="w-full text-left text-[11px] font-semibold text-primary bg-primary/5 hover:bg-primary/10 border border-primary/15 rounded-lg px-2.5 py-1.5 transition"
+                    >
+                      🎁 {nudge.text} <span className="underline">Ekle →</span>
+                    </button>
+                  )}
                 </div>
-                <button onClick={() => removeItem(item.variantId)} className="touch-target flex items-center justify-center rounded-full hover:bg-red-50 text-red-400 shrink-0" aria-label="Kaldır">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="3 6 5 6 21 6" />
-                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-                    <path d="M10 11v6M14 11v6" />
-                  </svg>
-                </button>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
 
@@ -108,6 +137,17 @@ export function CartDrawer() {
               <span>Ara Toplam</span>
               <span className="font-medium text-carbon">{formatPriceFromCents(subtotal)}</span>
             </div>
+            {compareSavings > 0 && (
+              <div className="text-xs text-red-600 font-medium bg-red-50 rounded-lg px-2.5 py-1.5 -mt-1">
+                🎉 İndirimli ürünlerde <b>{formatPriceFromCents(compareSavings)}</b> tasarruf ettiniz (ara toplama yansıdı).
+              </div>
+            )}
+            {dealDiscount > 0 && (
+              <div className="flex items-center justify-between text-sm text-primary font-medium">
+                <span>Kampanya indirimi</span>
+                <span>-{formatPriceFromCents(dealDiscount)}</span>
+              </div>
+            )}
             <div className="flex items-center justify-between text-sm text-carbon/60">
               <span>Kargo</span>
               <span className="font-medium text-carbon">{shipping === 0 ? 'Bedava' : formatPriceFromCents(shipping)}</span>
@@ -116,6 +156,7 @@ export function CartDrawer() {
               <span>Toplam</span>
               <span>{formatPriceFromCents(total)}</span>
             </div>
+            <p className="text-[11px] text-carbon/40 text-center">İndirim kodu ödeme sayfasında girilir.</p>
             <button onClick={goToCheckout} className="touch-target w-full bg-primary hover:bg-primary-dark text-white font-bold py-3.5 rounded-full transition flex items-center justify-center gap-2">
               Siparişi Tamamla
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

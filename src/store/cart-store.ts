@@ -12,6 +12,8 @@ export interface CartItem {
   variantLabel: string;
   /** Ekleme anındaki fiyat (kuruş) — yalnızca UI önizlemesi içindir. */
   priceCents: number;
+  /** İndirimsiz (üstü çizili) fiyat — varsa. Sepette "indirimli" hatırlatması için. */
+  compareAtCents?: number | null;
   imageUrl: string;
   quantity: number;
   /** "X alana Y" kampanyası (migration 0019) — yalnızca sepet/ödeme önizlemesi için.

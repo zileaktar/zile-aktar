@@ -43,6 +43,22 @@ export function dealBadgeText(deal: DealConfig): string {
   return `${deal.buyQty} ALANA ${deal.buyQty + 1}. %${deal.getPercent}`;
 }
 
+/**
+ * Sepette gösterilecek kampanya "öneri" metni: bir satırın miktarı bir sonraki
+ * kampanya eşiğine ne kadar yakınsa "N tane daha ekleyin, X bedava" der.
+ * Eşik tam tutuyorsa (kampanya zaten uygulanmış) null döner.
+ */
+export function dealNudge(quantity: number, deal?: DealConfig | null): { addQty: number; text: string } | null {
+  if (!deal || deal.buyQty < 1 || deal.getQty < 1) return null;
+  const group = deal.buyQty + deal.getQty;
+  const remainder = quantity % group;
+  const need = remainder === 0 ? 0 : group - remainder;
+  if (need <= 0) return null;
+  const gift =
+    deal.getPercent >= 100 ? `${deal.getQty} tanesi bedava` : `${deal.getQty} tanesi %${deal.getPercent} indirimli`;
+  return { addQty: need, text: `${need} tane daha ekleyin, ${gift} olsun!` };
+}
+
 /** DB satırındaki üç alandan DealConfig üretir (hepsi dolu değilse null). */
 export function dealFromRow(row: {
   deal_buy_qty: number | null;
