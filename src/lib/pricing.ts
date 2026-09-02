@@ -38,9 +38,9 @@ export function lineDealDiscountCents(unitPriceCents: number, quantity: number, 
 
 /** Ürün kartı/detayında gösterilecek kısa kampanya rozeti metni. */
 export function dealBadgeText(deal: DealConfig): string {
-  if (deal.buyQty === 1 && deal.getQty === 1 && deal.getPercent === 100) return '1 ALANA 1 BEDAVA';
-  if (deal.getPercent === 100) return `${deal.buyQty + deal.getQty} AL ${deal.buyQty} ÖDE`;
-  return `${deal.buyQty} ALANA ${deal.buyQty + 1}. %${deal.getPercent}`;
+  const free = deal.getPercent >= 100;
+  if (deal.getQty === 1 && !free) return `${deal.buyQty + 1}. ÜRÜN %${deal.getPercent}`;
+  return `${deal.buyQty} ALANA ${deal.getQty} ${free ? 'BEDAVA' : `%${deal.getPercent}`}`;
 }
 
 /**

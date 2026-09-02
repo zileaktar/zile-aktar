@@ -46,14 +46,32 @@ export const useCartStore = create<CartState>()(
       addItem: (item, quantity = 1) => {
         set((state) => {
           const existing = state.items.find((i) => i.variantId === item.variantId);
+          const deal = item.deal ?? existing?.deal ?? null;
+          let newQty = (existing?.quantity ?? 0) + quantity;
+
+          // KAMPANYA OTOMATİK TAMAMLAMA: kullanıcı grubun "ödenen" kısmını
+          // doldurduğunda (ör. "2 al 1 bedava"da 2. adedi eklediğinde) hediye/
+          // indirimli adet(ler) sepete kendiliğinden eklenir — böylece kampanyadan
+          // yararlanmak için elle 3. ürünü aramak gerekmez. (Sadece "Sepete Ekle"
+          // ile tetiklenir; çekmecedeki +/- düğmeleri elle kontrol içindir.)
+          if (deal && deal.buyQty >= 1 && deal.getQty >= 1) {
+            const group = deal.buyQty + deal.getQty;
+            const pos = newQty % group;
+            if (pos !== 0 && pos >= deal.buyQty) {
+              newQty += group - pos;
+            }
+          }
+
           if (existing) {
             return {
               items: state.items.map((i) =>
-                i.variantId === item.variantId ? { ...i, quantity: i.quantity + quantity } : i
+                i.variantId === item.variantId
+                  ? { ...i, quantity: newQty, deal, priceCents: item.priceCents, compareAtCents: item.compareAtCents ?? i.compareAtCents ?? null }
+                  : i
               )
             };
           }
-          return { items: [...state.items, { ...item, quantity }] };
+          return { items: [...state.items, { ...item, deal, quantity: newQty }] };
         });
       },
 
@@ -63,7 +81,18 @@ export const useCartStore = create<CartState>()(
           return;
         }
         set((state) => ({
-          items: state.items.map((i) => (i.variantId === variantId ? { ...i, quantity } : i))
+          items: state.items.map((i) => {
+            if (i.variantId !== variantId) return i;
+            let q = quantity;
+            // Yalnızca ARTIRIRKEN kampanya grubunu otomatik tamamla; azaltırken
+            // kullanıcı serbestçe düşürebilsin (aksi halde grubun altına inemez).
+            if (q > i.quantity && i.deal && i.deal.buyQty >= 1 && i.deal.getQty >= 1) {
+              const group = i.deal.buyQty + i.deal.getQty;
+              const pos = q % group;
+              if (pos !== 0 && pos >= i.deal.buyQty) q += group - pos;
+            }
+            return { ...i, quantity: q };
+          })
         }));
       },
 

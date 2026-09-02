@@ -396,8 +396,8 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
         <div className="flex flex-wrap gap-2">
           {[
             { label: '1 Alana 1 Bedava', b: '1', g: '1', p: '100' },
-            { label: '2 Al 1 Öde', b: '2', g: '1', p: '100' },
-            { label: '1 Alana 2. %50', b: '1', g: '1', p: '50' },
+            { label: '2 Alana 1 Bedava', b: '2', g: '1', p: '100' },
+            { label: '2. Ürün %50', b: '1', g: '1', p: '50' },
             { label: 'Kaldır', b: '', g: '', p: '' }
           ].map((preset) => (
             <button
