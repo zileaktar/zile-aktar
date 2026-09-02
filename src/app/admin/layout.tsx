@@ -44,6 +44,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <Link href="/admin/afisler" className="text-primary hover:underline">
           Afişler
         </Link>
+        <span className="text-carbon/30">/</span>
+        <Link href="/admin/kuponlar" className="text-primary hover:underline">
+          Kuponlar
+        </Link>
         {profile.role === 'admin' && (
           <>
             <span className="text-carbon/30">/</span>

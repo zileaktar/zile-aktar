@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useCartStore } from '@/store/cart-store';
@@ -15,8 +15,57 @@ export function CheckoutForm({ prefill }: { prefill: CheckoutPrefill | null }) {
   const router = useRouter();
   const items = useCartStore((s) => s.items);
   const subtotal = items.reduce((sum, i) => sum + i.priceCents * i.quantity, 0);
-  const shipping = calculateShippingCents(subtotal);
-  const total = subtotal + shipping;
+  const baseShipping = calculateShippingCents(subtotal);
+
+  const [couponInput, setCouponInput] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState<{
+    code: string;
+    discountCents: number;
+    freeShipping: boolean;
+    message: string;
+  } | null>(null);
+  const [couponChecking, setCouponChecking] = useState(false);
+  const [couponError, setCouponError] = useState<string | null>(null);
+
+  // Sepet tutarı değişirse uygulanan kupon geçersiz olabilir — sıfırla, kullanıcı tekrar uygular.
+  useEffect(() => {
+    setAppliedCoupon(null);
+    setCouponError(null);
+  }, [subtotal]);
+
+  const discount = appliedCoupon?.discountCents ?? 0;
+  const shipping = appliedCoupon?.freeShipping ? 0 : baseShipping;
+  const total = subtotal - discount + shipping;
+
+  async function applyCoupon() {
+    const code = couponInput.trim();
+    if (!code || couponChecking) return;
+    setCouponChecking(true);
+    setCouponError(null);
+    try {
+      const res = await fetch('/api/coupon', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code, items: items.map((i) => ({ variantId: i.variantId, quantity: i.quantity })) })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.valid) {
+        setAppliedCoupon(null);
+        setCouponError(data.message ?? 'Kod uygulanamadı.');
+      } else {
+        setAppliedCoupon({
+          code: data.code,
+          discountCents: data.discountCents,
+          freeShipping: data.freeShipping,
+          message: data.message
+        });
+      }
+    } catch {
+      setCouponError('Kod kontrol edilemedi, tekrar deneyin.');
+    } finally {
+      setCouponChecking(false);
+    }
+  }
 
   const [form, setForm] = useState({
     fullName: prefill?.fullName ?? '',
@@ -58,6 +107,7 @@ export function CheckoutForm({ prefill }: { prefill: CheckoutPrefill | null }) {
       address: form,
       billingAddress: billingDifferent ? billing : null,
       paymentMethod,
+      couponCode: appliedCoupon?.code,
       acceptedDistanceSalesAgreement,
       acceptedKvkk
     };
@@ -264,11 +314,65 @@ export function CheckoutForm({ prefill }: { prefill: CheckoutPrefill | null }) {
                 </div>
               ))}
             </div>
+            <div className="border-t border-dashed border-primary/15 pt-3">
+              <label className="text-xs font-semibold text-carbon/60 mb-1.5 block">İndirim Kodu</label>
+              {appliedCoupon ? (
+                <div className="flex items-center justify-between gap-2 bg-primary/5 border border-primary/20 rounded-xl px-3 py-2 text-sm">
+                  <span className="font-semibold text-primary">
+                    {appliedCoupon.code}
+                    {appliedCoupon.freeShipping && <span className="ml-1 font-normal text-carbon/60">· ücretsiz kargo</span>}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAppliedCoupon(null);
+                      setCouponInput('');
+                    }}
+                    className="text-xs text-red-500 hover:underline shrink-0"
+                  >
+                    Kaldır
+                  </button>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={couponInput}
+                    onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        applyCoupon();
+                      }
+                    }}
+                    placeholder="Kodu girin"
+                    maxLength={40}
+                    className="chk-input flex-1 uppercase"
+                  />
+                  <button
+                    type="button"
+                    onClick={applyCoupon}
+                    disabled={couponChecking || !couponInput.trim()}
+                    className="shrink-0 bg-primary hover:bg-primary-dark disabled:opacity-50 text-white font-semibold text-sm px-4 rounded-xl transition"
+                  >
+                    {couponChecking ? '...' : 'Uygula'}
+                  </button>
+                </div>
+              )}
+              {couponError && <p className="text-[11px] text-red-500 mt-1">{couponError}</p>}
+            </div>
+
             <div className="border-t border-dashed border-primary/15 pt-3 space-y-2 text-sm">
               <div className="flex justify-between text-carbon/60">
                 <span>Ara Toplam</span>
                 <span>{formatPriceFromCents(subtotal)}</span>
               </div>
+              {discount > 0 && (
+                <div className="flex justify-between text-red-600 font-medium">
+                  <span>İndirim ({appliedCoupon?.code})</span>
+                  <span>-{formatPriceFromCents(discount)}</span>
+                </div>
+              )}
               <div className="flex justify-between text-carbon/60">
                 <span>Kargo</span>
                 <span>{shipping === 0 ? 'Bedava' : formatPriceFromCents(shipping)}</span>

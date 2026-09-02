@@ -15,7 +15,12 @@ const PG_ERROR_MESSAGES: Record<string, string> = {
   EMPTY_CART: 'Sepetiniz boş.',
   INVALID_QUANTITY: 'Geçersiz ürün adedi.',
   VARIANT_NOT_FOUND: 'Sepetinizdeki bir ürün artık mevcut değil.',
-  INSUFFICIENT_STOCK: 'Sepetinizdeki bir ürün için yeterli stok kalmadı.'
+  INSUFFICIENT_STOCK: 'Sepetinizdeki bir ürün için yeterli stok kalmadı.',
+  COUPON_INVALID: 'İndirim kodu geçersiz.',
+  COUPON_EXPIRED: 'İndirim kodunun süresi dolmuş.',
+  COUPON_EXHAUSTED: 'İndirim kodu kullanım limitine ulaşmış.',
+  COUPON_MIN_CART: 'Sepet tutarı bu indirim kodu için yeterli değil.',
+  COUPON_ALREADY_USED: 'Bu indirim kodunu daha önce kullandınız.'
 };
 
 function mapDatabaseError(message: string): { userMessage: string; status: number } {
@@ -43,7 +48,7 @@ export async function POST(request: Request) {
   if (!parsed.success) {
     return NextResponse.json({ error: 'Geçersiz sipariş bilgisi.', details: parsed.error.flatten() }, { status: 400 });
   }
-  const { items, address, billingAddress, paymentMethod } = parsed.data;
+  const { items, address, billingAddress, paymentMethod, couponCode } = parsed.data;
 
   const supabase = await createSupabaseServerClient();
   const {
@@ -65,7 +70,8 @@ export async function POST(request: Request) {
       p_contact_email: address.email,
       p_contact_phone: address.phone,
       p_payment_provider: paymentMethod === 'havale' ? 'havale' : 'iyzico',
-      p_user_id: user?.id ?? null
+      p_user_id: user?.id ?? null,
+      p_coupon_code: couponCode && couponCode.trim() ? couponCode.trim() : null
     })
     .single();
 

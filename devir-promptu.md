@@ -16,7 +16,7 @@ Sen, "Zile Aktar" adlı bir aktar/yöresel ürünler e-ticaret sitesi üzerinde 
 
 ## 2. Teknoloji Yığını
 
-Next.js 14 (App Router, TS strict) + Supabase (Postgres/Auth/Storage/RLS) + iyzico (3D Secure ödeme, SANDBOX) + Cloudflare Turnstile (CAPTCHA) + Sentry (hata izleme) + Upstash Redis (rate limiting) + Brevo (transactional e-posta) + Vercel. **Migration 0001–0017.**
+Next.js 14 (App Router, TS strict) + Supabase (Postgres/Auth/Storage/RLS) + iyzico (3D Secure ödeme, SANDBOX) + Cloudflare Turnstile (CAPTCHA) + Sentry (hata izleme) + Upstash Redis (rate limiting) + Brevo (transactional e-posta) + Vercel. **Migration 0001–0018.**
 
 Supabase proje referansı: `gabdklnlojfbdaxtgmtg`.
 
@@ -89,6 +89,8 @@ Supabase proje referansı: `gabdklnlojfbdaxtgmtg`.
 - **İndirim (migration 0016):** `product_variants.compare_at_price_cents` = indirimsiz/eski fiyat (NULL = indirim yok). Ödeme hesabı sadece `price_cents` kullanır. Admin ürün formunda varyant başına "İndirimsiz fiyat" kutusu; ürün kart/detayında üstü çizili eski fiyat + "%X İNDİRİM" rozeti.
 - **Gramaj seçimi:** ürün kart + detayında `<select>` yerine ekranda tıklanabilir varyant butonları (kart: tek varyantsa gizli). Varyant verisini (500g/1kg/2kg + fiyat) mağaza sahibi admin panelinden girer.
 - **Kampanya afişleri (migration 0017):** `campaign_banners` tablosu (RLS: aktifleri herkes, hepsini staff). Anasayfada hero'nun YERİNE `CampaignCarousel.tsx` (kaydırmalı, ok+nokta, 6sn otomatik); afiş yoksa sade tanıtım başlığı. Yönetim: `/admin/afisler` (`BannerManager.tsx` + `afisler/actions.ts`). Görseller `product-images` bucket'ında `banners/` klasörü (`presignedUploadRequestSchema` folder enum'a `banners` eklendi). Görselleri mağaza sahibi yükler.
+- **İndirim kodu / kupon (migration 0018):** `coupons` tablosu (RLS: SADECE staff okur — indirim oranı/limit müşteriye kapalı). Türler: `percent` / `fixed` (kuruş) / `free_shipping`. Alanlar: `min_cart_cents`, `max_uses` + `used_count`, `per_user_once`, `expires_at`, `is_active`. **Doğrulama + hesap TAMAMEN `create_order` içinde** (yeni `p_coupon_code` parametresi; dönüşe `discount_cents` eklendi — dönüş tipi değiştiği için fonksiyon önce DROP edildi). `mark_order_failed` sipariş iptalinde `used_count`'u geri düşürür (stok gibi). Ödeme sayfası önizlemesi için SALT-OKUNUR `preview_coupon(code, subtotal, user_id, email)` SQL fonksiyonu (hata fırlatmaz, veri döner) → `/api/coupon` ucu (ara toplamı DB fiyatlarından hesaplar). `CheckoutForm` sipariş özetinde kod kutusu + indirim satırı. `orders.coupon_code` + `orders.discount_cents` sütunları; admin sipariş detayı + sipariş e-postası indirim satırını gösterir. Yönetim: `/admin/kuponlar` (`CouponManager.tsx` + `kuponlar/actions.ts`). iyzico'da `price`=ara toplam (basketItems toplamı), `paidPrice`=indirimli toplam — iyzico bu farkı "satıcı indirimi" olarak kabul eder, kod değişmedi.
+- **Bekleyen:** "X alana Y bedava/indirimli" (BOGO) ürün kampanyası — kullanıcı istedi, HENÜZ YAPILMADI. `create_order`'da miktar bazlı hesap gerekir; kupon sisteminden ayrı bir sonraki iş.
 
 ## 5. Kullanıcı tarafı — YAYINI ENGELLEYEN işler (kod değil)
 

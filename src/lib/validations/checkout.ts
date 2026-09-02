@@ -40,6 +40,8 @@ export const checkoutRequestSchema = z
     items: z.array(checkoutItemSchema).min(1, 'Sepetiniz boş.'),
     address: checkoutAddressSchema,
     billingAddress: billingAddressSchema.nullish(),
+    // İndirim kodu (opsiyonel) — gerçek doğrulama/hesap create_order RPC'sinde.
+    couponCode: z.string().trim().max(40).optional(),
     // Ödeme yöntemleri: kredi/banka kartı (iyzico 3D Secure) veya havale/EFT
     // (banka hesabına ödeme, dekont sonrası admin onayı). Kapıda ödeme yok.
     paymentMethod: z.enum(['card', 'havale']),

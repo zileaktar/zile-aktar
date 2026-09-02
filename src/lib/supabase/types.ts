@@ -218,18 +218,30 @@ export interface Database {
           shipping_carrier: string | null;
           tracking_number: string | null;
           shipped_at: string | null;
+          coupon_code: string | null;
+          discount_cents: number;
           created_at: string;
           updated_at: string;
         };
         Insert: Omit<
           Database['public']['Tables']['orders']['Row'],
-          'id' | 'created_at' | 'updated_at' | 'billing_address' | 'shipping_carrier' | 'tracking_number' | 'shipped_at'
+          | 'id'
+          | 'created_at'
+          | 'updated_at'
+          | 'billing_address'
+          | 'shipping_carrier'
+          | 'tracking_number'
+          | 'shipped_at'
+          | 'coupon_code'
+          | 'discount_cents'
         > & {
           id?: string;
           billing_address?: Database['public']['Tables']['orders']['Row']['billing_address'];
           shipping_carrier?: string | null;
           tracking_number?: string | null;
           shipped_at?: string | null;
+          coupon_code?: string | null;
+          discount_cents?: number;
         };
         Update: Partial<Database['public']['Tables']['orders']['Row']>;
         Relationships: [
@@ -363,6 +375,36 @@ export interface Database {
           }
         ];
       };
+      coupons: {
+        Row: {
+          id: string;
+          code: string;
+          type: 'percent' | 'fixed' | 'free_shipping';
+          value: number;
+          min_cart_cents: number;
+          max_uses: number | null;
+          used_count: number;
+          per_user_once: boolean;
+          expires_at: string | null;
+          is_active: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Omit<
+          Database['public']['Tables']['coupons']['Row'],
+          'id' | 'created_at' | 'updated_at' | 'used_count' | 'min_cart_cents' | 'max_uses' | 'per_user_once' | 'expires_at' | 'is_active'
+        > & {
+          id?: string;
+          used_count?: number;
+          min_cart_cents?: number;
+          max_uses?: number | null;
+          per_user_once?: boolean;
+          expires_at?: string | null;
+          is_active?: boolean;
+        };
+        Update: Partial<Database['public']['Tables']['coupons']['Row']>;
+        Relationships: [];
+      };
       campaign_banners: {
         Row: {
           id: string;
@@ -416,13 +458,31 @@ export interface Database {
           p_contact_phone: string;
           p_payment_provider: string;
           p_user_id: string | null;
+          p_coupon_code?: string | null;
         };
         Returns: {
           order_id: string;
           order_number: string;
           subtotal_cents: number;
           shipping_cents: number;
+          discount_cents: number;
           total_cents: number;
+        }[];
+      };
+      preview_coupon: {
+        Args: {
+          p_code: string;
+          p_subtotal_cents: number;
+          p_user_id?: string | null;
+          p_email?: string | null;
+        };
+        Returns: {
+          valid: boolean;
+          message: string;
+          discount_cents: number;
+          free_shipping: boolean;
+          shipping_cents: number;
+          final_total_cents: number;
         }[];
       };
       mark_order_paid: { Args: { p_order_id: string; p_payment_ref: string }; Returns: undefined };
@@ -441,6 +501,7 @@ export interface Database {
 export type ProductRow = Database['public']['Tables']['products']['Row'];
 export type ProductVariantRow = Database['public']['Tables']['product_variants']['Row'];
 export type CampaignBannerRow = Database['public']['Tables']['campaign_banners']['Row'];
+export type CouponRow = Database['public']['Tables']['coupons']['Row'];
 export type OrderRow = Database['public']['Tables']['orders']['Row'];
 export type ProfileRow = Database['public']['Tables']['profiles']['Row'];
 export type ReviewRow = Database['public']['Tables']['reviews']['Row'];
