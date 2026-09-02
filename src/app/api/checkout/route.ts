@@ -136,6 +136,16 @@ export async function POST(request: Request) {
     });
   }
 
+  // iyzico sıfır (veya negatif) tutarlı bir ödeme başlatamaz — indirimler tutarı
+  // 0'a indirdiyse kart akışı çalışmaz. Sipariş iptal edilir, müşteriye havale önerilir.
+  if (totalCents <= 0) {
+    await serviceClient.rpc('mark_order_failed', { p_order_id: orderId });
+    return NextResponse.json(
+      { error: 'İndirimler sonrası ödenecek tutar sıfır olduğu için kart ödemesi yapılamıyor. Lütfen Havale/EFT seçin.' },
+      { status: 409 }
+    );
+  }
+
   // Kredi/banka kartı: iyzico'nun barındırdığı 3D Secure formunu başlat.
   // Kart verisi hiçbir zaman bizim sunucumuza uğramaz.
   // iyzico, basketItems fiyat toplamının `price` alanına eşit olmasını zorunlu kılar;

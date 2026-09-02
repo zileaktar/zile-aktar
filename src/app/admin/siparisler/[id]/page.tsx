@@ -76,7 +76,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
   const { data: order } = await supabase
     .from('orders')
     .select(
-      'id, order_number, status, subtotal_cents, shipping_cents, discount_cents, coupon_code, total_cents, currency, shipping_address, billing_address, contact_email, contact_phone, payment_provider, payment_ref, shipping_carrier, tracking_number, shipped_at, created_at, updated_at, order_items(id, product_name_snapshot, variant_label_snapshot, unit_price_cents, quantity)'
+      'id, order_number, status, subtotal_cents, shipping_cents, deal_discount_cents, discount_cents, coupon_code, total_cents, currency, shipping_address, billing_address, contact_email, contact_phone, payment_provider, payment_ref, shipping_carrier, tracking_number, shipped_at, created_at, updated_at, order_items(id, product_name_snapshot, variant_label_snapshot, unit_price_cents, quantity)'
     )
     .eq('id', id)
     .single();
@@ -167,6 +167,12 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
             <span>Ara Toplam</span>
             <span>{formatPriceFromCents(order.subtotal_cents)}</span>
           </div>
+          {order.deal_discount_cents > 0 && (
+            <div className="flex justify-between text-primary">
+              <span>Kampanya indirimi</span>
+              <span>-{formatPriceFromCents(order.deal_discount_cents)}</span>
+            </div>
+          )}
           {order.discount_cents > 0 && (
             <div className="flex justify-between text-red-600">
               <span>İndirim{order.coupon_code ? ` (${order.coupon_code})` : ''}</span>

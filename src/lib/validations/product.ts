@@ -71,7 +71,17 @@ export const productInputSchema = z.object({
   storageInfo: z.string().trim().max(400).optional().default(''),
   allergenInfo: z.string().trim().max(300).optional().default(''),
   shelfLifeNote: z.string().trim().max(200).optional().default(''),
+  // "X alana Y indirimli" kampanyası (migration 0019) — hepsi birlikte null ya da birlikte dolu.
+  dealBuyQty: z.number().int().min(1).max(20).nullable().optional().default(null),
+  dealGetQty: z.number().int().min(1).max(20).nullable().optional().default(null),
+  dealGetPercent: z.number().int().min(1).max(100).nullable().optional().default(null),
   variants: z.array(productVariantInputSchema).min(1, 'En az bir varyant eklenmeli.')
+}).superRefine((d, ctx) => {
+  const set = [d.dealBuyQty, d.dealGetQty, d.dealGetPercent];
+  const filled = set.filter((v) => v != null).length;
+  if (filled !== 0 && filled !== 3) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['dealBuyQty'], message: 'Kampanya için "al", "öde/hediye" ve "indirim %" alanlarının üçü de dolu olmalı.' });
+  }
 });
 
 export type ProductInput = z.infer<typeof productInputSchema>;

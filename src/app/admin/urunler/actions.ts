@@ -37,7 +37,10 @@ function productColumns(input: ProductInput) {
     origin: input.origin || null,
     storage_info: input.storageInfo || 'Serin, kuru ve güneş görmeyen yerde, ağzı kapalı saklayınız.',
     allergen_info: input.allergenInfo || null,
-    shelf_life_note: input.shelfLifeNote || null
+    shelf_life_note: input.shelfLifeNote || null,
+    deal_buy_qty: input.dealBuyQty ?? null,
+    deal_get_qty: input.dealGetQty ?? null,
+    deal_get_percent: input.dealGetPercent ?? null
   };
 }
 
@@ -69,6 +72,10 @@ function parseProductFormData(formData: FormData) {
   }
 
   const formValue = String(formData.get('form') ?? '').trim();
+  const toIntOrNull = (v: FormDataEntryValue | null) => {
+    const n = Number.parseInt(String(v ?? '').trim(), 10);
+    return Number.isFinite(n) ? n : null;
+  };
 
   return productInputSchema.safeParse({
     categoryId: formData.get('categoryId'),
@@ -83,6 +90,9 @@ function parseProductFormData(formData: FormData) {
     storageInfo: formData.get('storageInfo') ?? '',
     allergenInfo: formData.get('allergenInfo') ?? '',
     shelfLifeNote: formData.get('shelfLifeNote') ?? '',
+    dealBuyQty: toIntOrNull(formData.get('dealBuyQty')),
+    dealGetQty: toIntOrNull(formData.get('dealGetQty')),
+    dealGetPercent: toIntOrNull(formData.get('dealGetPercent')),
     variants
   });
 }

@@ -53,6 +53,9 @@ interface ProductFormProps {
     storageInfo: string;
     allergenInfo: string;
     shelfLifeNote: string;
+    dealBuyQty: number | null;
+    dealGetQty: number | null;
+    dealGetPercent: number | null;
     variants: VariantRow[];
   };
 }
@@ -118,6 +121,9 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
   const [storageInfo, setStorageInfo] = useState(initialProduct?.storageInfo ?? '');
   const [allergenInfo, setAllergenInfo] = useState(initialProduct?.allergenInfo ?? '');
   const [shelfLifeNote, setShelfLifeNote] = useState(initialProduct?.shelfLifeNote ?? '');
+  const [dealBuyQty, setDealBuyQty] = useState(initialProduct?.dealBuyQty != null ? String(initialProduct.dealBuyQty) : '');
+  const [dealGetQty, setDealGetQty] = useState(initialProduct?.dealGetQty != null ? String(initialProduct.dealGetQty) : '');
+  const [dealGetPercent, setDealGetPercent] = useState(initialProduct?.dealGetPercent != null ? String(initialProduct.dealGetPercent) : '');
   const [variants, setVariants] = useState<VariantRow[]>(initialProduct?.variants ?? [{ ...EMPTY_VARIANT }]);
 
   const [imagePath, setImagePath] = useState(initialProduct?.imagePath ?? '');
@@ -379,6 +385,77 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
             />
           </div>
         </div>
+      </div>
+
+      <div className="bg-white rounded-2xl p-5 shadow-sm space-y-4">
+        <h2 className="font-display font-bold text-primary">Kampanya (&quot;X alana Y&quot;)</h2>
+        <p className="text-xs text-carbon/50">
+          Opsiyonel. Aynı gramajdan yeterince alındığında bir kısmı indirimli/bedava olur. Boş bırakırsanız kampanya yoktur.
+        </p>
+
+        <div className="flex flex-wrap gap-2">
+          {[
+            { label: '1 Alana 1 Bedava', b: '1', g: '1', p: '100' },
+            { label: '2 Al 1 Öde', b: '2', g: '1', p: '100' },
+            { label: '1 Alana 2. %50', b: '1', g: '1', p: '50' },
+            { label: 'Kaldır', b: '', g: '', p: '' }
+          ].map((preset) => (
+            <button
+              key={preset.label}
+              type="button"
+              onClick={() => {
+                setDealBuyQty(preset.b);
+                setDealGetQty(preset.g);
+                setDealGetPercent(preset.p);
+              }}
+              className="text-xs font-semibold px-3 py-1.5 rounded-full border border-primary/20 text-primary hover:bg-primary/5"
+            >
+              {preset.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-3 gap-3">
+          <div>
+            <label className="text-xs font-semibold text-carbon/60 mb-1 block">Kaç adet alınca</label>
+            <input
+              name="dealBuyQty"
+              inputMode="numeric"
+              value={dealBuyQty}
+              onChange={(e) => setDealBuyQty(e.target.value.replace(/\D/g, ''))}
+              placeholder="—"
+              className="w-full bg-cream border border-primary/15 rounded-xl px-3 py-2 text-sm"
+            />
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-carbon/60 mb-1 block">Kaç adet indirimli</label>
+            <input
+              name="dealGetQty"
+              inputMode="numeric"
+              value={dealGetQty}
+              onChange={(e) => setDealGetQty(e.target.value.replace(/\D/g, ''))}
+              placeholder="—"
+              className="w-full bg-cream border border-primary/15 rounded-xl px-3 py-2 text-sm"
+            />
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-carbon/60 mb-1 block">İndirim % (100 = bedava)</label>
+            <input
+              name="dealGetPercent"
+              inputMode="numeric"
+              value={dealGetPercent}
+              onChange={(e) => setDealGetPercent(e.target.value.replace(/\D/g, '').slice(0, 3))}
+              placeholder="—"
+              className="w-full bg-cream border border-primary/15 rounded-xl px-3 py-2 text-sm"
+            />
+          </div>
+        </div>
+        {dealBuyQty && dealGetQty && dealGetPercent && (
+          <p className="text-xs text-primary">
+            {dealBuyQty} adet alana {dealGetQty} adet %{dealGetPercent} indirimli — yani her {Number(dealBuyQty) + Number(dealGetQty)} adette {dealGetQty} adet {dealGetPercent === '100' ? 'bedava' : `%${dealGetPercent} indirimli`}.
+          </p>
+        )}
+        {state.fieldErrors?.dealBuyQty && <p className="text-xs text-red-600">{state.fieldErrors.dealBuyQty}</p>}
       </div>
 
       <div className="bg-white rounded-2xl p-5 shadow-sm space-y-4">

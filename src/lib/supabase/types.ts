@@ -89,6 +89,9 @@ export interface Database {
           storage_info: string;
           allergen_info: string | null;
           shelf_life_note: string | null;
+          deal_buy_qty: number | null;
+          deal_get_qty: number | null;
+          deal_get_percent: number | null;
           created_at: string;
           updated_at: string;
           /** GENERATED ALWAYS AS ... STORED — salt okunur, asla INSERT/UPDATE ile yazılmaz. */
@@ -96,7 +99,19 @@ export interface Database {
         };
         Insert: Omit<
           Database['public']['Tables']['products']['Row'],
-          'id' | 'created_at' | 'updated_at' | 'search_vector' | 'is_active' | 'form' | 'origin' | 'storage_info' | 'allergen_info' | 'shelf_life_note'
+          | 'id'
+          | 'created_at'
+          | 'updated_at'
+          | 'search_vector'
+          | 'is_active'
+          | 'form'
+          | 'origin'
+          | 'storage_info'
+          | 'allergen_info'
+          | 'shelf_life_note'
+          | 'deal_buy_qty'
+          | 'deal_get_qty'
+          | 'deal_get_percent'
         > & {
           id?: string;
           is_active?: boolean;
@@ -105,6 +120,9 @@ export interface Database {
           storage_info?: string;
           allergen_info?: string | null;
           shelf_life_note?: string | null;
+          deal_buy_qty?: number | null;
+          deal_get_qty?: number | null;
+          deal_get_percent?: number | null;
         };
         Update: Partial<Database['public']['Tables']['products']['Row']>;
         Relationships: [
@@ -220,6 +238,7 @@ export interface Database {
           shipped_at: string | null;
           coupon_code: string | null;
           discount_cents: number;
+          deal_discount_cents: number;
           created_at: string;
           updated_at: string;
         };
@@ -234,6 +253,7 @@ export interface Database {
           | 'shipped_at'
           | 'coupon_code'
           | 'discount_cents'
+          | 'deal_discount_cents'
         > & {
           id?: string;
           billing_address?: Database['public']['Tables']['orders']['Row']['billing_address'];
@@ -242,6 +262,7 @@ export interface Database {
           shipped_at?: string | null;
           coupon_code?: string | null;
           discount_cents?: number;
+          deal_discount_cents?: number;
         };
         Update: Partial<Database['public']['Tables']['orders']['Row']>;
         Relationships: [
@@ -465,6 +486,7 @@ export interface Database {
           order_number: string;
           subtotal_cents: number;
           shipping_cents: number;
+          deal_discount_cents: number;
           discount_cents: number;
           total_cents: number;
         }[];

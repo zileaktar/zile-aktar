@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useCartStore } from '@/store/cart-store';
 import { formatPriceFromCents } from '@/lib/format';
-import { FREE_SHIPPING_THRESHOLD_CENTS, calculateShippingCents } from '@/lib/pricing';
+import { FREE_SHIPPING_THRESHOLD_CENTS, calculateShippingCents, lineDealDiscountCents } from '@/lib/pricing';
 import { checkoutRequestSchema } from '@/lib/validations/checkout';
 import { isValidTcKimlikNo } from '@/lib/tc-kimlik-no';
 import { HealthDisclaimer } from '@/components/product/HealthDisclaimer';
@@ -15,6 +15,7 @@ export function CheckoutForm({ prefill }: { prefill: CheckoutPrefill | null }) {
   const router = useRouter();
   const items = useCartStore((s) => s.items);
   const subtotal = items.reduce((sum, i) => sum + i.priceCents * i.quantity, 0);
+  const dealDiscount = items.reduce((sum, i) => sum + lineDealDiscountCents(i.priceCents, i.quantity, i.deal), 0);
   const baseShipping = calculateShippingCents(subtotal);
 
   const [couponInput, setCouponInput] = useState('');
@@ -33,9 +34,11 @@ export function CheckoutForm({ prefill }: { prefill: CheckoutPrefill | null }) {
     setCouponError(null);
   }, [subtotal]);
 
-  const discount = appliedCoupon?.discountCents ?? 0;
+  const rawCouponDiscount = appliedCoupon?.discountCents ?? 0;
+  // Sunucu (create_order) ile aynı sınır: kampanya + kupon toplamı ara toplamı geçemez.
+  const discount = Math.min(rawCouponDiscount, Math.max(0, subtotal - dealDiscount));
   const shipping = appliedCoupon?.freeShipping ? 0 : baseShipping;
-  const total = subtotal - discount + shipping;
+  const total = subtotal - dealDiscount - discount + shipping;
 
   async function applyCoupon() {
     const code = couponInput.trim();
@@ -367,6 +370,12 @@ export function CheckoutForm({ prefill }: { prefill: CheckoutPrefill | null }) {
                 <span>Ara Toplam</span>
                 <span>{formatPriceFromCents(subtotal)}</span>
               </div>
+              {dealDiscount > 0 && (
+                <div className="flex justify-between text-primary font-medium">
+                  <span>Kampanya indirimi</span>
+                  <span>-{formatPriceFromCents(dealDiscount)}</span>
+                </div>
+              )}
               {discount > 0 && (
                 <div className="flex justify-between text-red-600 font-medium">
                   <span>İndirim ({appliedCoupon?.code})</span>

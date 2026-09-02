@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { formatPriceFromCents } from '@/lib/format';
 import { getProductImageUrl } from '@/lib/media';
+import { dealBadgeText, dealFromRow } from '@/lib/pricing';
 import { useCartStore } from '@/store/cart-store';
 import { useUiStore } from '@/store/ui-store';
 import type { ProductWithVariants } from '@/lib/data/products';
@@ -27,6 +28,7 @@ export function ProductDetailClient({ product }: { product: ProductWithVariants 
   const compareAt = selectedVariant.compare_at_price_cents;
   const hasDiscount = compareAt != null && compareAt > selectedVariant.price_cents;
   const discountPct = hasDiscount ? Math.round((1 - selectedVariant.price_cents / compareAt) * 100) : 0;
+  const deal = dealFromRow(product);
   // bkz. ProductCard.tsx — "Sınırlı Stok" artık canlı stok sayısından
   // hesaplanır, sabit/elle atanan etiket olarak saklanmaz.
   const displayBadges = product.badges.filter((b) => b !== 'Sınırlı Stok');
@@ -40,7 +42,8 @@ export function ProductDetailClient({ product }: { product: ProductWithVariants 
       productName: product.name,
       variantLabel: selectedVariant.label,
       priceCents: selectedVariant.price_cents,
-      imageUrl: getProductImageUrl(product.image_path)
+      imageUrl: getProductImageUrl(product.image_path),
+      deal
     });
     openCart();
   }
@@ -55,6 +58,7 @@ export function ProductDetailClient({ product }: { product: ProductWithVariants 
         ))}
         {isLowStock && <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-red-500 text-white">Sınırlı Stok</span>}
         {hasDiscount && <span className="text-[11px] font-extrabold px-2.5 py-1 rounded-full bg-red-600 text-white">%{discountPct} İNDİRİM</span>}
+        {deal && <span className="text-[11px] font-extrabold px-2.5 py-1 rounded-full bg-primary text-white">{dealBadgeText(deal)}</span>}
       </div>
       <div className="text-xs font-semibold text-accent-dark uppercase tracking-wide mb-1">{product.categories.name}</div>
       <h1 className="font-display font-bold text-2xl sm:text-3xl text-primary mb-6">{product.name}</h1>
@@ -121,6 +125,12 @@ export function ProductDetailClient({ product }: { product: ProductWithVariants 
           <span className="text-xs font-bold text-red-600">%{discountPct} indirim</span>
         )}
       </div>
+
+      {deal && (
+        <p className="text-xs font-medium text-primary bg-primary/5 border border-primary/15 rounded-xl px-3 py-2 mb-4">
+          🎁 {deal.buyQty} adet alana {deal.getQty} adet {deal.getPercent === 100 ? 'bedava' : `%${deal.getPercent} indirimli`} — sepette otomatik uygulanır.
+        </p>
+      )}
 
       <button
         onClick={handleAdd}

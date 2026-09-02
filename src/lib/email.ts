@@ -38,6 +38,7 @@ interface OrderRow {
   contact_phone: string;
   subtotal_cents: number;
   shipping_cents: number;
+  deal_discount_cents: number;
   discount_cents: number;
   coupon_code: string | null;
   total_cents: number;
@@ -73,7 +74,7 @@ export async function sendOrderPlacedEmail(orderId: string): Promise<void> {
   const { data } = await supabase
     .from('orders')
     .select(
-      'order_number, contact_email, contact_phone, subtotal_cents, shipping_cents, discount_cents, coupon_code, total_cents, payment_provider, shipping_address, order_items(product_name_snapshot, variant_label_snapshot, unit_price_cents, quantity)'
+      'order_number, contact_email, contact_phone, subtotal_cents, shipping_cents, deal_discount_cents, discount_cents, coupon_code, total_cents, payment_provider, shipping_address, order_items(product_name_snapshot, variant_label_snapshot, unit_price_cents, quantity)'
     )
     .eq('id', orderId)
     .single();
@@ -103,6 +104,10 @@ export async function sendOrderPlacedEmail(orderId: string): Promise<void> {
     }
   }
 
+  const dealRow =
+    order.deal_discount_cents > 0
+      ? `<tr><td style="color:#1b4332;padding:3px 0">Kampanya indirimi</td><td style="text-align:right;color:#1b4332">-${formatPriceFromCents(order.deal_discount_cents)}</td></tr>`
+      : '';
   const discountRow =
     order.discount_cents > 0
       ? `<tr><td style="color:#c0392b;padding:3px 0">İndirim${order.coupon_code ? ` (${escapeHtml(order.coupon_code)})` : ''}</td><td style="text-align:right;color:#c0392b">-${formatPriceFromCents(order.discount_cents)}</td></tr>`
@@ -111,6 +116,7 @@ export async function sendOrderPlacedEmail(orderId: string): Promise<void> {
   const totalsBlock = `
     <table style="width:100%;border-collapse:collapse;font-size:14px;margin-top:8px;border-top:1px dashed #ccc;padding-top:8px">
       <tr><td style="color:#666;padding:3px 0">Ara Toplam</td><td style="text-align:right">${formatPriceFromCents(order.subtotal_cents)}</td></tr>
+      ${dealRow}
       ${discountRow}
       <tr><td style="color:#666;padding:3px 0">Kargo</td><td style="text-align:right">${order.shipping_cents === 0 ? 'Bedava' : formatPriceFromCents(order.shipping_cents)}</td></tr>
       <tr><td style="font-weight:bold;padding-top:6px">Genel Toplam</td><td style="text-align:right;font-weight:bold;padding-top:6px">${formatPriceFromCents(order.total_cents)}</td></tr>

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { getProductImageUrl } from '@/lib/media';
 import { formatPriceFromCents } from '@/lib/format';
+import { dealBadgeText, dealFromRow } from '@/lib/pricing';
 import { useCartStore } from '@/store/cart-store';
 import type { ProductWithVariants } from '@/lib/data/products';
 
@@ -29,6 +30,7 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
   const compareAt = selectedVariant.compare_at_price_cents;
   const hasDiscount = compareAt != null && compareAt > selectedVariant.price_cents;
   const discountPct = hasDiscount ? Math.round((1 - selectedVariant.price_cents / compareAt) * 100) : 0;
+  const deal = dealFromRow(product);
   // "Sınırlı Stok" artık sabit/elle atanan bir etiket DEĞİL — aşağıda gerçek
   // stok sayısından her render'da yeniden hesaplanır (isLowStock). Veritabanında
   // henüz düzenlenmemiş eski ürünlerde bu etiket hâlâ kayıtlı olabileceğinden,
@@ -44,7 +46,8 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
       productName: product.name,
       variantLabel: selectedVariant.label,
       priceCents: selectedVariant.price_cents,
-      imageUrl
+      imageUrl,
+      deal
     });
     setJustAdded(true);
     setTimeout(() => setJustAdded(false), 1200);
@@ -61,6 +64,9 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
           className="object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute top-2 left-2 flex flex-col gap-1">
+          {deal && (
+            <span className="text-[10.5px] font-extrabold px-2 py-1 rounded-full bg-primary text-white">{dealBadgeText(deal)}</span>
+          )}
           {hasDiscount && (
             <span className="text-[10.5px] font-extrabold px-2 py-1 rounded-full bg-red-600 text-white">%{discountPct} İNDİRİM</span>
           )}

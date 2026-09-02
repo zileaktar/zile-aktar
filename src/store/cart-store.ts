@@ -14,6 +14,9 @@ export interface CartItem {
   priceCents: number;
   imageUrl: string;
   quantity: number;
+  /** "X alana Y" kampanyası (migration 0019) — yalnızca sepet/ödeme önizlemesi için.
+   *  Gerçek indirim create_order'da DB'den yeniden hesaplanır. */
+  deal?: { buyQty: number; getQty: number; getPercent: number } | null;
 }
 
 interface CartState {
