@@ -50,7 +50,7 @@ Canlı adres: `https://zile-aktar.vercel.app` (henüz özel domain yok)
 
 - [ ] **Gerçek ürün fotoğrafları** — 198 ürünün hepsi placeholder SVG. Mağaza sahibi `/admin/urunler` → ürün düzenle → görsel yükle ile ekler. (Claude görsel üretemez / aramaz.)
 - [ ] **Ürün açıklamaları** — sadece 11 baharatın zengin açıklaması var (migration 0009 + 0012'de korundu). Kalan ~187 ürün açıklamasız. İstenirse aynı formatta yazılabilir.
-- [ ] **Sipariş onay / kargo bilgisi e-postası** — şu an uygulama sipariş e-postası GÖNDERMİYOR (sadece "gönderilecektir" yazısı var). Brevo transactional API veya Supabase Edge Function ile eklenebilir. Müşteri güveni için önemli.
+- [~] **Sipariş onay e-postası** — ✅ kod hazır (`src/lib/email.ts`, Brevo API). Kart ödemesi onaylanınca + havale siparişi oluşunca müşteriye onay + `ORDER_NOTIFY_EMAIL`'e yeni sipariş bildirimi gider. Kalan: `.env.local` + Vercel'e `BREVO_API_KEY` (Brevo → SMTP & API → API Keys) ve `ORDER_NOTIFY_EMAIL` girilmeli. Kargo takip no e-postası ise HENÜZ YOK (admin sipariş durumunu 'shipped' yapınca gönderilmesi eklenebilir).
 - [ ] Ana sayfa hero görseli hâlâ Unsplash'tan — telif açısından değiştirilebilir.
 - [ ] `Organization` / `Store` Schema.org yapısal verisi (SEO) — telefon/adres artık var, eklenebilir.
 

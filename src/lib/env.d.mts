@@ -16,6 +16,8 @@ export declare const env: {
   readonly SENTRY_AUTH_TOKEN: string | undefined;
   readonly CRON_SECRET: string;
   readonly KVKK_DATA_EXPORT_FROM_EMAIL: string;
+  readonly BREVO_API_KEY: string | undefined;
+  readonly ORDER_NOTIFY_EMAIL: string | undefined;
   readonly NEXT_PUBLIC_APP_URL: string;
   readonly NEXT_PUBLIC_SUPABASE_URL: string;
   readonly NEXT_PUBLIC_SUPABASE_ANON_KEY: string;

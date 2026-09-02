@@ -2,6 +2,7 @@ import 'server-only';
 import * as Sentry from '@sentry/nextjs';
 import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { retrieveCheckoutFormResult } from '@/lib/iyzico';
+import { sendOrderPlacedEmail } from '@/lib/email';
 
 export type ConfirmPaymentResult =
   | { status: 'paid'; orderId: string; orderNumber: string }
@@ -55,7 +56,7 @@ export async function confirmCheckoutPayment(token: string): Promise<ConfirmPaym
 
   const { data: order } = await serviceClient
     .from('orders')
-    .select('order_number, total_cents')
+    .select('order_number, total_cents, status')
     .eq('id', orderId)
     .single();
 
@@ -69,6 +70,11 @@ export async function confirmCheckoutPayment(token: string): Promise<ConfirmPaym
     return { status: 'failed', orderId, reason: 'amount_mismatch' };
   }
 
+  // Zaten paid ise (callback + webhook ikisi de çalıştı) — tekrar e-posta gönderme.
+  const alreadyPaid = order.status === 'paid';
   await serviceClient.rpc('mark_order_paid', { p_order_id: orderId, p_payment_ref: String(result.paymentId ?? token) });
+  if (!alreadyPaid) {
+    await sendOrderPlacedEmail(orderId);
+  }
   return { status: 'paid', orderId, orderNumber: order.order_number };
 }

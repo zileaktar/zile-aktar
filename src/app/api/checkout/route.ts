@@ -5,6 +5,7 @@ import { checkoutRequestSchema } from '@/lib/validations/checkout';
 import { checkoutRateLimit, getClientIp, safeRateLimit } from '@/lib/rate-limit';
 import { checkTrustedOrigin } from '@/lib/csrf';
 import { initializeCheckoutForm } from '@/lib/iyzico';
+import { sendOrderPlacedEmail } from '@/lib/email';
 import { isValidTcKimlikNo } from '@/lib/tc-kimlik-no';
 import { env } from '@/lib/env.mjs';
 
@@ -122,6 +123,7 @@ export async function POST(request: Request) {
   // ekibi dekontu görünce admin panelinden durumu 'paid' yapar. Bu ana kadar
   // stok rezerve edilmiş sayılır (create_order stoğu düştü).
   if (paymentMethod === 'havale') {
+    await sendOrderPlacedEmail(orderId);
     return NextResponse.json({
       orderNumber,
       redirectUrl: `/siparis-alindi?order=${orderNumber}&odeme=havale`

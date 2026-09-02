@@ -26,7 +26,12 @@ export const env = createEnv({
     SENTRY_AUTH_TOKEN: z.string().optional(),
 
     CRON_SECRET: z.string().min(16, 'CRON_SECRET en az 16 karakter olmalı'),
-    KVKK_DATA_EXPORT_FROM_EMAIL: z.string().email()
+    KVKK_DATA_EXPORT_FROM_EMAIL: z.string().email(),
+
+    // Brevo transactional e-posta (sipariş onayı). Yoksa e-posta sessizce atlanır
+    // (sipariş akışı bozulmaz) — Sentry DSN gibi opsiyonel.
+    BREVO_API_KEY: z.string().optional(),
+    ORDER_NOTIFY_EMAIL: z.string().email().optional()
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().url(),
@@ -54,6 +59,8 @@ export const env = createEnv({
     SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN,
     CRON_SECRET: process.env.CRON_SECRET,
     KVKK_DATA_EXPORT_FROM_EMAIL: process.env.KVKK_DATA_EXPORT_FROM_EMAIL,
+    BREVO_API_KEY: process.env.BREVO_API_KEY,
+    ORDER_NOTIFY_EMAIL: process.env.ORDER_NOTIFY_EMAIL,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
