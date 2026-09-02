@@ -210,12 +210,21 @@ export interface Database {
           payment_ref: string | null;
           contact_email: string;
           contact_phone: string;
+          shipping_carrier: string | null;
+          tracking_number: string | null;
+          shipped_at: string | null;
           created_at: string;
           updated_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['orders']['Row'], 'id' | 'created_at' | 'updated_at' | 'billing_address'> & {
+        Insert: Omit<
+          Database['public']['Tables']['orders']['Row'],
+          'id' | 'created_at' | 'updated_at' | 'billing_address' | 'shipping_carrier' | 'tracking_number' | 'shipped_at'
+        > & {
           id?: string;
           billing_address?: Database['public']['Tables']['orders']['Row']['billing_address'];
+          shipping_carrier?: string | null;
+          tracking_number?: string | null;
+          shipped_at?: string | null;
         };
         Update: Partial<Database['public']['Tables']['orders']['Row']>;
         Relationships: [

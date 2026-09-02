@@ -158,3 +158,59 @@ export async function sendOrderPlacedEmail(orderId: string): Promise<void> {
       </div>`
   });
 }
+
+interface ShippedRow {
+  order_number: string;
+  contact_email: string;
+  shipping_carrier: string | null;
+  tracking_number: string | null;
+  shipping_address: { full_name: string; city: string; district: string; address_line: string };
+}
+
+/**
+ * Sipariş "kargoya verildi" durumuna alınınca müşteriye kargo firması + takip
+ * numarasını içeren bilgi e-postası gönderir. Best-effort.
+ */
+export async function sendOrderShippedEmail(orderId: string): Promise<void> {
+  const supabase = createSupabaseServiceRoleClient();
+  const { data } = await supabase
+    .from('orders')
+    .select('order_number, contact_email, shipping_carrier, tracking_number, shipping_address')
+    .eq('id', orderId)
+    .single();
+  if (!data) return;
+  const order = data as unknown as ShippedRow;
+  const addr = order.shipping_address;
+
+  const trackingBlock =
+    order.shipping_carrier || order.tracking_number
+      ? `<div style="background:#f4f1ea;border-radius:12px;padding:16px;margin:16px 0;font-size:14px">
+           ${order.shipping_carrier ? `Kargo Firması: <b>${escapeHtml(order.shipping_carrier)}</b><br>` : ''}
+           ${order.tracking_number ? `Takip Numarası: <b style="font-family:monospace">${escapeHtml(order.tracking_number)}</b>` : ''}
+         </div>`
+      : '';
+
+  const html = `
+    <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#222">
+      <h2 style="color:#1b4332">Siparişiniz Kargoya Verildi 📦</h2>
+      <p style="font-size:14px">Sipariş numaranız: <b>${escapeHtml(order.order_number)}</b></p>
+      <p style="font-size:14px">Siparişiniz yola çıktı. Kargo firmasının web sitesinden takip numaranızla durumu izleyebilirsiniz.</p>
+      ${trackingBlock}
+      <p style="font-size:14px;line-height:1.6"><b>Teslimat Adresi</b><br>
+      ${escapeHtml(addr.full_name)}<br>
+      ${escapeHtml(addr.district)} / ${escapeHtml(addr.city)}<br>
+      <span style="color:#666">${escapeHtml(addr.address_line)}</span></p>
+      <p style="font-size:12px;color:#888;margin-top:24px">
+        Sorularınız için: ${LEGAL.telefon} · ${LEGAL.eposta}<br>
+        ${LEGAL.markaAdi} — ${LEGAL.adres}
+      </p>
+    </div>`;
+
+  await sendBrevo({
+    sender: SENDER,
+    to: [{ email: order.contact_email }],
+    subject: `${LEGAL.markaAdi} — Siparişiniz kargoya verildi (${order.order_number})`,
+    htmlContent: html,
+    replyTo: { email: LEGAL.eposta, name: LEGAL.markaAdi }
+  });
+}

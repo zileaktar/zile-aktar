@@ -50,7 +50,8 @@ Canlı adres: `https://zile-aktar.vercel.app` (henüz özel domain yok)
 
 - [ ] **Gerçek ürün fotoğrafları** — 198 ürünün hepsi placeholder SVG. Mağaza sahibi `/admin/urunler` → ürün düzenle → görsel yükle ile ekler. (Claude görsel üretemez / aramaz.)
 - [ ] **Ürün açıklamaları** — sadece 11 baharatın zengin açıklaması var (migration 0009 + 0012'de korundu). Kalan ~187 ürün açıklamasız. İstenirse aynı formatta yazılabilir.
-- [~] **Sipariş onay e-postası** — ✅ kod hazır (`src/lib/email.ts`, Brevo API). Kart ödemesi onaylanınca + havale siparişi oluşunca müşteriye onay + `ORDER_NOTIFY_EMAIL`'e yeni sipariş bildirimi gider. Kalan: `.env.local` + Vercel'e `BREVO_API_KEY` (Brevo → SMTP & API → API Keys) ve `ORDER_NOTIFY_EMAIL` girilmeli. Kargo takip no e-postası ise HENÜZ YOK (admin sipariş durumunu 'shipped' yapınca gönderilmesi eklenebilir).
+- [~] **Sipariş onay e-postası** — ✅ kod hazır (`src/lib/email.ts`, Brevo API). Kart ödemesi onaylanınca + havale siparişi oluşunca müşteriye onay + `ORDER_NOTIFY_EMAIL`'e yeni sipariş bildirimi gider. Kalan: `.env.local` + Vercel'e `BREVO_API_KEY` (Brevo → SMTP & API → API Keys) ve `ORDER_NOTIFY_EMAIL` girilmeli.
+- [x] **Kargo takip no e-postası** — ✅ `/admin/siparisler/<id>` sayfasında "Kargo Bilgisi" formu: kargo firması + takip no gir → "Kargoya ver ve müşteriye bildir" butonu siparişi `shipped` yapar ve müşteriye takip numaralı e-posta gönderir (migration 0015: `orders.shipping_carrier/tracking_number/shipped_at`).
 - [ ] Ana sayfa hero görseli hâlâ Unsplash'tan — telif açısından değiştirilebilir.
 - [ ] `Organization` / `Store` Schema.org yapısal verisi (SEO) — telefon/adres artık var, eklenebilir.
 
