@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { getProductImageUrl } from '@/lib/media';
 import { formatPriceFromCents } from '@/lib/format';
 import { dealBadgeText, dealFromRow } from '@/lib/pricing';
+import { trackAddToCart } from '@/lib/analytics';
 import { useCartStore } from '@/store/cart-store';
 import type { ProductWithVariants } from '@/lib/data/products';
 
@@ -50,6 +51,7 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
       imageUrl,
       deal
     });
+    trackAddToCart({ name: product.name, priceTl: selectedVariant.price_cents / 100, quantity: 1 });
     setJustAdded(true);
     setTimeout(() => setJustAdded(false), 1200);
   }

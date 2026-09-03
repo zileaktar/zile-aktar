@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useCartStore } from '@/store/cart-store';
 import { formatPriceFromCents } from '@/lib/format';
 import { FREE_SHIPPING_THRESHOLD_CENTS, calculateShippingCents, lineDealDiscountCents } from '@/lib/pricing';
+import { trackBeginCheckout } from '@/lib/analytics';
 import { checkoutRequestSchema } from '@/lib/validations/checkout';
 import { isValidTcKimlikNo } from '@/lib/tc-kimlik-no';
 import { HealthDisclaimer } from '@/components/product/HealthDisclaimer';
@@ -32,6 +33,14 @@ export function CheckoutForm({ prefill }: { prefill: CheckoutPrefill | null }) {
   useEffect(() => {
     setAppliedCoupon(null);
     setCouponError(null);
+  }, [subtotal]);
+
+  // Ödeme sayfasına gelindi (analytics) — sepet doluysa bir kez.
+  const beganCheckout = useRef(false);
+  useEffect(() => {
+    if (beganCheckout.current || subtotal <= 0) return;
+    beganCheckout.current = true;
+    trackBeginCheckout(subtotal / 100);
   }, [subtotal]);
 
   const rawCouponDiscount = appliedCoupon?.discountCents ?? 0;

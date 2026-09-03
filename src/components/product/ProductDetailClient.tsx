@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { formatPriceFromCents } from '@/lib/format';
 import { getProductImageUrl } from '@/lib/media';
 import { dealBadgeText, dealFromRow } from '@/lib/pricing';
+import { trackAddToCart } from '@/lib/analytics';
 import { useCartStore } from '@/store/cart-store';
 import { useUiStore } from '@/store/ui-store';
 import type { ProductWithVariants } from '@/lib/data/products';
@@ -46,6 +47,7 @@ export function ProductDetailClient({ product }: { product: ProductWithVariants 
       imageUrl: getProductImageUrl(product.image_path),
       deal
     });
+    trackAddToCart({ name: product.name, priceTl: selectedVariant.price_cents / 100, quantity: 1 });
     openCart();
   }
 

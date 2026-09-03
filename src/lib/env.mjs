@@ -40,7 +40,11 @@ export const env = createEnv({
     NEXT_PUBLIC_SENTRY_DSN: z.string().url().optional(),
     // Cloudflare Turnstile site anahtarı (herkese açık). Supabase Auth'ta CAPTCHA
     // koruması açık olduğundan giriş/kayıt bu token olmadan çalışmaz.
-    NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string().min(1)
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string().min(1),
+    // Google Analytics 4 ölçüm kimliği (G-XXXXXXX). Boşsa GA hiç yüklenmez.
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().optional(),
+    // Meta (Facebook) Pixel kimliği. Boşsa Pixel hiç yüklenmez.
+    NEXT_PUBLIC_META_PIXEL_ID: z.string().optional()
   },
   // Next.js edge/server runtime'da process.env her zaman otomatik "spread" edilmez;
   // bu yüzden her alan burada açıkça eşleniyor.
@@ -65,7 +69,9 @@ export const env = createEnv({
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
-    NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
+    NEXT_PUBLIC_META_PIXEL_ID: process.env.NEXT_PUBLIC_META_PIXEL_ID
   },
   emptyStringAsUndefined: true
 });

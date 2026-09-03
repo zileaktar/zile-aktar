@@ -20,6 +20,8 @@ export function CookieConsent() {
 
   function accept(level: 'all' | 'essential') {
     localStorage.setItem(CONSENT_KEY, JSON.stringify({ level, at: new Date().toISOString() }));
+    // Analytics bileşeni bunu dinler; "Tümünü Kabul Et" ile GA/Pixel anında yüklenir.
+    window.dispatchEvent(new Event('cookie-consent-change'));
     setVisible(false);
   }
 

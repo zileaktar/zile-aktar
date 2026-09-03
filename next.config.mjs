@@ -37,16 +37,23 @@ const nextConfig = {
     // adındaki güvenli sayfasına gider, kart oraya girilir, ödeme bitince siteye
     // döner. Bu yüzden iyzico varlıkları bizim sayfamıza YÜKLENMEZ; CSP'de yalnızca
     // 3DS dönüşü/istisnai durumlar için *.iyzico.com bırakıldı.
+    // Analytics: Google Analytics (googletagmanager.com) + Meta Pixel (connect.facebook.net).
+    // Script'ler yalnızca kullanıcı çerez izni verince yüklenir (bkz. Analytics bileşeni),
+    // ama CSP kaynak izni her koşulda tanımlı olmalı.
+    const analyticsScript = 'https://www.googletagmanager.com https://connect.facebook.net';
+    const analyticsConnect =
+      'https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com';
+
     const scriptSrc = isDev
-      ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.iyzico.com https://challenges.cloudflare.com"
-      : "script-src 'self' 'unsafe-inline' https://*.iyzico.com https://challenges.cloudflare.com";
+      ? `script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.iyzico.com https://challenges.cloudflare.com ${analyticsScript}`
+      : `script-src 'self' 'unsafe-inline' https://*.iyzico.com https://challenges.cloudflare.com ${analyticsScript}`;
 
     // `next dev` Hızlı Yenileme (Fast Refresh) için bir WebSocket (ws://localhost:*)
     // kullanır — CSP connect-src'de 'self' her tarayıcıda ws: şemasını kapsamadığı
     // için bu SADECE geliştirmede açıkça eklenir. Production connect-src sıkı kalır.
     const connectSrc = isDev
-      ? "connect-src 'self' ws://localhost:* http://localhost:* https://*.supabase.co https://*.iyzico.com https://*.sentry.io https://challenges.cloudflare.com"
-      : "connect-src 'self' https://*.supabase.co https://*.iyzico.com https://*.sentry.io https://challenges.cloudflare.com";
+      ? `connect-src 'self' ws://localhost:* http://localhost:* https://*.supabase.co https://*.iyzico.com https://*.sentry.io https://challenges.cloudflare.com ${analyticsConnect}`
+      : `connect-src 'self' https://*.supabase.co https://*.iyzico.com https://*.sentry.io https://challenges.cloudflare.com ${analyticsConnect}`;
 
     return [
       {
@@ -68,7 +75,7 @@ const nextConfig = {
               "worker-src 'self' blob:",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: https://*.supabase.co https://images.unsplash.com",
+              "img-src 'self' data: https://*.supabase.co https://images.unsplash.com https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com",
               connectSrc,
               "frame-src https://*.iyzico.com https://challenges.cloudflare.com",
               "frame-ancestors 'none'"

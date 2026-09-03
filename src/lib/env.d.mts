@@ -23,4 +23,6 @@ export declare const env: {
   readonly NEXT_PUBLIC_SUPABASE_ANON_KEY: string;
   readonly NEXT_PUBLIC_SENTRY_DSN: string | undefined;
   readonly NEXT_PUBLIC_TURNSTILE_SITE_KEY: string;
+  readonly NEXT_PUBLIC_GA_MEASUREMENT_ID: string | undefined;
+  readonly NEXT_PUBLIC_META_PIXEL_ID: string | undefined;
 };

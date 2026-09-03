@@ -8,6 +8,7 @@ import { SiteFooter } from '@/components/layout/SiteFooter';
 import { CartDrawer } from '@/components/cart/CartDrawer';
 import { CookieConsent } from '@/components/consent/CookieConsent';
 import { WhatsAppButton } from '@/components/layout/WhatsAppButton';
+import { Analytics } from '@/components/analytics/Analytics';
 import { MobileDrawer } from '@/components/layout/MobileDrawer';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { getCategories } from '@/lib/data/products';
@@ -90,6 +91,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <BottomNav />
           <WhatsAppButton />
           <CookieConsent />
+          <Analytics />
         </Providers>
       </body>
     </html>

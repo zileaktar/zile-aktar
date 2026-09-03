@@ -1,5 +1,9 @@
 import { getSiteSettings } from '@/lib/data/settings';
+import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { ClearCartOnSuccess } from '@/components/cart/ClearCartOnSuccess';
+import { PurchaseTracking } from '@/components/analytics/PurchaseTracking';
+
+export const dynamic = 'force-dynamic';
 
 interface Props {
   searchParams: Promise<{ order?: string; odeme?: string }>;
@@ -10,9 +14,21 @@ export default async function OrderSuccessPage({ searchParams }: Props) {
   const isHavale = odeme === 'havale';
   const { bank } = isHavale ? await getSiteSettings() : { bank: null };
 
+  // Analytics "purchase" olayı için sipariş tutarını sunucudan al.
+  let orderTotalTl = 0;
+  if (order) {
+    const { data } = await createSupabaseServiceRoleClient()
+      .from('orders')
+      .select('total_cents')
+      .eq('order_number', order)
+      .maybeSingle();
+    if (data) orderTotalTl = data.total_cents / 100;
+  }
+
   return (
     <div className="max-w-md mx-auto px-4 py-20 text-center">
       <ClearCartOnSuccess />
+      {order && orderTotalTl > 0 && <PurchaseTracking orderNumber={order} valueTl={orderTotalTl} />}
       <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center text-4xl mx-auto mb-5">✅</div>
       <h1 className="font-display font-bold text-xl text-primary mb-2">Siparişiniz Alındı!</h1>
       <p className="text-sm text-carbon/60 mb-6">
