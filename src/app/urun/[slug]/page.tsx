@@ -6,6 +6,7 @@ import { getProductReviews, getReviewContext } from '@/lib/data/reviews';
 import { getProductImageUrl } from '@/lib/media';
 import { safeJsonLd, getPlainExcerpt } from '@/lib/format';
 import { ProductDetailClient } from '@/components/product/ProductDetailClient';
+import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { RichProductDescription } from '@/components/product/RichProductDescription';
 import { HealthDisclaimer } from '@/components/product/HealthDisclaimer';
 import { ProductReviews } from '@/components/product/ProductReviews';
@@ -64,6 +65,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
       {/* eslint-disable-next-line react/no-danger */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
+
+      <Breadcrumbs
+        items={[
+          { name: 'Anasayfa', href: '/' },
+          { name: product.categories.name, href: `/?kategori=${product.categories.slug}` },
+          { name: product.name }
+        ]}
+      />
+
       <div className="grid md:grid-cols-2 gap-8 sm:gap-12">
         <div className="relative aspect-square rounded-2xl overflow-hidden bg-white shadow-sm">
           <Image src={imageUrl} alt={product.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" priority />

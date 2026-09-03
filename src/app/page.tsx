@@ -3,6 +3,7 @@ import { getCategories, getProducts, getAvailableForms } from '@/lib/data/produc
 import { getActiveCampaignBanners } from '@/lib/data/banners';
 import { ProductCard } from '@/components/product/ProductCard';
 import { CampaignCarousel } from '@/components/home/CampaignCarousel';
+import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { PRODUCT_FORMS, PRODUCT_FORM_LABELS } from '@/lib/validations/product';
 
 export const metadata: Metadata = {
@@ -108,6 +109,14 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
       {/* ÜRÜNLER */}
       <main id="urunler" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+        {(q?.trim() || (kategori && kategori !== 'all')) && (
+          <Breadcrumbs
+            items={[
+              { name: 'Anasayfa', href: '/' },
+              { name: activeCategoryName ?? 'Ürünler' }
+            ]}
+          />
+        )}
         <div className="flex items-end justify-between mb-4 sm:mb-5">
           <div>
             <h2 className="font-display font-bold text-2xl sm:text-3xl text-primary">{activeCategoryName}</h2>
