@@ -14,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const staticPaths = [
+    '/sss',
     '/on-bilgilendirme-formu',
     '/mesafeli-satis-sozlesmesi',
     '/iptal-iade-kosullari',
