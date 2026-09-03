@@ -271,6 +271,29 @@ export async function getCartSuggestions(excludeProductIds: string[], limit = 6)
   return scored.slice(0, limit).map((s) => s.item);
 }
 
+/**
+ * Ürün detay sayfasındaki "Benzer Ürünler" bloğu — aynı kategoriden, mevcut ürün
+ * hariç, en az bir varyantı stokta olan aktif ürünler. Karışık sırayla `limit` adet.
+ */
+export async function getRelatedProducts(categorySlug: string, excludeProductId: string, limit = 4): Promise<ProductWithVariants[]> {
+  const supabase = createSupabaseAnonServerClient();
+  const { data, error } = await supabase
+    .from('products')
+    .select('*, product_variants(*), categories!inner(slug, name)')
+    .eq('is_active', true)
+    .eq('categories.slug', categorySlug)
+    .neq('id', excludeProductId)
+    .limit(24);
+
+  if (error || !data) return [];
+
+  return (data as unknown as ProductWithVariants[])
+    .map((p) => ({ ...p, product_variants: [...p.product_variants].sort((a, b) => a.sort_order - b.sort_order) }))
+    .filter((p) => p.product_variants.some((v) => v.stock > 0))
+    .sort(() => Math.random() - 0.5)
+    .slice(0, limit);
+}
+
 export async function getProductBySlug(slug: string): Promise<ProductWithVariants | null> {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase

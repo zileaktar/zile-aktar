@@ -31,7 +31,7 @@ export function CartDrawer() {
   }, [isCartOpen, items.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const cartProductIds = new Set(items.map((i) => i.productId));
-  const visibleSuggestions = suggestions.filter((s) => !cartProductIds.has(s.productId)).slice(0, 4);
+  const visibleSuggestions = suggestions.filter((s) => !cartProductIds.has(s.productId)).slice(0, 6);
 
   function addSuggestion(s: CartSuggestion) {
     addItem({
@@ -170,17 +170,19 @@ export function CartDrawer() {
         {items.length > 0 && visibleSuggestions.length > 0 && (
           <div className="border-t border-primary/10 px-5 pt-3 pb-1">
             <p className="text-xs font-semibold text-carbon/60 mb-2">Sepetine ekle 👇</p>
-            <div className="flex gap-2.5 overflow-x-auto no-scrollbar pb-2 -mx-1 px-1" style={{ scrollbarWidth: 'none' }}>
+            <div className="flex gap-2.5 overflow-x-auto overscroll-x-contain pb-2 snap-x [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:bg-primary/20 [&::-webkit-scrollbar-thumb]:rounded-full">
               {visibleSuggestions.map((s) => {
                 const disc = s.compareAtCents != null && s.compareAtCents > s.priceCents;
                 return (
-                  <div key={s.productId} className="shrink-0 w-[112px] bg-cream rounded-xl p-2 flex flex-col">
+                  <div key={s.productId} className="shrink-0 w-[108px] snap-start bg-cream rounded-xl p-2 flex flex-col">
                     <a href={`/urun/${s.slug}`} onClick={closeCart} className="block">
-                      <Image
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
                         src={getProductImageUrl(s.imagePath)}
                         alt={s.name}
-                        width={96}
-                        height={96}
+                        width={92}
+                        height={92}
+                        loading="lazy"
                         className="w-full aspect-square rounded-lg object-cover bg-white mb-1.5"
                       />
                       <span className="block text-[11px] font-medium leading-tight line-clamp-2 min-h-[26px]">{s.name}</span>

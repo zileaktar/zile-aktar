@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { getProductBySlug } from '@/lib/data/products';
+import { getProductBySlug, getRelatedProducts } from '@/lib/data/products';
 import { getProductReviews, getReviewContext } from '@/lib/data/reviews';
+import { ProductCard } from '@/components/product/ProductCard';
 import { getProductImageUrl } from '@/lib/media';
 import { safeJsonLd, getPlainExcerpt } from '@/lib/format';
 import { ProductDetailClient } from '@/components/product/ProductDetailClient';
@@ -34,9 +35,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) notFound();
 
   const imageUrl = getProductImageUrl(product.image_path);
-  const [{ reviews, count: reviewCount, average: reviewAverage }, reviewContext] = await Promise.all([
+  const [{ reviews, count: reviewCount, average: reviewAverage }, reviewContext, related] = await Promise.all([
     getProductReviews(product.id),
-    getReviewContext(product.id)
+    getReviewContext(product.id),
+    getRelatedProducts(product.categories.slug, product.id, 4)
   ]);
 
   const jsonLd = {
@@ -131,6 +133,17 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <div className="max-w-3xl mt-10">
         <HealthDisclaimer />
       </div>
+
+      {related.length > 0 && (
+        <section className="mt-14 pt-10 border-t border-primary/10">
+          <h2 className="font-display font-bold text-primary text-xl mb-5">Benzer Ürünler</h2>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {related.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
