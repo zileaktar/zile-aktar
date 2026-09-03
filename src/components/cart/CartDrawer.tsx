@@ -1,16 +1,52 @@
 'use client';
 
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUiStore } from '@/store/ui-store';
 import { useCartStore } from '@/store/cart-store';
 import { formatPriceFromCents } from '@/lib/format';
+import { getProductImageUrl } from '@/lib/media';
+import { trackAddToCart } from '@/lib/analytics';
 import { FREE_SHIPPING_THRESHOLD_CENTS, calculateShippingCents, lineDealDiscountCents, dealNudge } from '@/lib/pricing';
+import type { CartSuggestion } from '@/lib/data/products';
 
 export function CartDrawer() {
   const { isCartOpen, closeCart } = useUiStore();
-  const { items, updateQuantity, removeItem } = useCartStore();
+  const { items, updateQuantity, removeItem, addItem } = useCartStore();
   const router = useRouter();
+
+  const [suggestions, setSuggestions] = useState<CartSuggestion[]>([]);
+
+  // Çekmece açılınca "kasa altı" önerilerini getir (sepetteki ürünler hariç).
+  useEffect(() => {
+    if (!isCartOpen || items.length === 0) return;
+    const exclude = items.map((i) => i.productId).join(',');
+    const controller = new AbortController();
+    fetch(`/api/suggestions?exclude=${encodeURIComponent(exclude)}`, { signal: controller.signal })
+      .then((r) => r.json())
+      .then((d: { items: CartSuggestion[] }) => setSuggestions(d.items ?? []))
+      .catch(() => {});
+    return () => controller.abort();
+  }, [isCartOpen, items.length]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const cartProductIds = new Set(items.map((i) => i.productId));
+  const visibleSuggestions = suggestions.filter((s) => !cartProductIds.has(s.productId)).slice(0, 4);
+
+  function addSuggestion(s: CartSuggestion) {
+    addItem({
+      variantId: s.variantId,
+      productId: s.productId,
+      productSlug: s.slug,
+      productName: s.name,
+      variantLabel: s.variantLabel,
+      priceCents: s.priceCents,
+      compareAtCents: s.compareAtCents,
+      imageUrl: getProductImageUrl(s.imagePath),
+      deal: s.deal
+    });
+    trackAddToCart({ name: s.name, priceTl: s.priceCents / 100, quantity: 1 });
+  }
 
   const subtotal = items.reduce((sum, i) => sum + i.priceCents * i.quantity, 0);
   const dealDiscount = items.reduce((sum, i) => sum + lineDealDiscountCents(i.priceCents, i.quantity, i.deal), 0);
@@ -130,6 +166,42 @@ export function CartDrawer() {
             })
           )}
         </div>
+
+        {items.length > 0 && visibleSuggestions.length > 0 && (
+          <div className="border-t border-primary/10 px-5 pt-3 pb-1">
+            <p className="text-xs font-semibold text-carbon/60 mb-2">Sepetine ekle 👇</p>
+            <div className="flex gap-2.5 overflow-x-auto no-scrollbar pb-2 -mx-1 px-1" style={{ scrollbarWidth: 'none' }}>
+              {visibleSuggestions.map((s) => {
+                const disc = s.compareAtCents != null && s.compareAtCents > s.priceCents;
+                return (
+                  <div key={s.productId} className="shrink-0 w-[112px] bg-cream rounded-xl p-2 flex flex-col">
+                    <a href={`/urun/${s.slug}`} onClick={closeCart} className="block">
+                      <Image
+                        src={getProductImageUrl(s.imagePath)}
+                        alt={s.name}
+                        width={96}
+                        height={96}
+                        className="w-full aspect-square rounded-lg object-cover bg-white mb-1.5"
+                      />
+                      <span className="block text-[11px] font-medium leading-tight line-clamp-2 min-h-[26px]">{s.name}</span>
+                    </a>
+                    <span className="flex items-baseline gap-1 mt-1 mb-1.5">
+                      {disc && <span className="text-[10px] text-carbon/40 line-through">{formatPriceFromCents(s.compareAtCents!)}</span>}
+                      <span className={`text-xs font-bold ${disc ? 'text-red-600' : 'text-primary'}`}>{formatPriceFromCents(s.priceCents)}</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => addSuggestion(s)}
+                      className="mt-auto w-full text-[11px] font-bold text-white bg-primary hover:bg-primary-dark rounded-lg py-1.5 transition"
+                    >
+                      + Ekle
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {items.length > 0 && (
           <div className="border-t border-primary/10 p-5 space-y-3">

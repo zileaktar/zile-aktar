@@ -1,6 +1,7 @@
 import 'server-only';
 import { unstable_cache } from 'next/cache';
 import { createSupabaseServerClient, createSupabaseAnonServerClient } from '@/lib/supabase/server';
+import { dealFromRow } from '@/lib/pricing';
 import type { ProductRow, ProductVariantRow, ProductForm } from '@/lib/supabase/types';
 
 export interface ProductWithVariants extends ProductRow {
@@ -193,6 +194,81 @@ export async function quickSearchProducts(rawQuery: string, limit = 8): Promise<
       return am - bm;
     })
     .slice(0, limit);
+}
+
+export interface CartSuggestion {
+  productId: string;
+  slug: string;
+  name: string;
+  imagePath: string;
+  variantId: string;
+  variantLabel: string;
+  priceCents: number;
+  compareAtCents: number | null;
+  deal: { buyQty: number; getQty: number; getPercent: number } | null;
+}
+
+/**
+ * Sepet çekmecesindeki "kasa altı" öneri şeridi için ürünler. Aktif + en az bir
+ * varyantı stokta olan ürünlerden; sepette OLAN ürünler hariç. Kampanyalı /
+ * indirimli ürünler öne alınır (dürtüsel alışverişe uygun). Her ürün için en
+ * ucuz stoktaki varyant "hızlı ekle" hedefi olarak döndürülür.
+ */
+export async function getCartSuggestions(excludeProductIds: string[], limit = 6): Promise<CartSuggestion[]> {
+  const supabase = createSupabaseAnonServerClient();
+  let query = supabase
+    .from('products')
+    .select(
+      'id, slug, name, image_path, deal_buy_qty, deal_get_qty, deal_get_percent, product_variants(id, label, price_cents, compare_at_price_cents, stock, sort_order)'
+    )
+    .eq('is_active', true)
+    .limit(48);
+
+  if (excludeProductIds.length > 0) {
+    query = query.not('id', 'in', `(${excludeProductIds.join(',')})`);
+  }
+
+  const { data, error } = await query;
+  if (error || !data) return [];
+
+  type Row = {
+    id: string;
+    slug: string;
+    name: string;
+    image_path: string;
+    deal_buy_qty: number | null;
+    deal_get_qty: number | null;
+    deal_get_percent: number | null;
+    product_variants: { id: string; label: string; price_cents: number; compare_at_price_cents: number | null; stock: number; sort_order: number }[];
+  };
+
+  const scored = (data as unknown as Row[])
+    .map((p) => {
+      const inStock = p.product_variants.filter((v) => v.stock > 0).sort((a, b) => a.sort_order - b.sort_order);
+      if (inStock.length === 0) return null;
+      const cheapest = inStock.reduce((min, v) => (v.price_cents < min.price_cents ? v : min), inStock[0]!);
+      const deal = dealFromRow(p);
+      const hasCompare = cheapest.compare_at_price_cents != null && cheapest.compare_at_price_cents > cheapest.price_cents;
+      const score = (deal ? 2 : 0) + (hasCompare ? 1 : 0) + Math.random();
+      return {
+        score,
+        item: {
+          productId: p.id,
+          slug: p.slug,
+          name: p.name,
+          imagePath: p.image_path,
+          variantId: cheapest.id,
+          variantLabel: cheapest.label,
+          priceCents: cheapest.price_cents,
+          compareAtCents: cheapest.compare_at_price_cents,
+          deal
+        } satisfies CartSuggestion
+      };
+    })
+    .filter((x): x is { score: number; item: CartSuggestion } => x !== null)
+    .sort((a, b) => b.score - a.score);
+
+  return scored.slice(0, limit).map((s) => s.item);
 }
 
 export async function getProductBySlug(slug: string): Promise<ProductWithVariants | null> {
