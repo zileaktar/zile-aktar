@@ -50,7 +50,10 @@ export function Analytics() {
             {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', '${GA_ID}');`}
+// cookie_domain:'none' -> çerez tam ana bilgisayar adına yazılır. *.vercel.app
+// "public suffix" listesinde olduğundan tarayıcı .vercel.app kapsamlı çerezi
+// reddediyor; özel domain'e geçince bu satır zararsızca çalışmaya devam eder.
+gtag('config', '${GA_ID}', { cookie_domain: 'none' });`}
           </Script>
         </>
       )}

@@ -41,8 +41,10 @@ const nextConfig = {
     // Script'ler yalnızca kullanıcı çerez izni verince yüklenir (bkz. Analytics bileşeni),
     // ama CSP kaynak izni her koşulda tanımlı olmalı.
     const analyticsScript = 'https://www.googletagmanager.com https://connect.facebook.net';
+    // www.google.com: GA4 bazı ölçüm beacon'larını (özellikle dönüşüm/Google
+    // sinyalleri) buraya gönderir — yalnızca google-analytics.com yetmez.
     const analyticsConnect =
-      'https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com';
+      'https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.google.com https://connect.facebook.net https://www.facebook.com';
 
     const scriptSrc = isDev
       ? `script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.iyzico.com https://challenges.cloudflare.com ${analyticsScript}`
