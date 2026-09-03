@@ -13,6 +13,7 @@ import { MobileDrawer } from '@/components/layout/MobileDrawer';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { getCategories } from '@/lib/data/products';
 import { getSiteSettings } from '@/lib/data/settings';
+import { getProductImageUrl } from '@/lib/media';
 import { safeJsonLd } from '@/lib/format';
 import { LEGAL } from '@/lib/legal';
 import './globals.css';
@@ -20,24 +21,36 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const poppins = Poppins({ subsets: ['latin'], weight: ['500', '600', '700', '800'], variable: '--font-poppins', display: 'swap' });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
-  title: { default: 'Zile Aktar | Doğadan Gelen Şifa & Yöresel Lezzetler', template: '%s | Zile Aktar' },
-  description:
-    'Hakiki bal, soğuk sıkım yağlar, taze baharatlar ve şifalı bitki çayları. %100 doğal ve yöresel ürünler, güvenli 3D ödeme ile kapınızda.',
-  keywords: ['aktar', 'yöresel ürünler', 'organik bal', 'şifalı bitkiler', 'soğuk sıkım yağ', 'bitki çayı'],
-  openGraph: {
-    type: 'website',
-    locale: 'tr_TR',
-    siteName: 'Zile Aktar',
-    title: 'Zile Aktar | Doğadan Gelen Şifa & Yöresel Lezzetler',
-    description: 'Hakiki bal, soğuk sıkım yağlar ve şifalı bitkiler — doğrudan üreticiden sofranıza.',
-    images: [{ url: '/api/og', width: 1200, height: 630, alt: 'Zile Aktar' }]
-  },
-  twitter: { card: 'summary_large_image' },
-  robots: { index: true, follow: true },
-  alternates: { canonical: '/' }
-};
+/**
+ * Favicon: admin panelinden bir site logosu yüklenmişse onu kullanır (tarayıcı
+ * sekmesi + iOS ana ekran). Yoksa `src/app/icon.svg` / `apple-icon.svg` dosya
+ * kuralı devreye girer. NOT: en iyi görünüm için logo KARE olmalı — yatay/geniş
+ * logo küçük ikonda sıkışık görünür.
+ */
+export async function generateMetadata(): Promise<Metadata> {
+  const { logoPath } = await getSiteSettings();
+  const logoUrl = logoPath ? getProductImageUrl(logoPath) : null;
+
+  return {
+    metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
+    title: { default: 'Zile Aktar | Doğadan Gelen Şifa & Yöresel Lezzetler', template: '%s | Zile Aktar' },
+    description:
+      'Hakiki bal, soğuk sıkım yağlar, taze baharatlar ve şifalı bitki çayları. %100 doğal ve yöresel ürünler, güvenli 3D ödeme ile kapınızda.',
+    keywords: ['aktar', 'yöresel ürünler', 'organik bal', 'şifalı bitkiler', 'soğuk sıkım yağ', 'bitki çayı'],
+    ...(logoUrl ? { icons: { icon: logoUrl, shortcut: logoUrl, apple: logoUrl } } : {}),
+    openGraph: {
+      type: 'website',
+      locale: 'tr_TR',
+      siteName: 'Zile Aktar',
+      title: 'Zile Aktar | Doğadan Gelen Şifa & Yöresel Lezzetler',
+      description: 'Hakiki bal, soğuk sıkım yağlar ve şifalı bitkiler — doğrudan üreticiden sofranıza.',
+      images: [{ url: '/api/og', width: 1200, height: 630, alt: 'Zile Aktar' }]
+    },
+    twitter: { card: 'summary_large_image' },
+    robots: { index: true, follow: true },
+    alternates: { canonical: '/' }
+  };
+}
 
 export const viewport: Viewport = {
   width: 'device-width',
