@@ -79,7 +79,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     },
     priceRange: '₺₺',
     currenciesAccepted: 'TRY',
-    paymentAccepted: 'Kredi Kartı, Banka Kartı, Havale/EFT'
+    paymentAccepted: 'Kredi Kartı, Banka Kartı, Havale/EFT',
+    hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${LEGAL.markaAdi} ${LEGAL.adres}`)}`,
+    openingHours: 'Mo-Sa 09:00-19:00'
   };
 
   return (

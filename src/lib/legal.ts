@@ -14,6 +14,11 @@ export const LEGAL = {
   eposta: 'zileaktar@gmail.com',
   webAdresi: 'https://zile-aktar.vercel.app', // domain alınınca güncelle
 
+  // Mağaza çalışma saatleri — gerekirse düzenleyin. İletişim sayfası + Store şemasında kullanılır.
+  calismaSaatleri: 'Pazartesi – Cumartesi: 09:00 – 19:00 · Pazar: Kapalı',
+  // İletişim mesajlarına dönüş taahhüdü (İletişim sayfasında gösterilir).
+  yanitSuresi: 'Mesajlarınıza en geç 1 iş günü içinde dönüş yapıyoruz.',
+
   vergiDairesi: '[Vergi Dairesi]',
   vergiNo: '[Vergi / T.C. Kimlik No]',
   mersisNo: '[MERSİS No — varsa]',

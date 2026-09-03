@@ -79,7 +79,7 @@ const nextConfig = {
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: https://*.supabase.co https://images.unsplash.com https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com",
               connectSrc,
-              "frame-src https://*.iyzico.com https://challenges.cloudflare.com",
+              "frame-src https://*.iyzico.com https://challenges.cloudflare.com https://www.google.com https://maps.google.com",
               "frame-ancestors 'none'"
             ].join('; ')
           }

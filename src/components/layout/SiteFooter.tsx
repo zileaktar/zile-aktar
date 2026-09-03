@@ -48,6 +48,12 @@ export function SiteFooter({ categories, logoPath }: { categories: Category[]; l
               </a>
             </li>
             <li>✉️ zileaktar@gmail.com</li>
+            <li>
+              🧭{' '}
+              <Link href="/iletisim" className="hover:text-cream underline">
+                Harita ve yol tarifi
+              </Link>
+            </li>
           </ul>
         </div>
         <div>
