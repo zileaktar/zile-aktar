@@ -71,11 +71,11 @@ export function CartDrawer() {
         onClick={closeCart}
       />
       <aside
-        className={`fixed top-0 right-0 h-full w-full sm:w-[420px] bg-white z-[60] shadow-2xl flex flex-col transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-dvh w-full sm:w-[420px] bg-white z-[60] shadow-2xl flex flex-col transition-transform duration-300 ${
           isCartOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="flex items-center justify-between p-5 border-b border-primary/10">
+        <div className="shrink-0 flex items-center justify-between p-5 border-b border-primary/10">
           <h3 className="font-display font-bold text-lg text-primary flex items-center gap-2">
             🛒 Sepetim {items.length > 0 && <span className="text-sm font-normal text-carbon/50">({items.reduce((s, i) => s + i.quantity, 0)} ürün)</span>}
           </h3>
@@ -88,7 +88,7 @@ export function CartDrawer() {
         </div>
 
         {items.length > 0 && (
-          <div className="px-5 py-4 border-b border-primary/10">
+          <div className="shrink-0 px-5 py-4 border-b border-primary/10">
             <div className="text-xs font-medium text-carbon/70 mb-2">
               {remaining > 0 ? (
                 <>
@@ -104,7 +104,7 @@ export function CartDrawer() {
           </div>
         )}
 
-        <div className="flex-1 overflow-y-auto p-5 space-y-4">
+        <div className="flex-1 min-h-0 overflow-y-auto p-5 space-y-4">
           {items.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center">
               <div className="text-5xl mb-4">🛍️</div>
@@ -168,7 +168,7 @@ export function CartDrawer() {
         </div>
 
         {items.length > 0 && visibleSuggestions.length > 0 && (
-          <div className="border-t border-primary/10 px-5 pt-3 pb-1">
+          <div className="shrink-0 border-t border-primary/10 px-5 pt-3 pb-1">
             <p className="text-xs font-semibold text-carbon/60 mb-2">Sepetine ekle 👇</p>
             <div className="flex gap-2.5 overflow-x-auto overscroll-x-contain pb-2 snap-x [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:bg-primary/20 [&::-webkit-scrollbar-thumb]:rounded-full">
               {visibleSuggestions.map((s) => {
@@ -206,7 +206,7 @@ export function CartDrawer() {
         )}
 
         {items.length > 0 && (
-          <div className="border-t border-primary/10 p-5 space-y-3">
+          <div className="shrink-0 border-t border-primary/10 p-5 space-y-3">
             <div className="flex items-center justify-between text-sm text-carbon/60">
               <span>Ara Toplam</span>
               <span className="font-medium text-carbon">{formatPriceFromCents(subtotal)}</span>
