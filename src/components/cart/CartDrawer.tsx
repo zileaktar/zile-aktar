@@ -112,7 +112,8 @@ export function CartDrawer() {
               <p className="text-sm text-carbon/50 mt-1">Doğal ürünlerimizi keşfetmeye başlayın!</p>
             </div>
           ) : (
-            items.map((item) => {
+            <>
+            {items.map((item) => {
               const nudge = dealNudge(item.quantity, item.deal);
               const hasCompare = item.compareAtCents != null && item.compareAtCents > item.priceCents;
               return (
@@ -163,47 +164,48 @@ export function CartDrawer() {
                   )}
                 </div>
               );
-            })
+            })}
+
+            {visibleSuggestions.length > 0 && (
+              <div className="border-t border-primary/10 pt-4">
+                <p className="text-xs font-semibold text-carbon/60 mb-2">Sepetine ekle 👇 <span className="font-normal text-carbon/40">(kaydırarak gör)</span></p>
+                <div className="flex gap-2.5 overflow-x-auto overscroll-x-contain pb-2 snap-x [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:bg-primary/20 [&::-webkit-scrollbar-thumb]:rounded-full">
+                  {visibleSuggestions.map((s) => {
+                    const disc = s.compareAtCents != null && s.compareAtCents > s.priceCents;
+                    return (
+                      <div key={s.productId} className="shrink-0 w-[108px] snap-start bg-cream rounded-xl p-2 flex flex-col">
+                        <a href={`/urun/${s.slug}`} onClick={closeCart} className="block">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={getProductImageUrl(s.imagePath)}
+                            alt={s.name}
+                            width={92}
+                            height={92}
+                            loading="lazy"
+                            className="w-full aspect-square rounded-lg object-cover bg-white mb-1.5"
+                          />
+                          <span className="block text-[11px] font-medium leading-tight line-clamp-2 min-h-[26px]">{s.name}</span>
+                        </a>
+                        <span className="flex items-baseline gap-1 mt-1 mb-1.5">
+                          {disc && <span className="text-[10px] text-carbon/40 line-through">{formatPriceFromCents(s.compareAtCents!)}</span>}
+                          <span className={`text-xs font-bold ${disc ? 'text-red-600' : 'text-primary'}`}>{formatPriceFromCents(s.priceCents)}</span>
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => addSuggestion(s)}
+                          className="mt-auto w-full text-[11px] font-bold text-white bg-primary hover:bg-primary-dark rounded-lg py-1.5 transition"
+                        >
+                          + Ekle
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+            </>
           )}
         </div>
-
-        {items.length > 0 && visibleSuggestions.length > 0 && (
-          <div className="shrink-0 border-t border-primary/10 px-5 pt-3 pb-1">
-            <p className="text-xs font-semibold text-carbon/60 mb-2">Sepetine ekle 👇</p>
-            <div className="flex gap-2.5 overflow-x-auto overscroll-x-contain pb-2 snap-x [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:bg-primary/20 [&::-webkit-scrollbar-thumb]:rounded-full">
-              {visibleSuggestions.map((s) => {
-                const disc = s.compareAtCents != null && s.compareAtCents > s.priceCents;
-                return (
-                  <div key={s.productId} className="shrink-0 w-[108px] snap-start bg-cream rounded-xl p-2 flex flex-col">
-                    <a href={`/urun/${s.slug}`} onClick={closeCart} className="block">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={getProductImageUrl(s.imagePath)}
-                        alt={s.name}
-                        width={92}
-                        height={92}
-                        loading="lazy"
-                        className="w-full aspect-square rounded-lg object-cover bg-white mb-1.5"
-                      />
-                      <span className="block text-[11px] font-medium leading-tight line-clamp-2 min-h-[26px]">{s.name}</span>
-                    </a>
-                    <span className="flex items-baseline gap-1 mt-1 mb-1.5">
-                      {disc && <span className="text-[10px] text-carbon/40 line-through">{formatPriceFromCents(s.compareAtCents!)}</span>}
-                      <span className={`text-xs font-bold ${disc ? 'text-red-600' : 'text-primary'}`}>{formatPriceFromCents(s.priceCents)}</span>
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => addSuggestion(s)}
-                      className="mt-auto w-full text-[11px] font-bold text-white bg-primary hover:bg-primary-dark rounded-lg py-1.5 transition"
-                    >
-                      + Ekle
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
 
         {items.length > 0 && (
           <div className="shrink-0 border-t border-primary/10 p-5 space-y-3">
