@@ -6,8 +6,9 @@
  * vergi levhası, ticaret sicil gazetesi ve imza sirkülerinden alın.
  */
 export const LEGAL = {
-  // Ticari unvan (şahıs firması ise "Ad Soyad - Firma Adı", limited ise tam unvan)
-  unvan: '[Ticari Unvan — ör. Samet Balaban - Zile Aktar]',
+  // Gerçek kişilere ait ticari işletme — ticari unvan işletme sahibinin adıdır.
+  unvan: 'Suzan EŞAT',
+  isletmeTuru: 'Gerçek kişilere ait ticari işletme',
   markaAdi: 'Zile Aktar',
   adres: 'Dutlupınar Mah., Cumhuriyet Cd., Kültür Sitesi D:26/G, 60400 Zile / Tokat',
   telefon: '0551 173 00 94',
@@ -19,13 +20,14 @@ export const LEGAL = {
   // İletişim mesajlarına dönüş taahhüdü (İletişim sayfasında gösterilir).
   yanitSuresi: 'Mesajlarınıza en geç 1 iş günü içinde dönüş yapıyoruz.',
 
-  vergiDairesi: '[Vergi Dairesi]',
-  vergiNo: '[Vergi / T.C. Kimlik No]',
-  mersisNo: '[MERSİS No — varsa]',
-  ticaretSicilNo: '[Ticaret Sicil No — varsa]',
+  vergiDairesi: 'Zile Vergi Dairesi',
+  vergiNo: '3801213625', // Vergi Kimlik Numarası (10 hane)
+  mersisNo: '2246369545600001',
+  ticaretSicilNo: '4076',
+  faaliyetKodu: '47.27.04', // NACE ana faaliyet kodu
 
   // Kargo & teslimat
-  kargoFirmasi: '[Anlaşmalı Kargo Firması — ör. Yurtiçi Kargo / Aras Kargo]',
+  kargoFirmasi: 'Aras Kargo',
   ucretsizKargoEsigiTl: 150,
   standartKargoUcretiTl: 39.9,
   teslimatSuresiIsGunu: '1–5',

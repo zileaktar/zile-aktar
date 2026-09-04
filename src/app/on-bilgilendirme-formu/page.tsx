@@ -14,7 +14,7 @@ export default function OnBilgilendirmeFormuPage() {
 
       <h2>1. Satıcı Bilgileri</h2>
       <ul>
-        <li>Unvan: {LEGAL.unvan}</li>
+        <li>Unvan: {LEGAL.unvan} (&quot;{LEGAL.markaAdi}&quot;) — {LEGAL.isletmeTuru}</li>
         <li>Adres: {LEGAL.adres}</li>
         <li>Telefon: {LEGAL.telefon} · E-posta: {LEGAL.eposta}</li>
         <li>Vergi Dairesi / No: {LEGAL.vergiDairesi} / {LEGAL.vergiNo}</li>

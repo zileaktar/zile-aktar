@@ -1,70 +1,85 @@
 # Zile Aktar — Yayın (Production) Kontrol Listesi
 
-Bu dosya, sitenin gerçek satışa hazır hale gelmesi için kalan tüm maddeleri tutar.
-Her madde bitince başına `[x]` koy. Kod tarafı büyük ölçüde bitti; kalanlar çoğunlukla
-**dış hesap / iş / hukuk** işleri.
+Sitenin gerçek satışa hazır hale gelmesi için kalan tüm maddeler. Her madde bitince `[x]` koy.
+**Kod tarafı bitti** — kalanlar dış hesap / iş / hukuk / içerik ve manuel test.
 
-Canlı adres: `https://zile-aktar.vercel.app` (henüz özel domain yok)
+Canlı: `https://zile-aktar.vercel.app` (özel domain yok) · GitHub: `zileaktar/zile-aktar` (private)
+Mimari + kod durumu: `devir-promptu.md`
 
 ---
 
-## A. GERÇEK SATIŞI ENGELLEYEN (bunlar bitmeden para tahsil edilemez)
+## A. GERÇEK SATIŞI ENGELLEYEN (bitmeden para tahsil edilemez)
 
-- [ ] **iyzico PRODUCTION hesabı** — şu an SANDBOX. Gerçek kart tahsilatı yok.
-  - iyzico'ya işletme başvurusu (şahıs şirketi / vergi levhası / imza sirküleri vb.), sözleşme, onay süreci (günler-haftalar).
-  - Onaylanınca Vercel'de şu 3 env güncellenir: `IYZICO_API_KEY`, `IYZICO_SECRET_KEY`, `IYZICO_BASE_URL=https://api.iyzipay.com` (sandbox → prod).
-  - Prod callback URL'i iyzico panelinde: `https://<canlı-domain>/api/webhooks/iyzico/callback`
-- [ ] **iyzico webhook imzası** — `integration@iyzico.com`'a aktivasyon e-postası atıldı, yanıt bekleniyor. Notification URL girildi: `https://zile-aktar.vercel.app/api/webhooks/iyzico`. (Yayın engeli DEĞİL — ödeme onayı 3DS callback ile zaten yapılıyor; webhook ek güvenlik ağı.)
-- [ ] **Vercel Pro'ya geçiş** — Hobby planı ticari kullanıma kapalı (Vercel sözleşmesi). ~20 USD/ay. Deploy'dan önce şart.
+- [ ] **İşletme kaydı / vergi levhası** — şahıs şirketi yoksa mali müşavirle açılış. iyzico + yasal metinler bunu gerektirir.
+- [ ] **iyzico PRODUCTION başvurusu** — şu an SANDBOX, gerçek kart tahsilatı yok.
+  - Belgeler: vergi levhası, imza beyannamesi, kimlik, işletme adına banka hesabı belgesi. (Vergi levhası + banka + başvuru isimleri BİREBİR aynı olmalı.)
+  - iyzico paneli → "Canlıya Geç" → belgeleri yükle → sözleşme → onay (3–10 iş günü)
+  - Onay sonrası Vercel'de: `IYZICO_API_KEY`, `IYZICO_SECRET_KEY` (prod), `IYZICO_BASE_URL=https://api.iyzipay.com`, `IYZICO_WEBHOOK_SECRET` (prod webhook anahtarı)
+  - iyzico panelinde callback/notification URL'lerini canlı domaine çevir
+- [ ] **Vercel Pro'ya geçiş** (~$20/ay + KDV) — Hobby planı ticari kullanıma kapalı. Canlıya geçmeden hemen önce yap (kredi her ay sıfırlanır).
 
-## B. YASAL OLARAK ZORUNLU (TR e-ticaret mevzuatı)
+## B. YASAL (TR e-ticaret mevzuatı)
 
-- [~] **Yasal metin TASLAKLARI hazır** (avukat onayı hâlâ gerekli): `/on-bilgilendirme-formu`, `/mesafeli-satis-sozlesmesi`, `/iptal-iade-kosullari`, `/teslimat-ve-kargo`, `/kvkk`, `/cerez-politikasi`. Hepsi `src/components/legal/LegalPage.tsx` sarmalayıcısını + `src/lib/legal.ts` bilgilerini kullanıyor. Footer'a ve checkout onay kutularına link verildi.
-- [ ] **`src/lib/legal.ts` içindeki [...] alanlarını DOLDUR:** ticari unvan, vergi dairesi/no, MERSİS no, ticaret sicil no, anlaşmalı kargo firması. Bunlar boşken sözleşmeler eksik.
-- [ ] **Avukat / mali müşavir onayı** — tüm yasal metinler bir uzmana kontrol ettirilmeli (özellikle cayma hakkı istisnaları, KVKK saklama süreleri, işletme türüne göre unvan).
-- [x] **Sağlık beyanı disclaimer'ı** — `HealthDisclaimer` + admin ürün formunda yasaklı ifade kontrolü.
+- [~] Yasal metin **TASLAKLARI** hazır: `/on-bilgilendirme-formu`, `/mesafeli-satis-sozlesmesi`, `/iptal-iade-kosullari`, `/teslimat-ve-kargo`, `/kvkk`, `/cerez-politikasi`, `/sss`. Footer + checkout onay kutularında link.
+- [x] **`src/lib/legal.ts` işletme bilgileri dolduruldu:** Unvan: Suzan EŞAT (gerçek kişi ticari işletme) · Zile V.D. · VKN 3801213625 · MERSİS 2246369545600001 · Ticaret Sicil 4076 · NACE 47.27.04 · Kargo: Aras Kargo · Çalışma saatleri: Pzt–Cmt 09:00–19:00.
+- [ ] **Avukat / mali müşavir onayı** — tüm yasal metinler kontrol ettirilmeli (cayma hakkı istisnaları, KVKK saklama süreleri, işletme bilgileri).
+- [x] Sağlık beyanı disclaimer + admin ürün formunda yasaklı ifade kontrolü.
 
-## C. ALTYAPI — YAYIN ÖNCESİ
+## C. ALTYAPI / GÜVENLİK
 
-- [ ] **Özel domain** (ör. `zileaktar.com`) — satın al (hosting.com.tr, sadece domain — hosting Vercel'de). Sonra:
-  - Vercel → proje → Settings → Domains → domaini ekle → verilen DNS kayıtlarını domain sağlayıcıya gir
-  - Vercel env: `NEXT_PUBLIC_APP_URL=https://zileaktar.com`
-  - Supabase → Auth → URL Configuration → Site URL + Redirect URLs güncelle
-  - Cloudflare Turnstile → widget hostname listesine yeni domain ekle
-  - iyzico → callback/notification URL'lerini yeni domaine çevir
-  - Brevo → domaini ekle + SPF/DKIM DNS kayıtları (e-posta teslim edilebilirliği artar; şu an `@gmail.com` gönderen ile çalışıyor ama domain auth daha iyi)
-- [ ] **`CRON_SECRET`** — `.env.local` + Vercel'de hâlâ `placeholder-cron-secret-16chars-min`. Rastgele güçlü bir değerle değiştir (Vercel Cron bu header ile `/api/cron/expire-pending-orders`'a istek atıyor). Örn. `openssl rand -hex 24` çıktısı.
-- [ ] **Vercel 2FA** — hesabı authenticator app ile koru (canlı mağazayı yönetiyor).
-- [ ] **Supabase 2FA** + parola güçlü mü kontrol.
-- [ ] **Vercel Cron çalışıyor mu** doğrula — `vercel.json`'da `0 3 * * *` tanımlı, Hobby'de 1 günlük cron limiti içinde. Pro'da sorun yok. Deploy sonrası Vercel → proje → Cron sekmesinden kontrol.
-- [ ] **Havale/EFT IBAN** — `/admin/ayarlar` → "Havale/EFT Banka Bilgisi" formundan hesap sahibi + banka + IBAN gir. Girilene kadar havale ödeme "banka bilgileri tanımlı değil" der.
+- [x] **2FA:** Supabase + Vercel + GitHub — hepsi authenticator ile korumalı.
+- [x] **`CRON_SECRET`** — güçlü rastgele değer, `.env.local` + Vercel'de.
+- [x] Sır sızıntısı kontrolü — git geçmişinde/çalışan dizinde gerçek anahtar yok, `.gitignore` sıkı.
+- [ ] **Özel domain** (ör. `zileaktar.com`) — satın al (sadece domain, hosting Vercel'de). Sonra:
+  - Vercel → Settings → Domains → ekle → DNS kayıtlarını gir
+  - Vercel env `NEXT_PUBLIC_APP_URL=https://zileaktar.com`
+  - Supabase → Auth → URL Configuration (Site URL + Redirect URLs)
+  - Cloudflare Turnstile → widget hostname listesine ekle
+  - iyzico → callback/notification URL
+  - Brevo → domaini ekle + SPF/DKIM DNS kayıtları
+  - `_ga` çerez uyarısı özel domainde kendiliğinden düzelir
+- [ ] **Vercel Cron doğrula** — deploy sonrası Vercel → Cron sekmesi (`0 3 * * *`, bekleyen iyzico siparişlerini 24 saatte iptal eder).
+- [x] **Havale/EFT IBAN** — `/admin/ayarlar`'dan girildi.
+- [ ] Supabase parolası güçlü mü teyit.
 
-## D. ÜCRETSİZ KATMAN LİMİTLERİ (şimdilik yeter, büyüyünce yükselt)
+## D. ANALYTICS / SEO
 
-- [ ] **Supabase Free** — 500MB DB, 5GB egress/ay, 7 günlük yedek. Sipariş hacmi artınca **Pro (~25 USD/ay)** — Point-in-Time Recovery yedekleri sipariş verisi için önemli.
-- [ ] **Upstash Free** — 10.000 komut/gün. Rate limiting istek başına birkaç komut. Küçük mağaza için yeterli.
-- [ ] **Sentry Free** — 5.000 hata/ay. Yeterli.
-- [ ] **Brevo Free** — 300 e-posta/gün. Sipariş onayı + şifre sıfırlama için yeterli; büyürse yükselt.
+- [x] **Google Analytics 4** — kuruldu, çalışıyor (çerez izniyle koşullu). Ölçüm Kimliği `.env.local` + Vercel'de.
+- [ ] **Meta (Facebook) Pixel** — kod hazır, `NEXT_PUBLIC_META_PIXEL_ID` bekliyor. FB hesabı "çok yeni" hatası → 1 saat+ sonra işletme hesabı aç, Pixel oluştur, kimliği `.env.local` + Vercel'e gir, Redeploy.
+- [ ] **Google Search Console** — domain alınınca kayıt + `sitemap.xml` gönder + doğrulama.
+- [x] Dinamik `sitemap.xml` (tüm aktif ürünler + sayfalar), `robots.txt`, per-sayfa başlık/açıklama, `Store` + `Product` + `BreadcrumbList` + `FAQPage` şeması, breadcrumbs.
+- [ ] `Store` şemasına `geo` (enlem/boylam) eklenebilir — opsiyonel.
 
-## E. İÇERİK / UX
+## E. İÇERİK (mağaza sahibi)
 
-- [ ] **Gerçek ürün fotoğrafları** — 198 ürünün hepsi placeholder SVG. Mağaza sahibi `/admin/urunler` → ürün düzenle → görsel yükle ile ekler. (Claude görsel üretemez / aramaz.)
-- [ ] **Ürün açıklamaları** — sadece 11 baharatın zengin açıklaması var (migration 0009 + 0012'de korundu). Kalan ~187 ürün açıklamasız. İstenirse aynı formatta yazılabilir.
-- [~] **Sipariş onay e-postası** — ✅ kod hazır (`src/lib/email.ts`, Brevo API). Kart ödemesi onaylanınca + havale siparişi oluşunca müşteriye onay + `ORDER_NOTIFY_EMAIL`'e yeni sipariş bildirimi gider. Kalan: `.env.local` + Vercel'e `BREVO_API_KEY` (Brevo → SMTP & API → API Keys) ve `ORDER_NOTIFY_EMAIL` girilmeli.
-- [x] **Kargo / teslimat e-postaları** — ✅ İki yol: (1) `/admin/siparisler/<id>` "Kargo Bilgisi" formundan kargo firması + takip no girip "Kargoya ver ve müşteriye bildir" → takip numaralı e-posta. (2) `/admin/siparisler` listesindeki açılır menüden durumu "Kargoya Verildi" veya "Teslim Edildi" yapınca da müşteriye otomatik bilgi e-postası gider (aynı duruma tekrar çekilirse tekrar göndermez). Migration 0015: `orders.shipping_carrier/tracking_number/shipped_at`.
-- [ ] Ana sayfa hero görseli hâlâ Unsplash'tan — telif açısından değiştirilebilir.
-- [ ] `Organization` / `Store` Schema.org yapısal verisi (SEO) — telefon/adres artık var, eklenebilir.
+- [ ] **Gerçek ürün fotoğrafları** — 198 ürün placeholder SVG. `/admin/urunler` → ürün düzenle → görsel yükle.
+- [ ] **Ürün gramaj/fiyatları** — her ürün tek "STD" varyantla. 500g/1kg/2kg gibi seçenekleri `/admin/urunler`'den ekle (ekranda buton olarak görünür).
+- [ ] **Ürün açıklamaları** — ~187 ürün açıklamasız. İstersen Claude kategoriler halinde yazar.
+- [ ] **Kampanya afişleri** — `/admin/afisler`'den görsel + başlık/buton yükle (yoksa sade başlık gösterilir).
+- [ ] **Sosyal medya linkleri** — Instagram/Facebook hesap adreslerini ver, footer'a eklenir.
+- [ ] Anasayfa hero görseli hâlâ Unsplash — afiş koyunca görünmüyor; afişsizken kendi görseli konabilir.
+- [ ] Gerçek ekip/mağaza fotoğrafı (opsiyonel — "Hakkımızda" bölümü).
 
-## F. BİTENLER (referans)
+## F. MANUEL TEST (deploy sonrası, canlıda)
 
-- [x] Kod mimarisi, RLS, atomik sipariş RPC'si, güvenlik denetimi (migration 0011)
-- [x] Katalog: 5 kategori / 198 ürün (migration 0012)
-- [x] iyzico ödeme akışı (sandbox'ta uçtan uca test edildi) + Havale/EFT
-- [x] Cloudflare Turnstile CAPTCHA (giriş/kayıt/şifre sıfırlama)
-- [x] Ürün yorumları (moderasyonlu) + form filtreleme + STT/lot alanları + fatura adresi
-- [x] Hesap otomatik doldurma + kaydetme, profil düzenleme
-- [x] Şifre sıfırlama akışı (`/sifremi-unuttum` + `/sifre-yenile`)
-- [x] Sentry (hata izleme) — test edildi
-- [x] WhatsApp/telefon: `+90 551 173 00 94`
-- [x] GitHub (private) + Vercel deploy — `zile-aktar.vercel.app` canlı
-- [x] Brevo custom SMTP — canlı kayıt/doğrulama e-postası çalışıyor
+- [ ] **Tüm formlar** tek tek: kayıt → e-posta doğrulama → giriş → şifremi unuttum → şifre yenile → checkout (kart + havale) → sipariş sonrası e-postalar → ürün yorumu → admin sipariş durumu değiştir.
+- [ ] **Kupon** testi: `/admin/kuponlar`'dan kod oluştur → ödeme sayfasında uygula → indirim doğru mu → sipariş + e-postada indirim satırı.
+- [ ] **Kampanya** testi: bir ürüne "2 Alana 1 Bedava" ver → sepette otomatik tamamlama + kampanya indirimi doğru mu.
+- [ ] **Tarayıcı uyumluluğu:** Chrome, Safari (iOS dahil), Firefox, Edge — ana akışlar.
+- [x] Kırık link taraması — temiz (30 sayfa, 75+ link, 0 kırık).
+
+## G. ÜCRETSİZ KATMAN LİMİTLERİ (şimdilik yeter)
+
+- Supabase Free (500MB DB, 5GB egress/ay) → hacim artınca Pro (~$25/ay, PITR yedek)
+- Upstash Free (10K komut/gün) · Sentry Free (5K hata/ay) · Brevo Free (300 e-posta/gün)
+
+## H. BİTEN KOD İŞLERİ (referans)
+
+Mimari + RLS + atomik `create_order` + güvenlik denetimi · Katalog (5 kategori / 198 ürün) ·
+iyzico ödeme (sandbox) + Havale/EFT · Turnstile CAPTCHA · Ürün yorumları (moderasyonlu) ·
+Hesap otomatik doldurma · Şifre sıfırlama + göster/gizle · Sentry · WhatsApp · GitHub + Vercel deploy ·
+Brevo SMTP + sipariş/kargo/teslimat e-postaları · Canlı arama önerileri (typeahead) ·
+Varyant indirimi (üstü çizili fiyat) · Ekranda gramaj butonları · Kampanya afişi carousel ·
+İndirim kuponu sistemi (yüzde/sabit/ücretsiz kargo) · "X alana Y" kampanyası + sepette otomatik tamamlama ·
+Sepet "kasa altı" önerileri · Ürün detayında "Benzer Ürünler" · GA4 · Favicon · Breadcrumbs ·
+SSS sayfası · İletişim + harita sayfası

@@ -8,8 +8,9 @@ export default function DistanceSalesAgreementPage() {
     <LegalPage title="Mesafeli Satış Sözleşmesi">
       <h2>1. Taraflar</h2>
       <p>
-        <b>SATICI:</b> {LEGAL.unvan} — {LEGAL.adres} — Tel: {LEGAL.telefon} — E-posta: {LEGAL.eposta} — Vergi Dairesi/No:{' '}
-        {LEGAL.vergiDairesi}/{LEGAL.vergiNo} — MERSİS: {LEGAL.mersisNo}
+        <b>SATICI:</b> {LEGAL.unvan} (&quot;{LEGAL.markaAdi}&quot;) — {LEGAL.adres} — Tel: {LEGAL.telefon} — E-posta:{' '}
+        {LEGAL.eposta} — Vergi Dairesi/No: {LEGAL.vergiDairesi}/{LEGAL.vergiNo} — MERSİS: {LEGAL.mersisNo} — Ticaret Sicil No:{' '}
+        {LEGAL.ticaretSicilNo}
       </p>
       <p>
         <b>ALICI:</b> {LEGAL.webAdresi} üzerinden sipariş veren, ad-soyad ve adres bilgilerini sipariş formunda beyan eden
