@@ -20,10 +20,9 @@ Mimari + kod durumu: `devir-promptu.md`
 
 ## B. YASAL (TR e-ticaret mevzuatı)
 
-- [~] Yasal metin **TASLAKLARI** hazır: `/on-bilgilendirme-formu`, `/mesafeli-satis-sozlesmesi`, `/iptal-iade-kosullari` (+ örnek cayma formu), `/teslimat-ve-kargo`, `/kvkk` (GA/Pixel + yurt dışı aktarım dahil), `/cerez-politikasi`, `/kullanim-kosullari` (üyelik sözleşmesi), `/sss`. Footer + checkout onay kutularında link. Ön Bilgilendirme'de "cayma halinde iade kargosu tüketiciye ait" ibaresi var; ayıplı ürün bildiriminde kısa süre kısıtlaması kaldırıldı (TKHK hakları saklı).
-- [ ] Avukata sorulacak: taksitli ödeme açıksa vade farkı bilgisi · VERBİS muafiyeti (mali müşavir) · KEP adresi eklensin mi.
+- [x] Yasal metinler yayında: `/on-bilgilendirme-formu`, `/mesafeli-satis-sozlesmesi`, `/iptal-iade-kosullari` (+ cayma bildirim formu), `/teslimat-ve-kargo`, `/kvkk` (GA/Pixel + yurt dışı aktarım dahil), `/cerez-politikasi`, `/kullanim-kosullari`, `/sss`. Footer + checkout onay kutularında link. "TASLAK" uyarısı kaldırıldı; artık "Son güncelleme: {tarih}" gösteriliyor. İşletme bilgileri `legal.ts`'ten dolu.
+- [ ] **Avukat / mali müşavir son kontrolü** (metinler yayında ama uzman gözünden geçmedi) — taksitli ödeme açıksa vade farkı bilgisi · VERBİS muafiyeti · KEP adresi eklensin mi.
 - [x] **`src/lib/legal.ts` işletme bilgileri dolduruldu:** Unvan: Suzan EŞAT (gerçek kişi ticari işletme) · Zile V.D. · VKN 3801213625 · MERSİS 2246369545600001 · Ticaret Sicil 4076 · NACE 47.27.04 · Kargo: Aras Kargo · Çalışma saatleri: Pzt–Cmt 09:00–19:00.
-- [ ] **Avukat / mali müşavir onayı** — tüm yasal metinler kontrol ettirilmeli (cayma hakkı istisnaları, KVKK saklama süreleri, işletme bilgileri).
 - [x] Sağlık beyanı disclaimer + admin ürün formunda yasaklı ifade kontrolü.
 
 ## C. ALTYAPI / GÜVENLİK

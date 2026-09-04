@@ -39,9 +39,9 @@ export default function IptalIadePage() {
         <li>Ürün tarafımıza ulaşıp kontrol edildikten sonra bedeli, cayma bildiriminden itibaren <b>en geç 14 gün</b> içinde iade edilir.</li>
       </ol>
 
-      <h2>Örnek Cayma Bildirim Formu</h2>
+      <h2>Cayma Bildirim Formu</h2>
       <p>
-        Cayma hakkınızı kullanmak için aşağıdaki formu doldurup {LEGAL.eposta} adresine gönderebilirsiniz. Formu
+        Cayma hakkınızı kullanmak için aşağıdaki formu doldurup {LEGAL.eposta} adresine gönderebilirsiniz. Bu formu
         kullanmak zorunda değilsiniz; cayma iradenizi açıkça belirten her yazılı bildirim geçerlidir.
       </p>
       <div className="bg-cream border border-primary/15 rounded-xl p-4 text-sm leading-relaxed whitespace-pre-line">

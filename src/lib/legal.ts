@@ -1,9 +1,7 @@
 /**
  * İşletmenin yasal bilgileri — TÜM yasal metin sayfaları buradan okur.
- *
- * ⚠️ KÖŞELİ PARANTEZLİ ([...]) alanlar MUTLAKA doldurulmalıdır. Bunlar yoksa
- * mesafeli satış / ön bilgilendirme mevzuatına uyum eksik kalır. Bilgileri
- * vergi levhası, ticaret sicil gazetesi ve imza sirkülerinden alın.
+ * Bilgi değişirse (adres, kargo firması, çalışma saati, web adresi vb.) yalnızca
+ * burayı güncelle; tüm sayfalar otomatik yansır. `sonGuncelleme`'yi de değiştir.
  */
 export const LEGAL = {
   // Gerçek kişilere ait ticari işletme — ticari unvan işletme sahibinin adıdır.
