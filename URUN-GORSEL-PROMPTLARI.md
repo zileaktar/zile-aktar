@@ -113,44 +113,44 @@ Aşağıdaki tablolarda **{ÖZNE}** kısmı her ürün için hazır yazılı —
 
 | Ürün | {ÖZNE} |
 |---|---|
-| **Acı Tozbiber** | a small glass jar filled with fine "Acı Tozbiber" powder, rich red-orange color |
+| **Acı Tozbiber** | a small wooden bowl filled with fine "Acı Tozbiber" powder, rich red-orange color |
 | **Çiğköfte Baharatı** | a small wooden bowl of the mixed ground spice blend "Çiğköfte Baharatı" |
-| **Harnup Toz** | a small glass jar or wooden bowl of "Harnup Toz", true-to-life color and texture |
-| **Havlican Tozu** | a small glass jar filled with fine "Havlican Tozu" powder |
-| **İsot** | a small glass jar or wooden bowl of "İsot", true-to-life color and texture |
-| **Kabartma Tozu** | a small glass jar filled with fine "Kabartma Tozu" powder |
-| **Kajun** | a small glass jar or wooden bowl of "Kajun", true-to-life color and texture |
-| **Kakao** | a small glass jar or wooden bowl of "Kakao", true-to-life color and texture |
-| **Karabiber** | a small glass jar or wooden bowl of "Karabiber", true-to-life color and texture |
-| **Karanfil** | a small glass jar or wooden bowl of "Karanfil", true-to-life color and texture |
-| **Karbonat** | a small glass jar or wooden bowl of "Karbonat", true-to-life color and texture |
-| **Kekik** | a small glass jar or wooden bowl of "Kekik", true-to-life color and texture |
-| **Kimyon** | a small glass jar or wooden bowl of "Kimyon", true-to-life color and texture |
-| **Kişniş Tozu** | a small glass jar filled with fine "Kişniş Tozu" powder |
+| **Harnup Toz** | a small wooden bowl of "Harnup Toz", true-to-life color and texture |
+| **Havlican Tozu** | a small wooden bowl filled with fine "Havlican Tozu" powder |
+| **İsot** | a small wooden bowl of "İsot", true-to-life color and texture |
+| **Kabartma Tozu** | a small wooden bowl filled with fine "Kabartma Tozu" powder |
+| **Kajun** | a small wooden bowl of "Kajun", true-to-life color and texture |
+| **Kakao** | a small wooden bowl of "Kakao", true-to-life color and texture |
+| **Karabiber** | a small wooden bowl of "Karabiber", true-to-life color and texture |
+| **Karanfil** | a small wooden bowl of "Karanfil", true-to-life color and texture |
+| **Karbonat** | a small wooden bowl of "Karbonat", true-to-life color and texture |
+| **Kekik** | a small wooden bowl of "Kekik", true-to-life color and texture |
+| **Kimyon** | a small wooden bowl of "Kimyon", true-to-life color and texture |
+| **Kişniş Tozu** | a small wooden bowl filled with fine "Kişniş Tozu" powder |
 | **Köfte Baharatı** | a small wooden bowl of the mixed ground spice blend "Köfte Baharatı" |
 | **Kömbe Baharatı** | a small wooden bowl of the mixed ground spice blend "Kömbe Baharatı" |
-| **Köri Toz** | a small glass jar or wooden bowl of "Köri Toz", true-to-life color and texture |
-| **Mahlep** | a small glass jar or wooden bowl of "Mahlep", true-to-life color and texture |
-| **Nane** | a small glass jar or wooden bowl of "Nane", true-to-life color and texture |
+| **Köri Toz** | a small wooden bowl of "Köri Toz", true-to-life color and texture |
+| **Mahlep** | a small wooden bowl of "Mahlep", true-to-life color and texture |
+| **Nane** | a small wooden bowl of "Nane", true-to-life color and texture |
 | **Orta Acı Pulbiber** | a small wooden bowl overflowing with coarse "Orta Acı Pulbiber" chili flakes, vivid deep red texture |
-| **Orta Acı Tozbiber** | a small glass jar filled with fine "Orta Acı Tozbiber" powder, rich red-orange color |
+| **Orta Acı Tozbiber** | a small wooden bowl filled with fine "Orta Acı Tozbiber" powder, rich red-orange color |
 | **Osmanlı Baharatı** | a small wooden bowl of the mixed ground spice blend "Osmanlı Baharatı" |
-| **Sahlep** | a small glass jar or wooden bowl of "Sahlep", true-to-life color and texture |
-| **Sarımsak Tozu** | a small glass jar filled with fine "Sarımsak Tozu" powder |
-| **Soğan Tozu** | a small glass jar filled with fine "Soğan Tozu" powder |
+| **Sahlep** | a small wooden bowl of "Sahlep", true-to-life color and texture |
+| **Sarımsak Tozu** | a small wooden bowl filled with fine "Sarımsak Tozu" powder |
+| **Soğan Tozu** | a small wooden bowl filled with fine "Soğan Tozu" powder |
 | **Sucuk Baharatı** | a small wooden bowl of the mixed ground spice blend "Sucuk Baharatı" |
-| **Sumak** | a small glass jar or wooden bowl of "Sumak", true-to-life color and texture |
+| **Sumak** | a small wooden bowl of "Sumak", true-to-life color and texture |
 | **Tatlı Pulbiber** | a small wooden bowl overflowing with coarse "Tatlı Pulbiber" chili flakes, vivid deep red texture |
-| **Tatlı Tozbiber** | a small glass jar filled with fine "Tatlı Tozbiber" powder, rich red-orange color |
+| **Tatlı Tozbiber** | a small wooden bowl filled with fine "Tatlı Tozbiber" powder, rich red-orange color |
 | **Tavuk Baharatı** | a small wooden bowl of the mixed ground spice blend "Tavuk Baharatı" |
-| **Toz Karanfil** | a small glass jar filled with fine "Toz Karanfil" powder |
-| **Toz Tarçın** | a small glass jar filled with fine "Toz Tarçın" powder |
-| **Yedibahar** | a small glass jar or wooden bowl of "Yedibahar", true-to-life color and texture |
-| **Yenibahar** | a small glass jar or wooden bowl of "Yenibahar", true-to-life color and texture |
+| **Toz Karanfil** | a small wooden bowl filled with fine "Toz Karanfil" powder |
+| **Toz Tarçın** | a small wooden bowl filled with fine "Toz Tarçın" powder |
+| **Yedibahar** | a small wooden bowl of "Yedibahar", true-to-life color and texture |
+| **Yenibahar** | a small wooden bowl of "Yenibahar", true-to-life color and texture |
 | **Zehir Acı Pulbiber** | a small wooden bowl overflowing with coarse "Zehir Acı Pulbiber" chili flakes, vivid deep red texture |
 | **Zehir Zemberek Acı Pulbiber** | a small wooden bowl overflowing with coarse "Zehir Zemberek Acı Pulbiber" chili flakes, vivid deep red texture |
-| **Zencefil** | a small glass jar or wooden bowl of "Zencefil", true-to-life color and texture |
-| **Zerdeçal** | a small glass jar or wooden bowl of "Zerdeçal", true-to-life color and texture |
+| **Zencefil** | a small wooden bowl of "Zencefil", true-to-life color and texture |
+| **Zerdeçal** | a small wooden bowl of "Zerdeçal", true-to-life color and texture |
 
 ## Şifalı Bitkiler / Çaylar (60 ürün)
 
