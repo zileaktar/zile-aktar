@@ -7,6 +7,7 @@ import { useCartCount } from '@/store/cart-store';
 import { useUiStore } from '@/store/ui-store';
 import { SiteLogo } from '@/components/layout/SiteLogo';
 import { SearchBox } from '@/components/layout/SearchBox';
+import { LEGAL } from '@/lib/legal';
 
 interface Category {
   id: string;
@@ -37,7 +38,7 @@ export function SiteHeader({ categories, logoPath }: { categories: Category[]; l
   return (
     <header className="sticky top-0 z-40 bg-cream/95 backdrop-blur border-b border-primary/10 pt-safe">
       <div className="bg-primary-dark text-cream text-xs sm:text-sm py-2 text-center px-4">
-        🌿 150₺ ve üzeri alışverişlerde <span className="font-semibold text-accent-light">kargo bedava</span>!
+        🌿 {LEGAL.ucretsizKargoEsigiTl}₺ ve üzeri alışverişlerde <span className="font-semibold text-accent-light">kargo bedava</span>!
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">

@@ -26,7 +26,7 @@ export const LEGAL = {
 
   // Kargo & teslimat
   kargoFirmasi: 'Aras Kargo',
-  ucretsizKargoEsigiTl: 150,
+  ucretsizKargoEsigiTl: 700,
   standartKargoUcretiTl: 39.9,
   teslimatSuresiIsGunu: '1–5',
 

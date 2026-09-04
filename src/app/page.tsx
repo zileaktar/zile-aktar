@@ -5,6 +5,7 @@ import { ProductCard } from '@/components/product/ProductCard';
 import { CampaignCarousel } from '@/components/home/CampaignCarousel';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { PRODUCT_FORMS, PRODUCT_FORM_LABELS } from '@/lib/validations/product';
+import { LEGAL } from '@/lib/legal';
 
 export const metadata: Metadata = {
   title: 'Anasayfa',
@@ -89,7 +90,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <section className="bg-white border-b border-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {[
-            { icon: '🚚', title: 'Kargo Bedava', sub: '150₺ üzeri siparişte' },
+            { icon: '🚚', title: 'Kargo Bedava', sub: `${LEGAL.ucretsizKargoEsigiTl}₺ üzeri siparişte` },
             { icon: '🌿', title: '%100 Taze & Doğal', sub: 'Katkı maddesiz' },
             { icon: '🔒', title: 'Güvenli 3D Ödeme', sub: 'iyzico ile SSL korumalı' },
             { icon: '🏺', title: 'Geleneksel Üretim', sub: 'Yöresel ustalardan' }

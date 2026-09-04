@@ -47,7 +47,7 @@ Kullanıcının portu 3000'de takılırsa: `npx kill-port 3000`. `NEXT_PUBLIC_AP
 ### Para & sipariş
 - **Tüm parasal alanlar kuruş cinsinden `integer`** (float yok). `1 TL = 100 kuruş`.
 - İstemciden **asla fiyat/toplam kabul edilmez**. Sepet (Zustand, localStorage) yalnızca önizleme. Gerçek toplam `public.create_order(...)` Postgres fonksiyonunda `FOR UPDATE` satır kilidiyle DB'den hesaplanır; bu RPC yalnızca `service_role` çağırabilir, istemci `orders`'a doğrudan INSERT yapamaz (RLS'de INSERT politikası yok).
-- Kargo eşiği (`15000`) ve ücreti (`3990`) hem `src/lib/pricing.ts` hem `create_order` içinde SABİT — **elle senkron tutulmalı**.
+- Kargo eşiği (`70000` = 700 TL) ve ücreti (`3990`) hem `src/lib/pricing.ts` hem `create_order`/`preview_coupon` içinde SABİT — **elle senkron tutulmalı**. Değiştirirken üçünü birden güncelleyen yeni bir migration yaz (bkz. `0020_free_shipping_threshold.sql`).
 
 ### Supabase istemci üçlüsü (`src/lib/supabase/server.ts`)
 - `createSupabaseServerClient()` — kullanıcının çerezli oturumu, RLS'e tabi. Server Component / Route Handler / Server Action.

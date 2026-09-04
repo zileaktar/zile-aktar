@@ -9,7 +9,7 @@
 // v_free_shipping_threshold / v_standard_shipping ile ELLE senkron tutulmalıdır.
 // Buradaki değerler yalnızca istemci tarafı sepet önizlemesi içindir; sunucu her
 // zaman kendi (DB'deki) değerini kullanır.
-export const FREE_SHIPPING_THRESHOLD_CENTS = 15000; // 150,00 TL
+export const FREE_SHIPPING_THRESHOLD_CENTS = 70000; // 700,00 TL
 export const STANDARD_SHIPPING_CENTS = 3990; // 39,90 TL
 
 export function calculateShippingCents(subtotalCents: number): number {
