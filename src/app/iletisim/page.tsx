@@ -22,8 +22,13 @@ export default function ContactPage() {
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-5">
           <div>
-            <h2 className="font-semibold text-primary mb-1.5">Mağaza Adresi</h2>
-            <p className="text-sm text-carbon/70 leading-relaxed">{LEGAL.adres}</p>
+            <h2 className="font-semibold text-primary mb-1.5">Satıcı / İşletme Bilgileri</h2>
+            <ul className="text-sm text-carbon/70 leading-relaxed space-y-0.5">
+              <li>{LEGAL.unvan} (&quot;{LEGAL.markaAdi}&quot;) — {LEGAL.isletmeTuru}</li>
+              <li>{LEGAL.adres}</li>
+              <li>Vergi Dairesi / No: {LEGAL.vergiDairesi} / {LEGAL.vergiNo}</li>
+              <li>MERSİS No: {LEGAL.mersisNo} · Ticaret Sicil No: {LEGAL.ticaretSicilNo}</li>
+            </ul>
           </div>
 
           <div>

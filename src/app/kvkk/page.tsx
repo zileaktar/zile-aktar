@@ -45,11 +45,17 @@ export default function KvkkPage() {
         <li>Açık rızanız olması halinde kampanya ve fırsat bildirimleri</li>
       </ul>
 
-      <h2>4. Hukuki Sebepler (KVKK m.5)</h2>
+      <h2>4. Veri Toplama Yöntemi ve Hukuki Sebepler (KVKK m.5)</h2>
       <p>
-        Verileriniz; sözleşmenin kurulması ve ifası, hukuki yükümlülüklerin yerine getirilmesi, bir hakkın tesisi/korunması
-        ve veri sorumlusunun meşru menfaati hukuki sebeplerine dayanılarak; pazarlama iletişimi ise yalnızca açık rızanıza
-        dayanılarak işlenir.
+        Kişisel verileriniz; siteye üye olurken ve sipariş verirken doldurduğunuz formlar, ürün yorumu ve iletişim/talep
+        kayıtları, çerezler ve benzeri teknolojiler ile ödeme kuruluşundan (iyzico) dönen işlem sonuç bilgileri
+        aracılığıyla elektronik ortamda toplanır.
+      </p>
+      <p>
+        Bu veriler; sözleşmenin kurulması ve ifası, hukuki yükümlülüklerin yerine getirilmesi (fatura, saklama), bir
+        hakkın tesisi/korunması ve veri sorumlusunun meşru menfaati (site güvenliği, dolandırıcılık önleme) hukuki
+        sebeplerine dayanılarak; analitik/pazarlama amaçlı işleme ve yurt dışına aktarım ise yalnızca çerez izniyle
+        verdiğiniz <b>açık rızanıza</b> dayanılarak işlenir.
       </p>
 
       <h2>5. Aktarım Yapılan Taraflar</h2>

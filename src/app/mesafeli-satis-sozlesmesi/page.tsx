@@ -45,9 +45,15 @@ export default function DistanceSalesAgreementPage() {
       <h2>5. Cayma Hakkı</h2>
       <p>
         Alıcı, ürünü teslim aldığı tarihten itibaren <b>{LEGAL.caymaSuresiGun} gün</b> içinde, hiçbir gerekçe göstermeksizin
-        ve cezai şart ödemeksizin sözleşmeden cayabilir. Cayma bildirimi {LEGAL.eposta} adresine yazılı olarak yapılır.
-        Cayma hakkının kullanılması halinde, ürün Satıcı&apos;ya iade edilir ve bedel, cayma bildiriminin ulaşmasından
-        itibaren en geç 14 gün içinde Alıcı&apos;ya iade edilir.
+        ve cezai şart ödemeksizin sözleşmeden cayabilir. Cayma bildirimi, bu süre içinde {LEGAL.eposta} adresine yazılı
+        olarak (dilerse <a href="/iptal-iade-kosullari">İptal, İade ve Cayma Hakkı</a> sayfasındaki formla) yapılır.
+      </p>
+      <p>
+        Cayma hakkının kullanılması halinde Satıcı, cayma bildiriminin kendisine ulaşmasından itibaren en geç 14 gün
+        içinde, Alıcı&apos;nın malı tedarik ederken ödediği <b>ürün bedeli ile teslimat masrafları dâhil tüm bedeli</b>{' '}
+        Alıcı&apos;ya iade eder. Alıcı, ürünü cayma bildirimini yönelttiği tarihten itibaren 10 gün içinde{' '}
+        {LEGAL.kargoFirmasi} ile Satıcı&apos;nın adresine geri gönderir; <b>geri gönderim (iade kargo) masrafı
+        Alıcı&apos;ya aittir</b> (ayıplı/yanlış ürün hâli hariç).
       </p>
       <p>
         <b>Cayma hakkının istisnaları:</b> Ambalajı/koruyucu bandı açılmış gıda ürünleri (baharat, çay, bitki, yağ,

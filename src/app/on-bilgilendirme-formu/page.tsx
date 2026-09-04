@@ -40,15 +40,26 @@ export default function OnBilgilendirmeFormuPage() {
         iyzico&apos;nun PCI-DSS uyumlu sayfasında girilir, satıcıya iletilmez.
       </p>
 
-      <h2>5. Cayma Hakkı</h2>
+      <h2>5. Bilgi Girişi Hatalarının Düzeltilmesi</h2>
+      <p>
+        Siparişi onaylamadan önce, sepet ve ödeme adımlarında ürün, adet, teslimat/fatura adresi ve iletişim
+        bilgilerinizi görüntüleyebilir; yanlış girdiğiniz bir bilgiyi ilgili alandan geri dönerek düzeltebilirsiniz.
+        &quot;Ödemeyi Tamamla&quot; adımına kadar hiçbir bilgi kesinleşmez.
+      </p>
+
+      <h2>6. Cayma Hakkı</h2>
       <p>
         Ürünü teslim aldığınız tarihten itibaren {LEGAL.caymaSuresiGun} gün içinde, hiçbir gerekçe göstermeden ve cezai
         şart ödemeden cayma hakkınız vardır. Cayma bildirimi, bu süre içinde {LEGAL.eposta} adresine yazılı olarak
-        (dilerseniz İptal, İade ve Cayma Hakkı sayfasındaki örnek formla) yapılır. Ürün bedeli, bildirimin ulaşmasından
-        itibaren en geç 14 gün içinde ödemeyi yaptığınız yönteme iade edilir.
+        (dilerseniz İptal, İade ve Cayma Hakkı sayfasındaki formla) yapılır.
       </p>
       <p>
-        <b>Cayma halinde iade (geri gönderim) kargo ücreti Alıcı&apos;ya aittir.</b> Ayıplı/yanlış/eksik ürün
+        Cayma hakkını kullanırsanız; ürün bedeli <b>ve teslimat sırasında ödemiş olduğunuz standart kargo ücreti
+        (varsa)</b>, cayma bildiriminin bize ulaşmasından itibaren en geç 14 gün içinde ödemeyi yaptığınız yönteme
+        (kart / havale) iade edilir. Ürünü {LEGAL.kargoFirmasi} ile satıcının adresine geri göndermeniz yeterlidir.
+      </p>
+      <p>
+        <b>Cayma halinde ürünün geri gönderim (iade kargo) masrafı Alıcı&apos;ya aittir.</b> Ayıplı/yanlış/eksik ürün
         gönderiminde ise iade kargo masrafı Satıcı&apos;ya aittir.
       </p>
       <p>
@@ -58,13 +69,15 @@ export default function OnBilgilendirmeFormuPage() {
         <a href="/iptal-iade-kosullari">İptal, İade ve Cayma Hakkı</a> sayfasına bakınız.
       </p>
 
-      <h2>6. Şikâyet ve İtiraz</h2>
+      <h2>7. Şikâyet ve İtiraz</h2>
       <p>
-        Uyuşmazlık durumunda, Ticaret Bakanlığı&apos;nca ilan edilen parasal sınırlar dahilinde, tüketicinin yerleşim
-        yerindeki <b>Tüketici Hakem Heyeti</b> veya <b>Tüketici Mahkemesi</b>&apos;ne başvurabilirsiniz.
+        Uyuşmazlık durumunda, Ticaret Bakanlığı&apos;nca her yıl ilan edilen parasal sınırlar dahilinde tüketicinin
+        yerleşim yerindeki veya işlemin yapıldığı yerdeki <b>Tüketici Hakem Heyeti</b>&apos;ne, bu sınırı aşan
+        uyuşmazlıklarda <b>Tüketici Mahkemesi</b>&apos;ne başvurabilirsiniz. Ayrıca talep ve şikâyetlerinizi{' '}
+        {LEGAL.eposta} veya {LEGAL.telefon} üzerinden doğrudan bize iletebilirsiniz.
       </p>
 
-      <h2>7. Sağlık Beyanı</h2>
+      <h2>8. Sağlık Beyanı</h2>
       <p>
         Sitede satılan bitkisel ürünler gıda/takviye amaçlıdır; ilaç değildir, hastalıkların teşhis, tedavi veya
         önlenmesi amacıyla kullanılmaz. Sağlık sorununuz varsa hekiminize danışınız.

@@ -143,9 +143,16 @@ export async function sendOrderPlacedEmail(orderId: string): Promise<void> {
       ${itemsTable(order.order_items)}
       ${totalsBlock}
       ${addressBlock}
-      <p style="font-size:12px;color:#888;margin-top:24px">
+      <p style="font-size:12px;color:#888;margin-top:20px">
+        Bu siparişe, onayladığınız
+        <a href="${env.NEXT_PUBLIC_APP_URL}/mesafeli-satis-sozlesmesi" style="color:#1b4332">Mesafeli Satış Sözleşmesi</a> ve
+        <a href="${env.NEXT_PUBLIC_APP_URL}/on-bilgilendirme-formu" style="color:#1b4332">Ön Bilgilendirme Formu</a>
+        uygulanır. Cayma ve iade koşulları:
+        <a href="${env.NEXT_PUBLIC_APP_URL}/iptal-iade-kosullari" style="color:#1b4332">İptal, İade ve Cayma Hakkı</a>.
+      </p>
+      <p style="font-size:12px;color:#888;margin-top:12px">
         Sorularınız için: ${LEGAL.telefon} · ${LEGAL.eposta}<br>
-        ${LEGAL.markaAdi} — ${LEGAL.adres}
+        ${LEGAL.unvan} (${LEGAL.markaAdi}) — ${LEGAL.adres}
       </p>
     </div>`;
 

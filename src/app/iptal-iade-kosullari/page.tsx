@@ -17,7 +17,13 @@ export default function IptalIadePage() {
       <p>
         Mesafeli Sözleşmeler Yönetmeliği uyarınca, ürünü teslim aldığınız tarihten itibaren{' '}
         <b>{LEGAL.caymaSuresiGun} gün</b> içinde hiçbir gerekçe göstermeden ve cezai şart ödemeden sözleşmeden cayma
-        hakkınız vardır. Cayma bildirimini bu süre içinde {LEGAL.eposta} adresine yazılı olarak iletmeniz yeterlidir.
+        hakkınız vardır. Cayma bildirimini bu süre içinde {LEGAL.eposta} adresine yazılı olarak (dilerseniz aşağıdaki
+        formla) iletmeniz yeterlidir.
+      </p>
+      <p>
+        Cayma halinde; ödediğiniz <b>ürün bedeli ile teslimat sırasında ödediğiniz standart kargo ücreti (varsa)</b>,
+        cayma bildiriminin bize ulaşmasından itibaren en geç 14 gün içinde ödemeyi yaptığınız yönteme (kart / havale)
+        iade edilir. Yalnızca ürünün geri gönderim (iade kargo) masrafı size aittir.
       </p>
 
       <h2>Cayma Hakkının Kullanılamayacağı Ürünler</h2>
@@ -35,8 +41,8 @@ export default function IptalIadePage() {
       <h2>İade Süreci</h2>
       <ol>
         <li>{LEGAL.iadeIcinIletisim} üzerinden iade talebinizi ve sipariş numaranızı bildirin.</li>
-        <li>Onay sonrası ürünü, faturası ve tüm aksesuarlarıyla birlikte belirtilen adrese gönderin.</li>
-        <li>Ürün tarafımıza ulaşıp kontrol edildikten sonra bedeli, cayma bildiriminden itibaren <b>en geç 14 gün</b> içinde iade edilir.</li>
+        <li>Onay sonrası ürünü, faturası ve tüm aksesuarlarıyla birlikte {LEGAL.kargoFirmasi} ile belirtilen adrese gönderin (cayma bildiriminden itibaren 10 gün içinde).</li>
+        <li>Ürün tarafımıza ulaşıp kontrol edildikten sonra ödemeniz (ürün bedeli + varsa ödediğiniz standart kargo ücreti), cayma bildiriminden itibaren <b>en geç 14 gün</b> içinde iade edilir.</li>
       </ol>
 
       <h2>Cayma Bildirim Formu</h2>
