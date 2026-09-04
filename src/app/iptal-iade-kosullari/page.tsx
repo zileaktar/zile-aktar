@@ -39,6 +39,28 @@ export default function IptalIadePage() {
         <li>Ürün tarafımıza ulaşıp kontrol edildikten sonra bedeli, cayma bildiriminden itibaren <b>en geç 14 gün</b> içinde iade edilir.</li>
       </ol>
 
+      <h2>Örnek Cayma Bildirim Formu</h2>
+      <p>
+        Cayma hakkınızı kullanmak için aşağıdaki formu doldurup {LEGAL.eposta} adresine gönderebilirsiniz. Formu
+        kullanmak zorunda değilsiniz; cayma iradenizi açıkça belirten her yazılı bildirim geçerlidir.
+      </p>
+      <div className="bg-cream border border-primary/15 rounded-xl p-4 text-sm leading-relaxed whitespace-pre-line">
+        {`Kime: ${LEGAL.unvan} ("${LEGAL.markaAdi}")
+Adres: ${LEGAL.adres}
+E-posta: ${LEGAL.eposta}
+
+Bu formla, aşağıdaki ürün(ler)in satışına ilişkin sözleşmeden cayma hakkımı kullanıyorum:
+
+- Sipariş numarası:
+- Sipariş tarihi / teslim alma tarihi:
+- Cayılan ürün(ler):
+- Ad - Soyad:
+- Adres:
+- İade edilecek tutarın yatırılacağı IBAN:
+- Tarih:
+- İmza (kağıt üzerinde gönderiliyorsa):`}
+      </div>
+
       <h2>İade Kargo Ücreti</h2>
       <ul>
         <li>Ayıplı/yanlış/eksik ürün gönderiminde iade kargo ücreti <b>bize</b> aittir (anlaşmalı kargo ile ücretsiz gönderirsiniz).</li>
@@ -47,8 +69,11 @@ export default function IptalIadePage() {
 
       <h2>Ayıplı Ürün</h2>
       <p>
-        Teslim aldığınız ürün kırık, bozuk, son kullanma tarihi geçmiş veya sipariş ettiğinizden farklıysa, fotoğrafıyla
-        birlikte {LEGAL.iadeIcinIletisim} üzerinden 48 saat içinde bildirin; ücretsiz değişim veya tam iade yapılır.
+        Teslim aldığınız ürün kırık, bozuk, son kullanma tarihi geçmiş, eksik veya sipariş ettiğinizden farklıysa,
+        mümkünse fotoğrafıyla birlikte {LEGAL.iadeIcinIletisim} üzerinden <b>en kısa sürede</b> bize bildirin; ücretsiz
+        değişim veya tam iade yapılır. Ayıplı ürünlerde 6502 sayılı Tüketicinin Korunması Hakkında Kanun&apos;dan doğan
+        seçimlik haklarınız (ücretsiz onarım, değişim, bedel iadesi, indirim) ve yasal zamanaşımı süreleriniz saklıdır;
+        erken bildirim yalnızca sürecin hızlanmasını sağlar, hak kaybına yol açmaz.
       </p>
     </LegalPage>
   );

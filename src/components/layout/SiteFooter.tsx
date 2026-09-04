@@ -73,6 +73,9 @@ export function SiteFooter({ categories, logoPath }: { categories: Category[]; l
             <Link href="/sss" className="hover:text-accent-light">
               Sıkça Sorulan Sorular
             </Link>
+            <Link href="/kullanim-kosullari" className="hover:text-accent-light">
+              Site Kullanım Koşulları
+            </Link>
             <Link href="/on-bilgilendirme-formu" className="hover:text-accent-light">
               Ön Bilgilendirme Formu
             </Link>

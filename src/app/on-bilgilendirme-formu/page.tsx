@@ -42,10 +42,20 @@ export default function OnBilgilendirmeFormuPage() {
 
       <h2>5. Cayma Hakkı</h2>
       <p>
-        Ürünü teslim aldığınız tarihten itibaren {LEGAL.caymaSuresiGun} gün içinde cayma hakkınız vardır. Ambalajı açılmış
-        gıda/kozmetik ürünlerinde ve çabuk bozulabilen ürünlerde bu hak kullanılamaz. Ayrıntı için{' '}
-        <a href="/iptal-iade-kosullari">İptal, İade ve Cayma Hakkı</a> sayfasına bakınız. Cayma bildirimi{' '}
-        {LEGAL.eposta} adresine yapılır.
+        Ürünü teslim aldığınız tarihten itibaren {LEGAL.caymaSuresiGun} gün içinde, hiçbir gerekçe göstermeden ve cezai
+        şart ödemeden cayma hakkınız vardır. Cayma bildirimi, bu süre içinde {LEGAL.eposta} adresine yazılı olarak
+        (dilerseniz İptal, İade ve Cayma Hakkı sayfasındaki örnek formla) yapılır. Ürün bedeli, bildirimin ulaşmasından
+        itibaren en geç 14 gün içinde ödemeyi yaptığınız yönteme iade edilir.
+      </p>
+      <p>
+        <b>Cayma halinde iade (geri gönderim) kargo ücreti Alıcı&apos;ya aittir.</b> Ayıplı/yanlış/eksik ürün
+        gönderiminde ise iade kargo masrafı Satıcı&apos;ya aittir.
+      </p>
+      <p>
+        <b>Cayma hakkının istisnaları:</b> Ambalajı/koruyucu bandı açılmış gıda ürünleri (baharat, çay, bitki, yağ,
+        sirke), çabuk bozulabilen veya son kullanma tarihi kısa ürünler, ambalajı açılmış kozmetik/kişisel bakım
+        ürünleri ve Alıcı&apos;nın isteğine göre hazırlanan ürünlerde cayma hakkı kullanılamaz. Ayrıntı için{' '}
+        <a href="/iptal-iade-kosullari">İptal, İade ve Cayma Hakkı</a> sayfasına bakınız.
       </p>
 
       <h2>6. Şikâyet ve İtiraz</h2>

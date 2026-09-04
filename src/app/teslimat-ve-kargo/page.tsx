@@ -28,8 +28,11 @@ export default function TeslimatKargoPage() {
 
       <h2>Teslim Alırken Dikkat</h2>
       <p>
-        Paketi teslim alırken kargo görevlisinin yanında kontrol ediniz. Hasarlı/ezik paketleri <b>tutanak tutturarak</b>{' '}
-        teslim almayınız veya kabul etmeyiniz; durumu {LEGAL.iadeIcinIletisim} üzerinden 24 saat içinde bize bildiriniz.
+        Paketi teslim alırken kargo görevlisinin yanında kontrol etmeniz faydanıza olur. Hasarlı/ezik bir paket varsa
+        kargo görevlisine <b>tutanak tutturmanızı</b> ve paketi ya bu tutanakla teslim almanızı ya da kabul etmemenizi
+        öneririz; ardından durumu {LEGAL.iadeIcinIletisim} üzerinden <b>en kısa sürede</b> bize bildiriniz. Erken
+        bildirim süreci hızlandırır; ayıplı ürünlerde 6502 sayılı Kanun&apos;dan doğan yasal haklarınız her hâlükârda
+        saklıdır.
       </p>
 
       <h2>Teslimat Bölgesi</h2>
