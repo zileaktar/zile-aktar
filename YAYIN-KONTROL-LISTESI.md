@@ -45,7 +45,7 @@ Mimari + kod durumu: `devir-promptu.md`
 ## D. ANALYTICS / SEO
 
 - [x] **Google Analytics 4** — kuruldu, çalışıyor (çerez izniyle koşullu). Ölçüm Kimliği `.env.local` + Vercel'de.
-- [ ] **Meta (Facebook) Pixel** — kod hazır, `NEXT_PUBLIC_META_PIXEL_ID` bekliyor. FB hesabı "çok yeni" hatası → 1 saat+ sonra işletme hesabı aç, Pixel oluştur, kimliği `.env.local` + Vercel'e gir, Redeploy.
+- [x] **Meta (Facebook) Pixel** — kuruldu, çalışıyor (çerez izniyle koşullu). Veri Seti Kodu `.env.local` + Vercel'de, PageView olayları "Tarayıcı" kaynağından doğrulandı.
 - [ ] **Google Search Console** — domain alınınca kayıt + `sitemap.xml` gönder + doğrulama.
 - [x] Dinamik `sitemap.xml` (tüm aktif ürünler + sayfalar), `robots.txt`, per-sayfa başlık/açıklama, `Store` + `Product` + `BreadcrumbList` + `FAQPage` şeması, breadcrumbs.
 - [ ] `Store` şemasına `geo` (enlem/boylam) eklenebilir — opsiyonel.
