@@ -68,11 +68,24 @@ export async function safeRateLimit(limiter: Ratelimit, identifier: string): Pro
 
 /**
  * Vercel/proxy arkasında gerçek istemci IP'sini çıkarır.
- * x-forwarded-for ilk değeri spoofable olabileceğinden yalnızca
- * güvenilir proxy (Vercel Edge Network) arkasında çalıştığı varsayılır.
+ *
+ * Öncelik sırası:
+ *  1. `x-vercel-forwarded-for` — Vercel'in ek doğrulamalı, istemcinin
+ *     override edemediği başlığı (hız sınırı için en güvenilir kaynak).
+ *  2. `x-real-ip` — Vercel proxy'sinin TCP peer adresine göre set ettiği tekil IP.
+ *  3. `x-forwarded-for` ilk değeri — Vercel bu başlığı üzerine yazar, ama
+ *     Vercel dışı ortam/yanlış yapılandırmada istemci başa sahte değer ekleyebilir;
+ *     bu yüzden yalnızca son çare.
  */
 export function getClientIp(headers: Headers): string {
+  const vercelForwarded = headers.get('x-vercel-forwarded-for');
+  if (vercelForwarded) return vercelForwarded.split(',')[0]!.trim();
+
+  const realIp = headers.get('x-real-ip');
+  if (realIp) return realIp.trim();
+
   const forwardedFor = headers.get('x-forwarded-for');
   if (forwardedFor) return forwardedFor.split(',')[0]!.trim();
-  return headers.get('x-real-ip') ?? '127.0.0.1';
+
+  return '127.0.0.1';
 }

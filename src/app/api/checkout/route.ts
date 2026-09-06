@@ -9,6 +9,7 @@ import { sendOrderPlacedEmail } from '@/lib/email';
 import { isValidTcKimlikNo } from '@/lib/tc-kimlik-no';
 import { env } from '@/lib/env.mjs';
 import { redactPII, redactPIIString } from '@/lib/mask';
+import { signOrderNumber } from '@/lib/order-token';
 
 export const runtime = 'nodejs';
 
@@ -133,7 +134,7 @@ export async function POST(request: Request) {
     await sendOrderPlacedEmail(orderId);
     return NextResponse.json({
       orderNumber,
-      redirectUrl: `/siparis-alindi?order=${orderNumber}&odeme=havale`
+      redirectUrl: `/siparis-alindi?order=${orderNumber}&odeme=havale&t=${signOrderNumber(orderNumber)}`
     });
   }
 

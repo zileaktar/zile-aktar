@@ -4,6 +4,7 @@ import { confirmCheckoutPayment } from '@/lib/payments';
 import { env } from '@/lib/env.mjs';
 import { webhookRateLimit, getClientIp, safeRateLimit } from '@/lib/rate-limit';
 import { redactPII } from '@/lib/mask';
+import { signOrderNumber } from '@/lib/order-token';
 
 export const runtime = 'nodejs';
 
@@ -40,8 +41,9 @@ export async function POST(request: Request) {
     }
 
     if (outcome.status === 'paid') {
+      const t = signOrderNumber(outcome.orderNumber);
       return NextResponse.redirect(
-        new URL(`/siparis-alindi?order=${outcome.orderNumber}`, env.NEXT_PUBLIC_APP_URL)
+        new URL(`/siparis-alindi?order=${outcome.orderNumber}&t=${t}`, env.NEXT_PUBLIC_APP_URL)
       );
     }
 

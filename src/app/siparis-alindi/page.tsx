@@ -1,22 +1,28 @@
 import { getSiteSettings } from '@/lib/data/settings';
 import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
+import { verifyOrderNumber } from '@/lib/order-token';
 import { ClearCartOnSuccess } from '@/components/cart/ClearCartOnSuccess';
 import { PurchaseTracking } from '@/components/analytics/PurchaseTracking';
 
 export const dynamic = 'force-dynamic';
 
 interface Props {
-  searchParams: Promise<{ order?: string; odeme?: string }>;
+  searchParams: Promise<{ order?: string; odeme?: string; t?: string }>;
 }
 
 export default async function OrderSuccessPage({ searchParams }: Props) {
-  const { order, odeme } = await searchParams;
+  const { order, odeme, t } = await searchParams;
   const isHavale = odeme === 'havale';
   const { bank } = isHavale ? await getSiteSettings() : { bank: null };
 
-  // Analytics "purchase" olayı için sipariş tutarını sunucudan al.
+  // Sipariş numarası kısmen tahmin edilebilir olduğundan, tutar sorgusu ve
+  // analytics olayı yalnızca checkout/callback tarafından üretilen geçerli bir
+  // HMAC imzası (`t`) varsa yapılır. İmza yoksa sayfa yine gösterilir ama
+  // hiçbir sipariş verisi okunmaz.
+  const tokenValid = verifyOrderNumber(order, t);
+
   let orderTotalTl = 0;
-  if (order) {
+  if (order && tokenValid) {
     const { data } = await createSupabaseServiceRoleClient()
       .from('orders')
       .select('total_cents')
@@ -28,7 +34,7 @@ export default async function OrderSuccessPage({ searchParams }: Props) {
   return (
     <div className="max-w-md mx-auto px-4 py-20 text-center">
       <ClearCartOnSuccess />
-      {order && orderTotalTl > 0 && <PurchaseTracking orderNumber={order} valueTl={orderTotalTl} />}
+      {order && tokenValid && orderTotalTl > 0 && <PurchaseTracking orderNumber={order} valueTl={orderTotalTl} />}
       <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center text-4xl mx-auto mb-5">✅</div>
       <h1 className="font-display font-bold text-xl text-primary mb-2">Siparişiniz Alındı!</h1>
       <p className="text-sm text-carbon/60 mb-6">

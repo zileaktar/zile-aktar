@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import * as Sentry from '@sentry/nextjs';
-import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { createSupabaseServerClient, createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { generalApiRateLimit, getClientIp, safeRateLimit } from '@/lib/rate-limit';
 import { checkTrustedOrigin } from '@/lib/csrf';
 
@@ -40,7 +40,9 @@ export async function POST(request: Request) {
       supabase.from('orders').select('*, order_items(*)').eq('user_id', user.id)
     ]);
 
-    await supabase.from('data_requests').insert({
+    // Denetim kaydı service_role ile yazılır — data_requests'te INSERT için RLS
+    // politikası yoktur (yalnızca SELECT), kullanıcı çerezli istemciyle yazamaz.
+    await createSupabaseServiceRoleClient().from('data_requests').insert({
       user_id: user.id,
       user_email_snapshot: user.email ?? 'bilinmiyor',
       type: 'export',
