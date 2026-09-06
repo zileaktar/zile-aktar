@@ -78,6 +78,27 @@ describe('redactPII (nesne)', () => {
     expect(out.notlar).toEqual(['abc']);
   });
 
+  it('anahtar adı varyantlarını (snake_case / camelCase) ve derin adres alanlarını kaçırmaz', () => {
+    const out = redactPII({
+      order_id: 'ORD-1',
+      customer: {
+        ad_soyad: 'Aaaa Bbbb',
+        contact: { telefon: '+90 000 000 00 11', emailAddress: 'aaaaaa@ornek.com' }
+      },
+      payment: { iban: 'TR000000000000000000000000', billing_address: 'yer tutucu adres, sehir' }
+    });
+    expect(out.order_id).toBe('ORD-1');
+    expect(out.customer.ad_soyad).toBe('A*** B***');
+    expect(out.customer.contact.telefon).toBe('+90******0011');
+    expect(out.customer.contact.emailAddress).toBe('a****a@ornek.com');
+    expect(out.payment.iban).toMatch(/^TR00\*+0000$/);
+    // "billing_address" (alt çizgili) da maskelenmeli
+    expect(out.payment.billing_address).toBe('[gizli-adres]');
+    const serialized = JSON.stringify(out);
+    expect(serialized).not.toContain('yer tutucu adres');
+    expect(serialized).not.toContain('aaaaaa@ornek.com');
+  });
+
   it('Error nesnesini ad + maskelenmiş mesaja indirger', () => {
     const out = redactPII(new Error('iletişim abcdef@example.com ile kuruldu')) as {
       name: string;

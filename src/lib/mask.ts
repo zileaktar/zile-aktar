@@ -48,45 +48,58 @@ export const maskCardNumber = (value: unknown): string =>
   maskMiddle(String(value ?? '').replace(/\s+/g, ''), 0, 4);
 
 /**
- * Anahtar adına göre maskelenen alanlar. Anahtarlar küçük harfe çevrilerek eşleştirilir.
+ * Anahtar adını normalize eder: küçük harfe çevirir, `_`, `-` ve boşlukları kaldırır.
+ * Böylece `tc_kimlik`, `tcKimlik`, `TC-KIMLIK` hepsi `tckimlik`'e eşlenir ve
+ * `billing_address` / `billingAddress` gibi varyantlar kaçmaz.
+ */
+function normalizeKey(key: string): string {
+  return key.toLowerCase().replace(/[\s_-]/g, '');
+}
+
+/**
+ * NORMALİZE EDİLMİŞ anahtar adına göre maskelenen alanlar (anahtarlar `_`/`-` içermez).
  * Yeni bir PII alanı eklendiğinde buraya da eklenmelidir.
  */
 const FIELD_MASKERS: Record<string, (v: unknown) => string> = {
-  tc_kimlik: maskTCKN,
+  tckimlik: maskTCKN,
   tckn: maskTCKN,
-  tc_kimlik_no: maskTCKN,
+  tckimlikno: maskTCKN,
   identitynumber: maskTCKN,
-  identity_number: maskTCKN,
+  nationalid: maskTCKN,
   iban: maskIBAN,
   telefon: maskPhone,
   phone: maskPhone,
+  phonenumber: maskPhone,
   gsm: maskPhone,
   gsmnumber: maskPhone,
-  phone_number: maskPhone,
-  ad_soyad: maskName,
+  telno: maskPhone,
+  cepno: maskPhone,
   adsoyad: maskName,
   name: maskName,
-  full_name: maskName,
   fullname: maskName,
-  first_name: maskName,
-  last_name: maskName,
+  firstname: maskName,
+  lastname: maskName,
+  isim: maskName,
   contactname: maskName,
   buyername: maskName,
+  recipientname: maskName,
   email: maskEmail,
-  e_posta: maskEmail,
   eposta: maskEmail,
-  adres: () => '[gizli-adres]',
-  address: () => '[gizli-adres]',
-  address_line: () => '[gizli-adres]',
-  addressline: () => '[gizli-adres]',
-  registrationaddress: () => '[gizli-adres]',
-  shippingaddress: () => '[gizli-adres]',
-  billingaddress: () => '[gizli-adres]',
+  emailaddress: maskEmail,
+  mail: maskEmail,
   cardnumber: maskCardNumber,
-  card_number: maskCardNumber,
+  pan: maskCardNumber,
   lastfourdigits: (v) => String(v ?? ''), // zaten yalnızca son 4 hane; olduğu gibi bırak
-  binnumber: (v) => maskMiddle(String(v ?? ''), 0, 0), // ilk 6 hane — tamamen gizle
+  binnumber: (v) => maskMiddle(String(v ?? ''), 0, 0) // ilk 6 hane — tamamen gizle
 };
+
+/**
+ * Normalize edilmiş anahtar bir adres alanı mı? `billing_address`, `shippingAddress`,
+ * `ev_adresi`, `teslimat_adresi`, `registrationAddress` vb. hepsini yakalar.
+ */
+function isAddressKey(normalizedKey: string): boolean {
+  return normalizedKey.includes('adres') || normalizedKey.includes('address');
+}
 
 const MAX_DEPTH = 8;
 
@@ -110,9 +123,12 @@ export function redactPII<T>(input: T, depth = 0): T {
     }
     const out: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(input as Record<string, unknown>)) {
-      const masker = FIELD_MASKERS[key.toLowerCase()];
+      const nk = normalizeKey(key);
+      const masker = FIELD_MASKERS[nk];
       if (masker && (typeof value === 'string' || typeof value === 'number')) {
         out[key] = masker(value);
+      } else if (isAddressKey(nk) && typeof value === 'string') {
+        out[key] = '[gizli-adres]';
       } else {
         out[key] = redactPII(value, depth + 1);
       }
