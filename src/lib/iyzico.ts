@@ -1,6 +1,7 @@
 import 'server-only';
 import crypto from 'node:crypto';
 import { env } from '@/lib/env.mjs';
+import { redactPIIString } from '@/lib/mask';
 
 /**
  * iyzico entegrasyon istemcisi (IYZWSv2 / HMACSHA256 imzalama şeması).
@@ -130,7 +131,7 @@ export async function initializeCheckoutForm(params: InitializeCheckoutFormParam
 
   // iyzico başarısızlıkta HTTP 200 + { status: 'failure', errorMessage, errorCode } döndürebilir.
   if (parsed.status !== 'success') {
-    console.error('[iyzico] initialize failure:', JSON.stringify(parsed).slice(0, 800));
+    console.error('[iyzico] initialize failure:', redactPIIString(JSON.stringify(parsed)).slice(0, 800));
   }
 
   return parsed;

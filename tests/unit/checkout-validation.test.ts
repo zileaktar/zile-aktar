@@ -76,10 +76,10 @@ describe('checkoutRequestSchema', () => {
     expect(result.success).toBe(false);
   });
 
-  it('kapıda ödemede T.C. Kimlik No olmadan da siparişi kabul eder', () => {
+  it('havale/EFT ödemesinde T.C. Kimlik No olmadan da siparişi kabul eder (iyzico şartı devrede değil)', () => {
     const result = checkoutRequestSchema.safeParse({
       ...validPayload,
-      paymentMethod: 'cod' as const,
+      paymentMethod: 'havale' as const,
       address: { ...validPayload.address, identityNumber: undefined }
     });
     expect(result.success).toBe(true);

@@ -3,6 +3,7 @@ import * as Sentry from '@sentry/nextjs';
 import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { retrieveCheckoutFormResult } from '@/lib/iyzico';
 import { sendOrderPlacedEmail } from '@/lib/email';
+import { redactPII, redactPIIString } from '@/lib/mask';
 
 export type ConfirmPaymentResult =
   | { status: 'paid'; orderId: string; orderNumber: string }
@@ -29,7 +30,7 @@ export async function confirmCheckoutPayment(token: string): Promise<ConfirmPaym
   try {
     result = await retrieveCheckoutFormResult(token);
   } catch (err) {
-    console.error('[payments] retrieve hata:', err instanceof Error ? err.message : err);
+    console.error('[payments] retrieve hata:', err instanceof Error ? redactPIIString(err.message) : redactPII(err));
     Sentry.captureException(err);
     return { status: 'error', reason: 'retrieve_failed' };
   }
@@ -38,7 +39,10 @@ export async function confirmCheckoutPayment(token: string): Promise<ConfirmPaym
   // yaptık; iyzico yanıtında hangisi gelirse onu kullan.
   const orderId = result.conversationId ?? result.basketId ?? null;
   if (!orderId) {
-    console.error('[payments] retrieve yanıtında conversationId/basketId yok:', JSON.stringify(result).slice(0, 1500));
+    console.error(
+      '[payments] retrieve yanıtında conversationId/basketId yok:',
+      redactPIIString(JSON.stringify(result)).slice(0, 1500)
+    );
     Sentry.captureMessage('iyzico: retrieve sonucunda sipariş kimliği yok', { level: 'error' });
     return { status: 'error', reason: 'missing_conversation_id' };
   }

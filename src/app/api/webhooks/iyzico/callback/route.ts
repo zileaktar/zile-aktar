@@ -3,6 +3,7 @@ import * as Sentry from '@sentry/nextjs';
 import { confirmCheckoutPayment } from '@/lib/payments';
 import { env } from '@/lib/env.mjs';
 import { webhookRateLimit, getClientIp, safeRateLimit } from '@/lib/rate-limit';
+import { redactPII } from '@/lib/mask';
 
 export const runtime = 'nodejs';
 
@@ -35,7 +36,7 @@ export async function POST(request: Request) {
   try {
     const outcome = await confirmCheckoutPayment(token);
     if (outcome.status !== 'paid') {
-      console.error('[iyzico callback] ödeme onaylanmadı:', JSON.stringify(outcome));
+      console.error('[iyzico callback] ödeme onaylanmadı:', JSON.stringify(redactPII(outcome)));
     }
 
     if (outcome.status === 'paid') {

@@ -4,6 +4,7 @@ import { env } from '@/lib/env.mjs';
 import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { formatPriceFromCents } from '@/lib/format';
 import { LEGAL } from '@/lib/legal';
+import { redactPII, redactPIIString } from '@/lib/mask';
 
 const BREVO_URL = 'https://api.brevo.com/v3/smtp/email';
 const SENDER = { name: LEGAL.markaAdi, email: LEGAL.eposta };
@@ -23,11 +24,12 @@ async function sendBrevo(payload: Record<string, unknown>): Promise<void> {
     });
     if (!res.ok) {
       const body = await res.text();
-      console.error('[email] Brevo hata:', res.status, body.slice(0, 400));
+      // Brevo hata gövdesi alıcı e-postasını yansıtabilir — maskeleyerek logla.
+      console.error('[email] Brevo hata:', res.status, redactPIIString(body).slice(0, 400));
       Sentry.captureMessage(`Brevo e-posta gönderilemedi: HTTP ${res.status}`, { level: 'error' });
     }
   } catch (err) {
-    console.error('[email] Brevo istisna:', err instanceof Error ? err.message : err);
+    console.error('[email] Brevo istisna:', err instanceof Error ? redactPIIString(err.message) : redactPII(err));
     Sentry.captureException(err);
   }
 }

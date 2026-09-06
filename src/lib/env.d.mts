@@ -18,6 +18,8 @@ export declare const env: {
   readonly KVKK_DATA_EXPORT_FROM_EMAIL: string;
   readonly BREVO_API_KEY: string | undefined;
   readonly ORDER_NOTIFY_EMAIL: string | undefined;
+  readonly PII_ENCRYPTION_KEY: string | undefined;
+  readonly PII_HMAC_PEPPER: string | undefined;
   readonly NEXT_PUBLIC_APP_URL: string;
   readonly NEXT_PUBLIC_SUPABASE_URL: string;
   readonly NEXT_PUBLIC_SUPABASE_ANON_KEY: string;

@@ -12,7 +12,9 @@ Sentry.init({
   tracesSampleRate: 0.2,
   replaysSessionSampleRate: 0.05,
   replaysOnErrorSampleRate: 1.0,
-  integrations: [Sentry.replayIntegration({ maskAllText: false, blockAllMedia: false })],
+  // KVKK/GDPR: oturum kayıtlarında düz metin (ad, adres, telefon vb.) ve medya
+  // sızıntısını önlemek için tüm metinler maskelenir ve medya bloklanır.
+  integrations: [Sentry.replayIntegration({ maskAllText: true, blockAllMedia: true })],
   environment: process.env.NODE_ENV,
   // Kart formu iframe'i iyzico'nun kendi domain'inde olduğundan hassas veri
   // (kart no, CVV) bu tarayıcı oturumuna hiç girmez; yine de tedbiren

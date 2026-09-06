@@ -11,9 +11,12 @@ Mimari + kod durumu: `devir-promptu.md`
 ## A. GERÇEK SATIŞI ENGELLEYEN (bitmeden para tahsil edilemez)
 
 - [ ] **İşletme kaydı / vergi levhası** — şahıs şirketi yoksa mali müşavirle açılış. iyzico + yasal metinler bunu gerektirir.
-- [ ] **iyzico PRODUCTION başvurusu** — şu an SANDBOX, gerçek kart tahsilatı yok.
-  - Belgeler: vergi levhası, imza beyannamesi, kimlik, işletme adına banka hesabı belgesi. (Vergi levhası + banka + başvuru isimleri BİREBİR aynı olmalı.)
-  - iyzico paneli → "Canlıya Geç" → belgeleri yükle → sözleşme → onay (3–10 iş günü)
+- [ ] **iyzico PRODUCTION başvurusu** — şu an SANDBOX, gerçek kart tahsilatı yok. Başvuru yapıldı; iyzico inceleme ekibi 3 belge istedi (14.09.2026 e-postası):
+  - **1) Vergi levhası** — var (VKN 3801213625). `inceleme@iyzico.com` adresine e-posta ile gönderilecek.
+  - **2) İmza sirküleri / imza beyannamesi** — şahıs işletmesinde noterden alınan "imza beyannamesi" geçerli. `inceleme@iyzico.com`'a gönderilecek.
+  - **3) Tarım ve Orman Bakanlığı "Gıda İşletmesi Kayıt Belgesi"** — gıda (baharat/çay/sirke vb.) sattığımız için ZORUNLU. Henüz yok → alınacak (bkz. B bölümü). iyzico bu belge olmadan canlıya geçirmiyor.
+  - Not: iyzico "kurumsal üyelik" istiyor; şahıs işletmesi (vergi levhalı) kurumsal üyelik için uygundur, yeni bir şirket (Ltd.) kurmak GEREKMEZ.
+  - Belgeler mail atıldıktan sonra: sözleşme → onay (3–10 iş günü)
   - Onay sonrası Vercel'de: `IYZICO_API_KEY`, `IYZICO_SECRET_KEY` (prod), `IYZICO_BASE_URL=https://api.iyzipay.com`, `IYZICO_WEBHOOK_SECRET` (prod webhook anahtarı)
   - iyzico panelinde callback/notification URL'lerini canlı domaine çevir
 - [ ] **Vercel Pro'ya geçiş** (~$20/ay + KDV) — Hobby planı ticari kullanıma kapalı. Canlıya geçmeden hemen önce yap (kredi her ay sıfırlanır).
@@ -21,6 +24,11 @@ Mimari + kod durumu: `devir-promptu.md`
 ## B. YASAL (TR e-ticaret mevzuatı)
 
 - [x] Yasal metinler yayında: `/on-bilgilendirme-formu`, `/mesafeli-satis-sozlesmesi`, `/iptal-iade-kosullari` (+ cayma bildirim formu), `/teslimat-ve-kargo`, `/kvkk` (GA/Pixel + yurt dışı aktarım dahil), `/cerez-politikasi`, `/kullanim-kosullari`, `/sss`. Footer + checkout onay kutularında link. "TASLAK" uyarısı kaldırıldı; artık "Son güncelleme: {tarih}" gösteriliyor. İşletme bilgileri `legal.ts`'ten dolu.
+- [ ] **Gıda İşletmesi Kayıt Belgesi** (Tarım ve Orman Bakanlığı) — online gıda satışı için ZORUNLU; iyzico da bunu istiyor.
+  - Nereye: Zile İlçe Tarım ve Orman Müdürlüğü (işletme adresinin bağlı olduğu ilçe).
+  - Gerekli belgeler (tipik): vergi levhası, faaliyet/oda kayıt belgesi, işletme adresi için kira kontratı veya tapu, kimlik fotokopisi, işletme krokisi. (Depo/paketleme yeri olmadan, ev adresi + "aracısız internet satışı" olarak da kayıt yapılabiliyor — müdürlüğe sorulmalı.)
+  - Süre: genelde 3–7 iş günü. Ücret: Bakanlık döner sermaye tarifesi (düşük).
+  - **En pratik yol:** mali müşavire "gıda işletme kayıt belgesi çıkarır mısınız" demek — genelde bu işi onlar yapıyor.
 - [ ] **Avukat / mali müşavir son kontrolü** (metinler yayında ama uzman gözünden geçmedi) — taksitli ödeme açıksa vade farkı bilgisi · VERBİS muafiyeti · KEP adresi eklensin mi.
 - [x] **`src/lib/legal.ts` işletme bilgileri dolduruldu:** Unvan: Suzan EŞAT (gerçek kişi ticari işletme) · Zile V.D. · VKN 3801213625 · MERSİS 2246369545600001 · Ticaret Sicil 4076 · NACE 47.27.04 · Kargo: Aras Kargo · Çalışma saatleri: Pzt–Cmt 09:00–19:00.
 - [x] Sağlık beyanı disclaimer + admin ürün formunda yasaklı ifade kontrolü.
@@ -30,6 +38,8 @@ Mimari + kod durumu: `devir-promptu.md`
 - [x] **2FA:** Supabase + Vercel + GitHub — hepsi authenticator ile korumalı.
 - [x] **`CRON_SECRET`** — güçlü rastgele değer, `.env.local` + Vercel'de.
 - [x] Sır sızıntısı kontrolü — git geçmişinde/çalışan dizinde gerçek anahtar yok, `.gitignore` sıkı.
+- [x] **PII / KVKK sızıntı sıkılaştırması (kod):** Sentry Replay `maskAllText:true` + `blockAllMedia:true` · `src/lib/mask.ts` (`redactPII` / `redactPIIString`) · sipariş/webhook/e-posta akışındaki tüm nesne loglayan `console.error` çağrıları maskeleme ile sarıldı · `src/lib/crypto/pii.ts` (AES-256-GCM `encryptPII`/`decryptPII` + HMAC-SHA256 `hashTCKN`) hazır.
+- [ ] **`PII_ENCRYPTION_KEY` + `PII_HMAC_PEPPER` üret ve ekle** (`.env.example`'da komutlar var) — şifreli/hash'li sütun kullanılmaya başlanınca `.env.local` + Vercel'e ekle, `env.mjs`'te `.optional()`'ı kaldır. **Bu iki değeri ASLA değiştirme** (eski veriler okunamaz hale gelir).
 - [ ] **Özel domain** (ör. `zileaktar.com`) — satın al (sadece domain, hosting Vercel'de). Sonra:
   - Vercel → Settings → Domains → ekle → DNS kayıtlarını gir
   - Vercel env `NEXT_PUBLIC_APP_URL=https://zileaktar.com`

@@ -8,6 +8,7 @@ import { initializeCheckoutForm } from '@/lib/iyzico';
 import { sendOrderPlacedEmail } from '@/lib/email';
 import { isValidTcKimlikNo } from '@/lib/tc-kimlik-no';
 import { env } from '@/lib/env.mjs';
+import { redactPII, redactPIIString } from '@/lib/mask';
 
 export const runtime = 'nodejs';
 
@@ -198,7 +199,7 @@ export async function POST(request: Request) {
     });
 
     if (checkoutForm.status !== 'success' || !checkoutForm.token) {
-      console.error('[checkout] iyzico initialize başarısız:', JSON.stringify(checkoutForm));
+      console.error('[checkout] iyzico initialize başarısız:', redactPIIString(JSON.stringify(checkoutForm)));
       await serviceClient.rpc('mark_order_failed', { p_order_id: orderId });
       return NextResponse.json({ error: checkoutForm.errorMessage ?? 'Ödeme başlatılamadı.' }, { status: 502 });
     }
@@ -210,7 +211,7 @@ export async function POST(request: Request) {
     // (/api/webhooks/iyzico/callback) getirir, o da /siparis-alindi'ye yönlendirir.
     return NextResponse.json({ orderNumber, paymentPageUrl: checkoutForm.paymentPageUrl });
   } catch (err) {
-    console.error('[checkout] iyzico initialize hata:', err instanceof Error ? err.message : err);
+    console.error('[checkout] iyzico initialize hata:', err instanceof Error ? redactPIIString(err.message) : redactPII(err));
     Sentry.captureException(err);
     await serviceClient.rpc('mark_order_failed', { p_order_id: orderId });
     return NextResponse.json({ error: 'Ödeme sağlayıcısına bağlanılamadı. Lütfen tekrar deneyin.' }, { status: 502 });

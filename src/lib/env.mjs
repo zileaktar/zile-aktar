@@ -31,7 +31,17 @@ export const env = createEnv({
     // Brevo transactional e-posta (sipariş onayı). Yoksa e-posta sessizce atlanır
     // (sipariş akışı bozulmaz) — Sentry DSN gibi opsiyonel.
     BREVO_API_KEY: z.string().optional(),
-    ORDER_NOTIFY_EMAIL: z.string().email().optional()
+    ORDER_NOTIFY_EMAIL: z.string().email().optional(),
+
+    // Uygulama katmanı PII kriptografisi (src/lib/crypto/pii.ts).
+    // PII_ENCRYPTION_KEY: AES-256-GCM anahtarı — 64 hex karakter (32 bayt).
+    //   Üret: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+    // PII_HMAC_PEPPER: TCKN gibi yalnızca eşleştirme için hash'lenen alanların pepper'ı.
+    //   Üret: node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+    // Şimdilik opsiyonel; şifreli/hash'li bir sütun kullanılmaya başlanınca zorunluya çevir.
+    // ASLA rotasyon yapma (mevcut şifreli veriler çözülemez hale gelir) — gerekirse veri taşıması yaz.
+    PII_ENCRYPTION_KEY: z.string().regex(/^[0-9a-fA-F]{64}$/, 'PII_ENCRYPTION_KEY 64 hex karakter olmalı').optional(),
+    PII_HMAC_PEPPER: z.string().min(16, 'PII_HMAC_PEPPER en az 16 karakter olmalı').optional()
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().url(),
@@ -65,6 +75,8 @@ export const env = createEnv({
     KVKK_DATA_EXPORT_FROM_EMAIL: process.env.KVKK_DATA_EXPORT_FROM_EMAIL,
     BREVO_API_KEY: process.env.BREVO_API_KEY,
     ORDER_NOTIFY_EMAIL: process.env.ORDER_NOTIFY_EMAIL,
+    PII_ENCRYPTION_KEY: process.env.PII_ENCRYPTION_KEY,
+    PII_HMAC_PEPPER: process.env.PII_HMAC_PEPPER,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
