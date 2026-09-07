@@ -75,7 +75,7 @@ Supabase proje referansı: `gabdklnlojfbdaxtgmtg`.
 
 ### Bu oturumda (deploy sonrası) yapılanlar
 
-- ~~Sentry~~ ✅ `zileaktar` org / `zile-aktar` proje (EU). 4 env hem `.env.local` hem Vercel'de. Test edildi. `next.config.mjs`: token varsa source map Sentry'ye yüklenip silinir, yoksa üretilmez. Session replay açık (`replaysSessionSampleRate: 0.05`) — CSP'ye `worker-src 'self' blob:` eklendi (sıkıştırma worker'ı).
+- ~~Sentry~~ ✅ `zileaktar` org / `zile-aktar` proje (EU). 4 env hem `.env.local` hem Vercel'de. Test edildi. `next.config.mjs`: token varsa source map Sentry'ye yüklenip silinir, yoksa üretilmez. Session replay açık (`replaysSessionSampleRate: 0.05`, `maskAllText: true` + `blockAllMedia: true` — KVKK) — CSP'ye `worker-src 'self' blob:` eklendi (sıkıştırma worker'ı). `sentry.server/edge`: `sendDefaultPii: false`.
 - ~~WhatsApp/telefon~~ ✅ `+90 551 173 00 94` — `WhatsAppButton.tsx` + footer.
 - ~~Deploy~~ ✅ GitHub (private) + Vercel — `zile-aktar.vercel.app` canlı. Tüm env Vercel'de. Turnstile hostname'e Vercel domaini eklendi.
 - ~~Brevo custom SMTP~~ ✅ Supabase Auth e-postaları (kayıt doğrulama + şifre sıfırlama) Brevo SMTP relay ile gidiyor (`smtp-relay.brevo.com:587`, gönderen `zileaktar@gmail.com`). Supabase'in yerleşik e-posta limiti aşıldığı için kuruldu.
@@ -100,20 +100,30 @@ Supabase proje referansı: `gabdklnlojfbdaxtgmtg`.
 - **Analytics — GA4 + Meta Pixel:** `NEXT_PUBLIC_GA_MEASUREMENT_ID` + `NEXT_PUBLIC_META_PIXEL_ID` (ikisi de opsiyonel, boşsa hiç yüklenmez). `src/components/analytics/Analytics.tsx` script'leri YALNIZCA çerez banner'ında "Tümünü Kabul Et" seçilince yükler (KVKK) — `CookieConsent` `cookie-consent-change` event'i fırlatır, Analytics dinler (yenileme gerekmez). SPA rota değişiminde manuel `page_view`. Olaylar (`src/lib/analytics.ts`): `add_to_cart` (ProductCard/ProductDetailClient), `begin_checkout` (CheckoutForm mount), `purchase` (`/siparis-alindi` → `PurchaseTracking.tsx`; tutar sunucudan `order_number` ile çekilir, sessionStorage ile tekilleştirilir). CSP'ye googletagmanager/google-analytics/connect.facebook.net/facebook.com eklendi (script + connect + img). Kullanıcı GA/Pixel kimliklerini kendi açar, `.env.local` + Vercel'e girer.
 - **Sepet otomatik tamamlama + öneri:** `cart-store.ts` `addItem`/`updateQuantity` (yalnızca ARTIRIRKEN) kampanya grubunu otomatik tamamlar — kullanıcı "2 alana 1 bedava"da 2. adedi ekleyince 3. adet kendiliğinden sepete girer (`pos >= buyQty` → grubu doldur). Çekmecedeki −/+ azaltmada dokunmaz (grup altına inilebilsin). `CartDrawer` her satırda kampanya varsa "N tane daha ekleyin → X bedava" öneri butonu (`dealNudge`), indirimli üründe üstü çizili fiyat + toplam tasarruf, "Kampanya indirimi" satırı. Sepet öğesine `compareAtCents` + `deal` alanları eklendi.
 
+### Sonraki oturumlar (özet)
+
+- **Yasal metinler tamamlandı:** `TASLAK` uyarısı kaldırıldı ("Son güncelleme: {tarih}"), `src/lib/legal.ts` gerçek bilgilerle dolduruldu (Suzan EŞAT / VKN 3801213625 / MERSİS 2246369545600001 / Ticaret Sicil 4076 / NACE 47.27.04 / Aras Kargo). Yeni sayfalar: `/kullanim-kosullari`, `/iletisim`. KVKK GA/Pixel + yurt dışı aktarım maddeleriyle güncellendi.
+- **Ücretsiz kargo eşiği 150 TL → 700 TL:** `pricing.ts` + `create_order` + `preview_coupon` (migration 0020, sabit `70000`).
+- **Ürün açıklamaları:** 198 ürünün tamamı — migration 0009 (11 baharat) + `0021`–`0027` (187 ürün: sirke/kozmetik/baharat/çay/yağ). `RichProductDescription.tsx` formatı. DB'ye uygulandı.
+- **PII / KVKK sızıntı sıkılaştırması:** `src/lib/mask.ts` (`redactPII` nesne / `redactPIIString` serbest metin; anahtar normalizasyonu + adres yakalama) → sipariş/webhook/e-posta akışındaki nesne loglayan tüm `console.error`'lar sarıldı. Sentry Replay `maskAllText:true`+`blockAllMedia:true`. `src/lib/crypto/pii.ts` (AES-256-GCM `encryptPII`/`decryptPII` + HMAC-SHA256 `hashTCKN`, anahtar çağrı anında okunur) — `PII_ENCRYPTION_KEY` + `PII_HMAC_PEPPER` env (şu an `.optional()`, henüz kullanılmıyor).
+- **OWASP denetimi düzeltmeleri:** migration 0028 — `reviews` INSERT politikası `status='pending'` zorunlu + `BEFORE INSERT` trigger (`author_name`/`order_id` sunucu tarafı zorlama; doğrudan istemci insert'iyle moderasyon atlatması kapatıldı). `src/lib/order-token.ts` — `/siparis-alindi` HMAC imzalı `&t=` token (tahmin edilebilir sipariş no ile tutar sızıntısı + analytics kirliliği kapatıldı; checkout + callback rotaları üretir). `data_requests` denetim kaydı `service_role` ile. `getClientIp` → `x-vercel-forwarded-for` önceliği.
+- **Testler:** `tests/unit/` altına `mask.test.ts`, `crypto-pii.test.ts`, `order-token.test.ts` (toplam 44 test). Kripto/env testleri `vi.mock('server-only')` + `vi.mock('@/lib/env.mjs')` deseniyle.
+
 ## 5. Kullanıcı tarafı — YAYINI ENGELLEYEN işler (kod değil)
 
 Tam liste `YAYIN-KONTROL-LISTESI.md`'de. Özet:
 
 - **iyzico PRODUCTION hesabı** — şu an sandbox, gerçek tahsilat yok. İşletme başvurusu + sözleşme + onay (haftalar). Onaylanınca Vercel'de `IYZICO_API_KEY`/`IYZICO_SECRET_KEY`/`IYZICO_BASE_URL` güncellenir.
 - **Vercel Pro** (~20 USD/ay) — Hobby ticari kullanıma kapalı.
-- **Özel domain** — satın al + Vercel/Supabase/Turnstile/iyzico/Brevo'da URL güncellemeleri (checklist C bölümü).
-- **`src/lib/legal.ts` `[...]` alanları** + avukat onayı.
-- **Havale IBAN'ı** — `/admin/ayarlar` → "Havale/EFT Banka Bilgisi". Girilene kadar havale "banka bilgileri tanımlı değil" der.
-- **Gerçek ürün fotoğrafları** — 198 ürün placeholder SVG, admin panelden yüklenir.
-- **Vercel + Supabase 2FA.**
+- **Özel domain** — ⚠️ hâlâ `zile-aktar.vercel.app`, domain SATIN ALINMADI (karar bekliyor: hangi ad, `.com` mı `.com.tr` mi). iyzico canlı başvurusu şu an vercel.app ile yapılıyor; domain sonradan alınırsa Vercel/Supabase/Turnstile/iyzico/Brevo'da URL güncellemeleri + Search Console (checklist C bölümü, tam adım listesi orada).
+- ~~`src/lib/legal.ts` alanları~~ ✅ dolduruldu (Suzan EŞAT / VKN 3801213625 / MERSİS / Ticaret Sicil 4076). Avukat/mali müşavir son okuması hâlâ bekliyor.
+- ~~Havale IBAN'ı~~ ✅ `/admin/ayarlar`'dan girildi.
+- **Gerçek ürün fotoğrafları** — 198 ürün placeholder SVG, admin panelden yüklenir. (Açıklamalar ✅ yazıldı — migration 0009 + 0021–0027, DB'de.)
+- ~~Vercel + Supabase 2FA~~ ✅ (GitHub dahil hepsi authenticator).
+- **Gıda İşletmesi Kayıt Belgesi** (Tarım ve Orman Bakanlığı) — online gıda satışı + iyzico için zorunlu, mali müşavirden alınacak.
 
 - **L1 (opsiyonel):** CSP'de `script-src 'unsafe-inline'` var; nonce tabanlı CSP'ye geçiş ayrı bir oturumda yapılabilir, yayın engeli değil.
-- **Opsiyonel kod işleri:** ~187 ürün için zengin açıklama (kullanıcı istemedikçe yazma); çoklu adres yönetimi UI'si (`/hesabim`); anasayfa hero görseli hâlâ Unsplash (telif).
+- **Opsiyonel kod işleri:** çoklu adres yönetimi UI'si (`/hesabim`); anasayfa hero görseli hâlâ Unsplash (telif); footer sosyal medya linkleri (kullanıcı adres verince eklenir); `Store` şemasına `geo`.
 
 ## 6. Sohbet Tarzı Notları
 

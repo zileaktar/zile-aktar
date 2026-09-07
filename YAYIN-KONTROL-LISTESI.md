@@ -10,25 +10,22 @@ Mimari + kod durumu: `devir-promptu.md`
 
 ## A. GERÇEK SATIŞI ENGELLEYEN (bitmeden para tahsil edilemez)
 
-- [ ] **İşletme kaydı / vergi levhası** — şahıs şirketi yoksa mali müşavirle açılış. iyzico + yasal metinler bunu gerektirir.
-- [ ] **iyzico PRODUCTION başvurusu** — şu an SANDBOX, gerçek kart tahsilatı yok. Başvuru yapıldı; iyzico inceleme ekibi 3 belge istedi (14.09.2026 e-postası):
-  - **1) Vergi levhası** — var (VKN 3801213625). `inceleme@iyzico.com` adresine e-posta ile gönderilecek.
-  - **2) İmza sirküleri / imza beyannamesi** — şahıs işletmesinde noterden alınan "imza beyannamesi" geçerli. `inceleme@iyzico.com`'a gönderilecek.
-  - **3) Tarım ve Orman Bakanlığı "Gıda İşletmesi Kayıt Belgesi"** — gıda (baharat/çay/sirke vb.) sattığımız için ZORUNLU. Henüz yok → alınacak (bkz. B bölümü). iyzico bu belge olmadan canlıya geçirmiyor.
-  - Not: iyzico "kurumsal üyelik" istiyor; şahıs işletmesi (vergi levhalı) kurumsal üyelik için uygundur, yeni bir şirket (Ltd.) kurmak GEREKMEZ.
-  - Belgeler mail atıldıktan sonra: sözleşme → onay (3–10 iş günü)
-  - Onay sonrası Vercel'de: `IYZICO_API_KEY`, `IYZICO_SECRET_KEY` (prod), `IYZICO_BASE_URL=https://api.iyzipay.com`, `IYZICO_WEBHOOK_SECRET` (prod webhook anahtarı)
-  - iyzico panelinde callback/notification URL'lerini canlı domaine çevir
+- [x] **İşletme kaydı / vergi levhası** — Suzan EŞAT gerçek kişi ticari işletmesi, VKN 3801213625, vergi levhası mevcut.
+- [ ] **iyzico PRODUCTION onayı bekleniyor** — şu an SANDBOX. Başvuru + 3 belge `inceleme@iyzico.com` adresine gönderildi:
+  - **1) Vergi levhası** ✅ gönderildi
+  - **2) İmza beyannamesi** (noter onaylı) ✅ gönderildi
+  - **3) Tarım ve Orman Bakanlığı Gıda İşletmesi Kayıt Belgesi** ✅ gönderildi (İlçe Tarım ve Orman Müdürlüğü'nden alınmış)
+  - Not: şahıs işletmesi (vergi levhalı) iyzico "kurumsal üyelik" için uygundur, Ltd. kurmak gerekmez.
+  - **Sıradaki:** iyzico değerlendirme → sözleşme → onay (3–10 iş günü). Onay gelince yap:
+    - Vercel env: `IYZICO_API_KEY`, `IYZICO_SECRET_KEY` (prod), `IYZICO_BASE_URL=https://api.iyzipay.com`, `IYZICO_WEBHOOK_SECRET` (prod)
+    - iyzico panelinde callback/notification URL'leri (şu an `zile-aktar.vercel.app`; domain alınırsa güncellenecek)
+    - Sandbox → prod geçince kart akışını canlıda bir kez test et
 - [ ] **Vercel Pro'ya geçiş** (~$20/ay + KDV) — Hobby planı ticari kullanıma kapalı. Canlıya geçmeden hemen önce yap (kredi her ay sıfırlanır).
 
 ## B. YASAL (TR e-ticaret mevzuatı)
 
 - [x] Yasal metinler yayında: `/on-bilgilendirme-formu`, `/mesafeli-satis-sozlesmesi`, `/iptal-iade-kosullari` (+ cayma bildirim formu), `/teslimat-ve-kargo`, `/kvkk` (GA/Pixel + yurt dışı aktarım dahil), `/cerez-politikasi`, `/kullanim-kosullari`, `/sss`. Footer + checkout onay kutularında link. "TASLAK" uyarısı kaldırıldı; artık "Son güncelleme: {tarih}" gösteriliyor. İşletme bilgileri `legal.ts`'ten dolu.
-- [ ] **Gıda İşletmesi Kayıt Belgesi** (Tarım ve Orman Bakanlığı) — online gıda satışı için ZORUNLU; iyzico da bunu istiyor.
-  - Nereye: Zile İlçe Tarım ve Orman Müdürlüğü (işletme adresinin bağlı olduğu ilçe).
-  - Gerekli belgeler (tipik): vergi levhası, faaliyet/oda kayıt belgesi, işletme adresi için kira kontratı veya tapu, kimlik fotokopisi, işletme krokisi. (Depo/paketleme yeri olmadan, ev adresi + "aracısız internet satışı" olarak da kayıt yapılabiliyor — müdürlüğe sorulmalı.)
-  - Süre: genelde 3–7 iş günü. Ücret: Bakanlık döner sermaye tarifesi (düşük).
-  - **En pratik yol:** mali müşavire "gıda işletme kayıt belgesi çıkarır mısınız" demek — genelde bu işi onlar yapıyor.
+- [x] **Gıda İşletmesi Kayıt Belgesi** — İlçe Tarım ve Orman Müdürlüğü'nden alındı, iyzico'ya iletildi.
 - [ ] **Avukat / mali müşavir son kontrolü** (metinler yayında ama uzman gözünden geçmedi) — taksitli ödeme açıksa vade farkı bilgisi · VERBİS muafiyeti · KEP adresi eklensin mi.
 - [x] **`src/lib/legal.ts` işletme bilgileri dolduruldu:** Unvan: Suzan EŞAT (gerçek kişi ticari işletme) · Zile V.D. · VKN 3801213625 · MERSİS 2246369545600001 · Ticaret Sicil 4076 · NACE 47.27.04 · Kargo: Aras Kargo · Çalışma saatleri: Pzt–Cmt 09:00–19:00.
 - [x] Sağlık beyanı disclaimer + admin ürün formunda yasaklı ifade kontrolü.
@@ -39,15 +36,21 @@ Mimari + kod durumu: `devir-promptu.md`
 - [x] **`CRON_SECRET`** — güçlü rastgele değer, `.env.local` + Vercel'de.
 - [x] Sır sızıntısı kontrolü — git geçmişinde/çalışan dizinde gerçek anahtar yok, `.gitignore` sıkı.
 - [x] **PII / KVKK sızıntı sıkılaştırması (kod):** Sentry Replay `maskAllText:true` + `blockAllMedia:true` · `src/lib/mask.ts` (`redactPII` / `redactPIIString`) · sipariş/webhook/e-posta akışındaki tüm nesne loglayan `console.error` çağrıları maskeleme ile sarıldı · `src/lib/crypto/pii.ts` (AES-256-GCM `encryptPII`/`decryptPII` + HMAC-SHA256 `hashTCKN`) hazır.
-- [ ] **`PII_ENCRYPTION_KEY` + `PII_HMAC_PEPPER` üret ve ekle** (`.env.example`'da komutlar var) — şifreli/hash'li sütun kullanılmaya başlanınca `.env.local` + Vercel'e ekle, `env.mjs`'te `.optional()`'ı kaldır. **Bu iki değeri ASLA değiştirme** (eski veriler okunamaz hale gelir).
-- [ ] **Özel domain** (ör. `zileaktar.com`) — satın al (sadece domain, hosting Vercel'de). Sonra:
-  - Vercel → Settings → Domains → ekle → DNS kayıtlarını gir
-  - Vercel env `NEXT_PUBLIC_APP_URL=https://zileaktar.com`
-  - Supabase → Auth → URL Configuration (Site URL + Redirect URLs)
-  - Cloudflare Turnstile → widget hostname listesine ekle
-  - iyzico → callback/notification URL
-  - Brevo → domaini ekle + SPF/DKIM DNS kayıtları
-  - `_ga` çerez uyarısı özel domainde kendiliğinden düzelir
+- [x] **`PII_ENCRYPTION_KEY` + `PII_HMAC_PEPPER`** üretildi, `.env.local` + Vercel'de (Secret). **Bu iki değeri ASLA değiştirme.** Yapılacak: ilk şifreli/hash'li sütun eklendiğinde `env.mjs`'te `.optional()` kaldırılıp zorunlu yapılacak.
+- [x] **OWASP iş mantığı denetimi:** IDOR/RLS · webhook/ödeme sahteciliği · XSS · rate limiting tarandı. Bulgular kapatıldı: yorum moderasyon atlatması (migration 0028: RLS + trigger) · `/siparis-alindi` HMAC imzalı token · KVKK export denetim kaydı service_role · `getClientIp` IP-spoof sertleştirme.
+- [ ] **Özel domain** — ⚠️ **DURUM: hâlâ `zile-aktar.vercel.app` kullanılıyor, domain SATIN ALINMADI.**
+  - Hosting Vercel'de kalıyor; sadece domain adı (ör. `zileaktar.com` / `.com.tr`) alınacak — bir domain sağlayıcıdan (Namecheap, GoDaddy, Turhost vb.) ~yıllık 200–500 TL.
+  - **Karar bekleyen:** hangi domain adı? (`.com` mı `.com.tr` mi — `.com.tr` için vergi levhası/ticari belge gerekiyor, sende var.)
+  - iyzico canlı başvurusu ŞU AN `zile-aktar.vercel.app` ile yapılıyor — domain sonradan alınırsa iyzico panelinde callback/notification URL'leri güncellenecek.
+  - Domain alındıktan sonra sırayla:
+    - Vercel → Settings → Domains → ekle → DNS kayıtlarını sağlayıcıya gir
+    - Vercel env `NEXT_PUBLIC_APP_URL=https://<yenidomain>` (⚠️ değişince iyzico callback + CSRF/Origin kontrolü buna bağlı — birlikte güncellenmeli)
+    - Supabase → Auth → URL Configuration (Site URL + Redirect URLs)
+    - Cloudflare Turnstile → widget hostname listesine ekle
+    - iyzico → callback/notification URL'leri yeni domaine çevir
+    - Brevo → domaini ekle + SPF/DKIM DNS kayıtları (e-postalar spam'e düşmesin)
+    - Google Search Console kaydı + `sitemap.xml` gönder
+    - `_ga` çerez uyarısı özel domainde kendiliğinden düzelir (`vercel.app` public suffix olduğu için çıkıyordu)
 - [ ] **Vercel Cron doğrula** — deploy sonrası Vercel → Cron sekmesi (`0 3 * * *`, bekleyen iyzico siparişlerini 24 saatte iptal eder).
 - [x] **Havale/EFT IBAN** — `/admin/ayarlar`'dan girildi.
 - [ ] Supabase parolası güçlü mü teyit.
@@ -64,7 +67,7 @@ Mimari + kod durumu: `devir-promptu.md`
 
 - [ ] **Gerçek ürün fotoğrafları** — 198 ürün placeholder SVG. `/admin/urunler` → ürün düzenle → görsel yükle.
 - [ ] **Ürün gramaj/fiyatları** — her ürün tek "STD" varyantla. 500g/1kg/2kg gibi seçenekleri `/admin/urunler`'den ekle (ekranda buton olarak görünür).
-- [ ] **Ürün açıklamaları** — ~187 ürün açıklamasız. İstersen Claude kategoriler halinde yazar.
+- [x] **Ürün açıklamaları** — 198 ürünün tamamı dolu (migration 0009 + 0021–0027, veritabanına uygulandı). Profesyonel format: Ürün Hakkında / Öne Çıkan Özellikleri / Kullanım Şekli / Saklama Koşulları / Önemli Uyarılar + mevzuat uyarısı.
 - [ ] **Kampanya afişleri** — `/admin/afisler`'den görsel + başlık/buton yükle (yoksa sade başlık gösterilir).
 - [ ] **Sosyal medya linkleri** — Instagram/Facebook hesap adreslerini ver, footer'a eklenir.
 - [ ] Anasayfa hero görseli hâlâ Unsplash — afiş koyunca görünmüyor; afişsizken kendi görseli konabilir.
