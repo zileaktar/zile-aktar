@@ -1,16 +1,10 @@
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { formatPriceFromCents } from '@/lib/format';
+import { orderStatusLabel } from '@/lib/order-status';
 
-const STATUS_LABELS: Record<string, { label: string; className: string }> = {
-  pending: { label: 'Beklemede', className: 'bg-amber-100 text-amber-700' },
-  paid: { label: 'Ödendi', className: 'bg-green-100 text-green-700' },
-  failed: { label: 'Başarısız', className: 'bg-red-100 text-red-700' },
-  shipped: { label: 'Kargoya Verildi', className: 'bg-blue-100 text-blue-700' },
-  delivered: { label: 'Teslim Edildi', className: 'bg-green-100 text-green-700' },
-  cancelled: { label: 'İptal Edildi', className: 'bg-carbon/10 text-carbon/60' },
-  refunded: { label: 'İade Edildi', className: 'bg-carbon/10 text-carbon/60' }
-};
+export const dynamic = 'force-dynamic';
 
 export default async function OrderHistoryPage() {
   const supabase = await createSupabaseServerClient();
@@ -26,7 +20,7 @@ export default async function OrderHistoryPage() {
   // sınırsız büyümesin diye en yeni 50 sipariş gösterilir.
   const { data: orders } = await supabase
     .from('orders')
-    .select('*, order_items(*)')
+    .select('id, order_number, status, total_cents, tracking_number, shipping_carrier, created_at, order_items(id, product_name_snapshot, variant_label_snapshot, unit_price_cents, quantity)')
     .eq('user_id', user.id)
     .order('created_at', { ascending: false })
     .limit(50);
@@ -40,9 +34,13 @@ export default async function OrderHistoryPage() {
       ) : (
         <div className="space-y-4">
           {orders.map((order) => {
-            const status = STATUS_LABELS[order.status] ?? STATUS_LABELS.pending!;
+            const status = orderStatusLabel(order.status);
             return (
-              <div key={order.id} className="bg-white rounded-2xl p-5 shadow-sm">
+              <Link
+                key={order.id}
+                href={`/hesabim/siparislerim/${order.id}`}
+                className="block bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition"
+              >
                 <div className="flex items-center justify-between mb-3">
                   <div>
                     <div className="font-bold text-primary">{order.order_number}</div>
@@ -60,11 +58,17 @@ export default async function OrderHistoryPage() {
                     </div>
                   ))}
                 </div>
+                {order.tracking_number && (
+                  <div className="text-xs text-blue-700 bg-blue-50 rounded-lg px-3 py-1.5 mb-3">
+                    🚚 {order.shipping_carrier ? `${order.shipping_carrier} · ` : ''}Takip No: {order.tracking_number}
+                  </div>
+                )}
                 <div className="flex justify-between font-bold text-primary pt-2 border-t border-dashed border-primary/15">
                   <span>Toplam</span>
                   <span>{formatPriceFromCents(order.total_cents)}</span>
                 </div>
-              </div>
+                <div className="text-right text-xs font-semibold text-primary mt-2">Detayı gör →</div>
+              </Link>
             );
           })}
         </div>

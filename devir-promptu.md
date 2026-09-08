@@ -109,6 +109,15 @@ Supabase proje referansı: `gabdklnlojfbdaxtgmtg`.
 - **OWASP denetimi düzeltmeleri:** migration 0028 — `reviews` INSERT politikası `status='pending'` zorunlu + `BEFORE INSERT` trigger (`author_name`/`order_id` sunucu tarafı zorlama; doğrudan istemci insert'iyle moderasyon atlatması kapatıldı). `src/lib/order-token.ts` — `/siparis-alindi` HMAC imzalı `&t=` token (tahmin edilebilir sipariş no ile tutar sızıntısı + analytics kirliliği kapatıldı; checkout + callback rotaları üretir). `data_requests` denetim kaydı `service_role` ile. `getClientIp` → `x-vercel-forwarded-for` önceliği.
 - **Testler:** `tests/unit/` altına `mask.test.ts`, `crypto-pii.test.ts`, `order-token.test.ts` (toplam 44 test). Kripto/env testleri `vi.mock('server-only')` + `vi.mock('@/lib/env.mjs')` deseniyle.
 
+### Bu oturumda (iyzico beklerken küçük işler)
+
+- **iyzico canlı başvurusu:** 3 belge (vergi levhası + noter imza beyannamesi + Gıda İşletmesi Kayıt Belgesi) `inceleme@iyzico.com`'a gönderildi (7 Eylül). Panelde hâlâ "Başvurunuz Alındı / Gerekli Kriterler Sağlanmadı" sabit metni görünüyor — bu ret değil, iyzico elle inceleyene kadar öyle kalıyor (4–10 iş günü). Onay + sözleşme gelince Vercel'de `IYZICO_API_KEY`/`IYZICO_SECRET_KEY`/`IYZICO_BASE_URL`/`IYZICO_WEBHOOK_SECRET` canlı değerlerle güncellenecek. **Sandbox vs canlı panel ayrı:** `merchant.iyzipay.com` (canlı) ≠ `sandbox-merchant.iyzipay.com` (test).
+- **Unsplash temizliği:** `next.config.mjs`'den `images.unsplash.com` kaldırıldı (remotePatterns + CSP `img-src`). Kök `index.html` (kopyası `legacy-static-demo/`'da) silindi. `supabase/seed.sql` boşaltıldı (katalog migration'larda) + ARCHITECTURE/DEPLOYMENT/README güncellendi.
+- **Google İşletme Profili hazırlığı:** mağaza sahibinin **doğrulanmış** "Zile Lokman Aktar" profili var (tabela adı bu, değişmiyor). `src/lib/legal.ts`'e `haritaLinki` / `enlem` / `boylam` alanları eklendi (BOŞ). Doldurulunca `layout.tsx` Store şemasına `geo` + `sameAs` otomatik ekleniyor, `/iletisim` haritası tam konuma geçiyor. **Kalan:** mağaza sahibi profile web sitesini (`zile-aktar.vercel.app`) + kategoriyi ("Aktar") girecek, sonra Haritalar "Paylaş" linki + koordinatı verecek → 3 alan doldurulacak.
+- **`/hakkimizda` sayfası:** biz kimiz / ne satıyoruz / yaklaşım / mağaza bilgileri / iletişim. `LEGAL`'den okuyor. Footer + sitemap'e eklendi.
+- **Çoklu adres yönetimi (migration 0029):** `addresses` tablosu baştan çoklu satır destekliyordu; artık UI de var. `trg_addresses_single_default` trigger'ı tek varsayılan garantisi verir. Yeni: `/hesabim/adreslerim` + `AddressManager.tsx` (ekle/düzenle/sil/varsayılan yap), `src/lib/validations/address.ts`, `src/app/hesabim/adres-actions.ts` (server action, RLS'e tabi + `accountMutationRateLimit` dakikada 20 yazma, kullanıcı id bazlı). Değişen: `/hesabim` adres listesi özeti + "📍 Adreslerim" kartı; ödeme sayfasında kayıtlı adres seçici (`CheckoutForm` `savedAddresses` prop'u); `/api/checkout` artık adresleri SİLMİYOR (aynı adres yoksa ekler, seçili varsayılanı bozmaz). `types.ts` addresses `Insert` → `label`/`is_default` opsiyonel.
+- **Müşteri sipariş detayı:** `/hesabim/siparislerim/[id]` (yeni) — kargo takip no, teslimat/fatura adresi, ödeme yöntemi, indirim satırları, bekleyen havale uyarısı. `/hesabim/siparislerim` listesi artık her siparişi detaya linkliyor + kargoya verilmişse takip no'yu satır içinde gösteriyor. Ortak `src/lib/order-status.ts` (`ORDER_STATUS_LABELS` + `paymentMethodLabel`). RLS `orders_select_own_or_staff` sınırı; ayrıca `.eq('user_id', ...)`.
+
 ## 5. Kullanıcı tarafı — YAYINI ENGELLEYEN işler (kod değil)
 
 Tam liste `YAYIN-KONTROL-LISTESI.md`'de. Özet:
@@ -123,7 +132,8 @@ Tam liste `YAYIN-KONTROL-LISTESI.md`'de. Özet:
 - **Gıda İşletmesi Kayıt Belgesi** (Tarım ve Orman Bakanlığı) — online gıda satışı + iyzico için zorunlu, mali müşavirden alınacak.
 
 - **L1 (opsiyonel):** CSP'de `script-src 'unsafe-inline'` var; nonce tabanlı CSP'ye geçiş ayrı bir oturumda yapılabilir, yayın engeli değil.
-- **Opsiyonel kod işleri:** çoklu adres yönetimi UI'si (`/hesabim`); anasayfa hero görseli hâlâ Unsplash (telif); footer sosyal medya linkleri (kullanıcı adres verince eklenir); `Store` şemasına `geo`.
+- **Google İşletme Profili:** mağaza sahibi profile web sitesi + "Aktar" kategorisi + çalışma saatlerini girecek; sonra Haritalar "Paylaş" linki + koordinat → `src/lib/legal.ts`'teki `haritaLinki`/`enlem`/`boylam` doldurulacak.
+- **Opsiyonel kod işleri:** ~~çoklu adres yönetimi~~ ✅ (0029); ~~anasayfa hero Unsplash~~ (aslında CSS gradyan, sorun yoktu); footer sosyal medya linkleri (kullanıcı adres verince eklenir); ~~`Store` şemasına `geo`~~ ✅ plumbing hazır, koordinat bekliyor.
 
 ## 6. Sohbet Tarzı Notları
 

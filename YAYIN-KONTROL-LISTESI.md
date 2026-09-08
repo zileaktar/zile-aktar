@@ -61,7 +61,8 @@ Mimari + kod durumu: `devir-promptu.md`
 - [x] **Meta (Facebook) Pixel** — kuruldu, çalışıyor (çerez izniyle koşullu). Veri Seti Kodu `.env.local` + Vercel'de, PageView olayları "Tarayıcı" kaynağından doğrulandı.
 - [ ] **Google Search Console** — domain alınınca kayıt + `sitemap.xml` gönder + doğrulama.
 - [x] Dinamik `sitemap.xml` (tüm aktif ürünler + sayfalar), `robots.txt`, per-sayfa başlık/açıklama, `Store` + `Product` + `BreadcrumbList` + `FAQPage` şeması, breadcrumbs.
-- [ ] `Store` şemasına `geo` (enlem/boylam) eklenebilir — opsiyonel.
+- [ ] `Store` şemasına `geo` (enlem/boylam) — kod hazır (`src/lib/legal.ts` `haritaLinki`/`enlem`/`boylam`); Google İşletme Profili'nden koordinat girilince otomatik devreye girer.
+- [ ] **Google İşletme Profili ("Zile Lokman Aktar")** — doğrulanmış profil var. Yapılacak: profile web sitesi (`zile-aktar.vercel.app`) + birincil kategori "Aktar" + çalışma saatleri girilecek; sonra Haritalar "Paylaş" linki + koordinat alınıp `legal.ts`'e yazılacak (site ↔ profil bağlantısı + "Google'da Yorum Yap" butonu).
 
 ## E. İÇERİK (mağaza sahibi)
 
@@ -70,8 +71,8 @@ Mimari + kod durumu: `devir-promptu.md`
 - [x] **Ürün açıklamaları** — 198 ürünün tamamı dolu (migration 0009 + 0021–0027, veritabanına uygulandı). Profesyonel format: Ürün Hakkında / Öne Çıkan Özellikleri / Kullanım Şekli / Saklama Koşulları / Önemli Uyarılar + mevzuat uyarısı.
 - [ ] **Kampanya afişleri** — `/admin/afisler`'den görsel + başlık/buton yükle (yoksa sade başlık gösterilir).
 - [ ] **Sosyal medya linkleri** — Instagram/Facebook hesap adreslerini ver, footer'a eklenir.
-- [ ] Anasayfa hero görseli hâlâ Unsplash — afiş koyunca görünmüyor; afişsizken kendi görseli konabilir.
-- [ ] Gerçek ekip/mağaza fotoğrafı (opsiyonel — "Hakkımızda" bölümü).
+- [ ] Anasayfa hero — afiş yokken CSS gradyan başlık gösteriliyor (Unsplash kaldırıldı). İstenirse afişsiz durum için kendi görseli konabilir.
+- [ ] `/hakkimizda` sayfası yayında (metin `legal.ts`'ten). İstenirse gerçek mağaza/ekip fotoğrafı eklenebilir (opsiyonel).
 
 ## F. MANUEL TEST (deploy sonrası, canlıda)
 
@@ -95,4 +96,4 @@ Brevo SMTP + sipariş/kargo/teslimat e-postaları · Canlı arama önerileri (ty
 Varyant indirimi (üstü çizili fiyat) · Ekranda gramaj butonları · Kampanya afişi carousel ·
 İndirim kuponu sistemi (yüzde/sabit/ücretsiz kargo) · "X alana Y" kampanyası + sepette otomatik tamamlama ·
 Sepet "kasa altı" önerileri · Ürün detayında "Benzer Ürünler" · GA4 · Favicon · Breadcrumbs ·
-SSS sayfası · İletişim + harita sayfası
+SSS sayfası · İletişim + harita sayfası · Hakkımızda sayfası · Çoklu adres yönetimi (Hesabım → Adreslerim, migration 0029)

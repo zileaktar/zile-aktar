@@ -15,10 +15,7 @@ const nextConfig = {
     staleTimes: { dynamic: 0, static: 180 }
   },
   images: {
-    remotePatterns: [
-      { protocol: 'https', hostname: '*.supabase.co', pathname: '/storage/v1/object/**' },
-      { protocol: 'https', hostname: 'images.unsplash.com' }
-    ],
+    remotePatterns: [{ protocol: 'https', hostname: '*.supabase.co', pathname: '/storage/v1/object/**' }],
     formats: ['image/avif', 'image/webp']
   },
   async headers() {
@@ -77,7 +74,7 @@ const nextConfig = {
               "worker-src 'self' blob:",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: https://*.supabase.co https://images.unsplash.com https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com",
+              "img-src 'self' data: https://*.supabase.co https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com",
               connectSrc,
               "frame-src https://*.iyzico.com https://challenges.cloudflare.com https://www.google.com https://maps.google.com",
               "frame-ancestors 'none'"

@@ -26,8 +26,8 @@ Next.js 14 (App Router, TypeScript strict) + Supabase (PostgreSQL, Auth, Storage
 web/
 ├─ legacy-static-demo/         # Önceki tek-dosyalık statik prototip (referans)
 ├─ supabase/
-│  ├─ migrations/              # Sıralı SQL migration'lar (şema + RLS + RPC)
-│  └─ seed.sql                 # Geliştirme/demo verisi
+│  ├─ migrations/              # Sıralı SQL migration'lar (şema + RLS + RPC + ürün kataloğu)
+│  └─ seed.sql                 # Bilerek boş — katalog migration'larda
 ├─ src/
 │  ├─ app/
 │  │  ├─ page.tsx              # Anasayfa (SSR, kategori/arama filtreleme)

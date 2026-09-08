@@ -49,9 +49,11 @@ export interface Database {
           is_default: boolean;
           created_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['addresses']['Row'], 'id' | 'created_at'> & {
+        Insert: Omit<Database['public']['Tables']['addresses']['Row'], 'id' | 'created_at' | 'label' | 'is_default'> & {
           id?: string;
           created_at?: string;
+          label?: string;
+          is_default?: boolean;
         };
         Update: Partial<Database['public']['Tables']['addresses']['Row']>;
         Relationships: [

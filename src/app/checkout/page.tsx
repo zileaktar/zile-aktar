@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getCheckoutPrefill } from '@/lib/data/account';
+import { getCheckoutPrefill, listAddresses } from '@/lib/data/account';
 import { CheckoutForm } from '@/components/checkout/CheckoutForm';
 
 export const metadata: Metadata = { title: 'Güvenli Ödeme', robots: { index: false } };
@@ -8,6 +8,6 @@ export const metadata: Metadata = { title: 'Güvenli Ödeme', robots: { index: f
 export const dynamic = 'force-dynamic';
 
 export default async function CheckoutPage() {
-  const prefill = await getCheckoutPrefill();
-  return <CheckoutForm prefill={prefill} />;
+  const [prefill, savedAddresses] = await Promise.all([getCheckoutPrefill(), listAddresses()]);
+  return <CheckoutForm prefill={prefill} savedAddresses={savedAddresses} />;
 }

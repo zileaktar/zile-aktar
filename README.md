@@ -10,8 +10,7 @@ Mimari detaylar için [ARCHITECTURE.md](./ARCHITECTURE.md), canlıya alma adıml
 npm install
 cp .env.example .env.local   # değerleri doldurun (bkz. DEPLOYMENT.md adım 1-4)
 supabase link --project-ref <PROJECT_REF>
-supabase db push             # şema + RLS + RPC migration'larını uygular
-# (opsiyonel) demo verisi: supabase/seed.sql içeriğini Dashboard > SQL Editor'e yapıştırıp çalıştırın
+supabase db push             # şema + RLS + RPC + ürün kataloğu migration'larını uygular
 npm run dev
 ```
 

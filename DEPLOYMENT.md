@@ -27,10 +27,7 @@ derlenmedi — bağımlılık sürüm uyuşmazlığı gibi küçük sürtünmele
    ```bash
    supabase db push
    ```
-4. (Opsiyonel, sadece geliştirme/demo için) Seed verisini yükleyin. Yerelde Docker ile çalışıyorsanız `supabase db reset`
-   migration'ları uygulayıp `supabase/seed.sql`'i otomatik çalıştırır. Uzak (linked) bir projeye seed atmak için CLI
-   sürümünüze göre komut adı değişebileceğinden en güvenilir yol, `supabase/seed.sql` dosyasının içeriğini Supabase
-   Dashboard → SQL Editor'e yapıştırıp çalıştırmaktır.
+4. Ürün kataloğu migration'lara gömülüdür (0012 ve sonrası) — `supabase db push` ile birlikte gelir, ayrı bir seed adımı yoktur. (`supabase/seed.sql` bilerek boş bırakıldı.)
 5. Proje Ayarları → API sekmesinden `URL`, `anon key`, `service_role key` değerlerini alın → `.env.local`.
 6. Storage sekmesinde `product-images` bucket'ının oluştuğunu doğrulayın (migration 0003 ile otomatik gelir).
 7. İlk admin kullanıcısını oluşturun: Authentication → Users → "Add user" ile bir hesap açın, sonra SQL Editor'de:

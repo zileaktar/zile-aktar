@@ -44,6 +44,18 @@ export const generalApiRateLimit = new Ratelimit({
 });
 
 /**
+ * Giriş yapmış kullanıcının hesap verisi üzerindeki yazma işlemleri (adres
+ * ekle/düzenle/sil/varsayılan yap gibi Server Action'lar). Kimlik = kullanıcı
+ * id'si (IP değil) — normal kullanımda cömert, otomatik döngüleri yavaşlatır.
+ */
+export const accountMutationRateLimit = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(20, '1 m'),
+  prefix: 'ratelimit:account',
+  analytics: true
+});
+
+/**
  * `.limit()` çağrısını Upstash'e erişilemediği durumlara (yanlış/placeholder
  * kimlik bilgileri, geçici ağ sorunu) karşı GÜVENLİ hale getirir. Daha önce
  * her route bu çağrıyı KENDİ try/catch'inin DIŞINDA yapıyordu — Upstash

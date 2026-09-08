@@ -92,21 +92,43 @@ export async function POST(request: Request) {
   };
 
   // Giriş yapmış kullanıcının bilgilerini bir sonraki alışveriş için kaydet:
-  // telefon profiles'a, teslimat adresi addresses'e (tek varsayılan adres modeli).
-  // Hata olsa bile sipariş akışı bozulmasın diye best-effort (await ama try/catch yok — hata Sentry'ye düşer).
+  // telefon profiles'a, teslimat adresi addresses'e. Kullanıcının kayıtlı
+  // adreslerini SİLMEDEN (çoklu adres modeli): aynı adres zaten varsa dokunma,
+  // yoksa yeni satır ekle. İlk adres otomatik varsayılan olur; sonrakiler
+  // kullanıcının seçtiği varsayılanı bozmaz (Hesabım → Adreslerim'den yönetilir).
+  // Hata olsa bile sipariş akışı bozulmasın diye best-effort (hata Sentry'ye düşer).
   if (user) {
     await serviceClient.from('profiles').update({ phone: address.phone }).eq('id', user.id);
-    await serviceClient.from('addresses').delete().eq('user_id', user.id);
-    await serviceClient.from('addresses').insert({
-      user_id: user.id,
-      label: 'Teslimat Adresi',
-      full_name: address.fullName,
-      phone: address.phone,
-      city: address.city,
-      district: address.district,
-      address_line: address.addressLine,
-      is_default: true
-    });
+
+    const { data: existing } = await serviceClient
+      .from('addresses')
+      .select('id')
+      .eq('user_id', user.id);
+    const match = (existing ?? []).length
+      ? (
+          await serviceClient
+            .from('addresses')
+            .select('id')
+            .eq('user_id', user.id)
+            .eq('city', address.city)
+            .eq('district', address.district)
+            .eq('address_line', address.addressLine)
+            .maybeSingle()
+        ).data
+      : null;
+
+    if (!match) {
+      await serviceClient.from('addresses').insert({
+        user_id: user.id,
+        label: 'Teslimat Adresi',
+        full_name: address.fullName,
+        phone: address.phone,
+        city: address.city,
+        district: address.district,
+        address_line: address.addressLine,
+        is_default: (existing?.length ?? 0) === 0
+      });
+    }
   }
 
   // Fatura adresi teslimat adresinden farklıysa siparişe eklenir (create_order

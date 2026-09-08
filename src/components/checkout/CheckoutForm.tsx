@@ -10,9 +10,15 @@ import { trackBeginCheckout } from '@/lib/analytics';
 import { checkoutRequestSchema } from '@/lib/validations/checkout';
 import { isValidTcKimlikNo } from '@/lib/tc-kimlik-no';
 import { HealthDisclaimer } from '@/components/product/HealthDisclaimer';
-import type { CheckoutPrefill } from '@/lib/data/account';
+import type { CheckoutPrefill, SavedAddress } from '@/lib/data/account';
 
-export function CheckoutForm({ prefill }: { prefill: CheckoutPrefill | null }) {
+export function CheckoutForm({
+  prefill,
+  savedAddresses = []
+}: {
+  prefill: CheckoutPrefill | null;
+  savedAddresses?: SavedAddress[];
+}) {
   const router = useRouter();
   const items = useCartStore((s) => s.items);
   const subtotal = items.reduce((sum, i) => sum + i.priceCents * i.quantity, 0);
@@ -88,6 +94,23 @@ export function CheckoutForm({ prefill }: { prefill: CheckoutPrefill | null }) {
     addressLine: prefill?.addressLine ?? '',
     identityNumber: ''
   });
+  // Kayıtlı adres seçici (yalnızca giriş yapmış ve adresi olan kullanıcıda).
+  // Başlangıçta varsayılan/en yeni adres seçili — prefill zaten onu doldurmuş olur.
+  const initialAddress = savedAddresses.find((a) => a.isDefault) ?? savedAddresses[0] ?? null;
+  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(initialAddress?.id ?? null);
+
+  function applySavedAddress(a: SavedAddress) {
+    setSelectedAddressId(a.id);
+    setForm((f) => ({
+      ...f,
+      fullName: a.fullName,
+      phone: a.phone,
+      city: a.city,
+      district: a.district,
+      addressLine: a.addressLine
+    }));
+  }
+
   const [billingDifferent, setBillingDifferent] = useState(false);
   const [billing, setBilling] = useState({ fullName: '', phone: '', city: '', district: '', addressLine: '' });
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'havale'>('card');
@@ -182,6 +205,53 @@ export function CheckoutForm({ prefill }: { prefill: CheckoutPrefill | null }) {
         <div className="lg:col-span-3 space-y-6">
           <div className="bg-white rounded-2xl p-5 shadow-sm space-y-4">
             <h4 className="font-display font-bold text-primary flex items-center gap-2">📍 Adres ve Teslimat Bilgileri</h4>
+
+            {savedAddresses.length > 0 && (
+              <div className="space-y-2">
+                <p className="text-xs font-semibold text-carbon/60">Kayıtlı adreslerim</p>
+                <div className="grid sm:grid-cols-2 gap-2">
+                  {savedAddresses.map((a) => (
+                    <button
+                      key={a.id}
+                      type="button"
+                      onClick={() => applySavedAddress(a)}
+                      className={`text-left border-2 rounded-xl p-3 text-xs transition ${
+                        selectedAddressId === a.id
+                          ? 'border-primary bg-primary/5'
+                          : 'border-primary/10 hover:border-primary/30'
+                      }`}
+                    >
+                      <span className="font-semibold text-carbon block">
+                        {a.label}
+                        {a.isDefault && <span className="ml-1 font-normal text-carbon/45">· varsayılan</span>}
+                      </span>
+                      <span className="text-carbon/55">
+                        {a.district} / {a.city} — {a.addressLine}
+                      </span>
+                    </button>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedAddressId(null)}
+                    className={`text-left border-2 rounded-xl p-3 text-xs font-semibold transition ${
+                      selectedAddressId === null
+                        ? 'border-primary bg-primary/5 text-primary'
+                        : 'border-primary/10 hover:border-primary/30 text-carbon/60'
+                    }`}
+                  >
+                    + Yeni adrese gönder
+                  </button>
+                </div>
+                <p className="text-[11px] text-carbon/40">
+                  Adreslerinizi{' '}
+                  <a href="/hesabim/adreslerim" target="_blank" className="text-primary underline">
+                    Hesabım → Adreslerim
+                  </a>{' '}
+                  bölümünden yönetebilirsiniz. Buradaki değişiklikler kayıtlı adresi değiştirmez.
+                </p>
+              </div>
+            )}
+
             <div className="grid sm:grid-cols-2 gap-3">
               <input required placeholder="Ad Soyad" className="chk-input sm:col-span-2" value={form.fullName} onChange={(e) => setForm({ ...form, fullName: e.target.value })} />
               <input required type="tel" placeholder="Telefon (05xx xxx xx xx)" className="chk-input" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />

@@ -70,6 +70,9 @@ export function SiteFooter({ categories, logoPath }: { categories: Category[]; l
             ))}
           </div>
           <div className="flex flex-col gap-1 mt-4 text-xs text-cream/50">
+            <Link href="/hakkimizda" className="hover:text-accent-light">
+              Hakkımızda
+            </Link>
             <Link href="/sss" className="hover:text-accent-light">
               Sıkça Sorulan Sorular
             </Link>

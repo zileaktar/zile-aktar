@@ -10,6 +10,48 @@ export interface CheckoutPrefill {
   addressLine: string;
 }
 
+export interface SavedAddress {
+  id: string;
+  label: string;
+  fullName: string;
+  phone: string;
+  city: string;
+  district: string;
+  addressLine: string;
+  isDefault: boolean;
+}
+
+/**
+ * Giriş yapmış kullanıcının kayıtlı teslimat adresleri (varsayılan önce, sonra
+ * yeni eklenen önce). Giriş yoksa boş dizi. Kullanıcının kendi oturumuyla —
+ * RLS `addresses_all_own` politikası geçerli.
+ */
+export async function listAddresses(): Promise<SavedAddress[]> {
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
+  if (!user) return [];
+
+  const { data } = await supabase
+    .from('addresses')
+    .select('id, label, full_name, phone, city, district, address_line, is_default')
+    .eq('user_id', user.id)
+    .order('is_default', { ascending: false })
+    .order('created_at', { ascending: false });
+
+  return (data ?? []).map((a) => ({
+    id: a.id,
+    label: a.label,
+    fullName: a.full_name,
+    phone: a.phone,
+    city: a.city,
+    district: a.district,
+    addressLine: a.address_line,
+    isDefault: a.is_default
+  }));
+}
+
 /**
  * Giriş yapmış kullanıcı için checkout formunu önceden doldurur:
  * e-posta -> auth, ad/telefon -> profiles, adres -> kayıtlı adres ya da son sipariş.

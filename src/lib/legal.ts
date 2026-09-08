@@ -15,6 +15,16 @@ export const LEGAL = {
 
   // Mağaza çalışma saatleri — gerekirse düzenleyin. İletişim sayfası + Store şemasında kullanılır.
   calismaSaatleri: 'Pazartesi – Cumartesi: 09:00 – 19:00 · Pazar: Kapalı',
+
+  // Mağazanın Google Haritalar konumu. Google İşletme Profili'nden alın:
+  //  - Haritalar'da işletmeyi açın → "Paylaş" → çıkan bağlantıyı `haritaLinki`'ne yapıştırın.
+  //  - Pin'e sağ tıklayıp koordinatı (ör. "40.304512, 35.887934") `enlem`/`boylam`'a girin.
+  // Boş bırakılırsa yapısal veriye (Store şeması) konum eklenmez; İletişim sayfası
+  // adrese göre yaklaşık harita gösterir.
+  haritaLinki: '', // https://maps.app.goo.gl/... veya https://g.page/...
+  enlem: '', // ör. '40.304512'
+  boylam: '', // ör. '35.887934'
+
   // İletişim mesajlarına dönüş taahhüdü (İletişim sayfasında gösterilir).
   yanitSuresi: 'Mesajlarınıza en geç 1 iş günü içinde dönüş yapıyoruz.',
 

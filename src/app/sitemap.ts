@@ -14,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const staticPaths = [
+    '/hakkimizda',
     '/sss',
     '/iletisim',
     '/kullanim-kosullari',

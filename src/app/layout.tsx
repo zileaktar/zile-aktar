@@ -62,6 +62,10 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [categories, { logoPath }] = await Promise.all([getCategories(), getSiteSettings()]);
 
+  // Google İşletme Profili bağlandığında (LEGAL.haritaLinki / enlem / boylam dolunca)
+  // yapısal veriye kesin konum + profil bağlantısı eklenir; boşken bu alanlar atlanır.
+  const hasGeo = Boolean(LEGAL.enlem && LEGAL.boylam);
+  const hasMapLink = Boolean(LEGAL.haritaLinki);
   const orgJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Store',
@@ -77,10 +81,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       postalCode: '60400',
       addressCountry: 'TR'
     },
+    ...(hasGeo && {
+      geo: { '@type': 'GeoCoordinates', latitude: LEGAL.enlem, longitude: LEGAL.boylam }
+    }),
+    ...(hasMapLink && { sameAs: [LEGAL.haritaLinki] }),
     priceRange: '₺₺',
     currenciesAccepted: 'TRY',
     paymentAccepted: 'Kredi Kartı, Banka Kartı, Havale/EFT',
-    hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${LEGAL.markaAdi} ${LEGAL.adres}`)}`,
+    hasMap:
+      LEGAL.haritaLinki ||
+      `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${LEGAL.markaAdi} ${LEGAL.adres}`)}`,
     openingHours: 'Mo-Sa 09:00-19:00'
   };
 
