@@ -84,6 +84,8 @@ export interface Database {
           name: string;
           description: string;
           image_path: string;
+          /** Ek galeri görselleri (sıralı). Ana görsel `image_path`; migration 0030. */
+          image_paths: string[];
           badges: string[];
           is_active: boolean;
           form: ProductForm | null;
@@ -114,9 +116,11 @@ export interface Database {
           | 'deal_buy_qty'
           | 'deal_get_qty'
           | 'deal_get_percent'
+          | 'image_paths'
         > & {
           id?: string;
           is_active?: boolean;
+          image_paths?: string[];
           form?: ProductForm | null;
           origin?: string | null;
           storage_info?: string;

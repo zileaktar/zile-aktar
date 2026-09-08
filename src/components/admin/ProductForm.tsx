@@ -45,6 +45,7 @@ interface ProductFormProps {
     slug: string;
     description: string;
     imagePath: string;
+    imagePaths: string[];
     categoryId: string;
     badges: string[];
     isActive: boolean;
@@ -127,8 +128,11 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
   const [variants, setVariants] = useState<VariantRow[]>(initialProduct?.variants ?? [{ ...EMPTY_VARIANT }]);
 
   const [imagePath, setImagePath] = useState(initialProduct?.imagePath ?? '');
+  const [imagePaths, setImagePaths] = useState<string[]>(initialProduct?.imagePaths ?? []);
   const [uploading, setUploading] = useState(false);
+  const [galleryUploading, setGalleryUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const MAX_GALLERY = 8;
   const [isDeleting, startDeleteTransition] = useTransition();
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
@@ -137,12 +141,9 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
     if (!slugTouched) setSlug(slugify(value));
   }
 
-  async function handleImageSelect(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setUploadError(null);
-    setUploading(true);
-
+  // Tek dosyayı Storage'a yükler, kaydedilecek göreli yolu ("product-images/...")
+  // döndürür. Hata olursa uploadError'ı set eder ve null döner.
+  async function uploadFile(file: File): Promise<string | null> {
     try {
       const ext = file.name.split('.').pop()?.toLowerCase() ?? 'jpg';
       const res = await fetch('/api/upload/presigned-url', {
@@ -153,22 +154,56 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
       const data = await res.json();
       if (!res.ok) {
         setUploadError(data.error ?? 'Yükleme bağlantısı alınamadı.');
-        return;
+        return null;
       }
 
       const supabase = createSupabaseBrowserClient();
       const { error } = await supabase.storage.from('product-images').uploadToSignedUrl(data.objectPath, data.token, file);
       if (error) {
         setUploadError('Dosya yüklenemedi: ' + error.message);
-        return;
+        return null;
       }
-      setImagePath(data.path);
+      return data.path as string;
     } catch (err) {
       console.error('Ürün görseli yükleme hatası:', err);
       setUploadError(`Yükleme sırasında beklenmeyen bir hata oluştu: ${err instanceof Error ? err.message : String(err)}`);
-    } finally {
-      setUploading(false);
+      return null;
     }
+  }
+
+  async function handleImageSelect(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadError(null);
+    setUploading(true);
+    const path = await uploadFile(file);
+    if (path) setImagePath(path);
+    setUploading(false);
+    e.target.value = '';
+  }
+
+  async function handleGalleryAdd(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files ?? []);
+    if (files.length === 0) return;
+    setUploadError(null);
+    setGalleryUploading(true);
+    const room = MAX_GALLERY - imagePaths.length;
+    for (const file of files.slice(0, room)) {
+      const path = await uploadFile(file);
+      if (path) setImagePaths((prev) => (prev.length < MAX_GALLERY ? [...prev, path] : prev));
+    }
+    setGalleryUploading(false);
+    e.target.value = '';
+  }
+
+  function moveGalleryImage(from: number, to: number) {
+    setImagePaths((prev) => {
+      if (to < 0 || to >= prev.length) return prev;
+      const next = [...prev];
+      const [moved] = next.splice(from, 1);
+      next.splice(to, 0, moved!);
+      return next;
+    });
   }
 
   function updateVariant(index: number, patch: Partial<VariantRow>) {
@@ -228,6 +263,7 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
       {deleteError && <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 text-sm">{deleteError}</div>}
 
       <input type="hidden" name="imagePath" value={imagePath} />
+      <input type="hidden" name="imagePathsJson" value={JSON.stringify(imagePaths)} />
       <input type="hidden" name="variantsJson" value={variantsJson} />
 
       <div className="bg-white rounded-2xl p-5 shadow-sm space-y-4">
@@ -469,6 +505,63 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
         {uploading && <p className="text-xs text-carbon/50">Yükleniyor...</p>}
         {uploadError && <p className="text-xs text-red-600">{uploadError}</p>}
         {!imagePath && <p className="text-xs text-red-500">Görsel yüklenmeden kaydedilemez.</p>}
+
+        <div className="pt-2 border-t border-dashed border-primary/15">
+          <h3 className="text-sm font-semibold text-carbon/70 mb-1">Diğer Görseller (galeri)</h3>
+          <p className="text-xs text-carbon/50 mb-3">
+            Ana görselin yanında müşterinin sağa/sola kaydırarak göreceği ek fotoğraflar. En fazla {MAX_GALLERY} adet.
+            Sıra buradaki sıralamadır.
+          </p>
+
+          {imagePaths.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-3">
+              {imagePaths.map((path, i) => (
+                <div key={path} className="relative w-24 h-24 rounded-lg overflow-hidden bg-cream group">
+                  <Image src={getProductImageUrl(path)} alt={`Galeri görseli ${i + 1}`} fill className="object-cover" />
+                  <div className="absolute inset-x-0 bottom-0 flex justify-between bg-black/45 px-1 py-0.5 opacity-0 group-hover:opacity-100 transition">
+                    <button
+                      type="button"
+                      onClick={() => moveGalleryImage(i, i - 1)}
+                      disabled={i === 0}
+                      className="text-white text-xs disabled:opacity-30"
+                      aria-label="Sola al"
+                    >
+                      ←
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setImagePaths((prev) => prev.filter((_, idx) => idx !== i))}
+                      className="text-white text-xs"
+                      aria-label="Kaldır"
+                    >
+                      ✕
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => moveGalleryImage(i, i + 1)}
+                      disabled={i === imagePaths.length - 1}
+                      className="text-white text-xs disabled:opacity-30"
+                      aria-label="Sağa al"
+                    >
+                      →
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {imagePaths.length < MAX_GALLERY && (
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              multiple
+              onChange={handleGalleryAdd}
+              className="text-sm"
+            />
+          )}
+          {galleryUploading && <p className="text-xs text-carbon/50">Galeri görselleri yükleniyor...</p>}
+        </div>
       </div>
 
       <div className="bg-white rounded-2xl p-5 shadow-sm space-y-4">

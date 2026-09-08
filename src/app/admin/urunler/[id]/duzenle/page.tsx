@@ -18,7 +18,7 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
     supabase
       .from('products')
       .select(
-        'id, name, slug, description, image_path, category_id, badges, is_active, form, origin, storage_info, allergen_info, shelf_life_note, deal_buy_qty, deal_get_qty, deal_get_percent, product_variants(id, label, price_cents, compare_at_price_cents, stock, sort_order, lot_no, expiry_date)'
+        'id, name, slug, description, image_path, image_paths, category_id, badges, is_active, form, origin, storage_info, allergen_info, shelf_life_note, deal_buy_qty, deal_get_qty, deal_get_percent, product_variants(id, label, price_cents, compare_at_price_cents, stock, sort_order, lot_no, expiry_date)'
       )
       .eq('id', id)
       .single()
@@ -41,6 +41,7 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
           slug: product.slug,
           description: product.description,
           imagePath: product.image_path,
+          imagePaths: product.image_paths ?? [],
           categoryId: product.category_id,
           badges: product.badges,
           isActive: product.is_active,

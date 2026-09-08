@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
 import { getProductBySlug, getRelatedProducts } from '@/lib/data/products';
 import { getProductReviews, getReviewContext } from '@/lib/data/reviews';
 import { ProductCard } from '@/components/product/ProductCard';
-import { getProductImageUrl } from '@/lib/media';
+import { getProductImageUrls } from '@/lib/media';
 import { safeJsonLd, getPlainExcerpt } from '@/lib/format';
 import { ProductDetailClient } from '@/components/product/ProductDetailClient';
+import { ProductGallery } from '@/components/product/ProductGallery';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { RichProductDescription } from '@/components/product/RichProductDescription';
 import { HealthDisclaimer } from '@/components/product/HealthDisclaimer';
@@ -34,7 +34,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
-  const imageUrl = getProductImageUrl(product.image_path);
+  const imageUrls = getProductImageUrls(product.image_path, product.image_paths ?? []);
   const [{ reviews, count: reviewCount, average: reviewAverage }, reviewContext, related] = await Promise.all([
     getProductReviews(product.id),
     getReviewContext(product.id),
@@ -46,7 +46,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     '@type': 'Product',
     name: product.name,
     description: getPlainExcerpt(product.description),
-    image: imageUrl,
+    image: imageUrls,
     ...(reviewCount > 0 && {
       aggregateRating: {
         '@type': 'AggregateRating',
@@ -77,9 +77,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       />
 
       <div className="grid md:grid-cols-2 gap-8 sm:gap-12">
-        <div className="relative aspect-square rounded-2xl overflow-hidden bg-white shadow-sm">
-          <Image src={imageUrl} alt={product.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" priority />
-        </div>
+        <ProductGallery images={imageUrls} alt={product.name} />
         <ProductDetailClient product={product} />
       </div>
 

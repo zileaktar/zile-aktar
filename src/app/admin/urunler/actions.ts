@@ -31,6 +31,7 @@ function productColumns(input: ProductInput) {
     name: input.name,
     description: input.description,
     image_path: input.imagePath,
+    image_paths: input.imagePaths,
     badges: input.badges,
     is_active: input.isActive,
     form: input.form,
@@ -71,6 +72,13 @@ function parseProductFormData(formData: FormData) {
     variants = [];
   }
 
+  let imagePaths: unknown;
+  try {
+    imagePaths = JSON.parse(String(formData.get('imagePathsJson') ?? '[]'));
+  } catch {
+    imagePaths = [];
+  }
+
   const formValue = String(formData.get('form') ?? '').trim();
   const toIntOrNull = (v: FormDataEntryValue | null) => {
     const n = Number.parseInt(String(v ?? '').trim(), 10);
@@ -83,6 +91,7 @@ function parseProductFormData(formData: FormData) {
     name: formData.get('name'),
     description: formData.get('description') ?? '',
     imagePath: formData.get('imagePath'),
+    imagePaths,
     badges: formData.getAll('badges'),
     isActive: formData.get('isActive') === 'on',
     form: formValue === '' ? null : formValue,

@@ -19,3 +19,20 @@ export function getProductImageUrl(imagePath: string): string {
   }
   return `${env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${imagePath}`;
 }
+
+/**
+ * Ürün galerisi için gösterilecek görsel URL'lerini sırayla döndürür:
+ * ana görsel (`image_path`) her zaman ilk sırada, ardından ek galeri
+ * görselleri (`image_paths`). Boş/yinelenen yollar elenir.
+ */
+export function getProductImageUrls(imagePath: string, extraPaths: string[] = []): string[] {
+  const seen = new Set<string>();
+  const urls: string[] = [];
+  for (const path of [imagePath, ...extraPaths]) {
+    const trimmed = path?.trim();
+    if (!trimmed || seen.has(trimmed)) continue;
+    seen.add(trimmed);
+    urls.push(getProductImageUrl(trimmed));
+  }
+  return urls;
+}

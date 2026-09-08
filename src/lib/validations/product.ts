@@ -62,6 +62,8 @@ export const productInputSchema = z.object({
   // Presigned upload akışından dönen "product-images/<dosya>" yolu ya da
   // (geçici placeholder'lar için) "/urunler/<slug>.svg" gibi kök-göreli bir yol.
   imagePath: z.string().trim().min(1, 'Ürün görseli zorunlu.'),
+  // Ek galeri görselleri (migration 0030) — sıralı, opsiyonel, en fazla 8.
+  imagePaths: z.array(z.string().trim().min(1)).max(8).optional().default([]),
   badges: z.array(z.enum(['100% Doğal', 'Soğuk Sıkım', 'Yöresel', 'Sınırlı Stok', 'Geleneksel'])).max(4),
   isActive: z.boolean().default(true),
   // Aktar sektörü alanları (migration 0013) — hepsi opsiyonel.

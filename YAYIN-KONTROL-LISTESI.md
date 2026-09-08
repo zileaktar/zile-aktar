@@ -66,7 +66,7 @@ Mimari + kod durumu: `devir-promptu.md`
 
 ## E. İÇERİK (mağaza sahibi)
 
-- [ ] **Gerçek ürün fotoğrafları** — 198 ürün placeholder SVG. `/admin/urunler` → ürün düzenle → görsel yükle.
+- [ ] **Gerçek ürün fotoğrafları** — 198 ürün placeholder SVG. `/admin/urunler` → ürün düzenle → ana görsel + "Diğer Görseller (galeri)" bölümünden ek fotoğraflar (müşteri detay sayfasında kaydırır).
 - [ ] **Ürün gramaj/fiyatları** — her ürün tek "STD" varyantla. 500g/1kg/2kg gibi seçenekleri `/admin/urunler`'den ekle (ekranda buton olarak görünür).
 - [x] **Ürün açıklamaları** — 198 ürünün tamamı dolu (migration 0009 + 0021–0027, veritabanına uygulandı). Profesyonel format: Ürün Hakkında / Öne Çıkan Özellikleri / Kullanım Şekli / Saklama Koşulları / Önemli Uyarılar + mevzuat uyarısı.
 - [ ] **Kampanya afişleri** — `/admin/afisler`'den görsel + başlık/buton yükle (yoksa sade başlık gösterilir).
@@ -96,4 +96,5 @@ Brevo SMTP + sipariş/kargo/teslimat e-postaları · Canlı arama önerileri (ty
 Varyant indirimi (üstü çizili fiyat) · Ekranda gramaj butonları · Kampanya afişi carousel ·
 İndirim kuponu sistemi (yüzde/sabit/ücretsiz kargo) · "X alana Y" kampanyası + sepette otomatik tamamlama ·
 Sepet "kasa altı" önerileri · Ürün detayında "Benzer Ürünler" · GA4 · Favicon · Breadcrumbs ·
-SSS sayfası · İletişim + harita sayfası · Hakkımızda sayfası · Çoklu adres yönetimi (Hesabım → Adreslerim, migration 0029)
+SSS sayfası · İletişim + harita sayfası · Hakkımızda sayfası · Çoklu adres yönetimi (Hesabım → Adreslerim, migration 0029) ·
+Müşteri sipariş detay sayfası · Ürün galerisi / çoklu fotoğraf (migration 0030)
