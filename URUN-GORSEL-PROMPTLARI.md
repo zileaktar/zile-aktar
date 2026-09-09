@@ -59,7 +59,8 @@ frame height. Identical framing every time.
 The oil inside is pale golden yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a few bitter almonds, some in the brown shell and some shelled. This is the ONLY other object in the scene.
+arrangement — a few bitter almonds, some in the brown shell and some shelled — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -83,7 +84,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow-green, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a fresh sage sprig and a small pinch of dried sage leaves. This is the ONLY other object in the scene.
+arrangement — a fresh sage sprig and a small pinch of dried sage leaves — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -107,7 +109,8 @@ frame height. Identical framing every time.
 The oil inside is pale golden, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of one whole fresh trout. This is the ONLY other object in the scene.
+arrangement — one whole fresh trout — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -131,7 +134,8 @@ frame height. Identical framing every time.
 The oil inside is almost colourless with a faint pale-yellow tint, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small heap of aniseed and one dried anise flower head. This is the ONLY other object in the scene.
+arrangement — a small heap of aniseed and one dried anise flower head — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -155,7 +159,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a short juniper sprig with blue-black juniper berries. This is the ONLY other object in the scene.
+arrangement — a short juniper sprig with blue-black juniper berries — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -179,7 +184,8 @@ frame height. Identical framing every time.
 The oil inside is rich warm gold, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a few cracked argan nuts showing the pale kernels. This is the ONLY other object in the scene.
+arrangement — a few cracked argan nuts showing the pale kernels — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -203,7 +209,8 @@ frame height. Identical framing every time.
 The oil inside is pale straw gold, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small handful of orange safflower petals and a few safflower seeds. This is the ONLY other object in the scene.
+arrangement — a small handful of orange safflower petals and a few safflower seeds — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -227,7 +234,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of two or three horse chestnuts, one still in its spiky green husk. This is the ONLY other object in the scene.
+arrangement — two or three horse chestnuts, one still in its spiky green husk — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -251,7 +259,8 @@ frame height. Identical framing every time.
 The oil inside is deep green-gold, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of one ripe avocado cut in half with the stone in place. This is the ONLY other object in the scene.
+arrangement — one ripe avocado cut in half with the stone in place — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -275,7 +284,8 @@ frame height. Identical framing every time.
 The oil inside is warm golden orange, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a few bright orange calendula (pot marigold) blossoms. This is the ONLY other object in the scene.
+arrangement — a few bright orange calendula (pot marigold) blossoms — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -299,7 +309,8 @@ frame height. Identical framing every time.
 The oil inside is pale green-gold, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a couple of dried okra pods split open showing the pale seeds. This is the ONLY other object in the scene.
+arrangement — a couple of dried okra pods split open showing the pale seeds — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -323,7 +334,8 @@ frame height. Identical framing every time.
 The oil inside is pale greenish yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of one whole bergamot citrus and a cut half with a glossy leaf. This is the ONLY other object in the scene.
+arrangement — one whole bergamot citrus and a cut half with a glossy leaf — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -347,7 +359,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of two or three fresh rosemary sprigs. This is the ONLY other object in the scene.
+arrangement — two or three fresh rosemary sprigs — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -371,7 +384,8 @@ frame height. Identical framing every time.
 The oil inside is warm amber, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small pile of wheat grains and a few ripe wheat ears. This is the ONLY other object in the scene.
+arrangement — a small pile of wheat grains and a few ripe wheat ears — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -395,7 +409,8 @@ frame height. Identical framing every time.
 The oil inside is light amber, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a few walnuts, some whole in shell and one halved. This is the ONLY other object in the scene.
+arrangement — a few walnuts, some whole in shell and one halved — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -419,7 +434,8 @@ frame height. Identical framing every time.
 The oil inside is almost colourless and very pale, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a piece of amber pine resin with a pine cone and a few needles. This is the ONLY other object in the scene.
+arrangement — a piece of amber pine resin with a pine cone and a few needles — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -443,7 +459,8 @@ frame height. Identical framing every time.
 The oil inside is almost colourless with a faint pale-yellow tint, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a fresh tea tree (melaleuca) sprig with narrow leaves. This is the ONLY other object in the scene.
+arrangement — a fresh tea tree (melaleuca) sprig with narrow leaves — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -467,7 +484,8 @@ frame height. Identical framing every time.
 The oil inside is pale golden, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a few ripe strawberries, one sliced to show the tiny seeds. This is the ONLY other object in the scene.
+arrangement — a few ripe strawberries, one sliced to show the tiny seeds — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -491,7 +509,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, nearly clear, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a few fresh mint leaves and two clear menthol crystals. This is the ONLY other object in the scene.
+arrangement — a few fresh mint leaves and two clear menthol crystals — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -515,7 +534,8 @@ frame height. Identical framing every time.
 The oil inside is dark amber-brown, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small heap of black nigella (black cumin) seeds. This is the ONLY other object in the scene.
+arrangement — a small heap of black nigella (black cumin) seeds — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -539,7 +559,8 @@ frame height. Identical framing every time.
 The oil inside is dark green, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a few dried bay laurel leaves and a small cluster of black laurel berries. This is the ONLY other object in the scene.
+arrangement — a few dried bay laurel leaves and a small cluster of black laurel berries — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -563,7 +584,8 @@ frame height. Identical framing every time.
 The oil inside is completely clear and colourless, thick and glossy, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a folded piece of natural linen cloth (a refined product with no single raw ingredient). This is the ONLY other object in the scene.
+arrangement — a folded piece of natural linen cloth (a refined product with no single raw ingredient) — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -587,7 +609,8 @@ frame height. Identical framing every time.
 The oil inside is very pale yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small handful of fresh pink damask rose petals. This is the ONLY other object in the scene.
+arrangement — a small handful of fresh pink damask rose petals — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -611,7 +634,8 @@ frame height. Identical framing every time.
 The oil inside is deep golden yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small spoon of yellow and brown mustard seeds and one mustard flower. This is the ONLY other object in the scene.
+arrangement — a small spoon of yellow and brown mustard seeds and one mustard flower — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -635,7 +659,8 @@ frame height. Identical framing every time.
 The oil inside is pale golden, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of one dried poppy seed pod and a scattering of poppy seeds. This is the ONLY other object in the scene.
+arrangement — one dried poppy seed pod and a scattering of poppy seeds — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -659,7 +684,8 @@ frame height. Identical framing every time.
 The oil inside is deep orange, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of two fresh carrots with green tops, one sliced into rounds. This is the ONLY other object in the scene.
+arrangement — two fresh carrots with green tops, one sliced into rounds — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -683,7 +709,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small bunch of dried yellow immortelle (helichrysum) flowers. This is the ONLY other object in the scene.
+arrangement — a small bunch of dried yellow immortelle (helichrysum) flowers — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -707,7 +734,8 @@ frame height. Identical framing every time.
 The oil inside is clear and faintly pale (liquid), shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of half a coconut showing the white flesh and a piece of husk. This is the ONLY other object in the scene.
+arrangement — half a coconut showing the white flesh and a piece of husk — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -731,7 +759,8 @@ frame height. Identical framing every time.
 The oil inside is clear pale yellow, thick and glossy, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small pile of mottled castor beans and one castor leaf. This is the ONLY other object in the scene.
+arrangement — a small pile of mottled castor beans and one castor leaf — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -755,7 +784,8 @@ frame height. Identical framing every time.
 The oil inside is pale gold, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a few star-shaped blue borage flowers. This is the ONLY other object in the scene.
+arrangement — a few star-shaped blue borage flowers — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -779,7 +809,8 @@ frame height. Identical framing every time.
 The oil inside is greenish gold, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a cluster of green nettle seeds on a nettle leaf. This is the ONLY other object in the scene.
+arrangement — a cluster of green nettle seeds on a nettle leaf — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -803,7 +834,8 @@ frame height. Identical framing every time.
 The oil inside is pale gold, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of one fig cut in half showing the seeds and one whole fig. This is the ONLY other object in the scene.
+arrangement — one fig cut in half showing the seeds and one whole fig — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -827,7 +859,8 @@ frame height. Identical framing every time.
 The oil inside is clear bright gold, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small heap of brown jojoba seeds. This is the ONLY other object in the scene.
+arrangement — a small heap of brown jojoba seeds — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -851,7 +884,8 @@ frame height. Identical framing every time.
 The oil inside is very dark green, almost black-green, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a handful of green hulled pumpkin seeds and a few in the shell. This is the ONLY other object in the scene.
+arrangement — a handful of green hulled pumpkin seeds and a few in the shell — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -875,7 +909,8 @@ frame height. Identical framing every time.
 The oil inside is pale ivory, soft and semi-solid, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a cracked cacao pod showing beans and a few whole cocoa beans. This is the ONLY other object in the scene.
+arrangement — a cracked cacao pod showing beans and a few whole cocoa beans — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -899,7 +934,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small bunch of dried French lavender (Lavandula stoechas) flowers. This is the ONLY other object in the scene.
+arrangement — a small bunch of dried French lavender (Lavandula stoechas) flowers — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -923,7 +959,8 @@ frame height. Identical framing every time.
 The oil inside is pale to medium amber, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small heap of dried clove buds. This is the ONLY other object in the scene.
+arrangement — a small heap of dried clove buds — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -947,7 +984,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small pale mound of ant eggs (pupae). This is the ONLY other object in the scene.
+arrangement — a small pale mound of ant eggs (pupae) — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -971,7 +1009,8 @@ frame height. Identical framing every time.
 The oil inside is pale golden, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a few apricot kernels and one fresh apricot halved to show the stone. This is the ONLY other object in the scene.
+arrangement — a few apricot kernels and one fresh apricot halved to show the stone — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -995,7 +1034,8 @@ frame height. Identical framing every time.
 The oil inside is pale amber, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of two or three sprigs of dried thyme. This is the ONLY other object in the scene.
+arrangement — two or three sprigs of dried thyme — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1019,7 +1059,8 @@ frame height. Identical framing every time.
 The oil inside is green-gold, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small pile of hemp seeds and one hemp leaf. This is the ONLY other object in the scene.
+arrangement — a small pile of hemp seeds and one hemp leaf — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1043,7 +1084,8 @@ frame height. Identical framing every time.
 The oil inside is golden yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a spoon of golden-brown flax seeds and one pale blue flax flower. This is the ONLY other object in the scene.
+arrangement — a spoon of golden-brown flax seeds and one pale blue flax flower — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1067,7 +1109,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, nearly clear, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small bundle of dried lavender flower spikes. This is the ONLY other object in the scene.
+arrangement — a small bundle of dried lavender flower spikes — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1091,7 +1134,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of one whole lemon, a cut half and a leaf. This is the ONLY other object in the scene.
+arrangement — one whole lemon, a cut half and a leaf — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1115,7 +1159,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a fresh sprig of lemon balm leaves. This is the ONLY other object in the scene.
+arrangement — a fresh sprig of lemon balm leaves — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1139,7 +1184,8 @@ frame height. Identical framing every time.
 The oil inside is amber-brown, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a few reddish-brown pieces of myrrh resin. This is the ONLY other object in the scene.
+arrangement — a few reddish-brown pieces of myrrh resin — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1163,7 +1209,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, nearly clear, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small bunch of fresh mint leaves. This is the ONLY other object in the scene.
+arrangement — a small bunch of fresh mint leaves — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1187,7 +1234,8 @@ frame height. Identical framing every time.
 The oil inside is golden yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of half a pomegranate showing the ruby arils and a few loose seeds. This is the ONLY other object in the scene.
+arrangement — half a pomegranate showing the ruby arils and a few loose seeds — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1211,7 +1259,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, nearly clear, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a fresh niaouli (melaleuca) sprig with slender leaves. This is the ONLY other object in the scene.
+arrangement — a fresh niaouli (melaleuca) sprig with slender leaves — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1235,7 +1284,8 @@ frame height. Identical framing every time.
 The oil inside is almost colourless and very pale, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a sprig of silvery-green eucalyptus leaves. This is the ONLY other object in the scene.
+arrangement — a sprig of silvery-green eucalyptus leaves — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1259,7 +1309,8 @@ frame height. Identical framing every time.
 The oil inside is pale, thick and slightly cloudy (ozonated), shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a few olives and a small olive branch. This is the ONLY other object in the scene.
+arrangement — a few olives and a small olive branch — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1283,7 +1334,8 @@ frame height. Identical framing every time.
 The oil inside is pale golden yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small handful of fresh chamomile flowers. This is the ONLY other object in the scene.
+arrangement — a small handful of fresh chamomile flowers — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1307,7 +1359,8 @@ frame height. Identical framing every time.
 The oil inside is pale orange-yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of one whole orange, a cut half and a blossom with a leaf. This is the ONLY other object in the scene.
+arrangement — one whole orange, a cut half and a blossom with a leaf — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1331,7 +1384,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a spoon of fennel seeds and a feathery fennel frond. This is the ONLY other object in the scene.
+arrangement — a spoon of fennel seeds and a feathery fennel frond — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1355,7 +1409,8 @@ frame height. Identical framing every time.
 The oil inside is pale gold and thick, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a few pale sandalwood chips and a small billet of sandalwood. This is the ONLY other object in the scene.
+arrangement — a few pale sandalwood chips and a small billet of sandalwood — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1379,7 +1434,8 @@ frame height. Identical framing every time.
 The oil inside is deep ruby red, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small bunch of fresh yellow St John's wort flowers. This is the ONLY other object in the scene.
+arrangement — a small bunch of fresh yellow St John's wort flowers — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1403,7 +1459,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow-green, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of one thick aloe vera leaf cut to show the clear gel. This is the ONLY other object in the scene.
+arrangement — one thick aloe vera leaf cut to show the clear gel — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1427,7 +1484,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of one whole garlic bulb and a few loose cloves. This is the ONLY other object in the scene.
+arrangement — one whole garlic bulb and a few loose cloves — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1451,7 +1509,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow and thick, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small pile of cedarwood shavings and a cedar sprig. This is the ONLY other object in the scene.
+arrangement — a small pile of cedarwood shavings and a cedar sprig — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1475,7 +1534,8 @@ frame height. Identical framing every time.
 The oil inside is warm amber, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a piece of Anatolian sweetgum (storax) resin and a sweetgum leaf. This is the ONLY other object in the scene.
+arrangement — a piece of Anatolian sweetgum (storax) resin and a sweetgum leaf — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1499,7 +1559,8 @@ frame height. Identical framing every time.
 The oil inside is warm amber-gold, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a spoon of white and black sesame seeds. This is the ONLY other object in the scene.
+arrangement — a spoon of white and black sesame seeds — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1523,7 +1584,8 @@ frame height. Identical framing every time.
 The oil inside is very pale gold, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a few sweet almonds (some in shell, some shelled) and an almond blossom. This is the ONLY other object in the scene.
+arrangement — a few sweet almonds (some in shell, some shelled) and an almond blossom — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1547,7 +1609,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small heap of round chinaberry (soapberry) seeds. This is the ONLY other object in the scene.
+arrangement — a small heap of round chinaberry (soapberry) seeds — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1571,7 +1634,8 @@ frame height. Identical framing every time.
 The oil inside is pale green-gold, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small bunch of grapes and a scattering of grape seeds. This is the ONLY other object in the scene.
+arrangement — a small bunch of grapes and a scattering of grape seeds — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1595,7 +1659,8 @@ frame height. Identical framing every time.
 The oil inside is pale golden, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of two or three glossy vanilla pods, one split open. This is the ONLY other object in the scene.
+arrangement — two or three glossy vanilla pods, one split open — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1619,7 +1684,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a few white star-shaped jasmine flowers. This is the ONLY other object in the scene.
+arrangement — a few white star-shaped jasmine flowers — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1643,7 +1709,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of one smooth dark river stone (no raw ingredient). This is the ONLY other object in the scene.
+arrangement — one smooth dark river stone (no raw ingredient) — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1667,7 +1734,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a couple of drooping yellow ylang-ylang flowers. This is the ONLY other object in the scene.
+arrangement — a couple of drooping yellow ylang-ylang flowers — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1691,7 +1759,8 @@ frame height. Identical framing every time.
 The oil inside is pale yellow to light amber, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a knob of fresh ginger root and a few peeled slices. This is the ONLY other object in the scene.
+arrangement — a knob of fresh ginger root and a few peeled slices — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
@@ -1715,7 +1784,8 @@ frame height. Identical framing every time.
 The oil inside is golden green, shown in its true, natural, realistic colour and clarity.
 
 Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-cluster of a small cluster of green and black olives on an olive branch with leaves. This is the ONLY other object in the scene.
+arrangement — green and black olives on an olive branch with leaves — placed simply so the source of the oil is obvious. This is the
+ONLY other object in the scene.
 
 Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
 diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
