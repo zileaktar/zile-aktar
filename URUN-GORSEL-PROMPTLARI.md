@@ -36,118 +36,1694 @@ Aşağıdaki tablolarda **{ÖZNE}** kısmı her ürün için hazır yazılı —
 
 ## Doğal ve Bitkisel Yağlar (70 ürün)
 
-**Bu bölüm TEK TİP çekilir — 70 görsel birbirinin aynısı görünmeli.** Aşağıdaki
-**Sabit Yağ Şablonu**nu kullan; her üründe yalnızca **iki yeri** değiştir:
-**{YAĞ RENGİ}** ve **{HAM MADDE}** (tablodan al). Şişe, açı, çerçeve, ışık, zemin ve
-arka plan HER GÖRSELDE AYNI kalır.
+**Bu 70 görsel TEK TİP olmalı** — şişe, açı, çerçeve, ışık, zemin ve arka plan her
+promtta birebir aynı; üründen ürüne yalnızca **yağın rengi** ve **şişenin yanındaki
+malzeme** değişiyor. Aşağıdaki her ürün için **hazır prompt** var: kod kutusunu
+olduğu gibi kopyala, görsel aracına yapıştır.
 
-> **Tutarlılık ipucu:** Önce beğendiğin 1 görsel üret, sonra o görseli **referans**
-> olarak ver (Midjourney `--sref <link>` veya `--seed <numara>`; ChatGPT/DALL·E'de
-> "aynı fotoğraf, aynı şişe ve düzen, sadece yağ rengini ve yanındaki malzemeyi
-> değiştir"). Böylece 70 görsel birebir aynı stilde çıkar.
+> **Daha da tutarlı olsun istersen:** İlk beğendiğin görseli üret, sonra onu referans
+> ver — Midjourney'de `--sref <görsel linki>` veya `--seed <numara>`, ChatGPT/DALL·E'de
+> "aynı fotoğraf, aynı şişe ve düzen; sadece yağ rengi ve yanındaki malzeme değişsin".
 
-### Sabit Yağ Şablonu
+### 1. Acı Badem Yağı
 
 ```
 Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
-One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil
-style: straight vertical sides, long narrow neck, small natural cork stopper).
-The bottle is completely bare — absolutely no label, sticker, neck band,
-engraving or text anywhere. Bottle standing upright, perfectly centered, filled
-to about 90%. Camera straight-on at the bottle's mid-height, eye level, zero
-tilt; the bottle takes up about 70% of the frame height. Identical framing
-every time.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
 
-The oil inside is {YAĞ RENGİ}, shown in its true, natural, realistic colour and
-clarity.
+The oil inside is pale golden yellow, shown in its true, natural, realistic colour and clarity.
 
-Directly in front of the bottle's base, slightly to the right, one small, neat,
-tidy cluster of {HAM MADDE}. This is the ONLY other object in the scene.
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a few bitter almonds, some in the brown shell and some shelled. This is the ONLY other object in the scene.
 
-Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood.
-Soft diffused light from the upper-left; one single soft shadow to the
-lower-right; no harsh reflections, no bright hotspots on the glass. Shallow
-depth of field — tack-sharp on the bottle and the ingredients, background gently
-blurred. Realistic, understated, natural colours (no colour grading, no
-stylisation). Elegant, premium, calm, minimal. No text, no numbers, no letters,
-no logos, no watermark, no hands, no people.
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
 ```
 
-### Ürün tablosu (yalnızca bu iki sütun değişir)
+### 2. Ada Çayı Yağı
 
-| Ürün | {YAĞ RENGİ} | {HAM MADDE} |
-|---|---|---|
-| **Acı Badem Yağı** | pale golden yellow | a few bitter almonds, some in the brown shell and some shelled |
-| **Ada Çayı Yağı** | pale yellow-green | a fresh sage sprig and a small pinch of dried sage leaves |
-| **Alabalık Yağı** | pale golden | one whole fresh trout |
-| **Anason Yağı** | almost colourless, faint pale yellow | a small heap of aniseed and one dried anise flower head |
-| **Ardıç Yağı** | pale yellow | a short juniper sprig with blue-black juniper berries |
-| **Argan Yağı** | rich warm gold | a few cracked argan nuts showing the pale kernels |
-| **Aspir Yağı** | pale straw gold | a small handful of orange safflower petals and a few safflower seeds |
-| **At Kestanesi Yağı** | pale yellow | two or three horse chestnuts, one still in its spiky green husk |
-| **Avokado Yağı** | deep green-gold | one ripe avocado cut in half with the stone in place |
-| **Aynısefa Yağı** | warm golden orange | a few bright orange calendula (pot marigold) blossoms |
-| **Bamya Tohumu Yağı** | pale green-gold | a couple of dried okra pods split open showing the pale seeds |
-| **Bergamut Yağı** | pale greenish yellow | one whole bergamot citrus and a cut half with a glossy leaf |
-| **Biberiye Yağı** | pale yellow | two or three fresh rosemary sprigs |
-| **Buğday Yağı** | warm amber | a small pile of wheat grains and a few ripe wheat ears |
-| **Ceviz Yağı** | light amber | a few walnuts, some whole in shell and one halved |
-| **Çam Terebentin Yağı** | almost colourless, very pale | a piece of amber pine resin with a pine cone and a few needles |
-| **Çay Ağacı Yağı** | almost colourless, faint pale yellow | a fresh tea tree (melaleuca) sprig with narrow leaves |
-| **Çilek Yağı** | pale golden | a few ripe strawberries, one sliced to show the tiny seeds |
-| **Çin Yağı** | pale yellow, nearly clear | a few fresh mint leaves and two clear menthol crystals |
-| **Çörek Otu Yağı** | dark amber-brown | a small heap of black nigella (black cumin) seeds |
-| **Defne Yağı** | dark green | a few dried bay laurel leaves and a small cluster of black laurel berries |
-| **Gliserin Yağı** | completely clear and colourless, thick | a folded piece of natural linen cloth (refined product, no single raw ingredient) |
-| **Gül Yağı** | very pale yellow | a small handful of fresh pink damask rose petals |
-| **Hardal Yağı** | deep golden yellow | a small spoon of yellow and brown mustard seeds and one mustard flower |
-| **Haşhaş Yağı** | pale golden | one dried poppy seed pod and a scattering of poppy seeds |
-| **Havuç Yağı** | deep orange | two fresh carrots with green tops, one sliced into rounds |
-| **Helichrysum (ölmez Çiçek) Yağı** | pale yellow | a small bunch of dried yellow immortelle (helichrysum) flowers |
-| **Hindistan Cevizi Yağı** | clear, faintly pale liquid | half a coconut showing the white flesh and a piece of husk |
-| **Hint Yağı** | clear pale yellow, thick and glossy | a small pile of mottled castor beans and one castor leaf |
-| **Hodan Yağı** | pale gold | a few star-shaped blue borage flowers |
-| **Isırgan Tohumu Yağı** | greenish gold | a cluster of green nettle seeds on a nettle leaf |
-| **İncir Çekirdeği Yağı** | pale gold | one fig cut in half showing the seeds and one whole fig |
-| **Jojoba Yağı** | clear bright gold | a small heap of brown jojoba seeds |
-| **Kabak Çekirdeği Yağı** | very dark green, almost black-green | a handful of green hulled pumpkin seeds and a few in the shell |
-| **Kakao Yağı** | pale ivory, soft semi-solid | a cracked cacao pod showing beans and a few whole cocoa beans |
-| **Karabaş Otu Yağı** | pale yellow | a small bunch of dried French lavender (Lavandula stoechas) flowers |
-| **Karanfil Yağı** | pale to medium amber | a small heap of dried clove buds |
-| **Karınca Yumurtası Yağı** | pale yellow | a small pale mound of ant eggs (pupae) |
-| **Kayısı Çekirdeği Yağı** | pale golden | a few apricot kernels and one fresh apricot halved to show the stone |
-| **Kekik Yağı** | pale amber | two or three sprigs of dried thyme |
-| **Kenevir Yağı** | green-gold | a small pile of hemp seeds and one hemp leaf |
-| **Keten Yağı** | golden yellow | a spoon of golden-brown flax seeds and one pale blue flax flower |
-| **Lavanta Yağı** | pale yellow, nearly clear | a small bundle of dried lavender flower spikes |
-| **Limon Yağı** | pale yellow | one whole lemon, a cut half and a leaf |
-| **Melisa Yağı** | pale yellow | a fresh sprig of lemon balm leaves |
-| **Mür Yağı** | amber-brown | a few reddish-brown pieces of myrrh resin |
-| **Nane Yağı** | pale yellow, nearly clear | a small bunch of fresh mint leaves |
-| **Nar Çekirdeği Yağı** | golden yellow | half a pomegranate showing the ruby arils and a few loose seeds |
-| **Niaouli Yağı** | pale yellow, nearly clear | a fresh niaouli (melaleuca) sprig with slender leaves |
-| **Okaliptus Yağı** | almost colourless, very pale | a sprig of silvery-green eucalyptus leaves |
-| **Ozon Yağı** | pale, thick and cloudy (ozonated) | a few olives and a small olive branch |
-| **Papatya Yağı** | pale golden yellow | a small handful of fresh chamomile flowers |
-| **Portakal Yağı** | pale orange-yellow | one whole orange, a cut half and a blossom with a leaf |
-| **Rezene Yağı** | pale yellow | a spoon of fennel seeds and a feathery fennel frond |
-| **Sandal Ağacı Yağı** | pale gold, thick | a few pale sandalwood chips and a small billet of sandalwood |
-| **Sarı Kantaron Yağı** | deep ruby red | a small bunch of fresh yellow St John's wort flowers |
-| **Sarı Sabır (aleovera) Yağı** | pale yellow-green | one thick aloe vera leaf cut to show the clear gel |
-| **Sarımsak Yağı** | pale yellow | one whole garlic bulb and a few loose cloves |
-| **Sedir Ağacı Yağı** | pale yellow, thick | a small pile of cedarwood shavings and a cedar sprig |
-| **Sığla Ağacı Yağı** | warm amber | a piece of Anatolian sweetgum (storax) resin and a sweetgum leaf |
-| **Susam Yağı** | warm amber-gold | a spoon of white and black sesame seeds |
-| **Tatlı Badem Yağı** | very pale gold | a few sweet almonds (some in shell, some shelled) and an almond blossom |
-| **Tesbih Ağacı Yağı** | pale yellow | a small heap of round chinaberry (soapberry) seeds |
-| **Üzüm Çekirdeği Yağı** | pale green-gold | a small bunch of grapes and a scattering of grape seeds |
-| **Vanilya Yağı** | pale golden | two or three glossy vanilla pods, one split open |
-| **Yasemin Yağı** | pale yellow | a few white star-shaped jasmine flowers |
-| **Yılan Yağı** | pale yellow | one smooth dark river stone (no raw ingredient) |
-| **Ylang Ylang Yağı** | pale yellow | a couple of drooping yellow ylang-ylang flowers |
-| **Zencefil Yağı** | pale yellow to light amber | a knob of fresh ginger root and a few peeled slices |
-| **Zeytin Yağı** | golden green | a small cluster of green and black olives on an olive branch with leaves |
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
 
+The oil inside is pale yellow-green, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a fresh sage sprig and a small pinch of dried sage leaves. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 3. Alabalık Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale golden, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of one whole fresh trout. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 4. Anason Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is almost colourless with a faint pale-yellow tint, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small heap of aniseed and one dried anise flower head. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 5. Ardıç Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a short juniper sprig with blue-black juniper berries. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 6. Argan Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is rich warm gold, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a few cracked argan nuts showing the pale kernels. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 7. Aspir Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale straw gold, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small handful of orange safflower petals and a few safflower seeds. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 8. At Kestanesi Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of two or three horse chestnuts, one still in its spiky green husk. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 9. Avokado Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is deep green-gold, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of one ripe avocado cut in half with the stone in place. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 10. Aynısefa Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is warm golden orange, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a few bright orange calendula (pot marigold) blossoms. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 11. Bamya Tohumu Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale green-gold, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a couple of dried okra pods split open showing the pale seeds. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 12. Bergamut Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale greenish yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of one whole bergamot citrus and a cut half with a glossy leaf. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 13. Biberiye Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of two or three fresh rosemary sprigs. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 14. Buğday Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is warm amber, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small pile of wheat grains and a few ripe wheat ears. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 15. Ceviz Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is light amber, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a few walnuts, some whole in shell and one halved. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 16. Çam Terebentin Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is almost colourless and very pale, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a piece of amber pine resin with a pine cone and a few needles. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 17. Çay Ağacı Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is almost colourless with a faint pale-yellow tint, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a fresh tea tree (melaleuca) sprig with narrow leaves. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 18. Çilek Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale golden, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a few ripe strawberries, one sliced to show the tiny seeds. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 19. Çin Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, nearly clear, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a few fresh mint leaves and two clear menthol crystals. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 20. Çörek Otu Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is dark amber-brown, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small heap of black nigella (black cumin) seeds. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 21. Defne Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is dark green, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a few dried bay laurel leaves and a small cluster of black laurel berries. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 22. Gliserin Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is completely clear and colourless, thick and glossy, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a folded piece of natural linen cloth (a refined product with no single raw ingredient). This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 23. Gül Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is very pale yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small handful of fresh pink damask rose petals. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 24. Hardal Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is deep golden yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small spoon of yellow and brown mustard seeds and one mustard flower. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 25. Haşhaş Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale golden, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of one dried poppy seed pod and a scattering of poppy seeds. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 26. Havuç Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is deep orange, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of two fresh carrots with green tops, one sliced into rounds. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 27. Helichrysum (ölmez Çiçek) Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small bunch of dried yellow immortelle (helichrysum) flowers. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 28. Hindistan Cevizi Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is clear and faintly pale (liquid), shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of half a coconut showing the white flesh and a piece of husk. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 29. Hint Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is clear pale yellow, thick and glossy, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small pile of mottled castor beans and one castor leaf. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 30. Hodan Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale gold, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a few star-shaped blue borage flowers. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 31. Isırgan Tohumu Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is greenish gold, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a cluster of green nettle seeds on a nettle leaf. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 32. İncir Çekirdeği Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale gold, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of one fig cut in half showing the seeds and one whole fig. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 33. Jojoba Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is clear bright gold, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small heap of brown jojoba seeds. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 34. Kabak Çekirdeği Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is very dark green, almost black-green, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a handful of green hulled pumpkin seeds and a few in the shell. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 35. Kakao Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale ivory, soft and semi-solid, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a cracked cacao pod showing beans and a few whole cocoa beans. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 36. Karabaş Otu Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small bunch of dried French lavender (Lavandula stoechas) flowers. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 37. Karanfil Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale to medium amber, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small heap of dried clove buds. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 38. Karınca Yumurtası Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small pale mound of ant eggs (pupae). This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 39. Kayısı Çekirdeği Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale golden, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a few apricot kernels and one fresh apricot halved to show the stone. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 40. Kekik Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale amber, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of two or three sprigs of dried thyme. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 41. Kenevir Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is green-gold, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small pile of hemp seeds and one hemp leaf. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 42. Keten Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is golden yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a spoon of golden-brown flax seeds and one pale blue flax flower. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 43. Lavanta Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, nearly clear, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small bundle of dried lavender flower spikes. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 44. Limon Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of one whole lemon, a cut half and a leaf. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 45. Melisa Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a fresh sprig of lemon balm leaves. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 46. Mür Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is amber-brown, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a few reddish-brown pieces of myrrh resin. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 47. Nane Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, nearly clear, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small bunch of fresh mint leaves. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 48. Nar Çekirdeği Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is golden yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of half a pomegranate showing the ruby arils and a few loose seeds. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 49. Niaouli Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, nearly clear, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a fresh niaouli (melaleuca) sprig with slender leaves. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 50. Okaliptus Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is almost colourless and very pale, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a sprig of silvery-green eucalyptus leaves. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 51. Ozon Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale, thick and slightly cloudy (ozonated), shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a few olives and a small olive branch. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 52. Papatya Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale golden yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small handful of fresh chamomile flowers. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 53. Portakal Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale orange-yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of one whole orange, a cut half and a blossom with a leaf. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 54. Rezene Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a spoon of fennel seeds and a feathery fennel frond. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 55. Sandal Ağacı Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale gold and thick, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a few pale sandalwood chips and a small billet of sandalwood. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 56. Sarı Kantaron Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is deep ruby red, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small bunch of fresh yellow St John's wort flowers. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 57. Sarı Sabır (aleovera) Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow-green, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of one thick aloe vera leaf cut to show the clear gel. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 58. Sarımsak Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of one whole garlic bulb and a few loose cloves. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 59. Sedir Ağacı Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow and thick, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small pile of cedarwood shavings and a cedar sprig. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 60. Sığla Ağacı Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is warm amber, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a piece of Anatolian sweetgum (storax) resin and a sweetgum leaf. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 61. Susam Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is warm amber-gold, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a spoon of white and black sesame seeds. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 62. Tatlı Badem Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is very pale gold, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a few sweet almonds (some in shell, some shelled) and an almond blossom. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 63. Tesbih Ağacı Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small heap of round chinaberry (soapberry) seeds. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 64. Üzüm Çekirdeği Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale green-gold, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small bunch of grapes and a scattering of grape seeds. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 65. Vanilya Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale golden, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of two or three glossy vanilla pods, one split open. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 66. Yasemin Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a few white star-shaped jasmine flowers. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 67. Yılan Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of one smooth dark river stone (no raw ingredient). This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 68. Ylang Ylang Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a couple of drooping yellow ylang-ylang flowers. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 69. Zencefil Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is pale yellow to light amber, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a knob of fresh ginger root and a few peeled slices. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
+
+### 70. Zeytin Yağı
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
+straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
+completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
+Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
+the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
+frame height. Identical framing every time.
+
+The oil inside is golden green, shown in its true, natural, realistic colour and clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
+cluster of a small cluster of green and black olives on an olive branch with leaves. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
+diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
+reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
+bottle and the ingredients, background gently blurred. Realistic, understated, natural
+colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
+no numbers, no letters, no logos, no watermark, no hands, no people.
+```
 
 ## Baharatlar (38 ürün)
 
