@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useDialog } from '@/hooks/useDialog';
 import { useUiStore } from '@/store/ui-store';
 import { SiteLogo } from '@/components/layout/SiteLogo';
 
@@ -21,6 +22,7 @@ const CATEGORY_ICONS: Record<string, string> = {
 export function MobileDrawer({ categories, logoPath }: { categories: Category[]; logoPath: string | null }) {
   const { isMobileDrawerOpen, closeMobileDrawer } = useUiStore();
   const router = useRouter();
+  const panelRef = useDialog<HTMLElement>(isMobileDrawerOpen, closeMobileDrawer);
 
   function goTo(slug: string) {
     closeMobileDrawer();
@@ -30,13 +32,19 @@ export function MobileDrawer({ categories, logoPath }: { categories: Category[];
   return (
     <>
       <div
+        aria-hidden="true"
         className={`fixed inset-0 bg-black/50 z-50 transition-opacity ${
           isMobileDrawerOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onClick={closeMobileDrawer}
       />
       <aside
-        className={`fixed top-0 left-0 h-full w-[82%] max-w-xs bg-white z-50 shadow-2xl flex flex-col transition-transform duration-300 ${
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menü"
+        tabIndex={-1}
+        className={`fixed top-0 left-0 h-full w-[82%] max-w-xs bg-white z-50 shadow-2xl flex flex-col transition-transform duration-300 focus:outline-none ${
           isMobileDrawerOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >

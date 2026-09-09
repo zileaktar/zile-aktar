@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { useCartCount } from '@/store/cart-store';
 import { useUiStore } from '@/store/ui-store';
 import { SiteLogo } from '@/components/layout/SiteLogo';
@@ -21,6 +21,16 @@ export function SiteHeader({ categories, logoPath }: { categories: Category[]; l
   const [isPending, startTransition] = useTransition();
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
+
+  // Kategori açılır menüsü açıkken Esc ile kapansın (klavye erişilebilirliği).
+  useEffect(() => {
+    if (!isCategoryMenuOpen) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') setIsCategoryMenuOpen(false);
+    }
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [isCategoryMenuOpen]);
 
   const activeCategory = searchParams.get('kategori') ?? 'all';
   const activeCategoryObj = categories.find((c) => c.slug === activeCategory);
@@ -85,6 +95,7 @@ export function SiteHeader({ categories, logoPath }: { categories: Category[]; l
               className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition ${
                 activeCategory !== 'all' ? 'bg-primary text-white' : 'text-primary hover:bg-primary/10'
               }`}
+              aria-haspopup="true"
               aria-expanded={isCategoryMenuOpen}
             >
               {activeCategoryObj ? activeCategoryObj.name : 'Kategoriler'}
@@ -95,7 +106,7 @@ export function SiteHeader({ categories, logoPath }: { categories: Category[]; l
 
             {isCategoryMenuOpen && (
               <>
-                <div className="fixed inset-0 z-40" onClick={() => setIsCategoryMenuOpen(false)} />
+                <div aria-hidden="true" className="fixed inset-0 z-40" onClick={() => setIsCategoryMenuOpen(false)} />
                 <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-50 bg-white rounded-2xl shadow-xl border border-primary/10 p-3 grid grid-cols-2 gap-1 w-[520px]">
                   {categories.map((cat) => (
                     <button

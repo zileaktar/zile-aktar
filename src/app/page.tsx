@@ -108,8 +108,8 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         </div>
       </section>
 
-      {/* ÜRÜNLER */}
-      <main id="urunler" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+      {/* ÜRÜNLER — landmark <main> layout.tsx'te; burada tekrarı geçersiz olurdu. */}
+      <section id="urunler" aria-label="Ürünler" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
         {(q?.trim() || (kategori && kategori !== 'all')) && (
           <Breadcrumbs
             items={[
@@ -189,7 +189,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
             </a>
           </nav>
         )}
-      </main>
+      </section>
     </>
   );
 }

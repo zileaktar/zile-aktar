@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useDialog } from '@/hooks/useDialog';
 import { useUiStore } from '@/store/ui-store';
 import { useCartStore } from '@/store/cart-store';
 import { formatPriceFromCents } from '@/lib/format';
@@ -15,6 +16,7 @@ export function CartDrawer() {
   const { isCartOpen, closeCart } = useUiStore();
   const { items, updateQuantity, removeItem, addItem } = useCartStore();
   const router = useRouter();
+  const panelRef = useDialog<HTMLElement>(isCartOpen, closeCart);
 
   const [suggestions, setSuggestions] = useState<CartSuggestion[]>([]);
 
@@ -67,11 +69,17 @@ export function CartDrawer() {
   return (
     <>
       <div
+        aria-hidden="true"
         className={`fixed inset-0 bg-black/50 z-[60] transition-opacity ${isCartOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onClick={closeCart}
       />
       <aside
-        className={`fixed top-0 right-0 h-dvh w-full sm:w-[420px] bg-white z-[60] shadow-2xl flex flex-col transition-transform duration-300 ${
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Sepetim"
+        tabIndex={-1}
+        className={`fixed top-0 right-0 h-dvh w-full sm:w-[420px] bg-white z-[60] shadow-2xl flex flex-col transition-transform duration-300 focus:outline-none ${
           isCartOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >

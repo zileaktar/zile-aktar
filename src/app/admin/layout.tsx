@@ -1,6 +1,11 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
+
+// Yönetim paneli arama motorlarına asla indekslenmez (kimlik doğrulamalı olsa da
+// açık bir sinyal). Alt sayfalar bu metadata'yı devralır.
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 /**
  * Savunma derinliği (defense in depth): /admin rotaları ÜÇ ayrı katmanda korunur:

@@ -99,6 +99,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="bg-cream text-carbon font-sans antialiased pb-16 lg:pb-0">
         {/* eslint-disable-next-line react/no-danger */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(orgJsonLd) }} />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-primary focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:font-semibold"
+        >
+          İçeriğe geç
+        </a>
         <Providers>
           {/* SiteHeader içinde useSearchParams() kullanılıyor (kategori/arama filtreleme
               için); Next.js, bu API'yi kullanan istemci bileşenlerinin bir Suspense
@@ -109,7 +115,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Suspense fallback={<div className="h-[104px] sm:h-[132px] bg-cream" />}>
             <SiteHeader categories={categories} logoPath={logoPath} />
           </Suspense>
-          <main>{children}</main>
+          <main id="main-content">{children}</main>
           <SiteFooter categories={categories} logoPath={logoPath} />
           <CartDrawer />
           <MobileDrawer categories={categories} logoPath={logoPath} />

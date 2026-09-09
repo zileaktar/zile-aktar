@@ -22,52 +22,41 @@ const EMPTY: SavedAddressInput = {
 
 function AddressFields({
   value,
-  onChange
+  onChange,
+  idPrefix
 }: {
   value: SavedAddressInput;
   onChange: (v: SavedAddressInput) => void;
+  idPrefix: string;
 }) {
   const set = (patch: Partial<SavedAddressInput>) => onChange({ ...value, ...patch });
+  const id = (name: string) => `${idPrefix}-${name}`;
   return (
     <div className="grid sm:grid-cols-2 gap-2.5">
-      <input
-        placeholder="Başlık (Ev, İş...)"
-        className="adr-input"
-        value={value.label}
-        onChange={(e) => set({ label: e.target.value })}
-      />
-      <input
-        placeholder="Ad Soyad"
-        className="adr-input"
-        value={value.fullName}
-        onChange={(e) => set({ fullName: e.target.value })}
-      />
-      <input
-        type="tel"
-        placeholder="Telefon (05xx xxx xx xx)"
-        className="adr-input"
-        value={value.phone}
-        onChange={(e) => set({ phone: e.target.value })}
-      />
-      <input
-        placeholder="İl"
-        className="adr-input"
-        value={value.city}
-        onChange={(e) => set({ city: e.target.value })}
-      />
-      <input
-        placeholder="İlçe"
-        className="adr-input"
-        value={value.district}
-        onChange={(e) => set({ district: e.target.value })}
-      />
-      <textarea
-        placeholder="Açık Adres (Mahalle, Sokak, No, Daire)"
-        rows={2}
-        className="adr-input sm:col-span-2"
-        value={value.addressLine}
-        onChange={(e) => set({ addressLine: e.target.value })}
-      />
+      <div>
+        <label htmlFor={id('label')} className="adr-label">Başlık</label>
+        <input id={id('label')} placeholder="Ev, İş..." className="adr-input w-full" value={value.label} onChange={(e) => set({ label: e.target.value })} />
+      </div>
+      <div>
+        <label htmlFor={id('fullName')} className="adr-label">Ad Soyad</label>
+        <input id={id('fullName')} autoComplete="name" placeholder="Ad Soyad" className="adr-input w-full" value={value.fullName} onChange={(e) => set({ fullName: e.target.value })} />
+      </div>
+      <div>
+        <label htmlFor={id('phone')} className="adr-label">Telefon</label>
+        <input id={id('phone')} type="tel" autoComplete="tel" placeholder="05xx xxx xx xx" className="adr-input w-full" value={value.phone} onChange={(e) => set({ phone: e.target.value })} />
+      </div>
+      <div>
+        <label htmlFor={id('city')} className="adr-label">İl</label>
+        <input id={id('city')} autoComplete="address-level1" placeholder="İl" className="adr-input w-full" value={value.city} onChange={(e) => set({ city: e.target.value })} />
+      </div>
+      <div>
+        <label htmlFor={id('district')} className="adr-label">İlçe</label>
+        <input id={id('district')} autoComplete="address-level2" placeholder="İlçe" className="adr-input w-full" value={value.district} onChange={(e) => set({ district: e.target.value })} />
+      </div>
+      <div className="sm:col-span-2">
+        <label htmlFor={id('addressLine')} className="adr-label">Açık Adres</label>
+        <textarea id={id('addressLine')} autoComplete="street-address" placeholder="Mahalle, Sokak, No, Daire" rows={2} className="adr-input w-full" value={value.addressLine} onChange={(e) => set({ addressLine: e.target.value })} />
+      </div>
     </div>
   );
 }
@@ -145,7 +134,7 @@ export function AddressManager({ addresses }: { addresses: SavedAddress[] }) {
           <li key={a.id} className="bg-white rounded-2xl p-4 shadow-sm">
             {editingId === a.id ? (
               <div className="space-y-3">
-                <AddressFields value={editAddr} onChange={setEditAddr} />
+                <AddressFields value={editAddr} onChange={setEditAddr} idPrefix={`edit-${a.id}`} />
                 <div className="flex flex-wrap gap-2">
                   <button
                     type="button"
@@ -220,7 +209,7 @@ export function AddressManager({ addresses }: { addresses: SavedAddress[] }) {
       {adding ? (
         <div className="bg-white rounded-2xl p-4 shadow-sm space-y-3">
           <h3 className="font-semibold text-primary text-sm">Yeni Adres</h3>
-          <AddressFields value={newAddr} onChange={setNewAddr} />
+          <AddressFields value={newAddr} onChange={setNewAddr} idPrefix="new" />
           <label className="flex items-center gap-2 text-xs text-carbon/60 cursor-pointer">
             <input
               type="checkbox"
@@ -267,6 +256,13 @@ export function AddressManager({ addresses }: { addresses: SavedAddress[] }) {
       )}
 
       <style jsx global>{`
+        .adr-label {
+          display: block;
+          font-size: 0.6875rem;
+          font-weight: 600;
+          color: rgba(43, 43, 43, 0.5);
+          margin-bottom: 0.2rem;
+        }
         .adr-input {
           background: #f4f1ea;
           border: 1px solid rgba(27, 67, 50, 0.15);

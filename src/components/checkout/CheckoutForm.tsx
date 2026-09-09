@@ -253,19 +253,39 @@ export function CheckoutForm({
             )}
 
             <div className="grid sm:grid-cols-2 gap-3">
-              <input required placeholder="Ad Soyad" className="chk-input sm:col-span-2" value={form.fullName} onChange={(e) => setForm({ ...form, fullName: e.target.value })} />
-              <input required type="tel" placeholder="Telefon (05xx xxx xx xx)" className="chk-input" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-              <input required type="email" placeholder="E-posta" className="chk-input" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-              <input required placeholder="İl" className="chk-input" value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
-              <input required placeholder="İlçe" className="chk-input" value={form.district} onChange={(e) => setForm({ ...form, district: e.target.value })} />
-              <textarea
-                required
-                placeholder="Açık Adres (Mahalle, Sokak, No, Daire)"
-                rows={2}
-                className="chk-input sm:col-span-2"
-                value={form.addressLine}
-                onChange={(e) => setForm({ ...form, addressLine: e.target.value })}
-              />
+              <div className="sm:col-span-2">
+                <label htmlFor="chk-fullName" className="chk-label">Ad Soyad</label>
+                <input id="chk-fullName" name="name" required autoComplete="name" placeholder="Ad Soyad" className="chk-input w-full" value={form.fullName} onChange={(e) => setForm({ ...form, fullName: e.target.value })} />
+              </div>
+              <div>
+                <label htmlFor="chk-phone" className="chk-label">Telefon</label>
+                <input id="chk-phone" name="tel" required type="tel" autoComplete="tel" placeholder="05xx xxx xx xx" className="chk-input w-full" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+              </div>
+              <div>
+                <label htmlFor="chk-email" className="chk-label">E-posta</label>
+                <input id="chk-email" name="email" required type="email" autoComplete="email" placeholder="ornek@eposta.com" className="chk-input w-full" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              </div>
+              <div>
+                <label htmlFor="chk-city" className="chk-label">İl</label>
+                <input id="chk-city" required autoComplete="address-level1" placeholder="İl" className="chk-input w-full" value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
+              </div>
+              <div>
+                <label htmlFor="chk-district" className="chk-label">İlçe</label>
+                <input id="chk-district" required autoComplete="address-level2" placeholder="İlçe" className="chk-input w-full" value={form.district} onChange={(e) => setForm({ ...form, district: e.target.value })} />
+              </div>
+              <div className="sm:col-span-2">
+                <label htmlFor="chk-address" className="chk-label">Açık Adres</label>
+                <textarea
+                  id="chk-address"
+                  required
+                  autoComplete="street-address"
+                  placeholder="Mahalle, Sokak, No, Daire"
+                  rows={2}
+                  className="chk-input w-full"
+                  value={form.addressLine}
+                  onChange={(e) => setForm({ ...form, addressLine: e.target.value })}
+                />
+              </div>
             </div>
 
             <label className="flex items-center gap-2.5 text-xs sm:text-sm text-carbon/70 cursor-pointer pt-1">
@@ -281,11 +301,26 @@ export function CheckoutForm({
             {billingDifferent && (
               <div className="grid sm:grid-cols-2 gap-3 pt-1 border-t border-dashed border-primary/15">
                 <p className="sm:col-span-2 text-xs font-semibold text-carbon/60 pt-2">Fatura Adresi</p>
-                <input required placeholder="Ad Soyad / Firma Unvanı" className="chk-input sm:col-span-2" value={billing.fullName} onChange={(e) => setBilling({ ...billing, fullName: e.target.value })} />
-                <input required type="tel" placeholder="Telefon" className="chk-input" value={billing.phone} onChange={(e) => setBilling({ ...billing, phone: e.target.value })} />
-                <input required placeholder="İl" className="chk-input" value={billing.city} onChange={(e) => setBilling({ ...billing, city: e.target.value })} />
-                <input required placeholder="İlçe" className="chk-input" value={billing.district} onChange={(e) => setBilling({ ...billing, district: e.target.value })} />
-                <textarea required placeholder="Fatura Açık Adresi" rows={2} className="chk-input sm:col-span-2" value={billing.addressLine} onChange={(e) => setBilling({ ...billing, addressLine: e.target.value })} />
+                <div className="sm:col-span-2">
+                  <label htmlFor="bill-fullName" className="chk-label">Ad Soyad / Firma Unvanı</label>
+                  <input id="bill-fullName" required placeholder="Ad Soyad / Firma Unvanı" className="chk-input w-full" value={billing.fullName} onChange={(e) => setBilling({ ...billing, fullName: e.target.value })} />
+                </div>
+                <div>
+                  <label htmlFor="bill-phone" className="chk-label">Telefon</label>
+                  <input id="bill-phone" required type="tel" placeholder="Telefon" className="chk-input w-full" value={billing.phone} onChange={(e) => setBilling({ ...billing, phone: e.target.value })} />
+                </div>
+                <div>
+                  <label htmlFor="bill-city" className="chk-label">İl</label>
+                  <input id="bill-city" required placeholder="İl" className="chk-input w-full" value={billing.city} onChange={(e) => setBilling({ ...billing, city: e.target.value })} />
+                </div>
+                <div>
+                  <label htmlFor="bill-district" className="chk-label">İlçe</label>
+                  <input id="bill-district" required placeholder="İlçe" className="chk-input w-full" value={billing.district} onChange={(e) => setBilling({ ...billing, district: e.target.value })} />
+                </div>
+                <div className="sm:col-span-2">
+                  <label htmlFor="bill-address" className="chk-label">Fatura Açık Adresi</label>
+                  <textarea id="bill-address" required placeholder="Fatura Açık Adresi" rows={2} className="chk-input w-full" value={billing.addressLine} onChange={(e) => setBilling({ ...billing, addressLine: e.target.value })} />
+                </div>
               </div>
             )}
           </div>
@@ -325,10 +360,14 @@ export function CheckoutForm({
             {paymentMethod === 'card' && (
               <>
                 <div>
+                  <label htmlFor="chk-tckn" className="chk-label">T.C. Kimlik No</label>
                   <input
+                    id="chk-tckn"
                     required
                     maxLength={11}
                     inputMode="numeric"
+                    autoComplete="off"
+                    aria-invalid={identityInvalid}
                     placeholder="T.C. Kimlik No"
                     className={`chk-input w-full ${identityInvalid ? 'ring-2 ring-red-300' : ''}`}
                     value={form.identityNumber}
@@ -397,7 +436,7 @@ export function CheckoutForm({
               ))}
             </div>
             <div className="border-t border-dashed border-primary/15 pt-3">
-              <label className="text-xs font-semibold text-carbon/60 mb-1.5 block">İndirim Kodu</label>
+              <label htmlFor="chk-coupon" className="text-xs font-semibold text-carbon/60 mb-1.5 block">İndirim Kodu</label>
               {appliedCoupon ? (
                 <div className="flex items-center justify-between gap-2 bg-primary/5 border border-primary/20 rounded-xl px-3 py-2 text-sm">
                   <span className="font-semibold text-primary">
@@ -418,6 +457,7 @@ export function CheckoutForm({
               ) : (
                 <div className="flex gap-2">
                   <input
+                    id="chk-coupon"
                     type="text"
                     value={couponInput}
                     onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
@@ -494,6 +534,13 @@ export function CheckoutForm({
       </form>
 
       <style jsx global>{`
+        .chk-label {
+          display: block;
+          font-size: 0.6875rem;
+          font-weight: 600;
+          color: rgba(43, 43, 43, 0.5);
+          margin-bottom: 0.25rem;
+        }
         .chk-input {
           background: #f4f1ea;
           border: 1px solid rgba(27, 67, 50, 0.15);
