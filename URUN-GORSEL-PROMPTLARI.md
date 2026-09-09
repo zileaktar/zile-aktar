@@ -36,88 +36,118 @@ Aşağıdaki tablolarda **{ÖZNE}** kısmı her ürün için hazır yazılı —
 
 ## Doğal ve Bitkisel Yağlar (70 ürün)
 
-**Bu bölümün stili farklı (kâse görselleriyle aynı renk anlayışı):** Market reyonundaki
-**uzun, ince, 1 litrelik cam yağ şişesi** (zeytinyağı şişesi tarzı, uzun boyun) — şişe
-**tamamen çıplak**, üzerinde hiçbir etiket / yazı / marka **yok**. İçindeki yağ gerçek renginde
-ve kıvamında **net görünür**. Şişenin hemen yanına yağın çıkarıldığı **ham madde** sade ve şık
-biçimde yerleştirilir (mümkünse hem taze hem kuru/işlenmiş hali) — müşteri şişeye bakınca hangi
-bitki/tohumdan olduğunu anlasın. **Zemin** doğal soluk ahşap veya krem taş, **arka plan** ortak
-şablondaki krem (#f4f1ea); bütün renkler gerçekçi ve abartısız. Kompozisyon zarif ve premium
-dursun. Ortak şablondaki "en fazla bir iki ham madde" kuralı bu bölümde ham maddeyi **asıl
-tanıtıcı öğe** yapacak şekilde gevşetilir. **Görselde hiçbir yazı olmayacak.**
+**Bu bölüm TEK TİP çekilir — 70 görsel birbirinin aynısı görünmeli.** Aşağıdaki
+**Sabit Yağ Şablonu**nu kullan; her üründe yalnızca **iki yeri** değiştir:
+**{YAĞ RENGİ}** ve **{HAM MADDE}** (tablodan al). Şişe, açı, çerçeve, ışık, zemin ve
+arka plan HER GÖRSELDE AYNI kalır.
 
-| Ürün | {ÖZNE} |
-|---|---|
-| **Acı Badem Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Acı Badem Yağı", the oil clearly visible in its true natural colour and viscosity, with a few bitter almonds (some in the brown shell, some shelled) arranged simply and elegantly on the surface beside the bottle so the source is instantly recognizable |
-| **Ada Çayı Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Ada Çayı Yağı", oil clearly visible in its true natural colour, with a fresh sage sprig and a small pinch of dried sage leaves arranged simply beside the bottle |
-| **Alabalık Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Alabalık Yağı", oil clearly visible in its true natural colour, with one whole fresh trout laid simply beside the bottle |
-| **Anason Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Anason Yağı", oil clearly visible in its true natural colour, with a small heap of aniseed and a dried anise flower head arranged simply beside the bottle |
-| **Ardıç Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Ardıç Yağı", oil clearly visible in its true natural colour, with a small sprig of juniper bearing blue-black juniper berries beside the bottle |
-| **Argan Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Argan Yağı", golden oil clearly visible, with a few cracked argan nuts showing the pale kernels arranged simply beside the bottle |
-| **Aspir Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Aspir Yağı", oil clearly visible in its true natural colour, with a small handful of orange safflower petals and a few safflower seeds beside the bottle |
-| **At Kestanesi Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "At Kestanesi Yağı", oil clearly visible in its true natural colour, with two or three horse chestnuts, one still in its spiky green husk, beside the bottle |
-| **Avokado Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Avokado Yağı", green-gold oil clearly visible, with one ripe avocado cut in half, the stone in place, beside the bottle |
-| **Aynısefa Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Aynısefa Yağı", oil clearly visible in its true natural colour, with a few bright orange calendula (pot marigold) blossoms arranged simply beside the bottle |
-| **Bamya Tohumu Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Bamya Tohumu Yağı", oil clearly visible in its true natural colour, with a couple of dried okra pods split open to show the pale seeds beside the bottle |
-| **Bergamut Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Bergamut Yağı", oil clearly visible in its true natural colour, with one whole bergamot citrus and a cut half with a glossy leaf beside the bottle |
-| **Biberiye Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Biberiye Yağı", oil clearly visible in its true natural colour, with two or three fresh rosemary sprigs arranged simply beside the bottle |
-| **Buğday Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Buğday Yağı", amber oil clearly visible, with a small pile of wheat grains and a few ripe wheat ears beside the bottle |
-| **Ceviz Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Ceviz Yağı", oil clearly visible in its true natural colour, with a few walnuts, some whole in shell and one halved, beside the bottle |
-| **Çam Terebentin Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Çam Terebentin Yağı", oil clearly visible in its true natural colour, with a piece of amber pine resin, a pine cone and a few needles beside the bottle |
-| **Çay Ağacı Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Çay Ağacı Yağı", oil clearly visible in its true natural colour, with a fresh tea tree (melaleuca) sprig of narrow leaves beside the bottle |
-| **Çilek Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Çilek Yağı", oil clearly visible in its true natural colour, with a few ripe strawberries, one sliced to show the tiny seeds, beside the bottle |
-| **Çin Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Çin Yağı", oil clearly visible in its true natural colour, with a few fresh mint leaves and a couple of clear menthol crystals beside the bottle |
-| **Çörek Otu Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Çörek Otu Yağı", dark oil clearly visible, with a small heap of black nigella (black cumin) seeds beside the bottle |
-| **Defne Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Defne Yağı", dark green oil clearly visible, with a few dried bay laurel leaves and a small cluster of black laurel berries beside the bottle |
-| **Gliserin Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Gliserin Yağı", the clear viscous liquid visible, presented cleanly on its own with a folded natural linen cloth beside the bottle (a refined product, no single raw ingredient) |
-| **Gül Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Gül Yağı", oil clearly visible in its true natural colour, with a small handful of fresh pink damask rose petals arranged simply beside the bottle |
-| **Hardal Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Hardal Yağı", oil clearly visible in its true natural colour, with a small spoon of yellow and brown mustard seeds and a mustard flower beside the bottle |
-| **Haşhaş Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Haşhaş Yağı", oil clearly visible in its true natural colour, with a dried poppy seed pod and a scattering of poppy seeds beside the bottle |
-| **Havuç Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Havuç Yağı", orange oil clearly visible, with two fresh carrots with green tops, one sliced into rounds, beside the bottle |
-| **Helichrysum (ölmez Çiçek) Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Helichrysum (ölmez Çiçek) Yağı", oil clearly visible in its true natural colour, with a small bunch of dried yellow immortelle (helichrysum) flowers beside the bottle |
-| **Hindistan Cevizi Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Hindistan Cevizi Yağı", the oil clearly visible (pale liquid), with half a coconut showing the white flesh and a piece of husk beside the bottle |
-| **Hint Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Hint Yağı", thick clear oil visible, with a small pile of mottled castor beans and a castor leaf beside the bottle |
-| **Hodan Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Hodan Yağı", oil clearly visible in its true natural colour, with a few star-shaped blue borage flowers arranged simply beside the bottle |
-| **Isırgan Tohumu Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Isırgan Tohumu Yağı", oil clearly visible in its true natural colour, with a cluster of green nettle seeds on a nettle leaf beside the bottle |
-| **İncir Çekirdeği Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "İncir Çekirdeği Yağı", oil clearly visible in its true natural colour, with one fig cut in half to show the seeds and a whole fig beside the bottle |
-| **Jojoba Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Jojoba Yağı", golden oil clearly visible, with a small heap of brown jojoba seeds beside the bottle |
-| **Kabak Çekirdeği Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Kabak Çekirdeği Yağı", dark green oil clearly visible, with a handful of green hulled pumpkin seeds and a few in the shell beside the bottle |
-| **Kakao Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Kakao Yağı", pale solid-to-liquid oil visible, with a cracked cacao pod showing beans and a few whole cocoa beans beside the bottle |
-| **Karabaş Otu Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Karabaş Otu Yağı", oil clearly visible in its true natural colour, with a small bunch of dried French lavender (Lavandula stoechas) flowers beside the bottle |
-| **Karanfil Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Karanfil Yağı", oil clearly visible in its true natural colour, with a small heap of dried clove buds beside the bottle |
-| **Karınca Yumurtası Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Karınca Yumurtası Yağı", oil clearly visible in its true natural colour, with a small pale mound of ant eggs (pupae) placed simply beside the bottle |
-| **Kayısı Çekirdeği Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Kayısı Çekirdeği Yağı", oil clearly visible in its true natural colour, with a few apricot kernels and one fresh apricot halved to show the stone beside the bottle |
-| **Kekik Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Kekik Yağı", oil clearly visible in its true natural colour, with two or three sprigs of dried thyme beside the bottle |
-| **Kenevir Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Kenevir Yağı", green-gold oil clearly visible, with a small pile of hemp seeds and a single hemp leaf beside the bottle |
-| **Keten Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Keten Yağı", golden oil clearly visible, with a spoon of golden-brown flax seeds and a pale blue flax flower beside the bottle |
-| **Lavanta Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Lavanta Yağı", oil clearly visible in its true natural colour, with a small bundle of dried lavender flower spikes beside the bottle |
-| **Limon Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Limon Yağı", oil clearly visible in its true natural colour, with one whole lemon, a cut half and a leaf beside the bottle |
-| **Melisa Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Melisa Yağı", oil clearly visible in its true natural colour, with a fresh sprig of lemon balm leaves beside the bottle |
-| **Mür Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Mür Yağı", oil clearly visible in its true natural colour, with a few reddish-brown pieces of myrrh resin beside the bottle |
-| **Nane Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Nane Yağı", oil clearly visible in its true natural colour, with a small bunch of fresh mint leaves beside the bottle |
-| **Nar Çekirdeği Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Nar Çekirdeği Yağı", oil clearly visible in its true natural colour, with half a pomegranate showing the ruby arils and a few loose seeds beside the bottle |
-| **Niaouli Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Niaouli Yağı", oil clearly visible in its true natural colour, with a fresh niaouli (melaleuca) sprig of slender leaves beside the bottle |
-| **Okaliptus Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Okaliptus Yağı", oil clearly visible in its true natural colour, with a sprig of silvery-green eucalyptus leaves beside the bottle |
-| **Ozon Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Ozon Yağı", the pale thick ozonated oil clearly visible, with a few olives and a small olive branch beside the bottle |
-| **Papatya Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Papatya Yağı", oil clearly visible in its true natural colour, with a small handful of fresh chamomile flowers beside the bottle |
-| **Portakal Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Portakal Yağı", oil clearly visible in its true natural colour, with one whole orange, a cut half and a blossom with a leaf beside the bottle |
-| **Rezene Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Rezene Yağı", oil clearly visible in its true natural colour, with a spoon of fennel seeds and a feathery fennel frond beside the bottle |
-| **Sandal Ağacı Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Sandal Ağacı Yağı", oil clearly visible in its true natural colour, with a few pale sandalwood chips and a small billet of sandalwood beside the bottle |
-| **Sarı Kantaron Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Sarı Kantaron Yağı", the oil a deep ruby red and clearly visible, with a small bunch of fresh yellow St John's wort flowers beside the bottle |
-| **Sarı Sabır (aleovera) Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Sarı Sabır (aleovera) Yağı", oil clearly visible in its true natural colour, with one thick aloe vera leaf cut to show the clear gel beside the bottle |
-| **Sarımsak Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Sarımsak Yağı", oil clearly visible in its true natural colour, with a whole garlic bulb and a few loose cloves beside the bottle |
-| **Sedir Ağacı Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Sedir Ağacı Yağı", oil clearly visible in its true natural colour, with a small pile of cedarwood shavings and a cedar sprig beside the bottle |
-| **Sığla Ağacı Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Sığla Ağacı Yağı", oil clearly visible in its true natural colour, with a piece of Anatolian sweetgum (storax) resin and a sweetgum leaf beside the bottle |
-| **Susam Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Susam Yağı", amber oil clearly visible, with a spoon of white and black sesame seeds beside the bottle |
-| **Tatlı Badem Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Tatlı Badem Yağı", pale oil clearly visible, with a few sweet almonds (some in shell, some shelled) and an almond blossom beside the bottle |
-| **Tesbih Ağacı Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Tesbih Ağacı Yağı", oil clearly visible in its true natural colour, with a small heap of round chinaberry (soapberry) seeds beside the bottle |
-| **Üzüm Çekirdeği Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Üzüm Çekirdeği Yağı", green-gold oil clearly visible, with a small bunch of grapes and a scattering of grape seeds beside the bottle |
-| **Vanilya Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Vanilya Yağı", oil clearly visible in its true natural colour, with two or three glossy vanilla pods, one split open, beside the bottle |
-| **Yasemin Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Yasemin Yağı", oil clearly visible in its true natural colour, with a few white star-shaped jasmine flowers arranged simply beside the bottle |
-| **Yılan Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Yılan Yağı", oil clearly visible in its true natural colour, presented cleanly with a single smooth dark river stone beside the bottle |
-| **Ylang Ylang Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Ylang Ylang Yağı", oil clearly visible in its true natural colour, with a couple of drooping yellow ylang-ylang flowers beside the bottle |
-| **Zencefil Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Zencefil Yağı", oil clearly visible in its true natural colour, with a knob of fresh ginger root and a few peeled slices beside the bottle |
-| **Zeytin Yağı** | a tall, slim 1-litre clear glass bottle (elegant supermarket olive-oil style, long neck, completely bare — no label, sticker or text anywhere on the bottle) of "Zeytin Yağı", green-gold oil clearly visible, with a small cluster of green and black olives on an olive branch with leaves beside the bottle |
+> **Tutarlılık ipucu:** Önce beğendiğin 1 görsel üret, sonra o görseli **referans**
+> olarak ver (Midjourney `--sref <link>` veya `--seed <numara>`; ChatGPT/DALL·E'de
+> "aynı fotoğraf, aynı şişe ve düzen, sadece yağ rengini ve yanındaki malzemeyi
+> değiştir"). Böylece 70 görsel birebir aynı stilde çıkar.
+
+### Sabit Yağ Şablonu
+
+```
+Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
+One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil
+style: straight vertical sides, long narrow neck, small natural cork stopper).
+The bottle is completely bare — absolutely no label, sticker, neck band,
+engraving or text anywhere. Bottle standing upright, perfectly centered, filled
+to about 90%. Camera straight-on at the bottle's mid-height, eye level, zero
+tilt; the bottle takes up about 70% of the frame height. Identical framing
+every time.
+
+The oil inside is {YAĞ RENGİ}, shown in its true, natural, realistic colour and
+clarity.
+
+Directly in front of the bottle's base, slightly to the right, one small, neat,
+tidy cluster of {HAM MADDE}. This is the ONLY other object in the scene.
+
+Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood.
+Soft diffused light from the upper-left; one single soft shadow to the
+lower-right; no harsh reflections, no bright hotspots on the glass. Shallow
+depth of field — tack-sharp on the bottle and the ingredients, background gently
+blurred. Realistic, understated, natural colours (no colour grading, no
+stylisation). Elegant, premium, calm, minimal. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### Ürün tablosu (yalnızca bu iki sütun değişir)
+
+| Ürün | {YAĞ RENGİ} | {HAM MADDE} |
+|---|---|---|
+| **Acı Badem Yağı** | pale golden yellow | a few bitter almonds, some in the brown shell and some shelled |
+| **Ada Çayı Yağı** | pale yellow-green | a fresh sage sprig and a small pinch of dried sage leaves |
+| **Alabalık Yağı** | pale golden | one whole fresh trout |
+| **Anason Yağı** | almost colourless, faint pale yellow | a small heap of aniseed and one dried anise flower head |
+| **Ardıç Yağı** | pale yellow | a short juniper sprig with blue-black juniper berries |
+| **Argan Yağı** | rich warm gold | a few cracked argan nuts showing the pale kernels |
+| **Aspir Yağı** | pale straw gold | a small handful of orange safflower petals and a few safflower seeds |
+| **At Kestanesi Yağı** | pale yellow | two or three horse chestnuts, one still in its spiky green husk |
+| **Avokado Yağı** | deep green-gold | one ripe avocado cut in half with the stone in place |
+| **Aynısefa Yağı** | warm golden orange | a few bright orange calendula (pot marigold) blossoms |
+| **Bamya Tohumu Yağı** | pale green-gold | a couple of dried okra pods split open showing the pale seeds |
+| **Bergamut Yağı** | pale greenish yellow | one whole bergamot citrus and a cut half with a glossy leaf |
+| **Biberiye Yağı** | pale yellow | two or three fresh rosemary sprigs |
+| **Buğday Yağı** | warm amber | a small pile of wheat grains and a few ripe wheat ears |
+| **Ceviz Yağı** | light amber | a few walnuts, some whole in shell and one halved |
+| **Çam Terebentin Yağı** | almost colourless, very pale | a piece of amber pine resin with a pine cone and a few needles |
+| **Çay Ağacı Yağı** | almost colourless, faint pale yellow | a fresh tea tree (melaleuca) sprig with narrow leaves |
+| **Çilek Yağı** | pale golden | a few ripe strawberries, one sliced to show the tiny seeds |
+| **Çin Yağı** | pale yellow, nearly clear | a few fresh mint leaves and two clear menthol crystals |
+| **Çörek Otu Yağı** | dark amber-brown | a small heap of black nigella (black cumin) seeds |
+| **Defne Yağı** | dark green | a few dried bay laurel leaves and a small cluster of black laurel berries |
+| **Gliserin Yağı** | completely clear and colourless, thick | a folded piece of natural linen cloth (refined product, no single raw ingredient) |
+| **Gül Yağı** | very pale yellow | a small handful of fresh pink damask rose petals |
+| **Hardal Yağı** | deep golden yellow | a small spoon of yellow and brown mustard seeds and one mustard flower |
+| **Haşhaş Yağı** | pale golden | one dried poppy seed pod and a scattering of poppy seeds |
+| **Havuç Yağı** | deep orange | two fresh carrots with green tops, one sliced into rounds |
+| **Helichrysum (ölmez Çiçek) Yağı** | pale yellow | a small bunch of dried yellow immortelle (helichrysum) flowers |
+| **Hindistan Cevizi Yağı** | clear, faintly pale liquid | half a coconut showing the white flesh and a piece of husk |
+| **Hint Yağı** | clear pale yellow, thick and glossy | a small pile of mottled castor beans and one castor leaf |
+| **Hodan Yağı** | pale gold | a few star-shaped blue borage flowers |
+| **Isırgan Tohumu Yağı** | greenish gold | a cluster of green nettle seeds on a nettle leaf |
+| **İncir Çekirdeği Yağı** | pale gold | one fig cut in half showing the seeds and one whole fig |
+| **Jojoba Yağı** | clear bright gold | a small heap of brown jojoba seeds |
+| **Kabak Çekirdeği Yağı** | very dark green, almost black-green | a handful of green hulled pumpkin seeds and a few in the shell |
+| **Kakao Yağı** | pale ivory, soft semi-solid | a cracked cacao pod showing beans and a few whole cocoa beans |
+| **Karabaş Otu Yağı** | pale yellow | a small bunch of dried French lavender (Lavandula stoechas) flowers |
+| **Karanfil Yağı** | pale to medium amber | a small heap of dried clove buds |
+| **Karınca Yumurtası Yağı** | pale yellow | a small pale mound of ant eggs (pupae) |
+| **Kayısı Çekirdeği Yağı** | pale golden | a few apricot kernels and one fresh apricot halved to show the stone |
+| **Kekik Yağı** | pale amber | two or three sprigs of dried thyme |
+| **Kenevir Yağı** | green-gold | a small pile of hemp seeds and one hemp leaf |
+| **Keten Yağı** | golden yellow | a spoon of golden-brown flax seeds and one pale blue flax flower |
+| **Lavanta Yağı** | pale yellow, nearly clear | a small bundle of dried lavender flower spikes |
+| **Limon Yağı** | pale yellow | one whole lemon, a cut half and a leaf |
+| **Melisa Yağı** | pale yellow | a fresh sprig of lemon balm leaves |
+| **Mür Yağı** | amber-brown | a few reddish-brown pieces of myrrh resin |
+| **Nane Yağı** | pale yellow, nearly clear | a small bunch of fresh mint leaves |
+| **Nar Çekirdeği Yağı** | golden yellow | half a pomegranate showing the ruby arils and a few loose seeds |
+| **Niaouli Yağı** | pale yellow, nearly clear | a fresh niaouli (melaleuca) sprig with slender leaves |
+| **Okaliptus Yağı** | almost colourless, very pale | a sprig of silvery-green eucalyptus leaves |
+| **Ozon Yağı** | pale, thick and cloudy (ozonated) | a few olives and a small olive branch |
+| **Papatya Yağı** | pale golden yellow | a small handful of fresh chamomile flowers |
+| **Portakal Yağı** | pale orange-yellow | one whole orange, a cut half and a blossom with a leaf |
+| **Rezene Yağı** | pale yellow | a spoon of fennel seeds and a feathery fennel frond |
+| **Sandal Ağacı Yağı** | pale gold, thick | a few pale sandalwood chips and a small billet of sandalwood |
+| **Sarı Kantaron Yağı** | deep ruby red | a small bunch of fresh yellow St John's wort flowers |
+| **Sarı Sabır (aleovera) Yağı** | pale yellow-green | one thick aloe vera leaf cut to show the clear gel |
+| **Sarımsak Yağı** | pale yellow | one whole garlic bulb and a few loose cloves |
+| **Sedir Ağacı Yağı** | pale yellow, thick | a small pile of cedarwood shavings and a cedar sprig |
+| **Sığla Ağacı Yağı** | warm amber | a piece of Anatolian sweetgum (storax) resin and a sweetgum leaf |
+| **Susam Yağı** | warm amber-gold | a spoon of white and black sesame seeds |
+| **Tatlı Badem Yağı** | very pale gold | a few sweet almonds (some in shell, some shelled) and an almond blossom |
+| **Tesbih Ağacı Yağı** | pale yellow | a small heap of round chinaberry (soapberry) seeds |
+| **Üzüm Çekirdeği Yağı** | pale green-gold | a small bunch of grapes and a scattering of grape seeds |
+| **Vanilya Yağı** | pale golden | two or three glossy vanilla pods, one split open |
+| **Yasemin Yağı** | pale yellow | a few white star-shaped jasmine flowers |
+| **Yılan Yağı** | pale yellow | one smooth dark river stone (no raw ingredient) |
+| **Ylang Ylang Yağı** | pale yellow | a couple of drooping yellow ylang-ylang flowers |
+| **Zencefil Yağı** | pale yellow to light amber | a knob of fresh ginger root and a few peeled slices |
+| **Zeytin Yağı** | golden green | a small cluster of green and black olives on an olive branch with leaves |
+
 
 ## Baharatlar (38 ürün)
 
