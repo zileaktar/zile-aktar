@@ -36,78 +36,86 @@ Aşağıdaki tablolarda **{ÖZNE}** kısmı her ürün için hazır yazılı —
 
 ## Doğal ve Bitkisel Yağlar (70 ürün)
 
+**Bu bölümün stili farklı (kâse görselleriyle aynı renk anlayışı):** Numune boy **şeffaf cam şişe**,
+içindeki yağ gerçek renginde ve kıvamında **net görünür**; şişenin hemen yanına yağın çıkarıldığı
+**ham madde** sade ve şık biçimde yerleştirilir (mümkünse hem taze hem kuru/işlenmiş hali) — müşteri
+şişeye bakınca hangi bitki/tohumdan olduğunu anlasın. **Zemin** doğal soluk ahşap veya krem taş,
+**arka plan** ortak şablondaki krem (#f4f1ea); bütün renkler gerçekçi ve abartısız. Ortak şablondaki
+"en fazla bir iki ham madde" kuralı bu bölümde ham maddeyi **asıl tanıtıcı öğe** yapacak şekilde
+gevşetilir.
+
 | Ürün | {ÖZNE} |
 |---|---|
-| **Acı Badem Yağı** | a clear glass bottle filled with "Acı Badem Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Ada Çayı Yağı** | a clear glass bottle filled with "Ada Çayı Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Alabalık Yağı** | a clear glass bottle filled with "Alabalık Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Anason Yağı** | a clear glass bottle filled with "Anason Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Ardıç Yağı** | a clear glass bottle filled with "Ardıç Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Argan Yağı** | a clear glass bottle filled with "Argan Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Aspir Yağı** | a clear glass bottle filled with "Aspir Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **At Kestanesi Yağı** | a clear glass bottle filled with "At Kestanesi Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Avokado Yağı** | a clear glass bottle filled with "Avokado Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Aynısefa Yağı** | a clear glass bottle filled with "Aynısefa Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Bamya Tohumu Yağı** | a clear glass bottle filled with "Bamya Tohumu Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Bergamut Yağı** | a clear glass bottle filled with "Bergamut Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Biberiye Yağı** | a clear glass bottle filled with "Biberiye Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Buğday Yağı** | a clear glass bottle filled with "Buğday Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Ceviz Yağı** | a clear glass bottle filled with "Ceviz Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Çam Terebentin Yağı** | a clear glass bottle filled with "Çam Terebentin Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Çay Ağacı Yağı** | a clear glass bottle filled with "Çay Ağacı Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Çilek Yağı** | a clear glass bottle filled with "Çilek Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Çin Yağı** | a clear glass bottle filled with "Çin Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Çörek Otu Yağı** | a clear glass bottle filled with "Çörek Otu Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Defne Yağı** | a clear glass bottle filled with "Defne Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Gliserin Yağı** | a clear glass bottle filled with "Gliserin Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Gül Yağı** | a clear glass bottle filled with "Gül Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Hardal Yağı** | a clear glass bottle filled with "Hardal Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Haşhaş Yağı** | a clear glass bottle filled with "Haşhaş Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Havuç Yağı** | a clear glass bottle filled with "Havuç Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Helichrysum (ölmez Çiçek) Yağı** | a clear glass bottle filled with "Helichrysum (ölmez Çiçek) Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Hindistan Cevizi Yağı** | a clear glass bottle filled with "Hindistan Cevizi Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Hint Yağı** | a clear glass bottle filled with "Hint Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Hodan Yağı** | a clear glass bottle filled with "Hodan Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Isırgan Tohumu Yağı** | a clear glass bottle filled with "Isırgan Tohumu Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **İncir Çekirdeği Yağı** | a clear glass bottle filled with "İncir Çekirdeği Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Jojoba Yağı** | a clear glass bottle filled with "Jojoba Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Kabak Çekirdeği Yağı** | a clear glass bottle filled with "Kabak Çekirdeği Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Kakao Yağı** | a clear glass bottle filled with "Kakao Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Karabaş Otu Yağı** | a clear glass bottle filled with "Karabaş Otu Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Karanfil Yağı** | a clear glass bottle filled with "Karanfil Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Karınca Yumurtası Yağı** | a clear glass bottle filled with "Karınca Yumurtası Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Kayısı Çekirdeği Yağı** | a clear glass bottle filled with "Kayısı Çekirdeği Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Kekik Yağı** | a clear glass bottle filled with "Kekik Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Kenevir Yağı** | a clear glass bottle filled with "Kenevir Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Keten Yağı** | a clear glass bottle filled with "Keten Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Lavanta Yağı** | a clear glass bottle filled with "Lavanta Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Limon Yağı** | a clear glass bottle filled with "Limon Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Melisa Yağı** | a clear glass bottle filled with "Melisa Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Mür Yağı** | a clear glass bottle filled with "Mür Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Nane Yağı** | a clear glass bottle filled with "Nane Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Nar Çekirdeği Yağı** | a clear glass bottle filled with "Nar Çekirdeği Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Niaouli Yağı** | a clear glass bottle filled with "Niaouli Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Okaliptus Yağı** | a clear glass bottle filled with "Okaliptus Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Ozon Yağı** | a clear glass bottle filled with "Ozon Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Papatya Yağı** | a clear glass bottle filled with "Papatya Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Portakal Yağı** | a clear glass bottle filled with "Portakal Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Rezene Yağı** | a clear glass bottle filled with "Rezene Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Sandal Ağacı Yağı** | a clear glass bottle filled with "Sandal Ağacı Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Sarı Kantaron Yağı** | a clear glass bottle filled with "Sarı Kantaron Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Sarı Sabır (aleovera) Yağı** | a clear glass bottle filled with "Sarı Sabır (aleovera) Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Sarımsak Yağı** | a clear glass bottle filled with "Sarımsak Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Sedir Ağacı Yağı** | a clear glass bottle filled with "Sedir Ağacı Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Sığla Ağacı Yağı** | a clear glass bottle filled with "Sığla Ağacı Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Susam Yağı** | a clear glass bottle filled with "Susam Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Tatlı Badem Yağı** | a clear glass bottle filled with "Tatlı Badem Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Tesbih Ağacı Yağı** | a clear glass bottle filled with "Tesbih Ağacı Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Üzüm Çekirdeği Yağı** | a clear glass bottle filled with "Üzüm Çekirdeği Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Vanilya Yağı** | a clear glass bottle filled with "Vanilya Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Yasemin Yağı** | a clear glass bottle filled with "Yasemin Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Yılan Yağı** | a clear glass bottle filled with "Yılan Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Ylang Ylang Yağı** | a clear glass bottle filled with "Ylang Ylang Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Zencefil Yağı** | a clear glass bottle filled with "Zencefil Yağı", oil in its true natural color, with a wooden dropper or pour spout |
-| **Zeytin Yağı** | a clear glass bottle filled with "Zeytin Yağı", oil in its true natural color, with a wooden dropper or pour spout |
+| **Acı Badem Yağı** | a clear glass sample bottle of "Acı Badem Yağı", the oil clearly visible in its true natural colour and viscosity, with a few bitter almonds (some in the brown shell, some shelled) arranged simply and elegantly on the surface beside the bottle so the source is instantly recognizable |
+| **Ada Çayı Yağı** | a clear glass sample bottle of "Ada Çayı Yağı", oil clearly visible in its true natural colour, with a fresh sage sprig and a small pinch of dried sage leaves arranged simply beside the bottle |
+| **Alabalık Yağı** | a clear glass sample bottle of "Alabalık Yağı", oil clearly visible in its true natural colour, with one whole fresh trout laid simply beside the bottle |
+| **Anason Yağı** | a clear glass sample bottle of "Anason Yağı", oil clearly visible in its true natural colour, with a small heap of aniseed and a dried anise flower head arranged simply beside the bottle |
+| **Ardıç Yağı** | a clear glass sample bottle of "Ardıç Yağı", oil clearly visible in its true natural colour, with a small sprig of juniper bearing blue-black juniper berries beside the bottle |
+| **Argan Yağı** | a clear glass sample bottle of "Argan Yağı", golden oil clearly visible, with a few cracked argan nuts showing the pale kernels arranged simply beside the bottle |
+| **Aspir Yağı** | a clear glass sample bottle of "Aspir Yağı", oil clearly visible in its true natural colour, with a small handful of orange safflower petals and a few safflower seeds beside the bottle |
+| **At Kestanesi Yağı** | a clear glass sample bottle of "At Kestanesi Yağı", oil clearly visible in its true natural colour, with two or three horse chestnuts, one still in its spiky green husk, beside the bottle |
+| **Avokado Yağı** | a clear glass sample bottle of "Avokado Yağı", green-gold oil clearly visible, with one ripe avocado cut in half, the stone in place, beside the bottle |
+| **Aynısefa Yağı** | a clear glass sample bottle of "Aynısefa Yağı", oil clearly visible in its true natural colour, with a few bright orange calendula (pot marigold) blossoms arranged simply beside the bottle |
+| **Bamya Tohumu Yağı** | a clear glass sample bottle of "Bamya Tohumu Yağı", oil clearly visible in its true natural colour, with a couple of dried okra pods split open to show the pale seeds beside the bottle |
+| **Bergamut Yağı** | a clear glass sample bottle of "Bergamut Yağı", oil clearly visible in its true natural colour, with one whole bergamot citrus and a cut half with a glossy leaf beside the bottle |
+| **Biberiye Yağı** | a clear glass sample bottle of "Biberiye Yağı", oil clearly visible in its true natural colour, with two or three fresh rosemary sprigs arranged simply beside the bottle |
+| **Buğday Yağı** | a clear glass sample bottle of "Buğday Yağı", amber oil clearly visible, with a small pile of wheat grains and a few ripe wheat ears beside the bottle |
+| **Ceviz Yağı** | a clear glass sample bottle of "Ceviz Yağı", oil clearly visible in its true natural colour, with a few walnuts, some whole in shell and one halved, beside the bottle |
+| **Çam Terebentin Yağı** | a clear glass sample bottle of "Çam Terebentin Yağı", oil clearly visible in its true natural colour, with a piece of amber pine resin, a pine cone and a few needles beside the bottle |
+| **Çay Ağacı Yağı** | a clear glass sample bottle of "Çay Ağacı Yağı", oil clearly visible in its true natural colour, with a fresh tea tree (melaleuca) sprig of narrow leaves beside the bottle |
+| **Çilek Yağı** | a clear glass sample bottle of "Çilek Yağı", oil clearly visible in its true natural colour, with a few ripe strawberries, one sliced to show the tiny seeds, beside the bottle |
+| **Çin Yağı** | a clear glass sample bottle of "Çin Yağı", oil clearly visible in its true natural colour, with a few fresh mint leaves and a couple of clear menthol crystals beside the bottle |
+| **Çörek Otu Yağı** | a clear glass sample bottle of "Çörek Otu Yağı", dark oil clearly visible, with a small heap of black nigella (black cumin) seeds beside the bottle |
+| **Defne Yağı** | a clear glass sample bottle of "Defne Yağı", dark green oil clearly visible, with a few dried bay laurel leaves and a small cluster of black laurel berries beside the bottle |
+| **Gliserin Yağı** | a clear glass sample bottle of "Gliserin Yağı", the clear viscous liquid visible, presented cleanly on its own with a folded natural linen cloth beside the bottle (a refined product, no single raw ingredient) |
+| **Gül Yağı** | a clear glass sample bottle of "Gül Yağı", oil clearly visible in its true natural colour, with a small handful of fresh pink damask rose petals arranged simply beside the bottle |
+| **Hardal Yağı** | a clear glass sample bottle of "Hardal Yağı", oil clearly visible in its true natural colour, with a small spoon of yellow and brown mustard seeds and a mustard flower beside the bottle |
+| **Haşhaş Yağı** | a clear glass sample bottle of "Haşhaş Yağı", oil clearly visible in its true natural colour, with a dried poppy seed pod and a scattering of poppy seeds beside the bottle |
+| **Havuç Yağı** | a clear glass sample bottle of "Havuç Yağı", orange oil clearly visible, with two fresh carrots with green tops, one sliced into rounds, beside the bottle |
+| **Helichrysum (ölmez Çiçek) Yağı** | a clear glass sample bottle of "Helichrysum (ölmez Çiçek) Yağı", oil clearly visible in its true natural colour, with a small bunch of dried yellow immortelle (helichrysum) flowers beside the bottle |
+| **Hindistan Cevizi Yağı** | a clear glass sample bottle of "Hindistan Cevizi Yağı", the oil clearly visible (pale liquid), with half a coconut showing the white flesh and a piece of husk beside the bottle |
+| **Hint Yağı** | a clear glass sample bottle of "Hint Yağı", thick clear oil visible, with a small pile of mottled castor beans and a castor leaf beside the bottle |
+| **Hodan Yağı** | a clear glass sample bottle of "Hodan Yağı", oil clearly visible in its true natural colour, with a few star-shaped blue borage flowers arranged simply beside the bottle |
+| **Isırgan Tohumu Yağı** | a clear glass sample bottle of "Isırgan Tohumu Yağı", oil clearly visible in its true natural colour, with a cluster of green nettle seeds on a nettle leaf beside the bottle |
+| **İncir Çekirdeği Yağı** | a clear glass sample bottle of "İncir Çekirdeği Yağı", oil clearly visible in its true natural colour, with one fig cut in half to show the seeds and a whole fig beside the bottle |
+| **Jojoba Yağı** | a clear glass sample bottle of "Jojoba Yağı", golden oil clearly visible, with a small heap of brown jojoba seeds beside the bottle |
+| **Kabak Çekirdeği Yağı** | a clear glass sample bottle of "Kabak Çekirdeği Yağı", dark green oil clearly visible, with a handful of green hulled pumpkin seeds and a few in the shell beside the bottle |
+| **Kakao Yağı** | a clear glass sample bottle of "Kakao Yağı", pale solid-to-liquid oil visible, with a cracked cacao pod showing beans and a few whole cocoa beans beside the bottle |
+| **Karabaş Otu Yağı** | a clear glass sample bottle of "Karabaş Otu Yağı", oil clearly visible in its true natural colour, with a small bunch of dried French lavender (Lavandula stoechas) flowers beside the bottle |
+| **Karanfil Yağı** | a clear glass sample bottle of "Karanfil Yağı", oil clearly visible in its true natural colour, with a small heap of dried clove buds beside the bottle |
+| **Karınca Yumurtası Yağı** | a clear glass sample bottle of "Karınca Yumurtası Yağı", oil clearly visible in its true natural colour, with a small pale mound of ant eggs (pupae) placed simply beside the bottle |
+| **Kayısı Çekirdeği Yağı** | a clear glass sample bottle of "Kayısı Çekirdeği Yağı", oil clearly visible in its true natural colour, with a few apricot kernels and one fresh apricot halved to show the stone beside the bottle |
+| **Kekik Yağı** | a clear glass sample bottle of "Kekik Yağı", oil clearly visible in its true natural colour, with two or three sprigs of dried thyme beside the bottle |
+| **Kenevir Yağı** | a clear glass sample bottle of "Kenevir Yağı", green-gold oil clearly visible, with a small pile of hemp seeds and a single hemp leaf beside the bottle |
+| **Keten Yağı** | a clear glass sample bottle of "Keten Yağı", golden oil clearly visible, with a spoon of golden-brown flax seeds and a pale blue flax flower beside the bottle |
+| **Lavanta Yağı** | a clear glass sample bottle of "Lavanta Yağı", oil clearly visible in its true natural colour, with a small bundle of dried lavender flower spikes beside the bottle |
+| **Limon Yağı** | a clear glass sample bottle of "Limon Yağı", oil clearly visible in its true natural colour, with one whole lemon, a cut half and a leaf beside the bottle |
+| **Melisa Yağı** | a clear glass sample bottle of "Melisa Yağı", oil clearly visible in its true natural colour, with a fresh sprig of lemon balm leaves beside the bottle |
+| **Mür Yağı** | a clear glass sample bottle of "Mür Yağı", oil clearly visible in its true natural colour, with a few reddish-brown pieces of myrrh resin beside the bottle |
+| **Nane Yağı** | a clear glass sample bottle of "Nane Yağı", oil clearly visible in its true natural colour, with a small bunch of fresh mint leaves beside the bottle |
+| **Nar Çekirdeği Yağı** | a clear glass sample bottle of "Nar Çekirdeği Yağı", oil clearly visible in its true natural colour, with half a pomegranate showing the ruby arils and a few loose seeds beside the bottle |
+| **Niaouli Yağı** | a clear glass sample bottle of "Niaouli Yağı", oil clearly visible in its true natural colour, with a fresh niaouli (melaleuca) sprig of slender leaves beside the bottle |
+| **Okaliptus Yağı** | a clear glass sample bottle of "Okaliptus Yağı", oil clearly visible in its true natural colour, with a sprig of silvery-green eucalyptus leaves beside the bottle |
+| **Ozon Yağı** | a clear glass sample bottle of "Ozon Yağı", the pale thick ozonated oil clearly visible, with a few olives and a small olive branch beside the bottle |
+| **Papatya Yağı** | a clear glass sample bottle of "Papatya Yağı", oil clearly visible in its true natural colour, with a small handful of fresh chamomile flowers beside the bottle |
+| **Portakal Yağı** | a clear glass sample bottle of "Portakal Yağı", oil clearly visible in its true natural colour, with one whole orange, a cut half and a blossom with a leaf beside the bottle |
+| **Rezene Yağı** | a clear glass sample bottle of "Rezene Yağı", oil clearly visible in its true natural colour, with a spoon of fennel seeds and a feathery fennel frond beside the bottle |
+| **Sandal Ağacı Yağı** | a clear glass sample bottle of "Sandal Ağacı Yağı", oil clearly visible in its true natural colour, with a few pale sandalwood chips and a small billet of sandalwood beside the bottle |
+| **Sarı Kantaron Yağı** | a clear glass sample bottle of "Sarı Kantaron Yağı", the oil a deep ruby red and clearly visible, with a small bunch of fresh yellow St John's wort flowers beside the bottle |
+| **Sarı Sabır (aleovera) Yağı** | a clear glass sample bottle of "Sarı Sabır (aleovera) Yağı", oil clearly visible in its true natural colour, with one thick aloe vera leaf cut to show the clear gel beside the bottle |
+| **Sarımsak Yağı** | a clear glass sample bottle of "Sarımsak Yağı", oil clearly visible in its true natural colour, with a whole garlic bulb and a few loose cloves beside the bottle |
+| **Sedir Ağacı Yağı** | a clear glass sample bottle of "Sedir Ağacı Yağı", oil clearly visible in its true natural colour, with a small pile of cedarwood shavings and a cedar sprig beside the bottle |
+| **Sığla Ağacı Yağı** | a clear glass sample bottle of "Sığla Ağacı Yağı", oil clearly visible in its true natural colour, with a piece of Anatolian sweetgum (storax) resin and a sweetgum leaf beside the bottle |
+| **Susam Yağı** | a clear glass sample bottle of "Susam Yağı", amber oil clearly visible, with a spoon of white and black sesame seeds beside the bottle |
+| **Tatlı Badem Yağı** | a clear glass sample bottle of "Tatlı Badem Yağı", pale oil clearly visible, with a few sweet almonds (some in shell, some shelled) and an almond blossom beside the bottle |
+| **Tesbih Ağacı Yağı** | a clear glass sample bottle of "Tesbih Ağacı Yağı", oil clearly visible in its true natural colour, with a small heap of round chinaberry (soapberry) seeds beside the bottle |
+| **Üzüm Çekirdeği Yağı** | a clear glass sample bottle of "Üzüm Çekirdeği Yağı", green-gold oil clearly visible, with a small bunch of grapes and a scattering of grape seeds beside the bottle |
+| **Vanilya Yağı** | a clear glass sample bottle of "Vanilya Yağı", oil clearly visible in its true natural colour, with two or three glossy vanilla pods, one split open, beside the bottle |
+| **Yasemin Yağı** | a clear glass sample bottle of "Yasemin Yağı", oil clearly visible in its true natural colour, with a few white star-shaped jasmine flowers arranged simply beside the bottle |
+| **Yılan Yağı** | a clear glass sample bottle of "Yılan Yağı", oil clearly visible in its true natural colour, presented cleanly with a single smooth dark river stone beside the bottle |
+| **Ylang Ylang Yağı** | a clear glass sample bottle of "Ylang Ylang Yağı", oil clearly visible in its true natural colour, with a couple of drooping yellow ylang-ylang flowers beside the bottle |
+| **Zencefil Yağı** | a clear glass sample bottle of "Zencefil Yağı", oil clearly visible in its true natural colour, with a knob of fresh ginger root and a few peeled slices beside the bottle |
+| **Zeytin Yağı** | a clear glass sample bottle of "Zeytin Yağı", green-gold oil clearly visible, with a small cluster of green and black olives on an olive branch with leaves beside the bottle |
 
 ## Baharatlar (38 ürün)
 
