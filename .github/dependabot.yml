@@ -1,0 +1,28 @@
+# Bağımlılık güvenlik açığı taraması. GitHub, npm paketlerinde bilinen bir
+# zafiyet bulunca otomatik olarak bir Pull Request açar (kodu kendisi
+# güncellemez, sadece hazır bir PR sunar — biz inceleyip build/test
+# geçtikten sonra birleştiririz). Ayrıca "Dependabot alerts" (Settings >
+# Code security) GitHub'da varsayılan olarak açıktır; kapalıysa mağaza
+# sahibinin repo ayarlarından açması gerekir.
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    # Güvenlik açığı düzeltmeleri her zaman ayrı PR olarak gelir; buradaki
+    # gruplama yalnızca RUTİN sürüm güncellemelerini (özellik/uyumluluk,
+    # açık değil) tek bir PR'da toplayarak gürültüyü azaltır.
+    groups:
+      minor-and-patch:
+        update-types:
+          - 'minor'
+          - 'patch'
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: 'chore(deps)'
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
