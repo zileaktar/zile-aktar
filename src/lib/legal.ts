@@ -11,7 +11,7 @@ export const LEGAL = {
   adres: 'Dutlupınar Mah., Cumhuriyet Cd., Kültür Sitesi D:26/G, 60400 Zile / Tokat',
   telefon: '0551 173 00 94',
   eposta: 'zileaktar@gmail.com',
-  webAdresi: 'https://zile-aktar.vercel.app', // domain alınınca güncelle
+  webAdresi: 'https://zileaktar.com',
 
   // Mağaza çalışma saatleri — gerekirse düzenleyin. İletişim sayfası + Store şemasında kullanılır.
   calismaSaatleri: 'Pazartesi – Cumartesi: 09:00 – 19:00 · Pazar: Kapalı',
