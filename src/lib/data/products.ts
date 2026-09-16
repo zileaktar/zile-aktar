@@ -1,6 +1,6 @@
 import 'server-only';
 import { unstable_cache } from 'next/cache';
-import { createSupabaseServerClient, createSupabaseAnonServerClient } from '@/lib/supabase/server';
+import { createSupabaseServerClient, createSupabaseAnonServerClient, createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { dealFromRow } from '@/lib/pricing';
 import type { ProductRow, ProductVariantRow, ProductForm } from '@/lib/supabase/types';
 
@@ -308,4 +308,78 @@ export async function getProductBySlug(slug: string): Promise<ProductWithVariant
 
   const product = data as unknown as ProductWithVariants;
   return { ...product, product_variants: [...product.product_variants].sort((a, b) => a.sort_order - b.sort_order) };
+}
+
+export interface RecentlyViewedItem {
+  slug: string;
+  name: string;
+  imagePath: string;
+  priceCents: number;
+  compareAtCents: number | null;
+}
+
+/**
+ * "Son Gezdikleriniz" şeridi. Hangi ürünlerin gezildiği tarayıcıda
+ * (localStorage) tutulur — bu fonksiyon o slug listesine karşılık gelen GÜNCEL
+ * ürün özetlerini (fiyat/görsel) döner, sırayı istemcinin gönderdiği sırada
+ * korur. Pasife alınmış/silinmiş ürünler sessizce elenir.
+ */
+export async function getProductsBySlugs(slugs: string[]): Promise<RecentlyViewedItem[]> {
+  if (slugs.length === 0) return [];
+  const supabase = createSupabaseAnonServerClient();
+  const { data, error } = await supabase
+    .from('products')
+    .select('slug, name, image_path, product_variants(price_cents, compare_at_price_cents, stock, sort_order)')
+    .eq('is_active', true)
+    .in('slug', slugs);
+
+  if (error || !data) return [];
+
+  type Row = {
+    slug: string;
+    name: string;
+    image_path: string;
+    product_variants: { price_cents: number; compare_at_price_cents: number | null; stock: number; sort_order: number }[];
+  };
+
+  const bySlug = new Map<string, RecentlyViewedItem>();
+  for (const p of data as unknown as Row[]) {
+    const variants = [...p.product_variants].sort((a, b) => a.sort_order - b.sort_order);
+    const inStock = variants.filter((v) => v.stock > 0);
+    const chosen = (inStock.length > 0 ? inStock : variants)[0];
+    if (!chosen) continue;
+    bySlug.set(p.slug, {
+      slug: p.slug,
+      name: p.name,
+      imagePath: p.image_path,
+      priceCents: chosen.price_cents,
+      compareAtCents: chosen.compare_at_price_cents
+    });
+  }
+
+  // Sıra: istemcinin gönderdiği (en son gezilen önce) sıra korunur.
+  return slugs.map((s) => bySlug.get(s)).filter((x): x is RecentlyViewedItem => x != null);
+}
+
+/**
+ * "Son N günde kaç kez satın alındı" — sosyal kanıt rozeti için GERÇEK satış
+ * sayısı (uydurma değil). Yalnızca gerçekten ödemesi geçmiş siparişler sayılır
+ * (paid/shipped/delivered) — pending/failed/cancelled hariç. `service_role`
+ * kullanılır çünkü `orders`/`order_items` RLS'i normalde yalnızca siparişin
+ * sahibine/staff'a açıktır; burada tek dönen değer bir SAYI, hiçbir sipariş
+ * detayı (ad/adres/e-posta) dışarı sızmaz.
+ */
+export async function getRecentSalesCount(productId: string, days = 7): Promise<number> {
+  const supabase = createSupabaseServiceRoleClient();
+  const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
+
+  const { data, error } = await supabase
+    .from('order_items')
+    .select('quantity, orders!inner(status, created_at)')
+    .eq('product_id', productId)
+    .in('orders.status', ['paid', 'shipped', 'delivered'])
+    .gte('orders.created_at', since);
+
+  if (error || !data) return 0;
+  return (data as unknown as { quantity: number }[]).reduce((sum, row) => sum + row.quantity, 0);
 }

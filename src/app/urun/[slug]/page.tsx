@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getProductBySlug, getRelatedProducts } from '@/lib/data/products';
+import { getProductBySlug, getRelatedProducts, getRecentSalesCount } from '@/lib/data/products';
 import { getProductReviews, getReviewContext } from '@/lib/data/reviews';
 import { ProductCard } from '@/components/product/ProductCard';
 import { getProductImageUrls } from '@/lib/media';
@@ -11,6 +11,8 @@ import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { RichProductDescription } from '@/components/product/RichProductDescription';
 import { HealthDisclaimer } from '@/components/product/HealthDisclaimer';
 import { ProductReviews } from '@/components/product/ProductReviews';
+import { RecentlyViewedTracker } from '@/components/product/RecentlyViewedTracker';
+import { RecentlyViewed } from '@/components/product/RecentlyViewed';
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -35,10 +37,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) notFound();
 
   const imageUrls = getProductImageUrls(product.image_path, product.image_paths ?? []);
-  const [{ reviews, count: reviewCount, average: reviewAverage }, reviewContext, related] = await Promise.all([
+  const [{ reviews, count: reviewCount, average: reviewAverage }, reviewContext, related, recentSalesCount] = await Promise.all([
     getProductReviews(product.id),
     getReviewContext(product.id),
-    getRelatedProducts(product.categories.slug, product.id, 4)
+    getRelatedProducts(product.categories.slug, product.id, 4),
+    getRecentSalesCount(product.id)
   ]);
 
   const jsonLd = {
@@ -76,9 +79,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
         ]}
       />
 
+      <RecentlyViewedTracker slug={product.slug} />
+
       <div className="grid md:grid-cols-2 gap-8 sm:gap-12">
         <ProductGallery images={imageUrls} alt={product.name} />
-        <ProductDetailClient product={product} />
+        <ProductDetailClient product={product} recentSalesCount={recentSalesCount} />
       </div>
 
       {product.description && (
@@ -142,6 +147,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
         </section>
       )}
+
+      <RecentlyViewed excludeSlug={product.slug} />
     </div>
   );
 }

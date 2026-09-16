@@ -17,7 +17,17 @@ const BADGE_STYLES: Record<string, string> = {
   Geleneksel: 'bg-primary-dark text-cream'
 };
 
-export function ProductDetailClient({ product }: { product: ProductWithVariants }) {
+// Sosyal kanıt rozetini yalnızca gerçekten anlamlı bir sayıda satış varsa göster
+// — "1 kişi aldı" ikna edici değil, aksine ürünün az satıldığını hissettirir.
+const MIN_SALES_TO_SHOW = 3;
+
+export function ProductDetailClient({
+  product,
+  recentSalesCount = 0
+}: {
+  product: ProductWithVariants;
+  recentSalesCount?: number;
+}) {
   const [selectedVariantId, setSelectedVariantId] = useState(product.product_variants[0]?.id ?? '');
   const selectedVariant = product.product_variants.find((v) => v.id === selectedVariantId) ?? product.product_variants[0];
   const addItem = useCartStore((s) => s.addItem);
@@ -73,6 +83,12 @@ export function ProductDetailClient({ product }: { product: ProductWithVariants 
             ? `⚠️ Son ${selectedVariant.stock} adet!`
             : `✅ Stokta var (${selectedVariant.stock} adet)`}
       </div>
+
+      {recentSalesCount >= MIN_SALES_TO_SHOW && (
+        <p className="text-xs font-medium text-primary-dark bg-accent/15 border border-accent/30 rounded-xl px-3 py-2 mb-5 inline-flex items-center gap-1.5 w-fit">
+          🔥 Bu ürün son 7 günde <b>{recentSalesCount}</b> kez satın alındı
+        </p>
+      )}
 
       <div className="text-xs font-semibold text-carbon/60 mb-1.5">Gramaj / Boyut Seçin</div>
       <div className="flex flex-wrap gap-2 mb-5">
