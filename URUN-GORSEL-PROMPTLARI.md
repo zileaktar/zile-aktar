@@ -873,28 +873,7 @@ no numbers, no letters, no logos, no watermark, no hands, no people.
 ### 34. Kabak Çekirdeği Yağı
 
 ```
-Professional e-commerce product photography, square 1:1, minimum 1600x1600px.
-One tall, slim, cylindrical 1-litre clear glass bottle (supermarket olive-oil style:
-straight vertical sides, long narrow neck, small natural cork stopper). The bottle is
-completely bare — absolutely no label, sticker, neck band, engraving or text anywhere.
-Bottle standing upright, perfectly centered, filled to about 90%. Camera straight-on at
-the bottle's mid-height, eye level, zero tilt; the bottle takes up about 70% of the
-frame height. Identical framing every time.
-
-The oil inside is very dark green, almost black-green, shown in its true, natural, realistic colour and clarity.
-
-Directly in front of the bottle's base, slightly to the right, one small, neat, tidy
-arrangement — a handful of green hulled pumpkin seeds and a few in the shell — placed simply so the source of the oil is obvious. This is the
-ONLY other object in the scene.
-
-Background: soft matte cream (#f4f1ea), evenly lit. Surface: pale natural wood. Soft
-diffused light from the upper-left; one single soft shadow to the lower-right; no harsh
-reflections, no bright hotspots on the glass. Shallow depth of field — tack-sharp on the
-bottle and the ingredients, background gently blurred. Realistic, understated, natural
-colours (no colour grading, no stylisation). Elegant, premium, calm, minimal. No text,
-no numbers, no letters, no logos, no watermark, no hands, no people.
-```
-
+-
 ### 35. Kakao Yağı
 
 ```
@@ -1840,68 +1819,1396 @@ no numbers, no letters, no logos, no watermark, no hands, no people.
 
 ## Şifalı Bitkiler / Çaylar (60 ürün)
 
-| Ürün | {ÖZNE} |
-|---|---|
-| **Açlık Otu** | a small kraft paper pouch with loose dried "Açlık Otu" herb leaves spilling gently out |
-| **Ada Çayı** | a small kraft paper pouch with loose dried "Ada Çayı" spilling gently out |
-| **Ahududu Kökü** | a small wooden bowl of dried "Ahududu Kökü" root pieces, rustic chopped texture |
-| **Alıç Çiçeği** | a small glass bowl of loose dried "Alıç Çiçeği" petals |
-| **Altın Otu** | a small kraft paper pouch with loose dried "Altın Otu" herb leaves spilling gently out |
-| **Aslan Pençesi Otu** | a small kraft paper pouch with loose dried "Aslan Pençesi Otu" herb leaves spilling gently out |
-| **Avokado Yaprağı** | a small kraft paper pouch with loose dried "Avokado Yaprağı" leaves spilling gently out |
-| **Aynısefa Otu** | a small kraft paper pouch with loose dried "Aynısefa Otu" herb leaves spilling gently out |
-| **Ayva Yaprağı** | a small kraft paper pouch with loose dried "Ayva Yaprağı" leaves spilling gently out |
-| **Ballı Baba Otu** | a small kraft paper pouch with loose dried "Ballı Baba Otu" herb leaves spilling gently out |
-| **Biberiye Otu** | a small kraft paper pouch with loose dried "Biberiye Otu" herb leaves spilling gently out |
-| **Böğürtlen Kökü** | a small wooden bowl of dried "Böğürtlen Kökü" root pieces, rustic chopped texture |
-| **Böğürtlen Yaprağı** | a small kraft paper pouch with loose dried "Böğürtlen Yaprağı" leaves spilling gently out |
-| **Civanperçemi Otu** | a small kraft paper pouch with loose dried "Civanperçemi Otu" herb leaves spilling gently out |
-| **Çınar Yaprağı** | a small kraft paper pouch with loose dried "Çınar Yaprağı" leaves spilling gently out |
-| **Çoban Çantası** | a small kraft paper pouch with loose dried "Çoban Çantası" spilling gently out |
-| **Çoban Çökerten Otu** | a small kraft paper pouch with loose dried "Çoban Çökerten Otu" herb leaves spilling gently out |
-| **Defne Yaprağı** | a small kraft paper pouch with loose dried "Defne Yaprağı" leaves spilling gently out |
-| **Deve Dikeni Tohumu** | a small wooden bowl of whole dried "Deve Dikeni Tohumu" seeds |
-| **Dul Avrat Otu** | a small kraft paper pouch with loose dried "Dul Avrat Otu" herb leaves spilling gently out |
-| **Ebegümeci Otu** | a small kraft paper pouch with loose dried "Ebegümeci Otu" herb leaves spilling gently out |
-| **Enginar Yaprağı** | a small kraft paper pouch with loose dried "Enginar Yaprağı" leaves spilling gently out |
-| **Fesleğen Otu** | a small kraft paper pouch with loose dried "Fesleğen Otu" herb leaves spilling gently out |
-| **Funda Yaprağı** | a small kraft paper pouch with loose dried "Funda Yaprağı" leaves spilling gently out |
-| **Gül Kurusu** | a small glass bowl of dried "Gül Kurusu" |
-| **Hatmi Çiçeği** | a small glass bowl of loose dried "Hatmi Çiçeği" petals |
-| **Hayıt Otu** | a small kraft paper pouch with loose dried "Hayıt Otu" herb leaves spilling gently out |
-| **Hibiskus Otu** | a small kraft paper pouch with loose dried "Hibiskus Otu" herb leaves spilling gently out |
-| **Hindiba Otu** | a small kraft paper pouch with loose dried "Hindiba Otu" herb leaves spilling gently out |
-| **Ihlamur** | a small kraft paper pouch with loose dried "Ihlamur" spilling gently out |
-| **Isırgan Yaprağı** | a small kraft paper pouch with loose dried "Isırgan Yaprağı" leaves spilling gently out |
-| **Karabaş Otu** | a small kraft paper pouch with loose dried "Karabaş Otu" herb leaves spilling gently out |
-| **Kedi Otu** | a small kraft paper pouch with loose dried "Kedi Otu" herb leaves spilling gently out |
-| **Kırkkilit Otu** | a small kraft paper pouch with loose dried "Kırkkilit Otu" herb leaves spilling gently out |
-| **Kiraz Sapı** | a small kraft paper pouch with loose dried "Kiraz Sapı" spilling gently out |
-| **Kurt Pençesi Otu** | a small kraft paper pouch with loose dried "Kurt Pençesi Otu" herb leaves spilling gently out |
-| **Lavanta Otu** | a small kraft paper pouch with loose dried "Lavanta Otu" herb leaves spilling gently out |
-| **Melek Otu** | a small kraft paper pouch with loose dried "Melek Otu" herb leaves spilling gently out |
-| **Melisa Limon Kokulu Ot** | a small kraft paper pouch with loose dried "Melisa Limon Kokulu Ot" spilling gently out |
-| **Mercan Köşk Otu** | a small kraft paper pouch with loose dried "Mercan Köşk Otu" herb leaves spilling gently out |
-| **Meyan Kökü** | a small wooden bowl of dried "Meyan Kökü" root pieces, rustic chopped texture |
-| **Mısır Püskülü** | a small kraft paper pouch with loose dried "Mısır Püskülü" spilling gently out |
-| **Oğul Otu** | a small kraft paper pouch with loose dried "Oğul Otu" herb leaves spilling gently out |
-| **Okaliptus Otu** | a small kraft paper pouch with loose dried "Okaliptus Otu" herb leaves spilling gently out |
-| **Ökse Otu** | a small kraft paper pouch with loose dried "Ökse Otu" herb leaves spilling gently out |
-| **Papatya** | a small kraft paper pouch with loose dried "Papatya" spilling gently out |
-| **Sarı Kantaron** | a small kraft paper pouch with loose dried "Sarı Kantaron" spilling gently out |
-| **Sinameki Otu** | a small kraft paper pouch with loose dried "Sinameki Otu" herb leaves spilling gently out |
-| **Sinirli Otu** | a small kraft paper pouch with loose dried "Sinirli Otu" herb leaves spilling gently out |
-| **Süpürge Tohumu** | a small wooden bowl of whole dried "Süpürge Tohumu" seeds |
-| **Şahtere Otu** | a small kraft paper pouch with loose dried "Şahtere Otu" herb leaves spilling gently out |
-| **Şerbetçi Otu** | a small kraft paper pouch with loose dried "Şerbetçi Otu" herb leaves spilling gently out |
-| **Üzerlik Otu** | a small kraft paper pouch with loose dried "Üzerlik Otu" herb leaves spilling gently out |
-| **Yakı Otu** | a small kraft paper pouch with loose dried "Yakı Otu" herb leaves spilling gently out |
-| **Yapışkan Andız Otu** | a small kraft paper pouch with loose dried "Yapışkan Andız Otu" herb leaves spilling gently out |
-| **Yarpuz Otu** | a small kraft paper pouch with loose dried "Yarpuz Otu" herb leaves spilling gently out |
-| **Yasemin Otu** | a small kraft paper pouch with loose dried "Yasemin Otu" herb leaves spilling gently out |
-| **Yeşil Yulaf** | a small kraft paper pouch with loose dried "Yeşil Yulaf" spilling gently out |
-| **Yoğurt Otu** | a small kraft paper pouch with loose dried "Yoğurt Otu" herb leaves spilling gently out |
-| **Zeytin Yaprağı** | a small kraft paper pouch with loose dried "Zeytin Yaprağı" leaves spilling gently out |
+**Bu 60 görsel TEK TİP olmalı** — kap, açı, ışık, zemin ve arka plan (hepsi
+**beyaz**: beyaz kase + beyaz zemin + beyaz arka plan, 4K kalite) her promtta
+birebir aynı; üründen ürüne yalnızca **kasenin içindeki kurutulmuş bitki**
+değişiyor. Aşağıdaki her ürün için **hazır prompt** var: kod kutusunu olduğu
+gibi kopyala, görsel aracına yapıştır.
+
+> **Daha da tutarlı olsun istersen:** İlk beğendiğin görseli üret, sonra onu
+> referans ver — Midjourney'de `--sref <görsel linki>` veya `--seed <numara>`,
+> ChatGPT/DALL·E'de "aynı fotoğraf, aynı kase ve düzen; sadece içindeki bitki
+> değişsin".
+
+### 1. Açlık Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried "Açlık Otu" herb leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 2. Ada Çayı
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried sage ("Ada Çayı") leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 3. Ahududu Kökü
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of dried "Ahududu Kökü" (raspberry root) pieces, rustic chopped texture.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 4. Alıç Çiçeği
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried "Alıç Çiçeği" (hawthorn) petals.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 5. Altın Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried "Altın Otu" herb leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 6. Aslan Pençesi Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried "Aslan Pençesi Otu" herb leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 7. Avokado Yaprağı
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried avocado leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 8. Aynısefa Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried "Aynısefa Otu" herb leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 9. Ayva Yaprağı
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried quince leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 10. Ballı Baba Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried "Ballı Baba Otu" herb leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 11. Biberiye Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried rosemary leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 12. Böğürtlen Kökü
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of dried blackberry root pieces, rustic chopped texture.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 13. Böğürtlen Yaprağı
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried blackberry leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 14. Civanperçemi Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried yarrow ("Civanperçemi") leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 15. Çınar Yaprağı
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried plane tree ("Çınar") leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 16. Çoban Çantası
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried "Çoban Çantası" (shepherd's purse) herb.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 17. Çoban Çökerten Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried "Çoban Çökerten Otu" herb leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 18. Defne Yaprağı
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried bay laurel leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 19. Deve Dikeni Tohumu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of whole dried milk thistle ("Deve Dikeni") seeds.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 20. Dul Avrat Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried "Dul Avrat Otu" herb leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 21. Ebegümeci Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried mallow ("Ebegümeci") leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 22. Enginar Yaprağı
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried artichoke leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 23. Fesleğen Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried basil leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 24. Funda Yaprağı
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried heather ("Funda") leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 25. Gül Kurusu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of dried rose petals ("Gül Kurusu").
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 26. Hatmi Çiçeği
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried marshmallow ("Hatmi") petals.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 27. Hayıt Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried chaste tree ("Hayıt") leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 28. Hibiskus Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried hibiscus petals.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 29. Hindiba Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried chicory ("Hindiba") leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 30. Ihlamur
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of dried linden ("Ihlamur") flowers and bracts.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 31. Isırgan Yaprağı
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried nettle leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 32. Karabaş Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried French lavender ("Karabaş Otu") leaves and flowers.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 33. Kedi Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried valerian ("Kedi Otu") root and herb pieces.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 34. Kırkkilit Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried "Kırkkilit Otu" herb leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 35. Kiraz Sapı
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of dried cherry stems ("Kiraz Sapı"), rustic twig-like pieces.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 36. Kurt Pençesi Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried "Kurt Pençesi Otu" herb leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 37. Lavanta Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of dried lavender flower buds.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 38. Melek Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried angelica ("Melek Otu") leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 39. Melisa Limon Kokulu Ot
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried lemon balm ("Melisa") leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 40. Mercan Köşk Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried marjoram ("Mercan Köşk") leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 41. Meyan Kökü
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of dried licorice ("Meyan Kökü") root pieces, rustic chopped texture.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 42. Mısır Püskülü
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of dried corn silk ("Mısır Püskülü") strands.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 43. Oğul Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried lemon balm ("Oğul Otu") leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 44. Okaliptus Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried eucalyptus leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 45. Ökse Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried mistletoe ("Ökse Otu") leaves and small twigs.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 46. Papatya
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of dried whole chamomile ("Papatya") flowers.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 47. Sarı Kantaron
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of dried St John's wort ("Sarı Kantaron") flowers and leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 48. Sinameki Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried senna ("Sinameki") leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 49. Sinirli Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried plantain ("Sinirli Otu") leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 50. Süpürge Tohumu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of whole dried broom seeds ("Süpürge Tohumu").
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 51. Şahtere Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried fumitory ("Şahtere Otu") herb leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 52. Şerbetçi Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of dried hops ("Şerbetçi Otu") cones.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 53. Üzerlik Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of dried wild rue ("Üzerlik Otu") seeds and pods.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 54. Yakı Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried "Yakı Otu" herb leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 55. Yapışkan Andız Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried elecampane ("Yapışkan Andız Otu") leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 56. Yarpuz Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried pennyroyal ("Yarpuz Otu") leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 57. Yasemin Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of dried jasmine ("Yasemin Otu") flowers and leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 58. Yeşil Yulaf
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of dried green oat ("Yeşil Yulaf") straw pieces.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 59. Yoğurt Otu
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried bedstraw ("Yoğurt Otu") herb.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
+
+### 60. Zeytin Yaprağı
+
+```
+Professional e-commerce product photography, square 1:1, ultra high resolution,
+4K quality (minimum 3600x3600px). One small, shallow white ceramic bowl —
+plain, simple, no pattern or branding — centered in the frame, filled with a
+neat, modest portion of loose dried olive leaves.
+
+The bowl rests on a pure white surface. The background is seamless pure white
+(#ffffff) — surface and background blend into one continuous white with no
+visible horizon line, no props, no other objects in the scene.
+
+Camera angle: gentle 45-degree top-down view, showing both the contents and a
+hint of the bowl's rim. Lighting: soft, bright, evenly diffused studio light
+from directly above and slightly in front, eliminating harsh shadows; only a
+very soft, subtle contact shadow directly beneath the bowl for a sense of
+depth. Shallow depth of field — tack-sharp on the dried plant texture, softly
+defocused toward the frame edges. Realistic, true-to-life natural colour and
+texture of the dried plant material (no colour grading, no oversaturation).
+Clean, minimal, premium wellness aesthetic. No text, no numbers, no letters,
+no logos, no watermark, no hands, no people.
+```
 
 ## Sabun Çeşitleri (20 ürün)
 
