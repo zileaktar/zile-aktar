@@ -7,6 +7,7 @@ import { dealBadgeText, dealFromRow } from '@/lib/pricing';
 import { trackAddToCart } from '@/lib/analytics';
 import { useCartStore } from '@/store/cart-store';
 import { useUiStore } from '@/store/ui-store';
+import { FavoriteButton } from '@/components/product/FavoriteButton';
 import type { ProductWithVariants } from '@/lib/data/products';
 
 const BADGE_STYLES: Record<string, string> = {
@@ -23,10 +24,14 @@ const MIN_SALES_TO_SHOW = 3;
 
 export function ProductDetailClient({
   product,
-  recentSalesCount = 0
+  recentSalesCount = 0,
+  isFavorited = false,
+  loggedIn = false
 }: {
   product: ProductWithVariants;
   recentSalesCount?: number;
+  isFavorited?: boolean;
+  loggedIn?: boolean;
 }) {
   const [selectedVariantId, setSelectedVariantId] = useState(product.product_variants[0]?.id ?? '');
   const selectedVariant = product.product_variants.find((v) => v.id === selectedVariantId) ?? product.product_variants[0];
@@ -63,15 +68,23 @@ export function ProductDetailClient({
 
   return (
     <div className="flex flex-col">
-      <div className="flex gap-1.5 mb-3">
-        {displayBadges.map((b) => (
-          <span key={b} className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${BADGE_STYLES[b] ?? 'bg-carbon text-white'}`}>
-            {b}
-          </span>
-        ))}
-        {isLowStock && <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-red-500 text-white">Sınırlı Stok</span>}
-        {hasDiscount && <span className="text-[11px] font-extrabold px-2.5 py-1 rounded-full bg-red-600 text-white">%{discountPct} İNDİRİM</span>}
-        {deal && <span className="text-[11px] font-extrabold px-2.5 py-1 rounded-full bg-primary text-white">{dealBadgeText(deal)}</span>}
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <div className="flex flex-wrap gap-1.5">
+          {displayBadges.map((b) => (
+            <span key={b} className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${BADGE_STYLES[b] ?? 'bg-carbon text-white'}`}>
+              {b}
+            </span>
+          ))}
+          {isLowStock && <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-red-500 text-white">Sınırlı Stok</span>}
+          {hasDiscount && <span className="text-[11px] font-extrabold px-2.5 py-1 rounded-full bg-red-600 text-white">%{discountPct} İNDİRİM</span>}
+          {deal && <span className="text-[11px] font-extrabold px-2.5 py-1 rounded-full bg-primary text-white">{dealBadgeText(deal)}</span>}
+        </div>
+        <FavoriteButton
+          productId={product.id}
+          initialFavorited={isFavorited}
+          loggedIn={loggedIn}
+          className="w-10 h-10 shrink-0 border border-primary/10"
+        />
       </div>
       <div className="text-xs font-semibold text-accent-dark uppercase tracking-wide mb-1">{product.categories.name}</div>
       <h1 className="font-display font-bold text-2xl sm:text-3xl text-primary mb-6">{product.name}</h1>

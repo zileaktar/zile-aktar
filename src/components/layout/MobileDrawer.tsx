@@ -76,6 +76,9 @@ export function MobileDrawer({ categories, logoPath }: { categories: Category[];
           <Link href="/hesabim/siparislerim" onClick={closeMobileDrawer} className="w-full text-left px-4 py-3.5 rounded-xl font-semibold text-primary hover:bg-cream flex items-center gap-3">
             📦 Siparişlerim
           </Link>
+          <Link href="/hesabim/favoriler" onClick={closeMobileDrawer} className="w-full text-left px-4 py-3.5 rounded-xl font-semibold text-primary hover:bg-cream flex items-center gap-3">
+            ❤️ Favorilerim
+          </Link>
         </nav>
         <div className="p-4 border-t border-primary/10 text-center text-xs text-carbon/50">© 2026 Zile Aktar</div>
       </aside>

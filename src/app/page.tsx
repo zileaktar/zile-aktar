@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getCategories, getProducts, getAvailableForms } from '@/lib/data/products';
 import { getActiveCampaignBanners } from '@/lib/data/banners';
+import { getFavoritesContext } from '@/lib/data/favorites';
 import { ProductCard } from '@/components/product/ProductCard';
 import { CampaignCarousel } from '@/components/home/CampaignCarousel';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
@@ -24,11 +25,12 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const { kategori, q, form, sayfa } = await searchParams;
   const activeForm = form && (PRODUCT_FORMS as readonly string[]).includes(form) ? form : undefined;
   const page = Math.max(1, Number.parseInt(sayfa ?? '1', 10) || 1);
-  const [categories, availableForms, banners, { products, totalCount, totalPages }] = await Promise.all([
+  const [categories, availableForms, banners, { products, totalCount, totalPages }, { loggedIn, favoriteIds }] = await Promise.all([
     getCategories(),
     getAvailableForms(),
     getActiveCampaignBanners(),
-    getProducts({ categorySlug: kategori, searchQuery: q, form: activeForm, page })
+    getProducts({ categorySlug: kategori, searchQuery: q, form: activeForm, page }),
+    getFavoritesContext()
   ]);
   const formChips = PRODUCT_FORMS.filter((f) => availableForms.includes(f));
 
@@ -159,7 +161,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} isFavorited={favoriteIds.has(product.id)} loggedIn={loggedIn} />
             ))}
           </div>
         )}

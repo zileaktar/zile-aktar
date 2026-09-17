@@ -56,12 +56,15 @@ export default async function AccountPage() {
         )}
       </div>
 
-      <div className="grid sm:grid-cols-3 gap-3">
+      <div className="grid sm:grid-cols-2 gap-3">
         <Link href="/hesabim/siparislerim" className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition font-semibold text-primary">
           📦 Siparişlerim
         </Link>
         <Link href="/hesabim/adreslerim" className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition font-semibold text-primary">
           📍 Adreslerim
+        </Link>
+        <Link href="/hesabim/favoriler" className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition font-semibold text-primary">
+          ❤️ Favorilerim
         </Link>
         <Link href="/hesabim/veri-talebi" className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition font-semibold text-primary">
           🔐 KVKK Veri Talebi

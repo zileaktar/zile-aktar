@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { getProductImageUrl } from '@/lib/media';
 import { dealBadgeText, dealFromRow } from '@/lib/pricing';
 import { ProductCardActions } from '@/components/product/ProductCardActions';
+import { FavoriteButton } from '@/components/product/FavoriteButton';
 import type { ProductWithVariants } from '@/lib/data/products';
 
 const BADGE_STYLES: Record<string, string> = {
@@ -23,7 +24,15 @@ const BADGE_STYLES: Record<string, string> = {
  * rozetler değişmez (fiyat alt blokta canlı güncellenir). Ürünlerin çoğu tek
  * varyantlı olduğundan bu, pratikte fark edilmeyen bir ödünleşmedir.
  */
-export function ProductCard({ product }: { product: ProductWithVariants }) {
+export function ProductCard({
+  product,
+  isFavorited = false,
+  loggedIn = false
+}: {
+  product: ProductWithVariants;
+  isFavorited?: boolean;
+  loggedIn?: boolean;
+}) {
   const variants = product.product_variants;
   const firstVariant = variants[0];
   if (!firstVariant) return null;
@@ -40,15 +49,21 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
 
   return (
     <div className="group bg-white rounded-2xl shadow-sm hover:shadow-lg overflow-hidden flex flex-col transition-shadow">
-      <a href={`/urun/${product.slug}`} className="relative block overflow-hidden aspect-square bg-cream">
-        <Image
-          src={imageUrl}
-          alt={product.name}
-          fill
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
-        />
-        <div className="absolute top-2 left-2 flex flex-col gap-1">
+      {/* İlişkili görsel + rozet katmanı: FavoriteButton bir <button>, HTML'de
+          <a> içine etkileşimli içerik (nested interactive content) konulamaz
+          — bu yüzden <a> yalnızca görseli sarar, rozetler/kalp ikonu bu dış
+          relative kapsayıcıda KARDEŞ eleman olarak konumlanır. */}
+      <div className="relative overflow-hidden aspect-square bg-cream">
+        <a href={`/urun/${product.slug}`} className="absolute inset-0 block">
+          <Image
+            src={imageUrl}
+            alt={product.name}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        </a>
+        <div className="absolute top-2 left-2 flex flex-col gap-1 pointer-events-none">
           {deal && (
             <span className="text-[10.5px] font-extrabold px-2 py-1 rounded-full bg-primary text-white">{dealBadgeText(deal)}</span>
           )}
@@ -62,7 +77,13 @@ export function ProductCard({ product }: { product: ProductWithVariants }) {
           ))}
           {isLowStock && <span className="text-[10.5px] font-bold px-2 py-1 rounded-full bg-red-500 text-white">Sınırlı Stok</span>}
         </div>
-      </a>
+        <FavoriteButton
+          productId={product.id}
+          initialFavorited={isFavorited}
+          loggedIn={loggedIn}
+          className="absolute top-2 right-2 w-8 h-8"
+        />
+      </div>
       <div className="p-3 sm:p-4 flex flex-col flex-1">
         <div className="text-[11px] font-semibold text-accent-dark uppercase tracking-wide mb-1">{product.categories.name}</div>
         <h3 className="font-semibold text-sm sm:text-[15px] leading-snug mb-2 flex-1">{product.name}</h3>

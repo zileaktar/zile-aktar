@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getProductBySlug, getRelatedProducts, getRecentSalesCount } from '@/lib/data/products';
+import { getFavoritesContext } from '@/lib/data/favorites';
 import { getProductReviews, getReviewContext } from '@/lib/data/reviews';
 import { ProductCard } from '@/components/product/ProductCard';
 import { getProductImageUrls } from '@/lib/media';
@@ -37,12 +38,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) notFound();
 
   const imageUrls = getProductImageUrls(product.image_path, product.image_paths ?? []);
-  const [{ reviews, count: reviewCount, average: reviewAverage }, reviewContext, related, recentSalesCount] = await Promise.all([
-    getProductReviews(product.id),
-    getReviewContext(product.id),
-    getRelatedProducts(product.categories.slug, product.id, 4),
-    getRecentSalesCount(product.id)
-  ]);
+  const [{ reviews, count: reviewCount, average: reviewAverage }, reviewContext, related, recentSalesCount, { loggedIn, favoriteIds }] =
+    await Promise.all([
+      getProductReviews(product.id),
+      getReviewContext(product.id),
+      getRelatedProducts(product.categories.slug, product.id, 4),
+      getRecentSalesCount(product.id),
+      getFavoritesContext()
+    ]);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -83,7 +86,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
       <div className="grid md:grid-cols-2 gap-8 sm:gap-12">
         <ProductGallery images={imageUrls} alt={product.name} />
-        <ProductDetailClient product={product} recentSalesCount={recentSalesCount} />
+        <ProductDetailClient
+          product={product}
+          recentSalesCount={recentSalesCount}
+          isFavorited={favoriteIds.has(product.id)}
+          loggedIn={loggedIn}
+        />
       </div>
 
       {product.description && (
@@ -142,7 +150,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <h2 className="font-display font-bold text-primary text-xl mb-5">Benzer Ürünler</h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {related.map((p) => (
-              <ProductCard key={p.id} product={p} />
+              <ProductCard key={p.id} product={p} isFavorited={favoriteIds.has(p.id)} loggedIn={loggedIn} />
             ))}
           </div>
         </section>
