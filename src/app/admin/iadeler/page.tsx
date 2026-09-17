@@ -101,7 +101,12 @@ export default async function AdminReturnsPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="font-display font-bold text-2xl text-primary">İade Talepleri</h1>
+      <h1 className="font-display font-bold text-2xl text-primary">İade / İptal Talepleri</h1>
+      <p className="text-xs text-carbon/50 -mt-4">
+        Burada durumu değiştirmek yalnızca müşteriye bir yanıt/not gösterir — siparişi fiilen iptal edip stoğu
+        geri almak veya ödemeyi iade etmek için <b>Siparişler</b> sayfasından sipariş durumunu ayrıca güncellemen
+        gerekir.
+      </p>
 
       <div>
         <h2 className="font-semibold text-primary mb-3">İnceleme Bekleyenler ({pending.length})</h2>

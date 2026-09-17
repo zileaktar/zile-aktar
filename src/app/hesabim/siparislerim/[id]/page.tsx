@@ -40,11 +40,16 @@ export default async function CustomerOrderDetailPage({ params }: PageProps) {
   const items = order.order_items ?? [];
   const isPendingHavale = order.status === 'pending' && order.payment_provider === 'havale';
 
-  // İade uygunluğu: sipariş teslim edilmiş VE (teslim tarihi bilinmiyorsa ya
-  // da) cayma süresi içinde. Asıl sınır yine de RLS'tir (bkz. return-actions.ts).
+  // İade/iptal uygunluğu: ödeme geçmiş (paid/shipped/delivered) HERHANGİ bir
+  // sipariş için açılabilir — teslimattan önce (henüz kargoda/hazırlanıyorken)
+  // iptal isteği de dahil. Teslim edilmişse ayrıca cayma süresi içinde olmalı;
+  // henüz teslim edilmemişse süre sınırı yok. Asıl sınır yine de RLS'tir
+  // (bkz. return-actions.ts / migration 0034).
   const deliveredAt = order.delivered_at ? new Date(order.delivered_at) : null;
   const daysSinceDelivery = deliveredAt ? (Date.now() - deliveredAt.getTime()) / (1000 * 60 * 60 * 24) : 0;
-  const returnEligible = order.status === 'delivered' && (!deliveredAt || daysSinceDelivery <= LEGAL.caymaSuresiGun);
+  const returnEligible =
+    (['paid', 'shipped', 'delivered'] as string[]).includes(order.status) &&
+    (!deliveredAt || daysSinceDelivery <= LEGAL.caymaSuresiGun);
 
   const { data: returnRequestRow } = await supabase
     .from('return_requests')

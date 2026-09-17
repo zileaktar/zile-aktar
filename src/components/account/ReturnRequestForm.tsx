@@ -46,7 +46,7 @@ export function ReturnRequestForm({
     return (
       <div className="bg-white rounded-2xl p-5 shadow-sm">
         <div className="flex items-center justify-between gap-3 mb-2">
-          <h2 className="font-semibold text-primary">İade Talebiniz</h2>
+          <h2 className="font-semibold text-primary">İade / İptal Talebiniz</h2>
           <span className={`text-xs font-semibold px-3 py-1 rounded-full ${s.className}`}>{s.label}</span>
         </div>
         <p className="text-sm text-carbon/70">
@@ -78,7 +78,7 @@ export function ReturnRequestForm({
   if (!open) {
     return (
       <button type="button" onClick={() => setOpen(true)} className="text-sm font-semibold text-primary hover:underline">
-        İade Talebi Oluştur
+        İade / İptal Talebi Oluştur
       </button>
     );
   }
@@ -94,7 +94,7 @@ export function ReturnRequestForm({
 
   return (
     <div className="bg-white rounded-2xl p-5 shadow-sm space-y-3">
-      <h2 className="font-semibold text-primary">İade Talebi Oluştur</h2>
+      <h2 className="font-semibold text-primary">İade / İptal Talebi Oluştur</h2>
       {error && <p className="text-xs text-red-600">{error}</p>}
       <label className="block text-xs font-semibold text-carbon/60">
         Sebep

@@ -3,6 +3,7 @@ import { z } from 'zod';
 // Self-servis iade talebi (Hesabım → Siparişlerim → sipariş detayı). Sabit
 // bir sebep listesi — serbest metin yalnızca ek açıklama (detail) için.
 export const RETURN_REASONS = [
+  'Siparişi iptal etmek istiyorum (henüz teslim almadım)',
   'Ürün hasarlı/kusurlu geldi',
   'Yanlış ürün gönderildi',
   'Ürünü beğenmedim',
