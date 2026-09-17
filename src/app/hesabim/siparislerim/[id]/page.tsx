@@ -4,6 +4,8 @@ import { notFound, redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { formatPriceFromCents } from '@/lib/format';
 import { orderStatusLabel, paymentMethodLabel } from '@/lib/order-status';
+import { LEGAL } from '@/lib/legal';
+import { ReturnRequestForm, type ExistingReturnRequest } from '@/components/account/ReturnRequestForm';
 
 export const metadata: Metadata = { title: 'Sipariş Detayı', robots: { index: false } };
 export const dynamic = 'force-dynamic';
@@ -24,7 +26,7 @@ export default async function CustomerOrderDetailPage({ params }: PageProps) {
   const { data: order } = await supabase
     .from('orders')
     .select(
-      'id, order_number, status, subtotal_cents, shipping_cents, deal_discount_cents, discount_cents, coupon_code, total_cents, shipping_address, billing_address, contact_email, contact_phone, payment_provider, shipping_carrier, tracking_number, shipped_at, created_at, order_items(id, product_name_snapshot, variant_label_snapshot, unit_price_cents, quantity)'
+      'id, order_number, status, subtotal_cents, shipping_cents, deal_discount_cents, discount_cents, coupon_code, total_cents, shipping_address, billing_address, contact_email, contact_phone, payment_provider, shipping_carrier, tracking_number, shipped_at, delivered_at, created_at, order_items(id, product_name_snapshot, variant_label_snapshot, unit_price_cents, quantity)'
     )
     .eq('id', id)
     .eq('user_id', user.id)
@@ -37,6 +39,27 @@ export default async function CustomerOrderDetailPage({ params }: PageProps) {
   const billing = order.billing_address;
   const items = order.order_items ?? [];
   const isPendingHavale = order.status === 'pending' && order.payment_provider === 'havale';
+
+  // İade uygunluğu: sipariş teslim edilmiş VE (teslim tarihi bilinmiyorsa ya
+  // da) cayma süresi içinde. Asıl sınır yine de RLS'tir (bkz. return-actions.ts).
+  const deliveredAt = order.delivered_at ? new Date(order.delivered_at) : null;
+  const daysSinceDelivery = deliveredAt ? (Date.now() - deliveredAt.getTime()) / (1000 * 60 * 60 * 24) : 0;
+  const returnEligible = order.status === 'delivered' && (!deliveredAt || daysSinceDelivery <= LEGAL.caymaSuresiGun);
+
+  const { data: returnRequestRow } = await supabase
+    .from('return_requests')
+    .select('status, reason, detail, admin_note, created_at')
+    .eq('order_id', order.id)
+    .maybeSingle();
+  const existingReturnRequest: ExistingReturnRequest | null = returnRequestRow
+    ? {
+        status: returnRequestRow.status,
+        reason: returnRequestRow.reason,
+        detail: returnRequestRow.detail,
+        adminNote: returnRequestRow.admin_note,
+        createdAt: returnRequestRow.created_at
+      }
+    : null;
 
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-10 space-y-4">
@@ -159,6 +182,8 @@ export default async function CustomerOrderDetailPage({ params }: PageProps) {
           </div>
         </div>
       </div>
+
+      <ReturnRequestForm orderId={order.id} eligible={returnEligible} existingRequest={existingReturnRequest} />
 
       <p className="text-xs text-carbon/50 pt-2">
         Sipariş veya iade ile ilgili sorularınız için{' '}

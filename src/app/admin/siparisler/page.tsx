@@ -51,8 +51,9 @@ async function updateOrderStatus(formData: FormData) {
 
   if (previousStatus === status) return;
 
-  const patch: { status: OrderStatus; shipped_at?: string } = { status };
+  const patch: { status: OrderStatus; shipped_at?: string; delivered_at?: string } = { status };
   if (status === 'shipped') patch.shipped_at = new Date().toISOString();
+  if (status === 'delivered') patch.delivered_at = new Date().toISOString();
   await serviceClient.from('orders').update(patch).eq('id', orderId);
 
   // Durum geçişinde müşteriye bilgi e-postası (best-effort; sipariş akışını bozmaz).

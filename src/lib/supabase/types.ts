@@ -242,6 +242,8 @@ export interface Database {
           shipping_carrier: string | null;
           tracking_number: string | null;
           shipped_at: string | null;
+          /** "Teslim edildi" durumuna ne zaman geçildi (migration 0033) — self-servis iade penceresi bunun üzerinden hesaplanır. */
+          delivered_at: string | null;
           coupon_code: string | null;
           discount_cents: number;
           deal_discount_cents: number;
@@ -259,6 +261,7 @@ export interface Database {
           | 'shipping_carrier'
           | 'tracking_number'
           | 'shipped_at'
+          | 'delivered_at'
           | 'coupon_code'
           | 'discount_cents'
           | 'deal_discount_cents'
@@ -269,6 +272,7 @@ export interface Database {
           shipping_carrier?: string | null;
           tracking_number?: string | null;
           shipped_at?: string | null;
+          delivered_at?: string | null;
           coupon_code?: string | null;
           discount_cents?: number;
           deal_discount_cents?: number;
@@ -431,6 +435,47 @@ export interface Database {
             columns: ['product_id'];
             isOneToOne: false;
             referencedRelation: 'products';
+            referencedColumns: ['id'];
+          }
+        ];
+      };
+      return_requests: {
+        Row: {
+          id: string;
+          order_id: string;
+          user_id: string;
+          reason: string;
+          detail: string;
+          status: 'pending' | 'approved' | 'rejected' | 'completed';
+          admin_note: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Omit<
+          Database['public']['Tables']['return_requests']['Row'],
+          'id' | 'detail' | 'status' | 'admin_note' | 'created_at' | 'updated_at'
+        > & {
+          id?: string;
+          detail?: string;
+          status?: 'pending' | 'approved' | 'rejected' | 'completed';
+          admin_note?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<Database['public']['Tables']['return_requests']['Row']>;
+        Relationships: [
+          {
+            foreignKeyName: 'return_requests_order_id_fkey';
+            columns: ['order_id'];
+            isOneToOne: false;
+            referencedRelation: 'orders';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'return_requests_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
             referencedColumns: ['id'];
           }
         ];

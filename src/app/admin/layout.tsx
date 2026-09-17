@@ -46,6 +46,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           Yorumlar
         </Link>
         <span className="text-carbon/30">/</span>
+        <Link href="/admin/iadeler" className="text-primary hover:underline">
+          İadeler
+        </Link>
+        <span className="text-carbon/30">/</span>
         <Link href="/admin/afisler" className="text-primary hover:underline">
           Afişler
         </Link>
