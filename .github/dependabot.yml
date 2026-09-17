@@ -18,6 +18,14 @@ updates:
         update-types:
           - 'minor'
           - 'patch'
+    # Büyük sürüm atlamaları (React 19, Next 15 vb.) KASITLI olarak dışarıda
+    # bırakılır — bunlar genelde kod değişikliği/manuel test gerektirir,
+    # otomatik bir PR ile sessizce gelmemeli. Minor/patch (güvenlik yamaları
+    # dahil) gruplanıp normal akışında gelmeye devam eder. Bir paketi büyük
+    # sürüme taşımak istendiğinde bu ayrı, planlı bir oturumda elle yapılır.
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
     open-pull-requests-limit: 5
     commit-message:
       prefix: 'chore(deps)'
