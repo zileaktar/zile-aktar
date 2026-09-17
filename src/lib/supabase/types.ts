@@ -245,6 +245,8 @@ export interface Database {
           coupon_code: string | null;
           discount_cents: number;
           deal_discount_cents: number;
+          /** "Ödemenizi tamamlamadınız" hatırlatma maili gönderildi mi (migration 0032) — aynı siparişe iki kez gitmesin diye. */
+          reminder_sent_at: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -260,6 +262,7 @@ export interface Database {
           | 'coupon_code'
           | 'discount_cents'
           | 'deal_discount_cents'
+          | 'reminder_sent_at'
         > & {
           id?: string;
           billing_address?: Database['public']['Tables']['orders']['Row']['billing_address'];
@@ -269,6 +272,7 @@ export interface Database {
           coupon_code?: string | null;
           discount_cents?: number;
           deal_discount_cents?: number;
+          reminder_sent_at?: string | null;
         };
         Update: Partial<Database['public']['Tables']['orders']['Row']>;
         Relationships: [

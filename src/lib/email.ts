@@ -271,3 +271,58 @@ export async function sendOrderDeliveredEmail(orderId: string): Promise<void> {
     replyTo: { email: LEGAL.eposta, name: LEGAL.markaAdi }
   });
 }
+
+interface PendingReminderRow {
+  order_number: string;
+  contact_email: string;
+  total_cents: number;
+  order_items: { product_name_snapshot: string; variant_label_snapshot: string; unit_price_cents: number; quantity: number }[];
+}
+
+/**
+ * "Ödemenizi tamamlamadınız" hatırlatma e-postası — kart ödemesine başlayıp
+ * (3DS sayfasına yönlenip) tamamlamamış `pending` siparişler için, otomatik
+ * iptalden (24 saat) önce GÖNDERİLEN tek hatırlatma. `reminder_sent_at` ile
+ * tetikleyen cron (`expire-pending-orders`) aynı siparişe iki kez göndermez.
+ * Best-effort — başarısız olsa da sipariş akışını etkilemez.
+ */
+export async function sendPaymentReminderEmail(orderId: string): Promise<void> {
+  const supabase = createSupabaseServiceRoleClient();
+  const { data } = await supabase
+    .from('orders')
+    .select(
+      'order_number, contact_email, total_cents, order_items(product_name_snapshot, variant_label_snapshot, unit_price_cents, quantity)'
+    )
+    .eq('id', orderId)
+    .single();
+  if (!data) return;
+  const order = data as unknown as PendingReminderRow;
+
+  const html = `
+    <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#222">
+      <h2 style="color:#1b4332">Sepetiniz sizi bekliyor 🛒</h2>
+      <p style="font-size:14px">Sipariş numaranız: <b>${escapeHtml(order.order_number)}</b></p>
+      <p style="font-size:14px">Aşağıdaki ürünler için ödeme adımını tamamlamadınız — ürünler şu an sizin için ayrılmış durumda:</p>
+      ${itemsTable(order.order_items)}
+      <p style="font-size:14px;font-weight:bold;text-align:right;margin:8px 0 0">Toplam: ${formatPriceFromCents(order.total_cents)}</p>
+      <p style="font-size:14px;margin-top:16px">
+        Ödemenizi tamamlamak için mağazamıza dönüp ürünleri tekrar sepetinize ekleyebilirsiniz.
+        Siparişiniz için ödeme alınmazsa <b>24 saat</b> içinde otomatik iptal edilir ve ürünler tekrar satışa açılır.
+      </p>
+      <p style="text-align:center;margin:24px 0">
+        <a href="${env.NEXT_PUBLIC_APP_URL}" style="background:#1b4332;color:#fff;text-decoration:none;padding:12px 28px;border-radius:999px;font-weight:bold;font-size:14px;display:inline-block">Alışverişe Dön</a>
+      </p>
+      <p style="font-size:12px;color:#888;margin-top:24px">
+        Sorularınız için: ${LEGAL.telefon} · ${LEGAL.eposta}<br>
+        ${LEGAL.markaAdi} — ${LEGAL.adres}
+      </p>
+    </div>`;
+
+  await sendBrevo({
+    sender: SENDER,
+    to: [{ email: order.contact_email }],
+    subject: `${LEGAL.markaAdi} — Sepetiniz sizi bekliyor (${order.order_number})`,
+    htmlContent: html,
+    replyTo: { email: LEGAL.eposta, name: LEGAL.markaAdi }
+  });
+}

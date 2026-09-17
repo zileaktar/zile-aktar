@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import crypto from 'node:crypto';
 import * as Sentry from '@sentry/nextjs';
 import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
+import { sendPaymentReminderEmail } from '@/lib/email';
 import { env } from '@/lib/env.mjs';
 
 export const runtime = 'nodejs';
@@ -16,11 +17,21 @@ function timingSafeEqualString(a: string, b: string): boolean {
 }
 
 /**
- * Vercel Cron ile günde bir kez tetiklenir (bkz. vercel.json).
- * 24 saatten uzun süredir "pending" kalan siparişler (kullanıcı 3DS'i hiç
- * tamamlamadan sayfadan ayrılmış olabilir) başarısız işaretlenir ve
- * mark_order_failed RPC'si rezerve edilen stoğu otomatik iade eder —
- * aksi halde satılmayan ürünler sonsuza kadar "stokta yok" görünür kalırdı.
+ * Vercel Cron ile günde bir kez tetiklenir (bkz. vercel.json — Hobby planda
+ * günde 1'den sık cron çalıştırılamıyor; Vercel Pro'ya geçilince sıklaştırılabilir).
+ * İki iş yapar, sırayla:
+ *
+ *  1. "Terk edilmiş sepet" hatırlatması — kart ödemesine başlayıp (3DS'e
+ *     yönlenip) tamamlamamış, en az 1 saattir `pending` olan ve daha önce
+ *     hatırlatma gitmemiş siparişlere BİR kez e-posta gönderir.
+ *  2. 24 saatten uzun süredir "pending" kalan siparişler (kullanıcı hiç
+ *     tamamlamadan tamamen vazgeçmiş olabilir) başarısız işaretlenir ve
+ *     mark_order_failed RPC'si rezerve edilen stoğu otomatik iade eder —
+ *     aksi halde satılmayan ürünler sonsuza kadar "stokta yok" görünür kalırdı.
+ *
+ * İkisi de yalnızca KART (iyzico) siparişlerini kapsar. Havale/EFT siparişleri
+ * operasyon ekibi tarafından elle yönetilir (dekont beklenir) — ne hatırlatma
+ * ne otomatik iptal uygulanır.
  */
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization') ?? '';
@@ -29,17 +40,34 @@ export async function GET(request: Request) {
   }
 
   const supabase = createSupabaseServiceRoleClient();
-  const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+  const now = Date.now();
+  const reminderCutoff = new Date(now - 60 * 60 * 1000).toISOString(); // 1 saatten eski
+  const expireCutoff = new Date(now - 24 * 60 * 60 * 1000).toISOString(); // 24 saatten eski
 
-  // Yalnızca KART (iyzico) siparişleri otomatik iptal edilir: müşteri 3DS'i
-  // tamamlamadan ayrılmış olabilir. Havale/EFT siparişleri operasyon ekibi
-  // tarafından elle yönetilir (dekont beklenir) — otomatik iptal edilmez.
+  // 1) Hatırlatma: 1-24 saat arası pending, daha önce hatırlatma gitmemiş.
+  const { data: reminderOrders, error: reminderError } = await supabase
+    .from('orders')
+    .select('id')
+    .eq('status', 'pending')
+    .eq('payment_provider', 'iyzico')
+    .is('reminder_sent_at', null)
+    .lt('created_at', reminderCutoff)
+    .gte('created_at', expireCutoff);
+
+  if (reminderError) Sentry.captureException(reminderError);
+
+  for (const order of reminderOrders ?? []) {
+    await sendPaymentReminderEmail(order.id);
+    await supabase.from('orders').update({ reminder_sent_at: new Date().toISOString() }).eq('id', order.id);
+  }
+
+  // 2) İptal: 24 saatten eski pending siparişler.
   const { data: staleOrders, error } = await supabase
     .from('orders')
     .select('id')
     .eq('status', 'pending')
     .eq('payment_provider', 'iyzico')
-    .lt('created_at', cutoff);
+    .lt('created_at', expireCutoff);
 
   if (error) {
     Sentry.captureException(error);
@@ -50,5 +78,5 @@ export async function GET(request: Request) {
     await supabase.rpc('mark_order_failed', { p_order_id: order.id });
   }
 
-  return NextResponse.json({ expiredCount: staleOrders?.length ?? 0 });
+  return NextResponse.json({ remindedCount: reminderOrders?.length ?? 0, expiredCount: staleOrders?.length ?? 0 });
 }

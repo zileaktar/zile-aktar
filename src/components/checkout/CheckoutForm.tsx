@@ -385,6 +385,8 @@ export function CheckoutForm({
                     sayfasında girersiniz. Kart bilgileriniz bize hiçbir zaman ulaşmaz.
                   </span>
                 </div>
+                {/* eslint-disable-next-line @next/next/no-img-element -- yerel statik SVG */}
+                <img src="/odeme-logolari/iyzico-ile-ode.svg" alt="iyzico ile Öde" className="h-6 w-auto" />
               </>
             )}
 

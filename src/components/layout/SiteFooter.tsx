@@ -62,12 +62,14 @@ export function SiteFooter({ categories, logoPath }: { categories: Category[]; l
             <span className="bg-white/10 rounded-lg px-3 py-2 text-xs font-semibold">🔒 SSL 256-bit</span>
             <span className="bg-white/10 rounded-lg px-3 py-2 text-xs font-semibold">✅ 3D Secure</span>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {['VISA', 'Mastercard', 'Troy', 'iyzico'].map((b) => (
-              <span key={b} className="bg-white text-carbon rounded px-2.5 py-1.5 text-[11px] font-bold">
-                {b}
-              </span>
-            ))}
+          {/* iyzico'nun resmi "logo band"i (iyzico + Mastercard + Visa + Amex +
+              Troy) — üye işyeri başvurusunda web sitesinde gerçek ödeme
+              logolarının görünmesi zorunlu tutulur, düz yazı yeterli değil.
+              Kart markalarının kendi renkleri korunsun diye beyaz bir zemin
+              üzerinde gösterilir (koyu footer'da direkt kullanılamaz). */}
+          <div className="bg-white rounded-xl px-3 py-2.5 inline-block">
+            {/* eslint-disable-next-line @next/next/no-img-element -- yerel statik SVG, next/image optimizasyonu SVG için next.config'de kapalı */}
+            <img src="/odeme-logolari/logo-band.svg" alt="iyzico, Mastercard, Visa, American Express, Troy" className="h-6 w-auto" />
           </div>
           <div className="flex flex-col gap-1 mt-4 text-xs text-cream/50">
             <Link href="/hakkimizda" className="hover:text-accent-light">
