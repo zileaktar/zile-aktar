@@ -1819,1456 +1819,1155 @@ no numbers, no letters, no logos, no watermark, no hands, no people.
 
 ## Şifalı Bitkiler / Çaylar (60 ürün)
 
-**Bu 60 görsel TEK TİP olmalı** — kompozisyon, açı, ışık, zemin ve arka plan
-(hepsi **beyaz** ama **gerçekçi dokulu** — kase/kap YOK, kurutulmuş bitki
-doğrudan beyaz zemin üzerine bırakılıyor, 4K kalite) her promtta birebir aynı;
-üründen ürüne yalnızca **zeminin üzerindeki kurutulmuş bitki** değişiyor.
-Aşağıdaki her ürün için **hazır prompt** var: kod kutusunu olduğu gibi kopyala,
-görsel aracına yapıştır.
+**Bu 60 görsel TEK TİP olmalı** — ahşap kase + krem (#f4f1ea) arka plan + sıcak
+stüdyo ışığı (Baharatlar bölümündeki Ortak Şablon'un aynısı, 4K kalitede) her
+promtta birebir aynı; üründen ürüne yalnızca **kasedeki kurutulmuş bitki**
+değişiyor. Aşağıdaki her ürün için **hazır prompt** var: kod kutusunu olduğu
+gibi kopyala, görsel aracına yapıştır.
 
 > **Daha da tutarlı olsun istersen:** İlk beğendiğin görseli üret, sonra onu
 > referans ver — Midjourney'de `--sref <görsel linki>` veya `--seed <numara>`,
-> ChatGPT/DALL·E'de "aynı fotoğraf, aynı zemin ve düzen; sadece bitki türü
+> ChatGPT/DALL·E'de "aynı fotoğraf, aynı kase ve düzen; sadece içindeki bitki
 > değişsin".
 
 ### 1. Açlık Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried "Açlık Otu" herb leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried "Açlık Otu" herb leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 2. Ada Çayı
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried sage ("Ada Çayı") leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried sage ("Ada Çayı") leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 3. Ahududu Kökü
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of dried "Ahududu Kökü" (raspberry root) pieces, rustic chopped texture,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+dried "Ahududu Kökü" (raspberry root) pieces, rustic chopped texture.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 4. Alıç Çiçeği
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried "Alıç Çiçeği" (hawthorn) petals,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried "Alıç Çiçeği" (hawthorn) petals.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 5. Altın Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried "Altın Otu" herb leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried "Altın Otu" herb leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 6. Aslan Pençesi Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried "Aslan Pençesi Otu" herb leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried "Aslan Pençesi Otu" herb leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 7. Avokado Yaprağı
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried avocado leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried avocado leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 8. Aynısefa Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried "Aynısefa Otu" herb leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried "Aynısefa Otu" herb leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 9. Ayva Yaprağı
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried quince leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried quince leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 10. Ballı Baba Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried "Ballı Baba Otu" herb leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried "Ballı Baba Otu" herb leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 11. Biberiye Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried rosemary leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried rosemary leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 12. Böğürtlen Kökü
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of dried blackberry root pieces, rustic chopped texture,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+dried blackberry root pieces, rustic chopped texture.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 13. Böğürtlen Yaprağı
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried blackberry leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried blackberry leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 14. Civanperçemi Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried yarrow ("Civanperçemi") leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried yarrow ("Civanperçemi") leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 15. Çınar Yaprağı
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried plane tree ("Çınar") leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried plane tree ("Çınar") leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 16. Çoban Çantası
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried "Çoban Çantası" (shepherd's purse) herb,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried "Çoban Çantası" (shepherd's purse) herb.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 17. Çoban Çökerten Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried "Çoban Çökerten Otu" herb leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried "Çoban Çökerten Otu" herb leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 18. Defne Yaprağı
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried bay laurel leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried bay laurel leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 19. Deve Dikeni Tohumu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of whole dried milk thistle ("Deve Dikeni") seeds,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+whole dried milk thistle ("Deve Dikeni") seeds.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 20. Dul Avrat Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried "Dul Avrat Otu" herb leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried "Dul Avrat Otu" herb leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 21. Ebegümeci Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried mallow ("Ebegümeci") leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried mallow ("Ebegümeci") leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 22. Enginar Yaprağı
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried artichoke leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried artichoke leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 23. Fesleğen Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried basil leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried basil leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 24. Funda Yaprağı
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried heather ("Funda") leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried heather ("Funda") leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 25. Gül Kurusu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of dried rose petals ("Gül Kurusu"),
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+dried rose petals ("Gül Kurusu").
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 26. Hatmi Çiçeği
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried marshmallow ("Hatmi") petals,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried marshmallow ("Hatmi") petals.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 27. Hayıt Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried chaste tree ("Hayıt") leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried chaste tree ("Hayıt") leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 28. Hibiskus Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried hibiscus petals,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried hibiscus petals.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 29. Hindiba Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried chicory ("Hindiba") leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried chicory ("Hindiba") leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 30. Ihlamur
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of dried linden ("Ihlamur") flowers and bracts,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+dried linden ("Ihlamur") flowers and bracts.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 31. Isırgan Yaprağı
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried nettle leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried nettle leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 32. Karabaş Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried French lavender ("Karabaş Otu") leaves and flowers,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried French lavender ("Karabaş Otu") leaves and flowers.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 33. Kedi Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried valerian ("Kedi Otu") root and herb pieces,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried valerian ("Kedi Otu") root and herb pieces.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 34. Kırkkilit Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried "Kırkkilit Otu" herb leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried "Kırkkilit Otu" herb leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 35. Kiraz Sapı
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of dried cherry stems ("Kiraz Sapı"), rustic twig-like pieces,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+dried cherry stems ("Kiraz Sapı"), rustic twig-like pieces.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 36. Kurt Pençesi Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried "Kurt Pençesi Otu" herb leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried "Kurt Pençesi Otu" herb leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 37. Lavanta Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of dried lavender flower buds,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+dried lavender flower buds.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 38. Melek Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried angelica ("Melek Otu") leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried angelica ("Melek Otu") leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 39. Melisa Limon Kokulu Ot
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried lemon balm ("Melisa") leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried lemon balm ("Melisa") leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 40. Mercan Köşk Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried marjoram ("Mercan Köşk") leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried marjoram ("Mercan Köşk") leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 41. Meyan Kökü
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of dried licorice ("Meyan Kökü") root pieces, rustic chopped texture,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+dried licorice ("Meyan Kökü") root pieces, rustic chopped texture.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 42. Mısır Püskülü
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of dried corn silk ("Mısır Püskülü") strands,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+dried corn silk ("Mısır Püskülü") strands.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 43. Oğul Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried lemon balm ("Oğul Otu") leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried lemon balm ("Oğul Otu") leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 44. Okaliptus Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried eucalyptus leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried eucalyptus leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 45. Ökse Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried mistletoe ("Ökse Otu") leaves and small twigs,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried mistletoe ("Ökse Otu") leaves and small twigs.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 46. Papatya
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of dried whole chamomile ("Papatya") flowers,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+dried whole chamomile ("Papatya") flowers.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 47. Sarı Kantaron
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of dried St John's wort ("Sarı Kantaron") flowers and leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+dried St John's wort ("Sarı Kantaron") flowers and leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 48. Sinameki Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried senna ("Sinameki") leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried senna ("Sinameki") leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 49. Sinirli Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried plantain ("Sinirli Otu") leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried plantain ("Sinirli Otu") leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 50. Süpürge Tohumu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of whole dried broom seeds ("Süpürge Tohumu"),
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+whole dried broom seeds ("Süpürge Tohumu").
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 51. Şahtere Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried fumitory ("Şahtere Otu") herb leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried fumitory ("Şahtere Otu") herb leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 52. Şerbetçi Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of dried hops ("Şerbetçi Otu") cones,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+dried hops ("Şerbetçi Otu") cones.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 53. Üzerlik Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of dried wild rue ("Üzerlik Otu") seeds and pods,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+dried wild rue ("Üzerlik Otu") seeds and pods.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 54. Yakı Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried "Yakı Otu" herb leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried "Yakı Otu" herb leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 55. Yapışkan Andız Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried elecampane ("Yapışkan Andız Otu") leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried elecampane ("Yapışkan Andız Otu") leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 56. Yarpuz Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried pennyroyal ("Yarpuz Otu") leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried pennyroyal ("Yarpuz Otu") leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 57. Yasemin Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of dried jasmine ("Yasemin Otu") flowers and leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+dried jasmine ("Yasemin Otu") flowers and leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 58. Yeşil Yulaf
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of dried green oat ("Yeşil Yulaf") straw pieces,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+dried green oat ("Yeşil Yulaf") straw pieces.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 59. Yoğurt Otu
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried bedstraw ("Yoğurt Otu") herb,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried bedstraw ("Yoğurt Otu") herb.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ### 60. Zeytin Yaprağı
 
 ```
 Professional e-commerce product photography, square 1:1, ultra high resolution,
-4K quality (minimum 3600x3600px). A small, neat, natural pile of loose dried olive leaves,
-placed directly on the surface — NO bowl, NO plate, NO container of any kind.
+4K quality (minimum 3600x3600px). A small, rounded, rustic wooden bowl,
+simple and unadorned, centered in the frame, filled with a neat mound of
+loose dried olive leaves.
 
-Surface: realistic matte white natural material (softly whitewashed wood or
-pale white stone) with authentic subtle texture and grain — not a flat,
-artificial seamless studio void. Background: a softly out-of-focus white/
-off-white wall or surface continuation, naturally and realistically lit so a
-gentle sense of depth and real shadow is visible (avoid a flat, sterile,
-perfectly seamless white-box look).
+Background: soft matte cream (#f4f1ea) background, evenly and warmly lit,
+with a subtle soft warm shadow beneath the bowl on the same cream surface —
+realistic studio look, not a flat sterile void. Soft diffused natural light
+from the upper-left, no harsh shadows or reflections on the bowl.
 
-Camera angle: gentle 45-degree overhead view. Lighting: soft, bright, natural
-window-like daylight from the upper-left, casting one soft, realistic shadow
-from the herb pile onto the surface. Shallow depth of field — tack-sharp on
-the dried plant texture in the foreground, background gently defocused.
-Realistic, true-to-life natural colour and texture of the dried plant
-material (no colour grading, no oversaturation). Clean, minimal, premium
-wellness aesthetic, but photographically REALISTIC, not flat or sterile. No
-text, no numbers, no letters, no logos, no watermark, no hands, no people.
+Shallow depth of field, tack-sharp focus on the bowl and its contents,
+slightly blurred background. Render the dried plant's natural colour and
+texture accurately and appetizingly. Minimal styling. No text, no labels, no
+brand logos, no watermark, no hands, no people.
 ```
 
 ## Sabun Çeşitleri (20 ürün)
