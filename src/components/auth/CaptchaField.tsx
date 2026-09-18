@@ -3,6 +3,7 @@
 import { forwardRef } from 'react';
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 import { env } from '@/lib/env.mjs';
+import { useNonce } from '@/lib/nonce-context';
 
 /**
  * Cloudflare Turnstile CAPTCHA alanı. Supabase Auth panelinde CAPTCHA koruması
@@ -14,12 +15,17 @@ import { env } from '@/lib/env.mjs';
  */
 export const CaptchaField = forwardRef<TurnstileInstance, { onToken: (token: string | null) => void }>(
   function CaptchaField({ onToken }, ref) {
+    // Turnstile kendi <script>'ini DOM'a elle ekliyor (next/script kullanmıyor) —
+    // CSP script-src'de nonce zorunlu kılındığı için bu script'e de nonce'u
+    // elle vermemiz gerekiyor (kütüphane scriptOptions.nonce'u destekliyor).
+    const nonce = useNonce();
     return (
       <div className="flex justify-center">
         <Turnstile
           ref={ref}
           siteKey={env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
           options={{ theme: 'light', language: 'tr', size: 'flexible' }}
+          scriptOptions={{ nonce }}
           onSuccess={(token) => onToken(token)}
           onExpire={() => onToken(null)}
           onError={() => onToken(null)}

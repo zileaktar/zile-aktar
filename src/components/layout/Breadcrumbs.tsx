@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { headers } from 'next/headers';
 import { env } from '@/lib/env.mjs';
 import { safeJsonLd } from '@/lib/format';
 
@@ -12,8 +13,9 @@ export interface Crumb {
  * Ekmek kırıntısı (breadcrumb) navigasyonu + Schema.org `BreadcrumbList`
  * yapısal verisi. Sunucu bileşeni — ürün ve kategori/arama sayfalarında kullanılır.
  */
-export function Breadcrumbs({ items }: { items: Crumb[] }) {
+export async function Breadcrumbs({ items }: { items: Crumb[] }) {
   if (items.length === 0) return null;
+  const nonce = (await headers()).get('x-nonce') ?? '';
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -29,7 +31,7 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
   return (
     <nav aria-label="Ekmek kırıntısı" className="text-xs sm:text-sm text-carbon/50 mb-4 sm:mb-6">
       {/* eslint-disable-next-line react/no-danger */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
+      <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
       <ol className="flex flex-wrap items-center gap-1.5">
         {items.map((c, i) => {
           const isLast = i === items.length - 1;

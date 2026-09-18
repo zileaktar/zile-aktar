@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { headers } from 'next/headers';
 import { getProductBySlug, getRelatedProducts, getRecentSalesCount } from '@/lib/data/products';
 import { getFavoritesContext } from '@/lib/data/favorites';
 import { getProductReviews, getReviewContext } from '@/lib/data/reviews';
@@ -46,6 +47,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       getRecentSalesCount(product.id),
       getFavoritesContext()
     ]);
+  const nonce = (await headers()).get('x-nonce') ?? '';
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -72,7 +74,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
       {/* eslint-disable-next-line react/no-danger */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
+      <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
 
       <Breadcrumbs
         items={[

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { headers } from 'next/headers';
 import { LEGAL } from '@/lib/legal';
 import { safeJsonLd } from '@/lib/format';
 
@@ -146,11 +147,12 @@ const faqJsonLd = {
   )
 };
 
-export default function FaqPage() {
+export default async function FaqPage() {
+  const nonce = (await headers()).get('x-nonce') ?? '';
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
       {/* eslint-disable-next-line react/no-danger */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
+      <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
 
       <h1 className="font-display font-bold text-2xl sm:text-3xl text-primary mb-2">Sıkça Sorulan Sorular</h1>
       <p className="text-sm text-carbon/60 mb-8">
