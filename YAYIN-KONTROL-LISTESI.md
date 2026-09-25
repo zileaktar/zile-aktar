@@ -11,16 +11,13 @@ Mimari + kod durumu: `devir-promptu.md`
 ## A. GERÇEK SATIŞI ENGELLEYEN (bitmeden para tahsil edilemez)
 
 - [x] **İşletme kaydı / vergi levhası** — Suzan EŞAT gerçek kişi ticari işletmesi, VKN 3801213625, vergi levhası mevcut.
-- [ ] **iyzico PRODUCTION onayı — YENİDEN başvuruluyor.** İlk başvuru (7 Eylül, belgeler `inceleme@iyzico.com`'a gönderildi) panelde eski/farklı bir e-postayla kayıtlı çıktığı için ilerlemedi; iyzico "Bize Ulaşın" üzerinden de düzeltilemedi (otomatik şablon yanıt döngüsü). **16 Eylül'den itibaren `merchant.iyzipay.com/auth/register`'da SIFIRDAN, Suzan EŞAT'ın kendi telefon numarası + `zileaktar@gmail.com` e-postasıyla yeni başvuru** açıldı:
-  - Şirket türü: Şahıs Şirketi · İş modeli: "Çay, Kahve, Kakao ve Baharat Perakende Ticareti" · E-ticaret altyapısı: "Diğerleri" (özel/Next.js yazılım) · Ürün adresi: `https://zileaktar.com`
-  - Yasal Şirket Yetkilisi: Suzan EŞAT (kendi hesabı, "Yasal Şirket Yetkilisiyim" seçildi)
-  - **Şu an TAKILI KALDI:** kimlik (TC Kimlik ön/arka yüz) yükleme adımında iyzico sunucuları "Bağlantı zaman aşımına uğradı" hatası veriyor — **iyzico'nun kendi sunucu sorunu**, birkaç saat/gün sonra tekrar denenecek.
-  - Not: şahıs işletmesi (vergi levhalı) iyzico "kurumsal üyelik" için uygundur, Ltd. kurmak gerekmez.
-  - **Sıradaki:** iyzico sunucuları düzelince kimlik fotoğraflarını yükle → başvuruyu tamamla → değerlendirme → sözleşme → onay. Onay gelince yap:
-    - Vercel env: `IYZICO_API_KEY`, `IYZICO_SECRET_KEY` (prod), `IYZICO_BASE_URL=https://api.iyzipay.com`, `IYZICO_WEBHOOK_SECRET` (prod)
-    - iyzico panelinde callback/notification URL'leri → `https://zileaktar.com/...` (domain zaten hazır)
-    - Sandbox → prod geçince kart akışını canlıda bir kez test et
-- [ ] **Vercel Pro'ya geçiş** (~$20/ay + KDV) — Hobby planı ticari kullanıma kapalı. Canlıya geçmeden hemen önce yap (kredi her ay sıfırlanır).
+- [x] **Ödeme sağlayıcısı: iyzico → VakıfBank Sanal POS.** iyzico'dan vazgeçildi. VakıfBank (Zile Şubesi) üye işyeri tanımlarını yaptı, Sanal POS hazır (25 Eylül). "Güvenli Ortak Ödeme" (CommonPayment) entegrasyonu yazıldı ve **test ortamında uçtan uca doğrulandı** (sipariş KA-260925-185985 → Ödendi).
+- [ ] **VakıfBank CANLI bilgilere geçiş** — şu an Vercel'de dokümandaki PAYLAŞIMLI TEST bilgileri var. Yapılacak:
+  - `sanalpos.vakifbank.com.tr`'ye gir (kullanıcı adı/şifre SMS ile geldi) → Üye İşyeri İşlemleri → **Üye İşyeri Yetkileri** (Üye İşyeri No + API şifresi) ve **Terminal Listesi** (Terminal No).
+  - Vercel env: `VAKIFBANK_MERCHANT_NUMBER`, `VAKIFBANK_TERMINAL_NUMBER`, `VAKIFBANK_PASSWORD` → gerçek değerler; `VAKIFBANK_API_BASE_URL=https://inbound.apigateway.vakifbank.com.tr:8443`; `VAKIFBANK_PAYMENT_PAGE_URL=https://guvenliodeme.vakifbank.com.tr`. Redeploy.
+  - Canlıda küçük tutarlı gerçek bir kartla 1 test siparişi → admin'de "Ödendi" → aynı gün panelden iptal.
+  - Sonra iyzico kodu tamamen silinecek (`src/lib/iyzico.ts`, `api/webhooks/iyzico/*`, `IYZICO_*` env).
+- [x] **Vercel Pro'ya geçildi** (25 Eylül, $20/ay) — Image Optimization limiti aşılıp site "paused" olunca. Spend Management: $200 bütçe, otomatik durdurma KAPALI (sadece e-posta uyarısı).
 
 ## B. YASAL (TR e-ticaret mevzuatı)
 

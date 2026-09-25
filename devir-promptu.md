@@ -147,6 +147,25 @@ Supabase proje referansı: `gabdklnlojfbdaxtgmtg`.
   - e-Fatura/e-Arşiv otomasyonu **kasıtlı olarak yapılmadı** — ücretli üçüncü taraf entegratör aboneliği gerektiriyor, kullanıcı önce entegratör seçmeli.
 - **Görsel promptları:** "Şifalı Bitkiler / Çaylar" (60 ürün) tek tip şablona çevrildi — ahşap kase + krem (#f4f1ea) arka plan + sıcak stüdyo ışığı (Baharatlar bölümündeki Ortak Şablon ile aynı tarz), 4K kalite. İki ara revizyon denendi (beyaz kase → kasesiz beyaz zemin) ama kullanıcı son kararında referans görsele göre ahşap kase + krem arka plana döndü.
 
+### Bu oturumda (25 Eylül — ödeme sağlayıcısı VakıfBank'a geçti + Vercel Pro)
+
+- **iyzico'dan vazgeçildi, VakıfBank Sanal POS'a geçildi.** Yöntem: "Güvenli Ortak Ödeme" (CommonPayment) — kart bilgisi bizim sunucumuza HİÇ uğramaz, müşteri VakıfBank'ın barındırdığı sayfada girer (iyzico Checkout Form ile aynı mantık). "Standart API" yöntemi BİLİNÇLİ OLARAK kullanılmadı: kart numarasını bizim formumuzdan bankaya iletmeyi gerektiriyor, PCI-DSS yükü büyür.
+  - `src/lib/vakifbank.ts`: `createCommonPaymentToken` (CreateTokenCPY), `getVposTransaction` (sonuç sorgusu), `cancelOrRefundTransaction` (virtualPos/Vposreq XML — henüz UI'ye bağlı değil).
+  - `src/lib/payments.ts` → `confirmVakifbankPayment(orderId)`: dönüş URL'ine asla güvenmez, `orders.payment_conversation_id`'de saklanan PaymentToken ile GetVposTransaction sorgular; `Rc==='0000' && AuthResultCode==='0000'` + tutar kuruş kuruş eşleşirse paid.
+  - `src/app/api/webhooks/vakifbank/return/route.ts`: SuccessUrl+FailUrl ortak ucu (GET+POST). `?order=<orderId>&t=<HMAC>` — `order-token.ts` `signPaymentReturn`/`verifyPaymentReturn` (alan ayrımı: `vakifbank-return:`).
+  - `payment_provider` DB değeri artık `'vakifbank'` (cron `expire-pending-orders` filtresi + `order-status.ts` etiketi güncellendi; `'iyzico'` etiketi eski siparişler için duruyor).
+  - Env: `VAKIFBANK_MERCHANT_NUMBER/TERMINAL_NUMBER/PASSWORD/API_BASE_URL/PAYMENT_PAGE_URL` (env.mjs + env.d.mts + .env.example + Vercel). **Şu an dokümandaki paylaşımlı TEST bilgileri** (000000000007955 / VP000123 / 123Ab456).
+  - **iyzico kodu SİLİNMEDİ** (`iyzico.ts`, `api/webhooks/iyzico/*`, `IYZICO_*` env) — hiçbir yerden çağrılmıyor; canlı VakıfBank testi geçince tamamen silinecek.
+  - Kullanıcıya dönük tüm "iyzico" metin/logoları kaldırıldı (footer'da artık düz metin rozetleri: VakıfBank Sanal POS · Visa · Mastercard — resmi logo gelince görsel eklenecek).
+- **Öğrenilen tuzaklar (önemli):**
+  - VakıfBank'ın F5 güvenlik duvarı, SuccessUrl/FailUrl'de **`localhost`** geçen istekleri HTML "Request Rejected" sayfasıyla reddediyor → tam ödeme akışı yerelde TEST EDİLEMEZ, yalnızca `zileaktar.com` üzerinde. (Token adımı curl ile doğrudan bankaya atılarak ayrıca doğrulanabilir.)
+  - Test kartlarında her kart numarasının KENDİ SKT+CVV çifti var — karıştırılırsa banka `Rc=0312 RED-GEÇERSİZ KART` döner. Çalışan kombinasyon: `5521010140829928` / `12/29` / CVV `691`, 3D kodu `123456`.
+  - Banka dönüş URL'ine kendi parametrelerini de ekliyor (`Rc`, `Message`, `errorcode`, `errormessage`, `PaymentToken`, `TransactionId`) — kod bunlara GÜVENMİYOR (karar yalnızca GetVposTransaction'dan), ama ileride `/odeme-basarisiz`'de müşteriye daha açıklayıcı mesaj için kullanılabilir.
+  - Dokümanda JSON örneği `SecureType`, alan tablosu `IsSecure` diyor (bankanın kendi tutarsızlığı) — JSON örneğindeki `SecureType` kullanıldı ve test ortamında çalıştı.
+  - Dokümandaki "Hash doğrulama" bölümü 3DS alanlarına (ECI/CAVV/MdStatus) dayanıyor; CommonPayment JSON yanıtlarında bu alanlar yok → uygulanmadı. Güvenlik katmanları: sunucu-sunucu sorgu + HMAC dönüş tokeni + tutar kontrolü + HTTPS.
+- **Vercel Pro'ya geçildi** — Image Optimization dönüşüm limiti (5K) aşılınca site "This deployment is temporarily paused" verdi. Pro: $20/ay (Discover ...1012). Spend Management $200, otomatik durdurma kapalı.
+- **CSP nonce geçişi** tamamlandı (ayrı commit, npm run dev'de uçtan uca test edildi).
+
 ## 5. Kullanıcı tarafı — YAYINI ENGELLEYEN işler (kod değil)
 
 Tam liste `YAYIN-KONTROL-LISTESI.md`'de (her oturumda güncelleniyor, en güncel kaynak odur). Özet:
