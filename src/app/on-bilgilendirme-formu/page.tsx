@@ -36,8 +36,8 @@ export default function OnBilgilendirmeFormuPage() {
 
       <h2>4. Ödeme</h2>
       <p>
-        Ödeme; kredi/banka kartı ile iyzico 3D Secure altyapısı üzerinden veya havale/EFT ile yapılır. Kart bilgileriniz
-        iyzico&apos;nun PCI-DSS uyumlu sayfasında girilir, satıcıya iletilmez.
+        Ödeme; kredi/banka kartı ile VakıfBank 3D Secure altyapısı üzerinden veya havale/EFT ile yapılır. Kart bilgileriniz
+        VakıfBank&apos;ın PCI-DSS uyumlu sayfasında girilir, satıcıya iletilmez.
       </p>
 
       <h2>5. Bilgi Girişi Hatalarının Düzeltilmesi</h2>

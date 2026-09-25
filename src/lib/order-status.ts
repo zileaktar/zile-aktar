@@ -19,7 +19,8 @@ export function orderStatusLabel(status: string) {
 }
 
 const PAYMENT_LABELS: Record<string, string> = {
-  iyzico: 'Kredi / Banka Kartı',
+  vakifbank: 'Kredi / Banka Kartı',
+  iyzico: 'Kredi / Banka Kartı', // eski siparişler — geçmiş kayıtlar için korunuyor
   havale: 'Havale / EFT'
 };
 

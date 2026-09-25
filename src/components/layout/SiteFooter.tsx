@@ -62,14 +62,15 @@ export function SiteFooter({ categories, logoPath }: { categories: Category[]; l
             <span className="bg-white/10 rounded-lg px-3 py-2 text-xs font-semibold">🔒 SSL 256-bit</span>
             <span className="bg-white/10 rounded-lg px-3 py-2 text-xs font-semibold">✅ 3D Secure</span>
           </div>
-          {/* iyzico'nun resmi "logo band"i (iyzico + Mastercard + Visa + Amex +
-              Troy) — üye işyeri başvurusunda web sitesinde gerçek ödeme
-              logolarının görünmesi zorunlu tutulur, düz yazı yeterli değil.
-              Kart markalarının kendi renkleri korunsun diye beyaz bir zemin
-              üzerinde gösterilir (koyu footer'da direkt kullanılamaz). */}
-          <div className="bg-white rounded-xl px-3 py-2.5 inline-block">
-            {/* eslint-disable-next-line @next/next/no-img-element -- yerel statik SVG, next/image optimizasyonu SVG için next.config'de kapalı */}
-            <img src="/odeme-logolari/logo-band.svg" alt="iyzico, Mastercard, Visa, American Express, Troy" className="h-6 w-auto" />
+          {/* Ödeme sağlayıcısı VakıfBank Sanal POS'a geçiş sürecinde — resmi
+              logo/marka varlıkları henüz elimizde yok, o yüzden şimdilik düz
+              metin rozetleri kullanılıyor. Banka onayı + resmi logo paketi
+              gelince buraya gerçek "logo band" görseli eklenecek (bkz.
+              önceki iyzico entegrasyonundaki desen). */}
+          <div className="flex flex-wrap gap-2">
+            <span className="bg-white/10 rounded-lg px-3 py-2 text-xs font-semibold">VakıfBank Sanal POS</span>
+            <span className="bg-white/10 rounded-lg px-3 py-2 text-xs font-semibold">Visa</span>
+            <span className="bg-white/10 rounded-lg px-3 py-2 text-xs font-semibold">Mastercard</span>
           </div>
           <div className="flex flex-col gap-1 mt-4 text-xs text-cream/50">
             <Link href="/hakkimizda" className="hover:text-accent-light">

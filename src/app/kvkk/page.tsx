@@ -27,7 +27,7 @@ export default function KvkkPage() {
         <li><b>İletişim:</b> e-posta, telefon, teslimat ve fatura adresi.</li>
         <li><b>Müşteri işlem:</b> sipariş geçmişi, sepet, ürün yorumları, talep/şikayet kayıtları.</li>
         <li><b>İşlem güvenliği:</b> IP adresi, oturum çerezleri, hız sınırlama kayıtları.</li>
-        <li><b>Finansal:</b> ödeme işlem referansları, sipariş tutarları. <b>Kart numarası, son kullanma tarihi ve CVV bilgisi tarafımızca HİÇ toplanmaz ve saklanmaz</b> — bu veriler doğrudan iyzico&apos;nun PCI-DSS uyumlu altyapısında işlenir.</li>
+        <li><b>Finansal:</b> ödeme işlem referansları, sipariş tutarları. <b>Kart numarası, son kullanma tarihi ve CVV bilgisi tarafımızca HİÇ toplanmaz ve saklanmaz</b> — bu veriler doğrudan VakıfBank&apos;ın PCI-DSS uyumlu altyapısında işlenir.</li>
         <li>
           <b>Pazarlama / analitik:</b> <b>yalnızca çerez banner&apos;ında &quot;Tümünü Kabul Et&quot; seçmeniz halinde</b>, site
           kullanım istatistikleri, ziyaret edilen sayfalar, tıklama ve sepete ekleme gibi davranışsal veriler (Google
@@ -38,7 +38,7 @@ export default function KvkkPage() {
       <h2>3. İşleme Amaçları</h2>
       <ul>
         <li>Siparişin oluşturulması, hazırlanması ve teslim edilmesi</li>
-        <li>Ödeme işleminin gerçekleştirilmesi ve doğrulanması (iyzico)</li>
+        <li>Ödeme işleminin gerçekleştirilmesi ve doğrulanması (VakıfBank Sanal POS)</li>
         <li>Fatura düzenleme ve yasal saklama yükümlülükleri (Vergi Usul Kanunu, Türk Ticaret Kanunu)</li>
         <li>Müşteri destek taleplerinin karşılanması, iade/cayma süreçleri</li>
         <li>Site güvenliği, dolandırıcılık ve kötüye kullanımın önlenmesi</li>
@@ -48,7 +48,7 @@ export default function KvkkPage() {
       <h2>4. Veri Toplama Yöntemi ve Hukuki Sebepler (KVKK m.5)</h2>
       <p>
         Kişisel verileriniz; siteye üye olurken ve sipariş verirken doldurduğunuz formlar, ürün yorumu ve iletişim/talep
-        kayıtları, çerezler ve benzeri teknolojiler ile ödeme kuruluşundan (iyzico) dönen işlem sonuç bilgileri
+        kayıtları, çerezler ve benzeri teknolojiler ile ödeme kuruluşundan (VakıfBank Sanal POS) dönen işlem sonuç bilgileri
         aracılığıyla elektronik ortamda toplanır.
       </p>
       <p>
@@ -62,7 +62,7 @@ export default function KvkkPage() {
       <p>Verileriniz, hizmetin sağlanabilmesi için gerekli olduğu ölçüde aşağıdaki tedarikçilerle paylaşılır:</p>
       <ul>
         <li><b>{LEGAL.kargoFirmasi}</b> (sipariş teslimatı) — Türkiye</li>
-        <li><b>iyzico / iyzi Ödeme ve Elektronik Para Hizmetleri A.Ş.</b> (ödeme) — Türkiye</li>
+        <li><b>VakıfBank Sanal POS</b> (ödeme) — Türkiye</li>
         <li><b>Supabase</b> (veritabanı, kimlik doğrulama, dosya depolama) — AB (Frankfurt)</li>
         <li><b>Brevo (Sendinblue)</b> (işlem e-postaları) — AB</li>
         <li><b>Vercel</b> (site barındırma), <b>Cloudflare</b> (bot koruması / Turnstile), <b>Sentry</b> (hata izleme), <b>Upstash</b> (hız sınırlama)</li>

@@ -9,6 +9,11 @@ export declare const env: {
   readonly IYZICO_SECRET_KEY: string;
   readonly IYZICO_BASE_URL: string;
   readonly IYZICO_WEBHOOK_SECRET: string;
+  readonly VAKIFBANK_MERCHANT_NUMBER: string;
+  readonly VAKIFBANK_TERMINAL_NUMBER: string;
+  readonly VAKIFBANK_PASSWORD: string;
+  readonly VAKIFBANK_API_BASE_URL: string;
+  readonly VAKIFBANK_PAYMENT_PAGE_URL: string;
   readonly UPSTASH_REDIS_REST_URL: string;
   readonly UPSTASH_REDIS_REST_TOKEN: string;
   readonly SENTRY_ORG: string;

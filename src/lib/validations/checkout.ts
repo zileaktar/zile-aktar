@@ -20,9 +20,9 @@ export const checkoutAddressSchema = z.object({
   city: z.string().trim().min(2).max(60),
   district: z.string().trim().min(2).max(60),
   addressLine: z.string().trim().min(10, 'Açık adres en az 10 karakter olmalı.').max(500),
-  // iyzico'nun Checkout Form Initialize isteği `buyer.identityNumber` alanını
-  // zorunlu tutar. Tek ödeme yöntemi kart olduğundan bu alan her siparişte gereklidir
-  // (aşağıdaki superRefine geçerli bir T.C. Kimlik No olmasını da doğrular).
+  // Kart ödemesinde T.C. Kimlik No istenir (aşağıdaki superRefine geçerli bir
+  // T.C. Kimlik No olmasını da doğrular) — mevzuat/dolandırıcılık önleme amaçlı,
+  // VakıfBank Sanal POS API'sinin kendisi bu alanı zorunlu kılmıyor.
   identityNumber: z.string().trim().optional()
 });
 
@@ -42,8 +42,8 @@ export const checkoutRequestSchema = z
     billingAddress: billingAddressSchema.nullish(),
     // İndirim kodu (opsiyonel) — gerçek doğrulama/hesap create_order RPC'sinde.
     couponCode: z.string().trim().max(40).optional(),
-    // Ödeme yöntemleri: kredi/banka kartı (iyzico 3D Secure) veya havale/EFT
-    // (banka hesabına ödeme, dekont sonrası admin onayı). Kapıda ödeme yok.
+    // Ödeme yöntemleri: kredi/banka kartı (VakıfBank Sanal POS, 3D Secure) veya
+    // havale/EFT (banka hesabına ödeme, dekont sonrası admin onayı). Kapıda ödeme yok.
     paymentMethod: z.enum(['card', 'havale']),
     acceptedDistanceSalesAgreement: z.literal(true, {
       errorMap: () => ({ message: 'Mesafeli Satış Sözleşmesi onayı zorunludur.' })
@@ -53,8 +53,8 @@ export const checkoutRequestSchema = z
     })
   })
   .superRefine((data, ctx) => {
-    // T.C. Kimlik No yalnızca kart ödemesinde zorunlu (iyzico buyer.identityNumber şartı).
-    // Havale/EFT'de iyzico'ya istek gitmez, bu alan istenmez.
+    // T.C. Kimlik No yalnızca kart ödemesinde zorunlu (mevzuat/dolandırıcılık önleme).
+    // Havale/EFT'de VakıfBank'a istek gitmez, bu alan istenmez.
     if (data.paymentMethod !== 'card') return;
 
     if (!data.address.identityNumber) {

@@ -25,11 +25,11 @@ const SECTIONS: { title: string; items: QA[] }[] = [
     items: [
       {
         q: 'Hangi ödeme yöntemlerini kullanabilirim?',
-        a: `Kredi/banka kartı (iyzico 3D Secure altyapısı) ve Havale/EFT ile ödeme yapabilirsiniz. Kapıda ödeme bulunmamaktadır.`
+        a: `Kredi/banka kartı (VakıfBank 3D Secure altyapısı) ve Havale/EFT ile ödeme yapabilirsiniz. Kapıda ödeme bulunmamaktadır.`
       },
       {
         q: 'Kart bilgilerim güvende mi?',
-        a: `Evet. Kart bilgilerinizi iyzico'nun PCI-DSS uyumlu güvenli sayfasında girersiniz; bu bilgiler bize hiçbir zaman ulaşmaz. Tüm kart ödemeleri 3D Secure ile doğrulanır.`
+        a: `Evet. Kart bilgilerinizi VakıfBank'ın PCI-DSS uyumlu güvenli sayfasında girersiniz; bu bilgiler bize hiçbir zaman ulaşmaz. Tüm kart ödemeleri 3D Secure ile doğrulanır.`
       },
       {
         q: 'Havale/EFT ile nasıl öderim?',

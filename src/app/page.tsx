@@ -94,7 +94,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           {[
             { icon: '🚚', title: 'Kargo Bedava', sub: `${LEGAL.ucretsizKargoEsigiTl}₺ üzeri siparişte` },
             { icon: '🌿', title: '%100 Taze & Doğal', sub: 'Katkı maddesiz' },
-            { icon: '🔒', title: 'Güvenli 3D Ödeme', sub: 'iyzico ile SSL korumalı' },
+            { icon: '🔒', title: 'Güvenli 3D Ödeme', sub: 'VakıfBank ile SSL korumalı' },
             { icon: '🏺', title: 'Geleneksel Üretim', sub: 'Yöresel ustalardan' }
           ].map((f) => (
             <div key={f.title} className="flex items-center gap-3">

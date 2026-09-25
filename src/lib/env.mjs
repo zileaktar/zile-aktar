@@ -18,6 +18,18 @@ export const env = createEnv({
     IYZICO_BASE_URL: z.string().url(),
     IYZICO_WEBHOOK_SECRET: z.string().min(1),
 
+    // VakıfBank Sanal POS — "Güvenli Ortak Ödeme" (CommonPayment). Kart bilgisi
+    // hiçbir zaman bize gelmez; bu üçü yalnızca sunucudan sunucuya API
+    // çağrılarında kullanılır (bkz. src/lib/vakifbank.ts).
+    VAKIFBANK_MERCHANT_NUMBER: z.string().min(1),
+    VAKIFBANK_TERMINAL_NUMBER: z.string().min(1),
+    VAKIFBANK_PASSWORD: z.string().min(1),
+    // Test: https://inbound.apigatewaytest.vakifbank.com.tr:8443 — Canlı: https://inbound.apigateway.vakifbank.com.tr:8443
+    VAKIFBANK_API_BASE_URL: z.string().url(),
+    // Müşterinin kart girdiği barındırılan ödeme sayfası kökü (PTKN parametresiyle).
+    // Test: https://guvenliodeme-test.vakifbank.com.tr — Canlı: https://guvenliodeme.vakifbank.com.tr
+    VAKIFBANK_PAYMENT_PAGE_URL: z.string().url(),
+
     UPSTASH_REDIS_REST_URL: z.string().url(),
     UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
 
@@ -66,6 +78,11 @@ export const env = createEnv({
     IYZICO_SECRET_KEY: process.env.IYZICO_SECRET_KEY,
     IYZICO_BASE_URL: process.env.IYZICO_BASE_URL,
     IYZICO_WEBHOOK_SECRET: process.env.IYZICO_WEBHOOK_SECRET,
+    VAKIFBANK_MERCHANT_NUMBER: process.env.VAKIFBANK_MERCHANT_NUMBER,
+    VAKIFBANK_TERMINAL_NUMBER: process.env.VAKIFBANK_TERMINAL_NUMBER,
+    VAKIFBANK_PASSWORD: process.env.VAKIFBANK_PASSWORD,
+    VAKIFBANK_API_BASE_URL: process.env.VAKIFBANK_API_BASE_URL,
+    VAKIFBANK_PAYMENT_PAGE_URL: process.env.VAKIFBANK_PAYMENT_PAGE_URL,
     UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL,
     UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
     SENTRY_ORG: process.env.SENTRY_ORG,

@@ -29,7 +29,7 @@ function timingSafeEqualString(a: string, b: string): boolean {
  *     mark_order_failed RPC'si rezerve edilen stoğu otomatik iade eder —
  *     aksi halde satılmayan ürünler sonsuza kadar "stokta yok" görünür kalırdı.
  *
- * İkisi de yalnızca KART (iyzico) siparişlerini kapsar. Havale/EFT siparişleri
+ * İkisi de yalnızca KART (vakifbank) siparişlerini kapsar. Havale/EFT siparişleri
  * operasyon ekibi tarafından elle yönetilir (dekont beklenir) — ne hatırlatma
  * ne otomatik iptal uygulanır.
  */
@@ -49,7 +49,7 @@ export async function GET(request: Request) {
     .from('orders')
     .select('id')
     .eq('status', 'pending')
-    .eq('payment_provider', 'iyzico')
+    .eq('payment_provider', 'vakifbank')
     .is('reminder_sent_at', null)
     .lt('created_at', reminderCutoff)
     .gte('created_at', expireCutoff);
@@ -66,7 +66,7 @@ export async function GET(request: Request) {
     .from('orders')
     .select('id')
     .eq('status', 'pending')
-    .eq('payment_provider', 'iyzico')
+    .eq('payment_provider', 'vakifbank')
     .lt('created_at', expireCutoff);
 
   if (error) {

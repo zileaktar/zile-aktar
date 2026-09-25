@@ -339,7 +339,7 @@ export function CheckoutForm({
                 <span className="text-lg leading-none">💳</span>
                 <span className="text-sm font-semibold">
                   Kredi / Banka Kartı
-                  <span className="block text-[11px] font-normal text-carbon/50">3D Secure · iyzico</span>
+                  <span className="block text-[11px] font-normal text-carbon/50">3D Secure · VakıfBank</span>
                 </span>
               </button>
               <button
@@ -375,18 +375,16 @@ export function CheckoutForm({
                   />
                   {identityInvalid && <p className="text-[11px] text-red-500 mt-1">Geçerli bir T.C. Kimlik No girin.</p>}
                   <p className="text-[11px] text-carbon/45 mt-1">
-                    iyzico&apos;nun 3D Secure altyapısı, kart sahibi doğrulaması için T.C. Kimlik No zorunlu tutar.
+                    Kart sahibi doğrulaması için T.C. Kimlik No zorunlu tutulur.
                   </p>
                 </div>
                 <div className="bg-accent/10 border border-accent/30 rounded-xl p-4 text-xs text-primary-dark flex items-start gap-2">
                   <span className="text-base leading-none">🔒</span>
                   <span>
-                    &quot;Ödemeyi Tamamla&quot; dedikten sonra kart bilgilerinizi iyzico&apos;nun PCI-DSS uyumlu güvenli
+                    &quot;Ödemeyi Tamamla&quot; dedikten sonra kart bilgilerinizi VakıfBank&apos;ın PCI-DSS uyumlu güvenli
                     sayfasında girersiniz. Kart bilgileriniz bize hiçbir zaman ulaşmaz.
                   </span>
                 </div>
-                {/* eslint-disable-next-line @next/next/no-img-element -- yerel statik SVG */}
-                <img src="/odeme-logolari/iyzico-ile-ode.svg" alt="iyzico ile Öde" className="h-6 w-auto" />
               </>
             )}
 
@@ -529,7 +527,7 @@ export function CheckoutForm({
             <p className="text-[11px] text-center text-carbon/40">
               {paymentMethod === 'havale'
                 ? 'Sipariş oluşturulur, banka bilgileri ekranda gösterilir.'
-                : 'Ödemeniz iyzico altyapısı ile 3D Secure korumalı olarak işlenir.'}
+                : 'Ödemeniz VakıfBank altyapısı ile 3D Secure korumalı olarak işlenir.'}
             </p>
           </div>
         </div>

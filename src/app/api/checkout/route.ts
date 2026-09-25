@@ -4,12 +4,12 @@ import { createSupabaseServerClient, createSupabaseServiceRoleClient } from '@/l
 import { checkoutRequestSchema } from '@/lib/validations/checkout';
 import { checkoutRateLimit, getClientIp, safeRateLimit } from '@/lib/rate-limit';
 import { checkTrustedOrigin } from '@/lib/csrf';
-import { initializeCheckoutForm } from '@/lib/iyzico';
+import { createCommonPaymentToken } from '@/lib/vakifbank';
 import { sendOrderPlacedEmail } from '@/lib/email';
 import { isValidTcKimlikNo } from '@/lib/tc-kimlik-no';
 import { env } from '@/lib/env.mjs';
 import { redactPII, redactPIIString } from '@/lib/mask';
-import { signOrderNumber } from '@/lib/order-token';
+import { signOrderNumber, signPaymentReturn } from '@/lib/order-token';
 
 export const runtime = 'nodejs';
 
@@ -71,7 +71,7 @@ export async function POST(request: Request) {
       },
       p_contact_email: address.email,
       p_contact_phone: address.phone,
-      p_payment_provider: paymentMethod === 'havale' ? 'havale' : 'iyzico',
+      p_payment_provider: paymentMethod === 'havale' ? 'havale' : 'vakifbank',
       p_user_id: user?.id ?? null,
       p_coupon_code: couponCode && couponCode.trim() ? couponCode.trim() : null
     })
@@ -83,7 +83,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: userMessage }, { status });
   }
 
-  const { order_id: orderId, order_number: orderNumber, total_cents: totalCents, subtotal_cents: subtotalCents } = orderResult as {
+  const { order_id: orderId, order_number: orderNumber, total_cents: totalCents } = orderResult as {
     order_id: string;
     order_number: string;
     subtotal_cents: number;
@@ -160,8 +160,9 @@ export async function POST(request: Request) {
     });
   }
 
-  // iyzico sıfır (veya negatif) tutarlı bir ödeme başlatamaz — indirimler tutarı
-  // 0'a indirdiyse kart akışı çalışmaz. Sipariş iptal edilir, müşteriye havale önerilir.
+  // VakıfBank sıfır (veya negatif) tutarlı bir ödeme başlatamaz — indirimler
+  // tutarı 0'a indirdiyse kart akışı çalışmaz. Sipariş iptal edilir, müşteriye
+  // havale önerilir.
   if (totalCents <= 0) {
     await serviceClient.rpc('mark_order_failed', { p_order_id: orderId });
     return NextResponse.json(
@@ -170,71 +171,49 @@ export async function POST(request: Request) {
     );
   }
 
-  // Kredi/banka kartı: iyzico'nun barındırdığı 3D Secure formunu başlat.
-  // Kart verisi hiçbir zaman bizim sunucumuza uğramaz.
-  // iyzico, basketItems fiyat toplamının `price` alanına eşit olmasını zorunlu kılar;
-  // bu yüzden gerçek satır fiyatları, RPC'nin oluşturduğu order_items'tan (DB'den) okunur.
-  const { data: createdItems, error: itemsError } = await serviceClient
-    .from('order_items')
-    .select('variant_id, product_name_snapshot, unit_price_cents, quantity')
-    .eq('order_id', orderId);
-
-  if (itemsError || !createdItems) {
-    Sentry.captureException(itemsError);
-    await serviceClient.rpc('mark_order_failed', { p_order_id: orderId });
-    return NextResponse.json({ error: 'Sipariş kalemleri okunamadı.' }, { status: 500 });
-  }
-
-  // checkoutRequestSchema.superRefine() zaten paymentMethod === 'card' iken
-  // identityNumber'ın geçerli bir T.C. Kimlik No olmasını zorunlu kılar; bu,
-  // o garantinin BAŞKA bir çağrı yolundan (ör. ileride eklenecek bir admin
-  // "müşteri adına sipariş oluştur" özelliği) atlanmadığını doğrulayan
-  // savunma amaçlı ikinci bir kontroldür.
+  // Not: T.C. Kimlik No zorunluluğu VakıfBank'ın kendi API'sinde YOK (iyzico'ya
+  // özel bir şarttı) — form alanı bilinçli olarak kaldırılmadı, ama artık
+  // banka tarafında bir zorunluluk teşkil etmiyor. Doğrulama yine de yapılır
+  // (form tutarlılığı için).
   if (!address.identityNumber || !isValidTcKimlikNo(address.identityNumber)) {
     return NextResponse.json({ error: 'Kart ile ödeme için geçerli bir T.C. Kimlik No gereklidir.' }, { status: 400 });
   }
 
   try {
-    const checkoutForm = await initializeCheckoutForm({
-      conversationId: orderId,
-      price: (subtotalCents / 100).toFixed(2),
-      paidPrice: (totalCents / 100).toFixed(2),
-      callbackUrl: `${env.NEXT_PUBLIC_APP_URL}/api/webhooks/iyzico/callback`,
-      buyer: {
-        id: user?.id ?? `guest-${orderId}`,
-        name: address.fullName.split(' ')[0] ?? address.fullName,
-        surname: address.fullName.split(' ').slice(1).join(' ') || address.fullName,
-        email: address.email,
-        identityNumber: address.identityNumber,
-        phone: address.phone,
-        city: address.city,
-        country: 'Turkey',
-        address: address.addressLine,
-        ip
-      },
-      basketItems: createdItems.map((i) => ({
-        id: i.variant_id,
-        name: i.product_name_snapshot,
-        category1: 'Aktar',
-        itemType: 'PHYSICAL' as const,
-        price: ((i.unit_price_cents * i.quantity) / 100).toFixed(2)
-      }))
+    // Dönüş adresine banka hiçbir sipariş/ödeme kimliği EKLEMEZ (bkz.
+    // güvenlik önerileri, Ortak Ödeme Entegrasyon Rehberi §12.1) — hangi
+    // siparişin döndüğünü KENDİ imzaladığımız orderId+token taşır. `result=`
+    // parametresi yalnızca UX ipucudur, dönüş rotası GERÇEK sonucu her koşulda
+    // sunucu-sunucu (GetVposTransaction) sorgular.
+    const returnToken = signPaymentReturn(orderId);
+    const returnBase = `${env.NEXT_PUBLIC_APP_URL}/api/webhooks/vakifbank/return?order=${orderId}&t=${returnToken}`;
+
+    const checkoutForm = await createCommonPaymentToken({
+      orderId,
+      amount: (totalCents / 100).toFixed(2),
+      clientIp: ip,
+      successUrl: `${returnBase}&result=success`,
+      failUrl: `${returnBase}&result=fail`,
+      cardHoldersName: address.fullName,
+      // VakıfBank telefon formatı: başında 0/+ olmadan 90XXXXXXXXXX (12 hane).
+      buyerPhone: `90${address.phone.replace(/^0/, '')}`,
+      buyerEmail: address.email
     });
 
-    if (checkoutForm.status !== 'success' || !checkoutForm.token) {
-      console.error('[checkout] iyzico initialize başarısız:', redactPIIString(JSON.stringify(checkoutForm)));
+    if (checkoutForm.ErrorCode !== '0000' || !checkoutForm.PaymentToken || !checkoutForm.CommonPaymentUrl) {
+      console.error('[checkout] VakıfBank token oluşturma başarısız:', redactPIIString(JSON.stringify(checkoutForm)));
       await serviceClient.rpc('mark_order_failed', { p_order_id: orderId });
-      return NextResponse.json({ error: checkoutForm.errorMessage ?? 'Ödeme başlatılamadı.' }, { status: 502 });
+      return NextResponse.json({ error: checkoutForm.ResponseMessage ?? 'Ödeme başlatılamadı.' }, { status: 502 });
     }
 
-    await serviceClient.from('orders').update({ payment_conversation_id: orderId }).eq('id', orderId);
+    // PaymentToken'ı saklıyoruz: dönüş rotası GetVposTransaction ile GERÇEK
+    // sonucu sorgularken bu değeri kullanır (aynı alan iyzico'da orderId
+    // taşıyordu — burada VakıfBank'ın kendi oturum kimliğini taşıyor).
+    await serviceClient.from('orders').update({ payment_conversation_id: checkoutForm.PaymentToken }).eq('id', orderId);
 
-    // Redirect yöntemi: istemci `paymentPageUrl`'e yönlendirir. Kart + 3DS iyzico'nun
-    // kendi alan adında gerçekleşir; ödeme sonrası iyzico kullanıcıyı callbackUrl'e
-    // (/api/webhooks/iyzico/callback) getirir, o da /siparis-alindi'ye yönlendirir.
-    return NextResponse.json({ orderNumber, paymentPageUrl: checkoutForm.paymentPageUrl });
+    return NextResponse.json({ orderNumber, paymentPageUrl: `${checkoutForm.CommonPaymentUrl}?PTKN=${checkoutForm.PaymentToken}` });
   } catch (err) {
-    console.error('[checkout] iyzico initialize hata:', err instanceof Error ? redactPIIString(err.message) : redactPII(err));
+    console.error('[checkout] VakıfBank token oluşturma hata:', err instanceof Error ? redactPIIString(err.message) : redactPII(err));
     Sentry.captureException(err);
     await serviceClient.rpc('mark_order_failed', { p_order_id: orderId });
     return NextResponse.json({ error: 'Ödeme sağlayıcısına bağlanılamadı. Lütfen tekrar deneyin.' }, { status: 502 });

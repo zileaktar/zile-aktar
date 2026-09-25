@@ -2,6 +2,7 @@ import 'server-only';
 import * as Sentry from '@sentry/nextjs';
 import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { retrieveCheckoutFormResult } from '@/lib/iyzico';
+import { getVposTransaction } from '@/lib/vakifbank';
 import { sendOrderPlacedEmail } from '@/lib/email';
 import { redactPII, redactPIIString } from '@/lib/mask';
 
@@ -80,5 +81,76 @@ export async function confirmCheckoutPayment(token: string): Promise<ConfirmPaym
   if (!alreadyPaid) {
     await sendOrderPlacedEmail(orderId);
   }
+  return { status: 'paid', orderId, orderNumber: order.order_number };
+}
+
+/**
+ * VakıfBank "Güvenli Ortak Ödeme" akışının onay fonksiyonu — confirmCheckoutPayment
+ * (iyzico) ile AYNI disiplin: SuccessUrl/FailUrl dönüşüne asla güvenilmez,
+ * `orders.payment_conversation_id`'de sakladığımız PaymentToken ile GERÇEK
+ * sonuç sunucu-sunucu (getVposTransaction) sorgulanır, tahsil edilen tutar
+ * kuruş kuruş karşılaştırılır, ancak öyle "paid" işaretlenir.
+ *
+ * `orderId` çağıranda (webhooks/vakifbank/return) zaten HMAC ile doğrulanmış
+ * olmalıdır (bkz. order-token.ts verifyPaymentReturn) — bu fonksiyon yalnızca
+ * ödeme sonucunu doğrular, kimin bu orderId'yi sorguladığını değil.
+ */
+export async function confirmVakifbankPayment(orderId: string): Promise<ConfirmPaymentResult> {
+  const serviceClient = createSupabaseServiceRoleClient();
+
+  const { data: order } = await serviceClient
+    .from('orders')
+    .select('order_number, total_cents, status, payment_conversation_id')
+    .eq('id', orderId)
+    .single();
+
+  if (!order) {
+    return { status: 'error', reason: 'missing_conversation_id' };
+  }
+
+  // Zaten kesinleşmiş bir siparişi tekrar sorgulama — hem gereksiz API çağrısı
+  // hem de yarış durumunda (SuccessUrl + admin arka arkaya) tutarsız davranış riski.
+  if (order.status === 'paid') {
+    return { status: 'paid', orderId, orderNumber: order.order_number };
+  }
+
+  const paymentToken = order.payment_conversation_id;
+  if (!paymentToken) {
+    Sentry.captureMessage(`VakıfBank: sipariş ${orderId} için kayıtlı PaymentToken yok`, { level: 'error' });
+    return { status: 'error', reason: 'missing_conversation_id' };
+  }
+
+  let result;
+  try {
+    result = await getVposTransaction(paymentToken);
+  } catch (err) {
+    console.error('[payments] vakifbank sorgu hata:', err instanceof Error ? redactPIIString(err.message) : redactPII(err));
+    Sentry.captureException(err);
+    return { status: 'error', reason: 'retrieve_failed' };
+  }
+
+  // Başarı yalnızca HEM işlem sonuç kodu HEM yetkilendirme sonuç kodu "0000"
+  // olduğunda kabul edilir — biri eksikse ödeme reddedilmiş/yarım sayılır.
+  const isSuccessful = result.Rc === '0000' && result.AuthResultCode === '0000';
+  if (!isSuccessful) {
+    await serviceClient.rpc('mark_order_failed', { p_order_id: orderId });
+    return { status: 'failed', orderId, reason: 'not_successful' };
+  }
+
+  const paidCents = Math.round(Number(result.Amount ?? 0) * 100);
+  if (!Number.isFinite(paidCents) || paidCents !== order.total_cents) {
+    Sentry.captureMessage(
+      `VakıfBank tutar uyuşmazlığı: sipariş ${orderId}, beklenen ${order.total_cents}, ödenen ${paidCents}`,
+      { level: 'error' }
+    );
+    await serviceClient.rpc('mark_order_failed', { p_order_id: orderId });
+    return { status: 'failed', orderId, reason: 'amount_mismatch' };
+  }
+
+  await serviceClient.rpc('mark_order_paid', {
+    p_order_id: orderId,
+    p_payment_ref: result.TransactionId ?? result.Rrn ?? paymentToken
+  });
+  await sendOrderPlacedEmail(orderId);
   return { status: 'paid', orderId, orderNumber: order.order_number };
 }

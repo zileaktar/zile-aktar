@@ -33,7 +33,7 @@ export default function CerezPolitikasiPage() {
 
       <h2>Üçüncü Taraf Çerezleri</h2>
       <p>
-        Ödeme adımında iyzico&apos;nun, güvenlik doğrulamasında Cloudflare&apos;in kendi çerezleri devreye girebilir.
+        Ödeme adımında VakıfBank&apos;ın, güvenlik doğrulamasında Cloudflare&apos;in kendi çerezleri devreye girebilir.
         Çerez izni vermeniz halinde Google (Analytics) ve Meta (Pixel) çerezleri de kullanılır. Bu çerezler ilgili
         sağlayıcıların gizlilik politikalarına tabidir.
       </p>
