@@ -13,7 +13,10 @@ export async function GET(request: Request) {
   const { success } = await safeRateLimit(generalApiRateLimit, getClientIp(request.headers));
   if (!success) return NextResponse.json({ items: [] }, { status: 429 });
 
-  const q = new URL(request.url).searchParams.get('q') ?? '';
+  // Uzunluk sınırı: arama kutusu için 64 karakter fazlasıyla yeterli; çok uzun
+  // bir desen ilike sorgusunu gereksiz yere pahalılaştırır. Karakter temizliği
+  // quickSearchProducts içinde yapılır.
+  const q = (new URL(request.url).searchParams.get('q') ?? '').slice(0, 64);
   const items = await quickSearchProducts(q);
   return NextResponse.json({ items });
 }

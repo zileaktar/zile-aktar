@@ -3,6 +3,7 @@ import crypto from 'node:crypto';
 import { createSupabaseServerClient, createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { presignedUploadRequestSchema } from '@/lib/validations/product';
 import { assertRole, ForbiddenError } from '@/lib/rbac';
+import { assertAal2 } from '@/lib/admin-auth';
 import { generalApiRateLimit, getClientIp, safeRateLimit } from '@/lib/rate-limit';
 import { checkTrustedOrigin } from '@/lib/csrf';
 import { env } from '@/lib/env.mjs';
@@ -47,6 +48,7 @@ export async function POST(request: Request) {
 
     const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
     assertRole(profile?.role, 'moderator');
+    await assertAal2(supabase);
 
     const body = await request.json();
     const parsed = presignedUploadRequestSchema.safeParse(body);

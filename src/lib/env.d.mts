@@ -5,14 +5,11 @@ export declare const env: {
   readonly NODE_ENV: 'development' | 'test' | 'production';
   readonly SUPABASE_SERVICE_ROLE_KEY: string;
   readonly SUPABASE_STORAGE_SIGNED_URL_TTL: number;
-  readonly IYZICO_API_KEY: string;
-  readonly IYZICO_SECRET_KEY: string;
-  readonly IYZICO_BASE_URL: string;
-  readonly IYZICO_WEBHOOK_SECRET: string;
   readonly VAKIFBANK_MERCHANT_NUMBER: string;
   readonly VAKIFBANK_TERMINAL_NUMBER: string;
   readonly VAKIFBANK_PASSWORD: string;
   readonly VAKIFBANK_API_BASE_URL: string;
+  readonly VAKIFBANK_VPOS_BASE_URL: string;
   readonly VAKIFBANK_PAYMENT_PAGE_URL: string;
   readonly UPSTASH_REDIS_REST_URL: string;
   readonly UPSTASH_REDIS_REST_TOKEN: string;

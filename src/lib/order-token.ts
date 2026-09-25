@@ -8,7 +8,7 @@ import { env } from '@/lib/env.mjs';
  * ham numarayla sayfaya gelen biri sipariş tutarını görebiliyor ve GA/Meta Pixel
  * "purchase" olayını sahte olarak tetikleyebiliyordu (analytics kirliliği).
  *
- * Çözüm: checkout ve iyzico-callback rotaları sipariş numarasını kısa bir HMAC
+ * Çözüm: checkout ve VakıfBank dönüş rotaları sipariş numarasını kısa bir HMAC
  * imzasıyla birlikte yönlendirir. Onay sayfası, imza geçerli değilse hiçbir
  * veritabanı sorgusu yapmaz ve analytics olayı ateşlemez.
  *
@@ -39,14 +39,30 @@ export function verifyOrderNumber(orderNumber: string | undefined, token: string
  * taşırız — orderId (uuid, orders.id) buradan imzalanır. Ayrı bir alan-ayrımı
  * etiketiyle (`vakifbank-return`) signOrderNumber'dan bağımsız tutulur ki iki
  * token türü birbirinin yerine geçirilip kullanılamasın.
+ *
+ * Süre sınırı (VakıfBank rehberi §12.1: "kısa süreli" token): son geçerlilik
+ * zamanı (`expiresAt`, ms) imzanın İÇİNE dahil edilir — URL'deki `e=` değeri
+ * değiştirilirse imza tutmaz. Tek kullanımlık nonce tablosuna gerek yok:
+ * onay fonksiyonu idempotenttir (ikinci çağrı sipariş durumunu değiştirmez).
  */
-export function signPaymentReturn(orderId: string): string {
-  return crypto.createHmac('sha256', env.CRON_SECRET).update(`vakifbank-return:${orderId}`).digest('hex').slice(0, 24);
+export const PAYMENT_RETURN_TTL_MS = 2 * 60 * 60 * 1000; // 2 saat
+
+export function signPaymentReturn(orderId: string, expiresAt: number): string {
+  return crypto
+    .createHmac('sha256', env.CRON_SECRET)
+    .update(`vakifbank-return:${orderId}:${expiresAt}`)
+    .digest('hex')
+    .slice(0, 24);
 }
 
-export function verifyPaymentReturn(orderId: string | undefined, token: string | undefined): boolean {
-  if (!orderId || !token) return false;
-  const expected = Buffer.from(signPaymentReturn(orderId));
+export function verifyPaymentReturn(
+  orderId: string | undefined,
+  expiresAt: string | undefined,
+  token: string | undefined
+): boolean {
+  const exp = Number(expiresAt);
+  if (!orderId || !token || !Number.isFinite(exp) || exp < Date.now()) return false;
+  const expected = Buffer.from(signPaymentReturn(orderId, exp));
   const received = Buffer.from(token);
   return expected.length === received.length && crypto.timingSafeEqual(expected, received);
 }

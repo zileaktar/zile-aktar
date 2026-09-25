@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { turkishPhoneRegex } from '@/lib/validations/checkout';
+import { accountMutationRateLimit, safeRateLimit } from '@/lib/rate-limit';
 
 export interface ProfileFormState {
   error: string | null;
@@ -34,6 +35,9 @@ export async function updateProfileAction(_prev: ProfileFormState, formData: For
     data: { user }
   } = await supabase.auth.getUser();
   if (!user) return { error: 'Giriş yapmalısınız.' };
+
+  const { success } = await safeRateLimit(accountMutationRateLimit, user.id);
+  if (!success) return { error: 'Çok fazla deneme yapıldı, lütfen biraz sonra tekrar deneyin.' };
 
   const { error } = await supabase
     .from('profiles')

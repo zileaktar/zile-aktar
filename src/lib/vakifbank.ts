@@ -57,8 +57,10 @@ async function vakifbankJsonPost<T>({ path, body }: VakifbankFetchOptions): Prom
   }
 }
 
+// virtualPos servisleri (Vposreq: iptal/iade) canlıda Ortak Ödeme servislerinden
+// FARKLI bir sunucuda: apigw.vakifbank.com.tr. Testte ikisi aynı sunucu.
 async function vakifbankXmlPost(path: string, xmlBody: string): Promise<string> {
-  const response = await fetch(`${env.VAKIFBANK_API_BASE_URL}${path}`, {
+  const response = await fetch(`${env.VAKIFBANK_VPOS_BASE_URL}${path}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/xml', ...VAKIFBANK_REQUEST_HEADERS },
     body: xmlBody

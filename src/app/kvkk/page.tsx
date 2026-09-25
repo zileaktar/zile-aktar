@@ -23,7 +23,7 @@ export default function KvkkPage() {
 
       <h2>2. İşlenen Kişisel Veriler</h2>
       <ul>
-        <li><b>Kimlik:</b> ad-soyad; kartla ödemede T.C. Kimlik No (yalnızca ödeme kuruluşuna iletmek için).</li>
+        <li><b>Kimlik:</b> ad-soyad. T.C. Kimlik Numarası talep edilmez ve işlenmez.</li>
         <li><b>İletişim:</b> e-posta, telefon, teslimat ve fatura adresi.</li>
         <li><b>Müşteri işlem:</b> sipariş geçmişi, sepet, ürün yorumları, talep/şikayet kayıtları.</li>
         <li><b>İşlem güvenliği:</b> IP adresi, oturum çerezleri, hız sınırlama kayıtları.</li>

@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { assertRole } from '@/lib/rbac';
+import { assertAal2 } from '@/lib/admin-auth';
 
 const moderateSchema = z.object({
   requestId: z.string().uuid(),
@@ -31,6 +32,7 @@ export async function updateReturnRequestAction(formData: FormData): Promise<voi
   } = await supabase.auth.getUser();
   const { data: profile } = await supabase.from('profiles').select('role').eq('id', user?.id ?? '').single();
   assertRole(profile?.role, 'moderator');
+  await assertAal2(supabase);
 
   await supabase
     .from('return_requests')

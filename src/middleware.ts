@@ -34,14 +34,14 @@ const ANALYTICS_CONNECT =
  */
 function buildCsp(nonce: string, isDev: boolean): string {
   const scriptSrc = isDev
-    ? `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-eval' https://*.iyzico.com https://challenges.cloudflare.com ${ANALYTICS_SCRIPT}`
-    : `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://*.iyzico.com https://challenges.cloudflare.com ${ANALYTICS_SCRIPT}`;
+    ? `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-eval' https://challenges.cloudflare.com ${ANALYTICS_SCRIPT}`
+    : `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://challenges.cloudflare.com ${ANALYTICS_SCRIPT}`;
 
   // `next dev` Hızlı Yenileme (Fast Refresh) için bir WebSocket (ws://localhost:*)
   // kullanır — SADECE geliştirmede eklenir, production connect-src sıkı kalır.
   const connectSrc = isDev
-    ? `connect-src 'self' ws://localhost:* http://localhost:* https://*.supabase.co https://*.iyzico.com https://*.sentry.io https://challenges.cloudflare.com ${ANALYTICS_CONNECT}`
-    : `connect-src 'self' https://*.supabase.co https://*.iyzico.com https://*.sentry.io https://challenges.cloudflare.com ${ANALYTICS_CONNECT}`;
+    ? `connect-src 'self' ws://localhost:* http://localhost:* https://*.supabase.co https://*.sentry.io https://challenges.cloudflare.com ${ANALYTICS_CONNECT}`
+    : `connect-src 'self' https://*.supabase.co https://*.sentry.io https://challenges.cloudflare.com ${ANALYTICS_CONNECT}`;
 
   return [
     "default-src 'self'",
@@ -54,10 +54,10 @@ function buildCsp(nonce: string, isDev: boolean): string {
     "font-src 'self' https://fonts.gstatic.com",
     "img-src 'self' data: https://*.supabase.co https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com",
     connectSrc,
-    // Ödeme akışı REDIRECT yöntemiyle çalışır: kullanıcı iyzico'nun kendi alan
-    // adındaki güvenli sayfasına gider; CSP'de yalnızca 3DS dönüşü/istisnai
-    // durumlar için *.iyzico.com bırakıldı.
-    "frame-src https://*.iyzico.com https://challenges.cloudflare.com https://www.google.com https://maps.google.com",
+    // Ödeme akışı tam sayfa YÖNLENDİRME ile çalışır (VakıfBank'ın kendi
+    // sayfası, iframe değil) — bu yüzden CSP'de banka alan adına izin
+    // GEREKMEZ; sunucunun bankaya yaptığı çağrılar da tarayıcı CSP'sine tabi değil.
+    "frame-src https://challenges.cloudflare.com https://www.google.com https://maps.google.com",
     "frame-ancestors 'none'"
   ].join('; ');
 }
@@ -78,6 +78,10 @@ export async function middleware(request: NextRequest) {
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-nonce', nonce);
+  // Admin layout'unun /admin/mfa sayfasını (MFA doğrulaması YAPILAN sayfa)
+  // AAL2 zorunluluğundan ayırt edebilmesi için gerçek yol. İstemcinin
+  // gönderdiği aynı adlı başlık burada her zaman EZİLİR (sahtelenemez).
+  requestHeaders.set('x-pathname', request.nextUrl.pathname);
 
   const response = NextResponse.next({ request: { headers: requestHeaders } });
   response.headers.set('Content-Security-Policy', csp);
@@ -116,6 +120,18 @@ export async function middleware(request: NextRequest) {
     const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
     if (!profile || (profile.role !== 'admin' && profile.role !== 'moderator')) {
       return NextResponse.redirect(new URL('/', request.url));
+    }
+
+    // İki adımlı doğrulama: admin layout'u da kontrol eder, ama App Router'da
+    // istemci tarafı (yumuşak) gezinmede ortak layout YENİDEN ÇALIŞMAZ —
+    // middleware ise her istekte (RSC istekleri dahil) çalışır. Bu yüzden
+    // AAL2 zorunluluğu burada da uygulanır. /admin/mfa (doğrulama sayfası) muaf.
+    const isMfaPage = pathname === '/admin/mfa' || pathname.startsWith('/admin/mfa/');
+    if (!isMfaPage) {
+      const { data: aal } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+      if (aal?.currentLevel !== 'aal2') {
+        return NextResponse.redirect(new URL('/admin/mfa', request.url));
+      }
     }
   }
 

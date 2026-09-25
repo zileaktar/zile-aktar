@@ -65,8 +65,8 @@ export function SiteFooter({ categories, logoPath }: { categories: Category[]; l
           {/* Ödeme sağlayıcısı VakıfBank Sanal POS'a geçiş sürecinde — resmi
               logo/marka varlıkları henüz elimizde yok, o yüzden şimdilik düz
               metin rozetleri kullanılıyor. Banka onayı + resmi logo paketi
-              gelince buraya gerçek "logo band" görseli eklenecek (bkz.
-              önceki iyzico entegrasyonundaki desen). */}
+              gelince buraya gerçek "logo band" görseli eklenecek (kart
+              markalarının renkleri için beyaz zemin üzerinde). */}
           <div className="flex flex-wrap gap-2">
             <span className="bg-white/10 rounded-lg px-3 py-2 text-xs font-semibold">VakıfBank Sanal POS</span>
             <span className="bg-white/10 rounded-lg px-3 py-2 text-xs font-semibold">Visa</span>

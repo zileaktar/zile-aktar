@@ -8,7 +8,6 @@ import { formatPriceFromCents } from '@/lib/format';
 import { FREE_SHIPPING_THRESHOLD_CENTS, calculateShippingCents, lineDealDiscountCents } from '@/lib/pricing';
 import { trackBeginCheckout } from '@/lib/analytics';
 import { checkoutRequestSchema } from '@/lib/validations/checkout';
-import { isValidTcKimlikNo } from '@/lib/tc-kimlik-no';
 import { HealthDisclaimer } from '@/components/product/HealthDisclaimer';
 import type { CheckoutPrefill, SavedAddress } from '@/lib/data/account';
 
@@ -91,8 +90,7 @@ export function CheckoutForm({
     email: prefill?.email ?? '',
     city: prefill?.city ?? '',
     district: prefill?.district ?? '',
-    addressLine: prefill?.addressLine ?? '',
-    identityNumber: ''
+    addressLine: prefill?.addressLine ?? ''
   });
   // Kayıtlı adres seçici (yalnızca giriş yapmış ve adresi olan kullanıcıda).
   // Başlangıçta varsayılan/en yeni adres seçili — prefill zaten onu doldurmuş olur.
@@ -118,8 +116,6 @@ export function CheckoutForm({
   const [acceptedKvkk, setAcceptedKvkk] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
-
-  const identityInvalid = form.identityNumber.length === 11 && !isValidTcKimlikNo(form.identityNumber);
 
   if (items.length === 0) {
     return (
@@ -358,34 +354,13 @@ export function CheckoutForm({
             </div>
 
             {paymentMethod === 'card' && (
-              <>
-                <div>
-                  <label htmlFor="chk-tckn" className="chk-label">T.C. Kimlik No</label>
-                  <input
-                    id="chk-tckn"
-                    required
-                    maxLength={11}
-                    inputMode="numeric"
-                    autoComplete="off"
-                    aria-invalid={identityInvalid}
-                    placeholder="T.C. Kimlik No"
-                    className={`chk-input w-full ${identityInvalid ? 'ring-2 ring-red-300' : ''}`}
-                    value={form.identityNumber}
-                    onChange={(e) => setForm({ ...form, identityNumber: e.target.value.replace(/\D/g, '').slice(0, 11) })}
-                  />
-                  {identityInvalid && <p className="text-[11px] text-red-500 mt-1">Geçerli bir T.C. Kimlik No girin.</p>}
-                  <p className="text-[11px] text-carbon/45 mt-1">
-                    Kart sahibi doğrulaması için T.C. Kimlik No zorunlu tutulur.
-                  </p>
-                </div>
-                <div className="bg-accent/10 border border-accent/30 rounded-xl p-4 text-xs text-primary-dark flex items-start gap-2">
-                  <span className="text-base leading-none">🔒</span>
-                  <span>
-                    &quot;Ödemeyi Tamamla&quot; dedikten sonra kart bilgilerinizi VakıfBank&apos;ın PCI-DSS uyumlu güvenli
-                    sayfasında girersiniz. Kart bilgileriniz bize hiçbir zaman ulaşmaz.
-                  </span>
-                </div>
-              </>
+              <div className="bg-accent/10 border border-accent/30 rounded-xl p-4 text-xs text-primary-dark flex items-start gap-2">
+                <span className="text-base leading-none">🔒</span>
+                <span>
+                  &quot;Ödemeyi Tamamla&quot; dedikten sonra kart bilgilerinizi VakıfBank&apos;ın PCI-DSS uyumlu güvenli
+                  sayfasında girersiniz. Kart bilgileriniz bize hiçbir zaman ulaşmaz.
+                </span>
+              </div>
             )}
 
             {paymentMethod === 'havale' && (

@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { assertRole } from '@/lib/rbac';
+import { assertAal2 } from '@/lib/admin-auth';
 import { productInputSchema, type ProductInput } from '@/lib/validations/product';
 
 export interface ProductFormState {
@@ -61,6 +62,7 @@ async function requireStaffClient() {
 
   const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
   assertRole(profile?.role, 'moderator');
+  await assertAal2(supabase);
   return supabase;
 }
 

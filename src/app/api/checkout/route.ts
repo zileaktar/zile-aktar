@@ -6,10 +6,9 @@ import { checkoutRateLimit, getClientIp, safeRateLimit } from '@/lib/rate-limit'
 import { checkTrustedOrigin } from '@/lib/csrf';
 import { createCommonPaymentToken } from '@/lib/vakifbank';
 import { sendOrderPlacedEmail } from '@/lib/email';
-import { isValidTcKimlikNo } from '@/lib/tc-kimlik-no';
 import { env } from '@/lib/env.mjs';
 import { redactPII, redactPIIString } from '@/lib/mask';
-import { signOrderNumber, signPaymentReturn } from '@/lib/order-token';
+import { signOrderNumber, signPaymentReturn, PAYMENT_RETURN_TTL_MS } from '@/lib/order-token';
 
 export const runtime = 'nodejs';
 
@@ -37,7 +36,9 @@ export async function POST(request: Request) {
   if (csrfResponse) return csrfResponse;
 
   const ip = getClientIp(request.headers);
-  const { success, reset } = await safeRateLimit(checkoutRateLimit, ip);
+  // failClosed: hız sınırlayıcı (Upstash) çalışmıyorsa ödeme başlatma reddedilir
+  // — kart denemesi/sipariş spam'i yerine kısa süreli kesinti tercih edildi.
+  const { success, reset } = await safeRateLimit(checkoutRateLimit, ip, { failClosed: true });
   if (!success) {
     return NextResponse.json(
       { error: 'Çok fazla sipariş denemesi yapıldı. Lütfen biraz sonra tekrar deneyin.' },
@@ -148,7 +149,7 @@ export async function POST(request: Request) {
       .eq('id', orderId);
   }
 
-  // Havale/EFT: iyzico'ya istek gitmez. Sipariş 'pending' oluşturuldu; müşteri
+  // Havale/EFT: VakıfBank'a istek gitmez. Sipariş 'pending' oluşturuldu; müşteri
   // banka hesabına ödeme yapıp açıklamaya sipariş numarasını yazar, operasyon
   // ekibi dekontu görünce admin panelinden durumu 'paid' yapar. Bu ana kadar
   // stok rezerve edilmiş sayılır (create_order stoğu düştü).
@@ -171,22 +172,16 @@ export async function POST(request: Request) {
     );
   }
 
-  // Not: T.C. Kimlik No zorunluluğu VakıfBank'ın kendi API'sinde YOK (iyzico'ya
-  // özel bir şarttı) — form alanı bilinçli olarak kaldırılmadı, ama artık
-  // banka tarafında bir zorunluluk teşkil etmiyor. Doğrulama yine de yapılır
-  // (form tutarlılığı için).
-  if (!address.identityNumber || !isValidTcKimlikNo(address.identityNumber)) {
-    return NextResponse.json({ error: 'Kart ile ödeme için geçerli bir T.C. Kimlik No gereklidir.' }, { status: 400 });
-  }
-
   try {
     // Dönüş adresine banka hiçbir sipariş/ödeme kimliği EKLEMEZ (bkz.
     // güvenlik önerileri, Ortak Ödeme Entegrasyon Rehberi §12.1) — hangi
     // siparişin döndüğünü KENDİ imzaladığımız orderId+token taşır. `result=`
     // parametresi yalnızca UX ipucudur, dönüş rotası GERÇEK sonucu her koşulda
     // sunucu-sunucu (GetVposTransaction) sorgular.
-    const returnToken = signPaymentReturn(orderId);
-    const returnBase = `${env.NEXT_PUBLIC_APP_URL}/api/webhooks/vakifbank/return?order=${orderId}&t=${returnToken}`;
+    // Dönüş bağlantısı 2 saat geçerlidir; süre (`e`) imzanın içindedir.
+    const exp = Date.now() + PAYMENT_RETURN_TTL_MS;
+    const returnToken = signPaymentReturn(orderId, exp);
+    const returnBase = `${env.NEXT_PUBLIC_APP_URL}/api/webhooks/vakifbank/return?order=${orderId}&e=${exp}&t=${returnToken}`;
 
     const checkoutForm = await createCommonPaymentToken({
       orderId,
@@ -206,9 +201,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: checkoutForm.ResponseMessage ?? 'Ödeme başlatılamadı.' }, { status: 502 });
     }
 
-    // PaymentToken'ı saklıyoruz: dönüş rotası GetVposTransaction ile GERÇEK
-    // sonucu sorgularken bu değeri kullanır (aynı alan iyzico'da orderId
-    // taşıyordu — burada VakıfBank'ın kendi oturum kimliğini taşıyor).
+    // PaymentToken'ı saklıyoruz: dönüş rotası ve cron, GetVposTransaction ile
+    // GERÇEK sonucu sorgularken bu değeri kullanır.
     await serviceClient.from('orders').update({ payment_conversation_id: checkoutForm.PaymentToken }).eq('id', orderId);
 
     return NextResponse.json({ orderNumber, paymentPageUrl: `${checkoutForm.CommonPaymentUrl}?PTKN=${checkoutForm.PaymentToken}` });

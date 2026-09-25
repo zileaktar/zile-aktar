@@ -4,6 +4,7 @@ import { revalidatePath, revalidateTag } from 'next/cache';
 import { z } from 'zod';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { assertRole } from '@/lib/rbac';
+import { assertAal2 } from '@/lib/admin-auth';
 
 export interface SettingsFormState {
   error: string | null;
@@ -29,6 +30,7 @@ export async function updateLogoAction(_prevState: SettingsFormState, formData: 
   const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
   try {
     assertRole(profile?.role, 'admin');
+    await assertAal2(supabase);
   } catch (err) {
     return { error: err instanceof Error ? err.message : 'Yetkisiz işlem.' };
   }
@@ -72,6 +74,7 @@ export async function updateBankInfoAction(_prevState: SettingsFormState, formDa
   const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
   try {
     assertRole(profile?.role, 'admin');
+    await assertAal2(supabase);
   } catch (err) {
     return { error: err instanceof Error ? err.message : 'Yetkisiz işlem.' };
   }

@@ -5,7 +5,13 @@ vi.mock('@/lib/env.mjs', () => ({
   env: { CRON_SECRET: 'test-cron-secret-en-az-16-karakter' }
 }));
 
-import { signOrderNumber, verifyOrderNumber } from '@/lib/order-token';
+import {
+  signOrderNumber,
+  verifyOrderNumber,
+  signPaymentReturn,
+  verifyPaymentReturn,
+  PAYMENT_RETURN_TTL_MS
+} from '@/lib/order-token';
 
 describe('order-token', () => {
   it('imza deterministiktir ve doğrulanır', () => {
@@ -20,5 +26,41 @@ describe('order-token', () => {
     expect(verifyOrderNumber('KA-260101-123456', 'sahte')).toBe(false);
     expect(verifyOrderNumber('KA-260101-123456', undefined)).toBe(false);
     expect(verifyOrderNumber(undefined, t)).toBe(false);
+  });
+});
+
+describe('VakıfBank dönüş tokeni (süre sınırlı)', () => {
+  const orderId = '11111111-1111-1111-1111-111111111111';
+
+  it('süresi dolmamış geçerli token doğrulanır', () => {
+    const exp = Date.now() + PAYMENT_RETURN_TTL_MS;
+    const t = signPaymentReturn(orderId, exp);
+    expect(verifyPaymentReturn(orderId, String(exp), t)).toBe(true);
+  });
+
+  it('süresi dolmuş token reddedilir (imza doğru olsa bile)', () => {
+    const exp = Date.now() - 1000;
+    const t = signPaymentReturn(orderId, exp);
+    expect(verifyPaymentReturn(orderId, String(exp), t)).toBe(false);
+  });
+
+  it('URL\'deki süre uzatılırsa imza tutmaz', () => {
+    const exp = Date.now() + 1000;
+    const t = signPaymentReturn(orderId, exp);
+    expect(verifyPaymentReturn(orderId, String(exp + 24 * 60 * 60 * 1000), t)).toBe(false);
+  });
+
+  it('başka siparişe ait token veya eksik parametre reddedilir', () => {
+    const exp = Date.now() + PAYMENT_RETURN_TTL_MS;
+    const t = signPaymentReturn(orderId, exp);
+    expect(verifyPaymentReturn('22222222-2222-2222-2222-222222222222', String(exp), t)).toBe(false);
+    expect(verifyPaymentReturn(orderId, 'sayi-degil', t)).toBe(false);
+    expect(verifyPaymentReturn(orderId, undefined, t)).toBe(false);
+    expect(verifyPaymentReturn(orderId, String(exp), undefined)).toBe(false);
+  });
+
+  it('sipariş-numarası tokeni dönüş tokeni yerine kullanılamaz (alan ayrımı)', () => {
+    const exp = Date.now() + PAYMENT_RETURN_TTL_MS;
+    expect(verifyPaymentReturn(orderId, String(exp), signOrderNumber(orderId))).toBe(false);
   });
 });

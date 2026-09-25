@@ -3,6 +3,7 @@ import crypto from 'node:crypto';
 import * as Sentry from '@sentry/nextjs';
 import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { sendPaymentReminderEmail } from '@/lib/email';
+import { confirmVakifbankPayment } from '@/lib/payments';
 import { env } from '@/lib/env.mjs';
 
 export const runtime = 'nodejs';
@@ -74,9 +75,33 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Sorgu başarısız.' }, { status: 500 });
   }
 
+  // İptal etmeden ÖNCE bankaya sor: müşteri ödemeyi tamamlamış ama dönüş
+  // hiç gerçekleşmemiş olabilir (tarayıcı kapandı, dönüş linki süresi doldu).
+  // Böyle bir siparişi körlemesine iptal etmek "para çekildi, sipariş kayıp"
+  // sonucunu doğururdu.
+  let expiredCount = 0;
+  let recoveredCount = 0;
   for (const order of staleOrders ?? []) {
+    const outcome = await confirmVakifbankPayment(order.id);
+    if (outcome.status === 'paid') {
+      recoveredCount++;
+      continue;
+    }
+    if (outcome.status === 'failed') {
+      // confirmVakifbankPayment zaten failed işaretledi.
+      expiredCount++;
+      continue;
+    }
+    if (outcome.reason === 'retrieve_failed') {
+      // Banka sorgusu ağ/servis hatası verdi: sonucu bilmeden İPTAL ETME,
+      // bir sonraki cron çalışmasında tekrar denenir.
+      Sentry.captureMessage(`Cron: sipariş ${order.id} için banka sorgulanamadı, iptal ertelendi`, { level: 'warning' });
+      continue;
+    }
+    // not_final / missing_conversation_id: ödeme hiç sonuçlanmamış → iptal + stok iadesi.
     await supabase.rpc('mark_order_failed', { p_order_id: order.id });
+    expiredCount++;
   }
 
-  return NextResponse.json({ remindedCount: reminderOrders?.length ?? 0, expiredCount: staleOrders?.length ?? 0 });
+  return NextResponse.json({ remindedCount: reminderOrders?.length ?? 0, expiredCount, recoveredCount });
 }

@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { reviewInputSchema } from '@/lib/validations/review';
+import { accountMutationRateLimit, safeRateLimit } from '@/lib/rate-limit';
 
 export interface ReviewFormState {
   error: string | null;
@@ -36,6 +37,9 @@ export async function submitReviewAction(
     data: { user }
   } = await supabase.auth.getUser();
   if (!user) return { error: 'Yorum yapmak için giriş yapmalısınız.' };
+
+  const { success } = await safeRateLimit(accountMutationRateLimit, user.id);
+  if (!success) return { error: 'Çok fazla deneme yapıldı, lütfen biraz sonra tekrar deneyin.' };
 
   // Yazar adı anlık görüntüsü — RLS başka kullanıcının profilini okutmadığından
   // yorum satırına kopyalanır (bkz. migration 0014).

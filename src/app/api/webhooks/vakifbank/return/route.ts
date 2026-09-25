@@ -26,10 +26,11 @@ async function handleReturn(request: Request) {
 
   const url = new URL(request.url);
   const orderId = url.searchParams.get('order') ?? undefined;
+  const expiresAt = url.searchParams.get('e') ?? undefined;
   const token = url.searchParams.get('t') ?? undefined;
 
-  if (!verifyPaymentReturn(orderId, token)) {
-    Sentry.captureMessage('VakıfBank dönüşü: geçersiz/eksik doğrulama tokeni', { level: 'warning' });
+  if (!verifyPaymentReturn(orderId, expiresAt, token)) {
+    Sentry.captureMessage('VakıfBank dönüşü: geçersiz, süresi dolmuş veya eksik doğrulama tokeni', { level: 'warning' });
     return NextResponse.redirect(new URL('/odeme-basarisiz?reason=invalid_token', env.NEXT_PUBLIC_APP_URL));
   }
 

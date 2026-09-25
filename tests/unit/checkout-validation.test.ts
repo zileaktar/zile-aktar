@@ -9,8 +9,7 @@ const validPayload = {
     email: 'ayse@example.com',
     city: 'İstanbul',
     district: 'Kadıköy',
-    addressLine: 'Örnek Mahallesi, Örnek Sokak No:1 D:2',
-    identityNumber: '10000000146' // Algoritmik olarak geçerli, gerçek bir kişiye ait olmayan test değeri
+    addressLine: 'Örnek Mahallesi, Örnek Sokak No:1 D:2'
   },
   paymentMethod: 'card' as const,
   acceptedDistanceSalesAgreement: true as const,
@@ -60,28 +59,24 @@ describe('checkoutRequestSchema', () => {
     }
   });
 
-  it('kart ödemesinde T.C. Kimlik No eksikse siparişi reddeder', () => {
-    const result = checkoutRequestSchema.safeParse({
-      ...validPayload,
-      address: { ...validPayload.address, identityNumber: undefined }
-    });
-    expect(result.success).toBe(false);
+  it('kart ödemesi T.C. Kimlik No olmadan kabul edilir (KVKK veri minimizasyonu)', () => {
+    const result = checkoutRequestSchema.safeParse(validPayload);
+    expect(result.success).toBe(true);
   });
 
-  it('kart ödemesinde sahte/geçersiz T.C. Kimlik No\'yu reddeder (ör. "11111111111")', () => {
-    const result = checkoutRequestSchema.safeParse({
-      ...validPayload,
-      address: { ...validPayload.address, identityNumber: '11111111111' }
-    });
-    expect(result.success).toBe(false);
+  it('havale/EFT ödemesini kabul eder', () => {
+    const result = checkoutRequestSchema.safeParse({ ...validPayload, paymentMethod: 'havale' as const });
+    expect(result.success).toBe(true);
   });
 
-  it('havale/EFT ödemesinde T.C. Kimlik No olmadan da siparişi kabul eder (iyzico şartı devrede değil)', () => {
+  it('adres nesnesinde kimlik no gönderilse bile şema onu yok sayar (saklanmaz, iletilmez)', () => {
     const result = checkoutRequestSchema.safeParse({
       ...validPayload,
-      paymentMethod: 'havale' as const,
-      address: { ...validPayload.address, identityNumber: undefined }
+      address: { ...validPayload.address, identityNumber: '10000000146' }
     });
     expect(result.success).toBe(true);
+    if (result.success) {
+      expect((result.data.address as unknown as { identityNumber?: string }).identityNumber).toBeUndefined();
+    }
   });
 });

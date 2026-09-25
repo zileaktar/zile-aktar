@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { createSupabaseServerClient, createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { assertRole } from '@/lib/rbac';
+import { assertAal2 } from '@/lib/admin-auth';
 import { formatPriceFromCents } from '@/lib/format';
 import { sendOrderShippedEmail, sendOrderDeliveredEmail } from '@/lib/email';
 import type { OrderStatus } from '@/lib/supabase/types';
@@ -44,6 +45,7 @@ async function updateOrderStatus(formData: FormData) {
   } = await supabase.auth.getUser();
   const { data: profile } = await supabase.from('profiles').select('role').eq('id', user?.id ?? '').single();
   assertRole(profile?.role, 'moderator');
+  await assertAal2(supabase);
 
   const serviceClient = createSupabaseServiceRoleClient();
   const { data: current } = await serviceClient.from('orders').select('status').eq('id', orderId).single();

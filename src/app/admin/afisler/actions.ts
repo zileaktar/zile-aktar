@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { assertRole } from '@/lib/rbac';
+import { assertAal2 } from '@/lib/admin-auth';
 
 export interface BannerActionState {
   error: string | null;
@@ -32,6 +33,7 @@ async function requireStaff() {
   if (!user) throw new Error('Giriş yapmalısınız.');
   const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
   assertRole(profile?.role, 'moderator');
+  await assertAal2(supabase);
   return supabase;
 }
 

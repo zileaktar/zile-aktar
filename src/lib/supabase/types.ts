@@ -591,7 +591,7 @@ export interface Database {
           final_total_cents: number;
         }[];
       };
-      mark_order_paid: { Args: { p_order_id: string; p_payment_ref: string }; Returns: undefined };
+      mark_order_paid: { Args: { p_order_id: string; p_payment_ref: string }; Returns: boolean };
       mark_order_failed: { Args: { p_order_id: string }; Returns: undefined };
     };
     Enums: {

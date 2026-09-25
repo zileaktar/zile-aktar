@@ -13,11 +13,6 @@ export const env = createEnv({
     SUPABASE_SERVICE_ROLE_KEY: z.string().min(20, 'SUPABASE_SERVICE_ROLE_KEY eksik veya hatalı'),
     SUPABASE_STORAGE_SIGNED_URL_TTL: z.coerce.number().int().positive().default(120),
 
-    IYZICO_API_KEY: z.string().min(1),
-    IYZICO_SECRET_KEY: z.string().min(1),
-    IYZICO_BASE_URL: z.string().url(),
-    IYZICO_WEBHOOK_SECRET: z.string().min(1),
-
     // VakıfBank Sanal POS — "Güvenli Ortak Ödeme" (CommonPayment). Kart bilgisi
     // hiçbir zaman bize gelmez; bu üçü yalnızca sunucudan sunucuya API
     // çağrılarında kullanılır (bkz. src/lib/vakifbank.ts).
@@ -26,6 +21,9 @@ export const env = createEnv({
     VAKIFBANK_PASSWORD: z.string().min(1),
     // Test: https://inbound.apigatewaytest.vakifbank.com.tr:8443 — Canlı: https://inbound.apigateway.vakifbank.com.tr:8443
     VAKIFBANK_API_BASE_URL: z.string().url(),
+    // virtualPos (Vposreq — iptal/iade) servisleri. Canlıda FARKLI sunucu!
+    // Test: https://inbound.apigatewaytest.vakifbank.com.tr:8443 — Canlı: https://apigw.vakifbank.com.tr:8443
+    VAKIFBANK_VPOS_BASE_URL: z.string().url(),
     // Müşterinin kart girdiği barındırılan ödeme sayfası kökü (PTKN parametresiyle).
     // Test: https://guvenliodeme-test.vakifbank.com.tr — Canlı: https://guvenliodeme.vakifbank.com.tr
     VAKIFBANK_PAYMENT_PAGE_URL: z.string().url(),
@@ -74,14 +72,11 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
     SUPABASE_STORAGE_SIGNED_URL_TTL: process.env.SUPABASE_STORAGE_SIGNED_URL_TTL,
-    IYZICO_API_KEY: process.env.IYZICO_API_KEY,
-    IYZICO_SECRET_KEY: process.env.IYZICO_SECRET_KEY,
-    IYZICO_BASE_URL: process.env.IYZICO_BASE_URL,
-    IYZICO_WEBHOOK_SECRET: process.env.IYZICO_WEBHOOK_SECRET,
     VAKIFBANK_MERCHANT_NUMBER: process.env.VAKIFBANK_MERCHANT_NUMBER,
     VAKIFBANK_TERMINAL_NUMBER: process.env.VAKIFBANK_TERMINAL_NUMBER,
     VAKIFBANK_PASSWORD: process.env.VAKIFBANK_PASSWORD,
     VAKIFBANK_API_BASE_URL: process.env.VAKIFBANK_API_BASE_URL,
+    VAKIFBANK_VPOS_BASE_URL: process.env.VAKIFBANK_VPOS_BASE_URL,
     VAKIFBANK_PAYMENT_PAGE_URL: process.env.VAKIFBANK_PAYMENT_PAGE_URL,
     UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL,
     UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,

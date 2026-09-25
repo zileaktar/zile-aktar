@@ -112,8 +112,9 @@ export async function getProducts({ categorySlug, searchQuery, form, page = 1 }:
     // Böylece açılır listede önerilen ürün, "tüm sonuçları gör" sayfasında da
     // görünür. `websearch_to_tsquery` yarım kelimeyi ("çör") eşleştirmediği için
     // tam metin aramadan buna geçildi (katalog küçük, ilike yeterince hızlı).
-    // PostgREST `.or()` filtresini bozan karakterler temizlenir.
-    const safe = searchQuery.replace(/[%_,()*\\]/g, ' ').replace(/\s+/g, ' ').trim();
+    // PostgREST `.or()` filtresini bozan karakterler (çift tırnak dahil —
+    // PostgREST değerleri tırnakla gruplayabilir) temizlenir; uzunluk sınırlanır.
+    const safe = searchQuery.slice(0, 64).replace(/[%_,()*\\"]/g, ' ').replace(/\s+/g, ' ').trim();
     if (safe.length > 0) {
       query = query.or(`name.ilike.%${safe}%,description.ilike.%${safe}%`);
     }
@@ -154,9 +155,10 @@ export interface QuickSearchItem {
  * önbelleklenmez (stok/fiyat güncel kalmalı).
  */
 export async function quickSearchProducts(rawQuery: string, limit = 8): Promise<QuickSearchItem[]> {
-  // PostgREST `.or()` filtresini bozan karakterleri (virgül, parantez) ve ilike
-  // joker karakterlerini (%, _) temizle — kullanıcı girdisi doğrudan desene giriyor.
-  const safe = rawQuery.replace(/[%_,()*\\]/g, ' ').replace(/\s+/g, ' ').trim();
+  // PostgREST `.or()` filtresini bozan karakterleri (virgül, parantez, çift
+  // tırnak) ve ilike joker karakterlerini (%, _) temizle — kullanıcı girdisi
+  // doğrudan desene giriyor. Uzunluk da sınırlanır (çağıran unutsa bile).
+  const safe = rawQuery.slice(0, 64).replace(/[%_,()*\\"]/g, ' ').replace(/\s+/g, ' ').trim();
   if (safe.length < 2) return [];
 
   const supabase = createSupabaseAnonServerClient();

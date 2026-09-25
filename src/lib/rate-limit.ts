@@ -66,15 +66,20 @@ export const accountMutationRateLimit = new Ratelimit({
  * kendisi ARIZALANDIĞINDA sitenin tamamen durması, saldırı riskinden daha
  * kötü bir sonuçtur — arıza Sentry'ye bildirilir, admin haberdar olur.
  */
-export async function safeRateLimit(limiter: Ratelimit, identifier: string): Promise<{ success: boolean; reset: number }> {
+export async function safeRateLimit(
+  limiter: Ratelimit,
+  identifier: string,
+  opts?: { failClosed?: boolean }
+): Promise<{ success: boolean; reset: number }> {
   try {
     const { success, reset } = await limiter.limit(identifier);
     return { success, reset };
   } catch (err) {
-    Sentry.captureException(err, { tags: { context: 'rate-limit-unavailable' } });
-    // reset burada hiç kullanılmaz: success=true olduğundan çağıran taraftaki
-    // "if (!success)" bloğu (Retry-After hesaplaması dahil) zaten çalışmaz.
-    return { success: true, reset: Date.now() };
+    Sentry.captureException(err, { tags: { context: 'rate-limit-unavailable', failClosed: String(!!opts?.failClosed) } });
+    // failClosed: kaba kuvvet/para riski taşıyan uçlarda (ödeme başlatma, MFA
+    // kodu) sınırlayıcı çalışmıyorsa isteği REDDET. Diğer uçlarda fail-open.
+    // 60 sn sonrası: çağıranın Retry-After hesaplaması anlamlı bir değer alsın.
+    return { success: !opts?.failClosed, reset: Date.now() + 60_000 };
   }
 }
 

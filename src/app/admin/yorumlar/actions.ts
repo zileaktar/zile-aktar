@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { assertRole } from '@/lib/rbac';
+import { assertAal2 } from '@/lib/admin-auth';
 
 const moderateSchema = z.object({
   reviewId: z.string().uuid(),
@@ -29,6 +30,7 @@ export async function moderateReviewAction(formData: FormData): Promise<void> {
   } = await supabase.auth.getUser();
   const { data: profile } = await supabase.from('profiles').select('role').eq('id', user?.id ?? '').single();
   assertRole(profile?.role, 'moderator');
+  await assertAal2(supabase);
 
   if (action === 'delete') {
     await supabase.from('reviews').delete().eq('id', reviewId);
