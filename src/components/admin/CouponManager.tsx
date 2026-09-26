@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useTransition } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
-import { formatPriceFromCents } from '@/lib/format';
+import { formatPriceFromCents, formatDateTR } from '@/lib/format';
 import {
   createCouponAction,
   toggleCouponAction,
@@ -195,7 +195,7 @@ function CouponRowItem({ coupon }: { coupon: CouponRow }) {
         {coupon.max_uses != null ? ` / ${coupon.max_uses}` : ' (sınırsız)'}
         {coupon.min_cart_cents > 0 && ` · Min. sepet: ${formatPriceFromCents(coupon.min_cart_cents)}`}
         {coupon.per_user_once && ' · Müşteri başına 1 kez'}
-        {coupon.expires_at && ` · Bitiş: ${new Date(coupon.expires_at).toLocaleDateString('tr-TR')}`}
+        {coupon.expires_at && ` · Bitiş: ${formatDateTR(coupon.expires_at)}`}
       </p>
       {error && <p className="text-xs text-red-600 mt-1">{error}</p>}
     </div>

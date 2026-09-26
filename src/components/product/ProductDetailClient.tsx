@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { formatPriceFromCents } from '@/lib/format';
+import { formatPriceFromCents, formatDateTR } from '@/lib/format';
 import { getProductImageUrl } from '@/lib/media';
 import { dealBadgeText, dealFromRow } from '@/lib/pricing';
 import { trackAddToCart } from '@/lib/analytics';
@@ -140,7 +140,7 @@ export function ProductDetailClient({
 
       {(selectedVariant.expiry_date || selectedVariant.lot_no) && (
         <p className="text-[11px] text-carbon/50 -mt-3 mb-5">
-          {selectedVariant.expiry_date && <>Son tüketim tarihi: {new Date(selectedVariant.expiry_date).toLocaleDateString('tr-TR')}</>}
+          {selectedVariant.expiry_date && <>Son tüketim tarihi: {formatDateTR(selectedVariant.expiry_date)}</>}
           {selectedVariant.expiry_date && selectedVariant.lot_no && ' · '}
           {selectedVariant.lot_no && <>Parti no: {selectedVariant.lot_no}</>}
         </p>

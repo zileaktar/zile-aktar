@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { createSupabaseServerClient, createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { assertRole } from '@/lib/rbac';
 import { assertAal2 } from '@/lib/admin-auth';
-import { formatPriceFromCents } from '@/lib/format';
+import { formatPriceFromCents, formatDateTimeTR, formatOrderTimeTR } from '@/lib/format';
 import { sendOrderShippedEmail, sendOrderDeliveredEmail } from '@/lib/email';
 import type { OrderStatus } from '@/lib/supabase/types';
 
@@ -91,6 +91,7 @@ export default async function AdminOrdersPage() {
           <thead className="bg-cream text-left text-xs uppercase text-carbon/50">
             <tr>
               <th className="px-4 py-3">Sipariş No</th>
+              <th className="px-4 py-3">Tarih</th>
               <th className="px-4 py-3">E-posta</th>
               <th className="px-4 py-3">Toplam</th>
               <th className="px-4 py-3">Durum</th>
@@ -103,6 +104,9 @@ export default async function AdminOrdersPage() {
                   <Link href={`/admin/siparisler/${order.id}`} className="text-primary hover:underline">
                     {order.order_number}
                   </Link>
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap text-carbon/70" title={formatDateTimeTR(order.created_at)}>
+                  {formatOrderTimeTR(order.created_at)}
                 </td>
                 <td className="px-4 py-3 text-carbon/60">{order.contact_email}</td>
                 <td className="px-4 py-3">{formatPriceFromCents(order.total_cents)}</td>

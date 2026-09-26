@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { formatDateTR } from '@/lib/format';
 import { useFormState, useFormStatus } from 'react-dom';
 import Link from 'next/link';
 import type { PublicReview } from '@/lib/data/reviews';
@@ -73,7 +74,7 @@ export function ProductReviews({ productId, slug, reviews, count, average, conte
               </div>
               {r.title && <p className="font-medium text-sm mb-1">{r.title}</p>}
               <p className="text-sm text-carbon/70 leading-relaxed">{r.body}</p>
-              <p className="text-[11px] text-carbon/40 mt-2">{new Date(r.created_at).toLocaleDateString('tr-TR')}</p>
+              <p className="text-[11px] text-carbon/40 mt-2">{formatDateTR(r.created_at)}</p>
             </div>
           ))}
         </div>

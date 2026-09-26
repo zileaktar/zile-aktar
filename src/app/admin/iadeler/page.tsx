@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
-import { formatPriceFromCents } from '@/lib/format';
+import { formatPriceFromCents, formatDateTimeTR } from '@/lib/format';
 import { updateReturnRequestAction } from './actions';
 
 export const dynamic = 'force-dynamic';
@@ -52,7 +52,7 @@ function ReturnCard({ r }: { r: ReturnRow }) {
       </div>
       <p className="text-sm font-medium">{r.reason}</p>
       {r.detail && <p className="text-sm text-carbon/70">{r.detail}</p>}
-      <p className="text-[11px] text-carbon/40 mt-1">{new Date(r.created_at).toLocaleString('tr-TR')}</p>
+      <p className="text-[11px] text-carbon/40 mt-1">{formatDateTimeTR(r.created_at)}</p>
 
       <form action={updateReturnRequestAction} className="flex flex-wrap items-end gap-2 mt-3 pt-3 border-t border-dashed border-primary/10">
         <input type="hidden" name="requestId" value={r.id} />

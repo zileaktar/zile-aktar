@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
+import { formatDateTimeTR } from '@/lib/format';
 import { createReturnRequestAction } from '@/app/hesabim/siparislerim/[id]/return-actions';
 import { RETURN_REASONS } from '@/lib/validations/return-request';
 
@@ -54,7 +55,7 @@ export function ReturnRequestForm({
           {existingRequest.detail && <> — {existingRequest.detail}</>}
         </p>
         <p className="text-[11px] text-carbon/40 mt-1">
-          {new Date(existingRequest.createdAt).toLocaleString('tr-TR')} tarihinde oluşturuldu.
+          {formatDateTimeTR(existingRequest.createdAt)} tarihinde oluşturuldu.
         </p>
         {existingRequest.adminNote && (
           <p className="text-sm text-primary-dark bg-primary/5 border border-primary/15 rounded-lg px-3 py-2 mt-2">

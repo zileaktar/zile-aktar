@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { formatDateTimeTR } from '@/lib/format';
 import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { moderateReviewAction } from './actions';
 
@@ -48,7 +49,7 @@ function ReviewCard({ r }: { r: ReviewRow }) {
       </div>
       {r.title && <p className="font-medium text-sm">{r.title}</p>}
       <p className="text-sm text-carbon/70 leading-relaxed">{r.body}</p>
-      <p className="text-[11px] text-carbon/40 mt-1.5">{new Date(r.created_at).toLocaleString('tr-TR')}</p>
+      <p className="text-[11px] text-carbon/40 mt-1.5">{formatDateTimeTR(r.created_at)}</p>
       <div className="flex gap-3 mt-3">
         {r.status !== 'approved' && <ModButton id={r.id} action="approve" label="Onayla" className="text-green-700" />}
         {r.status !== 'rejected' && <ModButton id={r.id} action="reject" label="Reddet" className="text-amber-700" />}

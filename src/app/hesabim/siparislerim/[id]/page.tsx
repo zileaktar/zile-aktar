@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { formatPriceFromCents } from '@/lib/format';
+import { formatPriceFromCents, formatDateTimeTR, formatDateTR } from '@/lib/format';
 import { orderStatusLabel, paymentMethodLabel } from '@/lib/order-status';
 import { LEGAL } from '@/lib/legal';
 import { ReturnRequestForm, type ExistingReturnRequest } from '@/components/account/ReturnRequestForm';
@@ -79,7 +79,7 @@ export default async function CustomerOrderDetailPage({ params }: PageProps) {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="font-display font-bold text-2xl text-primary">{order.order_number}</h1>
-          <p className="text-xs text-carbon/50">{new Date(order.created_at).toLocaleString('tr-TR')}</p>
+          <p className="text-xs text-carbon/50">{formatDateTimeTR(order.created_at)}</p>
         </div>
         <span className={`text-xs font-semibold px-3 py-1 rounded-full ${status.className}`}>{status.label}</span>
       </div>
@@ -96,7 +96,7 @@ export default async function CustomerOrderDetailPage({ params }: PageProps) {
           <div className="font-semibold mb-1">🚚 Kargo Bilgisi</div>
           {order.shipped_at && (
             <div className="text-xs text-blue-700/80 mb-1">
-              {new Date(order.shipped_at).toLocaleDateString('tr-TR')} tarihinde kargoya verildi.
+              {formatDateTR(order.shipped_at)} tarihinde kargoya verildi.
             </div>
           )}
           {order.shipping_carrier && <div>Kargo firması: {order.shipping_carrier}</div>}

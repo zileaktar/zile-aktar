@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { formatPriceFromCents } from '@/lib/format';
+import { formatPriceFromCents, formatDateTR } from '@/lib/format';
 import { orderStatusLabel } from '@/lib/order-status';
 
 export const dynamic = 'force-dynamic';
@@ -44,7 +44,7 @@ export default async function OrderHistoryPage() {
                 <div className="flex items-center justify-between mb-3">
                   <div>
                     <div className="font-bold text-primary">{order.order_number}</div>
-                    <div className="text-xs text-carbon/50">{new Date(order.created_at).toLocaleDateString('tr-TR')}</div>
+                    <div className="text-xs text-carbon/50">{formatDateTR(order.created_at)}</div>
                   </div>
                   <span className={`text-xs font-semibold px-3 py-1 rounded-full ${status.className}`}>{status.label}</span>
                 </div>

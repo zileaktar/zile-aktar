@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { createSupabaseServerClient, createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { assertRole } from '@/lib/rbac';
 import { assertAal2 } from '@/lib/admin-auth';
-import { formatPriceFromCents } from '@/lib/format';
+import { formatPriceFromCents, formatDateTimeTR } from '@/lib/format';
 import { sendOrderShippedEmail } from '@/lib/email';
 import type { OrderStatus } from '@/lib/supabase/types';
 
@@ -105,8 +105,8 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
       </div>
 
       <p className="text-xs text-carbon/50">
-        Oluşturma: {new Date(order.created_at).toLocaleString('tr-TR')} · Son güncelleme:{' '}
-        {new Date(order.updated_at).toLocaleString('tr-TR')}
+        Oluşturma: {formatDateTimeTR(order.created_at)} · Son güncelleme:{' '}
+        {formatDateTimeTR(order.updated_at)}
       </p>
 
       <div className="grid sm:grid-cols-2 gap-4">
@@ -196,7 +196,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
         <h2 className="font-semibold text-primary mb-3">Kargo Bilgisi</h2>
         {order.shipped_at && (
           <p className="text-sm text-carbon/70 mb-3">
-            {new Date(order.shipped_at).toLocaleString('tr-TR')} tarihinde kargoya verildi ve müşteriye e-posta gönderildi.
+            {formatDateTimeTR(order.shipped_at)} tarihinde kargoya verildi ve müşteriye e-posta gönderildi.
             {order.shipping_carrier ? ` · ${order.shipping_carrier}` : ''}
             {order.tracking_number ? ` · Takip: ${order.tracking_number}` : ''}
           </p>
