@@ -183,7 +183,7 @@ Supabase proje referansı: `gabdklnlojfbdaxtgmtg`.
 - **Telegram yönetici bildirimleri** (`src/lib/notify.ts`, müşteri kişisel verisi içermez), Ayarlar'da test butonu. **Mobil uyum** düzeltmeleri (admin tabloları mobilde kart).
 - **PDF'ler** (`pdf-lib` + `@pdf-lib/fontkit`, Inter fontu `src/assets/fonts/` — `next.config.mjs` `outputFileTracingIncludes` ile pakete dahil):
   - Sipariş detayı → "PDF İndir" → `GET /api/admin/orders/[id]/pdf` (moderator + AAL2), tüm sipariş ayrıntıları.
-  - Ayarlar → Satış Raporları → `GET /api/admin/reports/pdf?period=daily|weekly|monthly|yearly` (admin + AAL2). Hesap mantığı `src/lib/reports.ts` (birim testli); ciro = paid/shipped/delivered. Raporda müşteri kişisel verisi yok.
+  - Ayarlar → Satış Raporları → `GET /api/admin/reports/pdf?period=daily|weekly|monthly|yearly` (admin + AAL2) — varsayılan içinde bulunulan dönem (bugün / bu hafta Pzt–Paz / bu ay / bu yıl, TR saati; `currentPeriodRange`); `date=YYYY-MM-DD` / `month`+`year` / `year` ile seçilen dönem (`reportAnchor`). Hesap mantığı `src/lib/reports.ts` (birim testli); ciro = paid/shipped/delivered. Raporda müşteri kişisel verisi yok.
 
 ## 5. Kullanıcı tarafı — YAYINI ENGELLEYEN işler (kod değil)
 

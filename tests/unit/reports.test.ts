@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildSalesReport, periodOf, type ReportOrder } from '@/lib/reports';
+import { buildSalesReport, currentPeriodRange, periodOf, reportAnchor, type ReportOrder } from '@/lib/reports';
 
 function order(partial: Partial<ReportOrder>): ReportOrder {
   return {
@@ -74,5 +74,56 @@ describe('buildSalesReport', () => {
     );
     expect(periods.map((p) => p.label)).toEqual(['Eylül 2026', 'Ağustos 2026']);
     expect(periods[0]?.orders.map((o) => o.order_number)).toEqual(['C', 'B']);
+  });
+});
+
+describe('currentPeriodRange', () => {
+  // 26 Eylül 2026 Cumartesi, 01:30 TR (= 25 Eylül 22:30 UTC)
+  const now = new Date('2026-09-25T22:30:00Z');
+
+  it('bugün: Türkiye gece yarısından gece yarısına', () => {
+    const r = currentPeriodRange('daily', now);
+    expect(r.start.toISOString()).toBe('2026-09-25T21:00:00.000Z');
+    expect(r.end.toISOString()).toBe('2026-09-26T21:00:00.000Z');
+    expect(r.label).toBe('26.09.2026 Cumartesi');
+  });
+
+  it('bu hafta: Pazartesi 00:00 – sonraki Pazartesi 00:00', () => {
+    const r = currentPeriodRange('weekly', now);
+    expect(r.start.toISOString()).toBe('2026-09-20T21:00:00.000Z');
+    expect(r.end.toISOString()).toBe('2026-09-27T21:00:00.000Z');
+  });
+
+  it('bu ay ve bu yıl', () => {
+    const m = currentPeriodRange('monthly', now);
+    expect(m.start.toISOString()).toBe('2026-08-31T21:00:00.000Z');
+    expect(m.end.toISOString()).toBe('2026-09-30T21:00:00.000Z');
+    expect(m.label).toBe('Eylül 2026');
+    const y = currentPeriodRange('yearly', now);
+    expect(y.start.toISOString()).toBe('2025-12-31T21:00:00.000Z');
+    expect(y.end.toISOString()).toBe('2026-12-31T21:00:00.000Z');
+  });
+});
+
+describe('reportAnchor', () => {
+  it('seçilen günün aralığını verir', () => {
+    const anchor = reportAnchor('daily', { date: '2026-03-05' });
+    expect(anchor).toBeInstanceOf(Date);
+    const r = currentPeriodRange('daily', anchor as Date);
+    expect(r.start.toISOString()).toBe('2026-03-04T21:00:00.000Z');
+    expect(r.label).toBe('05.03.2026 Perşembe');
+  });
+
+  it('seçilen ay ve yıl', () => {
+    const m = currentPeriodRange('monthly', reportAnchor('monthly', { year: 2026, month: 2 }) as Date);
+    expect(m.label).toBe('Şubat 2026');
+    expect(m.end.toISOString()).toBe('2026-02-28T21:00:00.000Z');
+    expect(currentPeriodRange('yearly', reportAnchor('yearly', { year: 2025 }) as Date).label).toBe('2025');
+  });
+
+  it('seçim yoksa null, geçersizse invalid', () => {
+    expect(reportAnchor('daily', {})).toBeNull();
+    expect(reportAnchor('daily', { date: '2026-02-31' })).toBe('invalid');
+    expect(reportAnchor('monthly', { year: 2026 })).toBe('invalid');
   });
 });

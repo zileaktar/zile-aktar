@@ -5,31 +5,58 @@ import { orderStatusLabel, paymentMethodLabel } from '@/lib/order-status';
 import { LEGAL } from '@/lib/legal';
 import { buildSalesReport, REPORT_PERIODS, type ReportOrder, type ReportPeriod } from '@/lib/reports';
 
+const BREAKDOWN_TITLE: Record<ReportPeriod, string> = {
+  daily: 'Gün Gün Dağılım',
+  weekly: 'Hafta Hafta Dağılım',
+  monthly: 'Ay Ay Dağılım',
+  yearly: 'Yıl Yıl Dağılım'
+};
+
+function orderRow(o: ReportOrder): TableRow {
+  return {
+    cells: [
+      formatDateTimeTR(o.created_at),
+      o.order_number,
+      orderStatusLabel(o.status).label,
+      paymentMethodLabel(o.payment_provider),
+      formatPriceFromCents(o.total_cents)
+    ]
+  };
+}
+
 /**
- * Satış raporu PDF'i (Ayarlar → Raporlar). Şimdiye kadarki TÜM siparişleri
- * seçilen döneme (gün/hafta/ay/yıl) göre özetler, ardından her siparişi dönem
- * başlıkları altında listeler. Müşteri kişisel verisi (ad, adres, telefon,
- * e-posta) BİLİNÇLİ OLARAK yer almaz — rapor muhasebeciyle paylaşılabilir.
+ * Satış raporu PDF'i (Ayarlar → Satış Raporları). YALNIZCA içinde bulunulan
+ * dönemi (bugün / bu hafta / bu ay / bu yıl) kapsar: önce dönem özeti, sonra
+ * (haftalık/aylık/yıllıkta) gün veya ay bazında dağılım, en sonda dönemin
+ * sipariş listesi. Müşteri kişisel verisi (ad, adres, telefon, e-posta)
+ * BİLİNÇLİ OLARAK yer almaz — rapor muhasebeciyle paylaşılabilir.
+ *
+ * `orders`: yalnızca dönem aralığındaki siparişler (route filtreler).
  */
-export async function renderSalesReportPdf(orders: ReportOrder[], period: ReportPeriod): Promise<Uint8Array> {
-  const periodLabel = REPORT_PERIODS.find((p) => p.value === period)?.label ?? period;
-  const { periods, overall } = buildSalesReport(orders, period);
-  const pdf = await PdfBuilder.create(`${periodLabel} Satış Raporu`, `${LEGAL.markaAdi} · ${periodLabel} Satış Raporu`);
+export async function renderSalesReportPdf(
+  orders: ReportOrder[],
+  period: ReportPeriod,
+  periodLabel: string
+): Promise<Uint8Array> {
+  const config = REPORT_PERIODS.find((p) => p.value === period);
+  const typeLabel = config?.label ?? period;
+  const breakdown = config?.breakdown ?? null;
+  // Dağılım yoksa (günlük rapor) tüm siparişler tek grupta toplanır — yalnız "overall" kullanılır.
+  const { periods, overall } = buildSalesReport(orders, breakdown ?? period);
+
+  const pdf = await PdfBuilder.create(
+    `${typeLabel} Satış Raporu — ${periodLabel}`,
+    `${LEGAL.markaAdi} · ${typeLabel} Satış Raporu · ${periodLabel}`
+  );
 
   pdf.text(LEGAL.markaAdi, { size: 18, bold: true, color: COLORS.primary });
-  pdf.text(`${periodLabel.toLocaleUpperCase('tr-TR')} SATIŞ RAPORU`, { size: 14, bold: true, color: COLORS.primary });
-  const oldest = overall.orders.at(-1);
-  const newest = overall.orders[0];
-  pdf.text(
-    oldest && newest
-      ? `Kapsam: ${formatDateTimeTR(oldest.created_at)} – ${formatDateTimeTR(newest.created_at)} (şimdiye kadarki tüm siparişler)`
-      : 'Henüz sipariş kaydı yok.',
-    { size: 9, color: COLORS.muted }
-  );
+  pdf.text(`${typeLabel.toLocaleUpperCase('tr-TR')} SATIŞ RAPORU`, { size: 14, bold: true, color: COLORS.primary });
+  pdf.text(`Dönem: ${periodLabel}`, { size: 11, bold: true });
+  pdf.text(`Rapor anındaki durum: ${formatDateTimeTR(new Date())}`, { size: 8.5, color: COLORS.muted });
   pdf.divider();
 
-  // --- Genel özet
-  pdf.heading('Genel Özet (Tüm Zamanlar)');
+  // --- Dönem özeti
+  pdf.heading('Özet');
   pdf.keyValues(
     [
       ['Toplam sipariş kaydı', String(overall.orderCount)],
@@ -57,61 +84,63 @@ export async function renderSalesReportPdf(orders: ReportOrder[], period: Report
     { size: 8, color: COLORS.muted }
   );
 
-  // --- Dönem özetleri
-  pdf.heading(`${periodLabel} Özet`);
-  pdf.table(
-    [
-      { header: 'Dönem', width: 0.27 },
-      { header: 'Sipariş', width: 0.08, align: 'right' },
-      { header: 'Ödenen', width: 0.08, align: 'right' },
-      { header: 'Kart', width: 0.14, align: 'right' },
-      { header: 'Havale', width: 0.14, align: 'right' },
-      { header: 'İade', width: 0.13, align: 'right' },
-      { header: 'Ciro', width: 0.16, align: 'right' }
-    ],
-    [
-      ...periods.map<TableRow>((p) => ({
-        cells: [
-          p.label,
-          String(p.orderCount),
-          String(p.paidCount),
-          formatPriceFromCents(p.cardCents),
-          formatPriceFromCents(p.havaleCents),
-          formatPriceFromCents(p.refundedCents),
-          formatPriceFromCents(p.revenueCents)
-        ]
-      })),
-      {
-        bold: true,
-        cells: [
-          'TOPLAM',
-          String(overall.orderCount),
-          String(overall.paidCount),
-          formatPriceFromCents(overall.cardCents),
-          formatPriceFromCents(overall.havaleCents),
-          formatPriceFromCents(overall.refundedCents),
-          formatPriceFromCents(overall.revenueCents)
-        ]
-      }
-    ]
-  );
+  if (overall.orderCount === 0) {
+    pdf.space(10);
+    pdf.text('Bu dönemde sipariş yok.', { size: 11, bold: true, color: COLORS.muted });
+    return pdf.finish();
+  }
 
-  // --- Tüm siparişler, dönem başlıkları altında
+  // --- Dağılım (haftalık/aylık: gün gün, yıllık: ay ay) — yalnız sipariş olan günler/aylar
+  if (breakdown) {
+    pdf.heading(BREAKDOWN_TITLE[breakdown]);
+    pdf.table(
+      [
+        { header: breakdown === 'daily' ? 'Gün' : 'Ay', width: 0.27 },
+        { header: 'Sipariş', width: 0.08, align: 'right' },
+        { header: 'Ödenen', width: 0.08, align: 'right' },
+        { header: 'Kart', width: 0.14, align: 'right' },
+        { header: 'Havale', width: 0.14, align: 'right' },
+        { header: 'İade', width: 0.13, align: 'right' },
+        { header: 'Ciro', width: 0.16, align: 'right' }
+      ],
+      [
+        ...periods.map<TableRow>((p) => ({
+          cells: [
+            p.label,
+            String(p.orderCount),
+            String(p.paidCount),
+            formatPriceFromCents(p.cardCents),
+            formatPriceFromCents(p.havaleCents),
+            formatPriceFromCents(p.refundedCents),
+            formatPriceFromCents(p.revenueCents)
+          ]
+        })),
+        {
+          bold: true,
+          cells: [
+            'TOPLAM',
+            String(overall.orderCount),
+            String(overall.paidCount),
+            formatPriceFromCents(overall.cardCents),
+            formatPriceFromCents(overall.havaleCents),
+            formatPriceFromCents(overall.refundedCents),
+            formatPriceFromCents(overall.revenueCents)
+          ]
+        }
+      ]
+    );
+  }
+
+  // --- Dönemin siparişleri (dağılım varsa gün/ay başlıkları altında)
   pdf.heading('Sipariş Listesi');
   const rows: TableRow[] = [];
-  for (const p of periods) {
-    rows.push({ section: `${p.label} — ${p.paidCount} ödenen sipariş · Ciro ${formatPriceFromCents(p.revenueCents)}` });
-    for (const o of p.orders) {
-      rows.push({
-        cells: [
-          formatDateTimeTR(o.created_at),
-          o.order_number,
-          orderStatusLabel(o.status).label,
-          paymentMethodLabel(o.payment_provider),
-          formatPriceFromCents(o.total_cents)
-        ]
-      });
+  if (breakdown) {
+    for (const p of periods) {
+      rows.push({ section: `${p.label} — ${p.paidCount} ödenen sipariş · Ciro ${formatPriceFromCents(p.revenueCents)}` });
+      rows.push(...p.orders.map(orderRow));
     }
+  } else {
+    rows.push(...overall.orders.map(orderRow));
   }
   pdf.table(
     [

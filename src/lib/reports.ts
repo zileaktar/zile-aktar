@@ -9,11 +9,21 @@ import type { OrderStatus } from '@/lib/supabase/types';
 
 export type ReportPeriod = 'daily' | 'weekly' | 'monthly' | 'yearly';
 
-export const REPORT_PERIODS: ReadonlyArray<{ value: ReportPeriod; label: string }> = [
-  { value: 'daily', label: 'Günlük' },
-  { value: 'weekly', label: 'Haftalık' },
-  { value: 'monthly', label: 'Aylık' },
-  { value: 'yearly', label: 'Yıllık' }
+/**
+ * Rapor türleri. Her rapor yalnızca İÇİNDE BULUNULAN dönemi kapsar (bugün, bu
+ * hafta, bu ay, bu yıl). `breakdown`: raporun içindeki dağılım tablosunun
+ * birimi (ör. aylık raporda gün gün, yıllık raporda ay ay); günlük raporda yok.
+ */
+export const REPORT_PERIODS: ReadonlyArray<{
+  value: ReportPeriod;
+  label: string;
+  buttonLabel: string;
+  breakdown: ReportPeriod | null;
+}> = [
+  { value: 'daily', label: 'Günlük', buttonLabel: 'Bugün', breakdown: null },
+  { value: 'weekly', label: 'Haftalık', buttonLabel: 'Bu Hafta', breakdown: 'daily' },
+  { value: 'monthly', label: 'Aylık', buttonLabel: 'Bu Ay', breakdown: 'daily' },
+  { value: 'yearly', label: 'Yıllık', buttonLabel: 'Bu Yıl', breakdown: 'monthly' }
 ];
 
 export interface ReportOrder {
@@ -39,7 +49,7 @@ export function isCardProvider(provider: string): boolean {
   return provider === 'vakifbank' || provider === 'iyzico';
 }
 
-const MONTHS_TR = [
+export const MONTHS_TR = [
   'Ocak',
   'Şubat',
   'Mart',
@@ -100,6 +110,83 @@ export function periodOf(value: string | Date, period: ReportPeriod): { key: str
     case 'yearly':
       return { key: String(y), label: String(y) };
   }
+}
+
+const istanbulOffset = new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Istanbul', timeZoneName: 'longOffset' });
+
+/** Verilen andaki Türkiye saat farkı (ms) — "GMT+03:00" → 3 saat. */
+function istanbulOffsetMs(date: Date): number {
+  const name = istanbulOffset.formatToParts(date).find((p) => p.type === 'timeZoneName')?.value ?? '';
+  const match = /GMT([+-])(\d{2}):(\d{2})/.exec(name);
+  if (!match) return 0;
+  const sign = match[1] === '-' ? -1 : 1;
+  return sign * (Number(match[2]) * 60 + Number(match[3])) * 60_000;
+}
+
+/** Türkiye takviminde y-m-d gününün 00:00'ı (UTC an olarak). Taşan ay/gün değerleri Date.UTC ile normalize olur. */
+function istanbulMidnight(y: number, m: number, d: number): Date {
+  const utcMidnight = Date.UTC(y, m - 1, d);
+  return new Date(utcMidnight - istanbulOffsetMs(new Date(utcMidnight)));
+}
+
+/**
+ * `anchor` anını içeren dönemin [başlangıç, bitiş) aralığı (Türkiye takvimi):
+ * o gün, o hafta (Pazartesi–Pazar), o ay veya o yıl. `anchor` verilmezse
+ * içinde bulunulan dönem (bugün / bu hafta / bu ay / bu yıl).
+ */
+export function currentPeriodRange(
+  period: ReportPeriod,
+  anchor: Date = new Date()
+): { start: Date; end: Date; key: string; label: string } {
+  const { y, m, d } = istanbulDate(anchor);
+  const { key, label } = periodOf(anchor, period);
+  switch (period) {
+    case 'daily':
+      return { start: istanbulMidnight(y, m, d), end: istanbulMidnight(y, m, d + 1), key, label };
+    case 'weekly': {
+      const dow = new Date(Date.UTC(y, m - 1, d, 12)).getUTCDay();
+      const monday = d - ((dow + 6) % 7);
+      return { start: istanbulMidnight(y, m, monday), end: istanbulMidnight(y, m, monday + 7), key, label };
+    }
+    case 'monthly':
+      return { start: istanbulMidnight(y, m, 1), end: istanbulMidnight(y, m + 1, 1), key, label };
+    case 'yearly':
+      return { start: istanbulMidnight(y, 1, 1), end: istanbulMidnight(y + 1, 1, 1), key, label };
+  }
+}
+
+/** Yönetim panelindeki tarih seçimi (URL parametreleri, doğrulanmış). */
+export interface ReportDateSelection {
+  /** "YYYY-MM-DD" — günlük ve haftalık rapor için. */
+  date?: string | undefined;
+  month?: number | undefined;
+  year?: number | undefined;
+}
+
+/**
+ * Seçilen tarihi dönem içinden bir "çapa" anına çevirir (Türkiye takvimi, gün
+ * ortası — saat farkı kaymalarından etkilenmez). Seçim yoksa `null` (= içinde
+ * bulunulan dönem); seçim eksik/geçersizse `'invalid'`.
+ */
+export function reportAnchor(period: ReportPeriod, sel: ReportDateSelection): Date | null | 'invalid' {
+  const noon = (y: number, m: number, d: number) => new Date(istanbulMidnight(y, m, d).getTime() + 12 * 3_600_000);
+  if (period === 'daily' || period === 'weekly') {
+    if (!sel.date) return null;
+    const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(sel.date);
+    if (!match) return 'invalid';
+    const [y, m, d] = [Number(match[1]), Number(match[2]), Number(match[3])];
+    // 31 Şubat gibi takvimde olmayan günleri reddet.
+    const check = new Date(Date.UTC(y, m - 1, d));
+    if (check.getUTCFullYear() !== y || check.getUTCMonth() !== m - 1 || check.getUTCDate() !== d) return 'invalid';
+    return noon(y, m, d);
+  }
+  if (period === 'monthly') {
+    if (sel.year === undefined && sel.month === undefined) return null;
+    if (sel.year === undefined || sel.month === undefined) return 'invalid';
+    return noon(sel.year, sel.month, 15);
+  }
+  if (sel.year === undefined) return null;
+  return noon(sel.year, 7, 1);
 }
 
 export interface PeriodSummary {
