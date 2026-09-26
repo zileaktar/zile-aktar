@@ -8,6 +8,8 @@ import { assertAal2 } from '@/lib/admin-auth';
 import { formatPriceFromCents, formatDateTimeTR } from '@/lib/format';
 import { sendOrderShippedEmail } from '@/lib/email';
 import type { OrderStatus } from '@/lib/supabase/types';
+import { cancelKindFor } from '@/lib/order-cancel';
+import { CancelOrderCard } from '@/components/admin/CancelOrderCard';
 
 export const dynamic = 'force-dynamic';
 
@@ -78,7 +80,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
   const { data: order } = await supabase
     .from('orders')
     .select(
-      'id, order_number, status, subtotal_cents, shipping_cents, deal_discount_cents, discount_cents, coupon_code, total_cents, currency, shipping_address, billing_address, contact_email, contact_phone, payment_provider, payment_ref, shipping_carrier, tracking_number, shipped_at, created_at, updated_at, order_items(id, product_name_snapshot, variant_label_snapshot, unit_price_cents, quantity)'
+      'id, order_number, status, subtotal_cents, shipping_cents, deal_discount_cents, discount_cents, coupon_code, total_cents, currency, shipping_address, billing_address, contact_email, contact_phone, payment_provider, payment_ref, shipping_carrier, tracking_number, shipped_at, cancelled_at, refund_ref, refund_started_at, created_at, updated_at, order_items(id, product_name_snapshot, variant_label_snapshot, unit_price_cents, quantity)'
     )
     .eq('id', id)
     .single();
@@ -88,6 +90,16 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
   const addr = order.shipping_address;
   const billing = order.billing_address;
   const items = order.order_items ?? [];
+
+  // İptal/iade kartı yalnız ADMIN'e gösterilir (para hareketi). Asıl kontrol
+  // yine sunucu aksiyonunda (cancel-actions.ts) yapılır.
+  const userClient = await createSupabaseServerClient();
+  const {
+    data: { user }
+  } = await userClient.auth.getUser();
+  const { data: viewer } = await userClient.from('profiles').select('role').eq('id', user?.id ?? '').single();
+  const isAdmin = viewer?.role === 'admin';
+  const cancelKind = cancelKindFor(order.status, order.payment_provider);
 
   return (
     <div className="space-y-6">
@@ -246,6 +258,30 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
           </button>
         </form>
       </div>
+
+      {(order.status === 'cancelled' || order.status === 'refunded') && (
+        <div className="bg-carbon/5 rounded-2xl p-5 text-sm text-carbon/80 space-y-1 break-all">
+          <h2 className="font-semibold text-carbon">{order.status === 'refunded' ? 'İade Edildi' : 'İptal Edildi'}</h2>
+          {order.cancelled_at && <div>Tarih: {formatDateTimeTR(order.cancelled_at)}</div>}
+          {order.refund_ref && <div>Banka iade/iptal işlem no: {order.refund_ref}</div>}
+        </div>
+      )}
+
+      {isAdmin && order.refund_started_at && cancelKind === 'refund_card' && (
+        <div className="bg-amber-50 border border-amber-200 text-amber-800 rounded-2xl p-5 text-sm">
+          Bu sipariş için {formatDateTimeTR(order.refund_started_at)} tarihinde bir iade işlemi başlatılmış ama sonucu
+          kesinleşmemiş. Tekrar denemeden önce VakıfBank panelinden işlemin durumunu kontrol edin.
+        </div>
+      )}
+
+      {isAdmin && cancelKind !== 'closed' && !order.refund_started_at && (
+        <CancelOrderCard
+          orderId={order.id}
+          kind={cancelKind}
+          totalLabel={formatPriceFromCents(order.total_cents)}
+          defaultRestock={order.status === 'paid'}
+        />
+      )}
     </div>
   );
 }

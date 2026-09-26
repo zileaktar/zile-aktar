@@ -13,11 +13,13 @@ import type { OrderStatus } from '@/lib/supabase/types';
 // önbelleğe alır ve yeni siparişler listede görünmez. force-dynamic bunu kapatır.
 export const dynamic = 'force-dynamic';
 
-const STATUS_OPTIONS: OrderStatus[] = ['pending', 'paid', 'shipped', 'delivered', 'cancelled', 'refunded'];
+// İptal / iade burada YOK: bunlar stok iadesi ve (kartta) banka iadesi gerektirir —
+// sipariş detayındaki "İptal / İade" kartından yapılır (bkz. lib/order-cancel.ts).
+const STATUS_OPTIONS: OrderStatus[] = ['pending', 'paid', 'shipped', 'delivered'];
 
 const updateOrderStatusSchema = z.object({
   orderId: z.string().uuid(),
-  status: z.enum(['pending', 'paid', 'failed', 'shipped', 'delivered', 'cancelled', 'refunded'])
+  status: z.enum(['pending', 'paid', 'shipped', 'delivered'])
 });
 
 /**
@@ -52,6 +54,8 @@ async function updateOrderStatus(formData: FormData) {
   const previousStatus = current?.status;
 
   if (previousStatus === status) return;
+  // Kapalı siparişler (başarısız / iptal / iade) bu menüden yeniden açılamaz.
+  if (previousStatus === 'failed' || previousStatus === 'cancelled' || previousStatus === 'refunded') return;
 
   const patch: { status: OrderStatus; shipped_at?: string; delivered_at?: string } = { status };
   if (status === 'shipped') patch.shipped_at = new Date().toISOString();
@@ -94,6 +98,13 @@ function StatusControl({ order }: { order: OrderRow }) {
     return (
       <span className="inline-block text-xs font-semibold px-2.5 py-1 rounded-full bg-red-100 text-red-700 whitespace-nowrap">
         Ödeme başarısız
+      </span>
+    );
+  }
+  if (order.status === 'cancelled' || order.status === 'refunded') {
+    return (
+      <span className="inline-block text-xs font-semibold px-2.5 py-1 rounded-full bg-carbon/10 text-carbon/60 whitespace-nowrap">
+        {STATUS_LABELS[order.status]}
       </span>
     );
   }

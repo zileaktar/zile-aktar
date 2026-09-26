@@ -249,6 +249,12 @@ export interface Database {
           deal_discount_cents: number;
           /** "Ödemenizi tamamlamadınız" hatırlatma maili gönderildi mi (migration 0032) — aynı siparişe iki kez gitmesin diye. */
           reminder_sent_at: string | null;
+          /** İptal/iade kilidi (migration 0037) — bankaya çift iade isteği gitmesin diye. */
+          refund_started_at: string | null;
+          /** Bankanın iptal/iade işlem numarası (migration 0037). */
+          refund_ref: string | null;
+          /** Sipariş iptal/iade durumuna alındığı an (migration 0037). */
+          cancelled_at: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -266,6 +272,9 @@ export interface Database {
           | 'discount_cents'
           | 'deal_discount_cents'
           | 'reminder_sent_at'
+          | 'refund_started_at'
+          | 'refund_ref'
+          | 'cancelled_at'
         > & {
           id?: string;
           billing_address?: Database['public']['Tables']['orders']['Row']['billing_address'];
@@ -277,6 +286,9 @@ export interface Database {
           discount_cents?: number;
           deal_discount_cents?: number;
           reminder_sent_at?: string | null;
+          refund_started_at?: string | null;
+          refund_ref?: string | null;
+          cancelled_at?: string | null;
         };
         Update: Partial<Database['public']['Tables']['orders']['Row']>;
         Relationships: [
@@ -593,6 +605,11 @@ export interface Database {
       };
       mark_order_paid: { Args: { p_order_id: string; p_payment_ref: string }; Returns: boolean };
       mark_order_failed: { Args: { p_order_id: string }; Returns: undefined };
+      // supabase/migrations/0037_order_cancel_refund.sql
+      close_order_with_restock: {
+        Args: { p_order_id: string; p_new_status: OrderStatus; p_restock: boolean; p_refund_ref: string | null };
+        Returns: boolean;
+      };
     };
     Enums: {
       user_role: UserRole;

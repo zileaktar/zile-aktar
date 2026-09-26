@@ -67,6 +67,7 @@ Kullanıcının portu 3000'de takılırsa: `npx kill-port 3000`. `NEXT_PUBLIC_AP
 - `mark_order_failed` idempotenttir (migration 0011).
 - Cron (`/api/cron/expire-pending-orders`) `payment_provider='vakifbank'` pending siparişleri 24 saat sonra, **iptal etmeden önce bankaya sorarak** kapatır (ödenmişse kurtarır; banka sorgusu hata verirse iptali erteler). Havale siparişlerine dokunmaz.
 - **Yerelde tam ödeme akışı TEST EDİLEMEZ:** VakıfBank güvenlik duvarı `SuccessUrl`'de `localhost` görünce isteği HTML "Request Rejected" ile reddeder. Test `zileaktar.com` üzerinde yapılır. Test kartı: `5521010140829928` / `12/29` / CVV `691`, 3D kodu `123456` (her kartın kendi SKT+CVV çifti var).
+- **İptal/iade** (migration 0037, `src/lib/order-cancel.ts`): yalnız admin + AAL2, sipariş detayındaki kart. Kartlıda önce `Cancel`, olmazsa tam tutar `Refund`; `refund_started_at` kilidi çift iadeyi engeller; `close_order_with_restock` RPC durumu kapatır + (istenirse) stoğu ekler. Liste sayfasındaki durum menüsünde iptal/iade YOK (stok/para hareketi atlanıyordu).
 - Env: `VAKIFBANK_MERCHANT_NUMBER/TERMINAL_NUMBER/PASSWORD/API_BASE_URL/VPOS_BASE_URL/PAYMENT_PAGE_URL`. İptal/iade (`Vposreq`) canlıda FARKLI sunucuda (`apigw.vakifbank.com.tr`) → `VPOS_BASE_URL`.
 
 ### Admin iki adımlı doğrulama (MFA/TOTP)

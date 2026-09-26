@@ -272,6 +272,52 @@ export async function sendOrderDeliveredEmail(orderId: string): Promise<void> {
   });
 }
 
+/**
+ * Sipariş yönetim panelinden iptal edildi / ücreti iade edildi — müşteriye bilgi
+ * e-postası. `kind`:
+ *  - 'cancelled': ödeme alınmamıştı, sipariş iptal edildi.
+ *  - 'refunded_card': kart ödemesi VakıfBank üzerinden iptal/iade edildi.
+ *  - 'refunded_transfer': havale/EFT ödemesi mağaza tarafından geri gönderildi.
+ * Best-effort.
+ */
+export async function sendOrderCancelledEmail(
+  orderId: string,
+  kind: 'cancelled' | 'refunded_card' | 'refunded_transfer'
+): Promise<void> {
+  const supabase = createSupabaseServiceRoleClient();
+  const { data } = await supabase.from('orders').select('order_number, contact_email, total_cents').eq('id', orderId).single();
+  if (!data) return;
+  const order = data as unknown as { order_number: string; contact_email: string; total_cents: number };
+  const amount = escapeHtml(formatPriceFromCents(order.total_cents));
+
+  const body =
+    kind === 'refunded_card'
+      ? `<p style="font-size:14px">Siparişiniz iptal edildi ve <b>${amount}</b> tutarındaki ödemeniz kartınıza iade edildi.</p>
+         <p style="font-size:14px">İadenin kart ekstrenize yansıma süresi kartınızı veren bankaya bağlıdır; genellikle birkaç iş günü içinde görünür.</p>`
+      : kind === 'refunded_transfer'
+        ? `<p style="font-size:14px">Siparişiniz iptal edildi ve <b>${amount}</b> tutarındaki ödemeniz havale/EFT ile hesabınıza iade edildi.</p>`
+        : `<p style="font-size:14px">Siparişiniz iptal edildi. Bu sipariş için sizden herhangi bir ücret tahsil edilmedi.</p>`;
+
+  const html = `
+    <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#222">
+      <h2 style="color:#1b4332">Siparişiniz İptal Edildi</h2>
+      <p style="font-size:14px">Sipariş numaranız: <b>${escapeHtml(order.order_number)}</b></p>
+      ${body}
+      <p style="font-size:14px">Sorularınız için bize <b>${LEGAL.telefon}</b> numarasından veya <b>${LEGAL.eposta}</b> adresinden ulaşabilirsiniz.</p>
+      <p style="font-size:12px;color:#888;margin-top:24px">
+        ${LEGAL.markaAdi} — ${LEGAL.adres}
+      </p>
+    </div>`;
+
+  await sendBrevo({
+    sender: SENDER,
+    to: [{ email: order.contact_email }],
+    subject: `${LEGAL.markaAdi} — Siparişiniz iptal edildi (${order.order_number})`,
+    htmlContent: html,
+    replyTo: { email: LEGAL.eposta, name: LEGAL.markaAdi }
+  });
+}
+
 interface PendingReminderRow {
   order_number: string;
   contact_email: string;
