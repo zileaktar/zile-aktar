@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { assertRole } from '@/lib/rbac';
 import { assertAal2 } from '@/lib/admin-auth';
+import { sendTelegramMessage } from '@/lib/notify';
 
 export interface SettingsFormState {
   error: string | null;
@@ -104,4 +105,52 @@ export async function updateBankInfoAction(_prevState: SettingsFormState, formDa
   revalidateTag('site-settings');
   revalidatePath('/admin/ayarlar');
   return { error: null };
+}
+
+export interface TestNotificationResult {
+  ok: boolean;
+  message: string;
+}
+
+/**
+ * Telegram bildirim ayarlarını uçtan uca dener: canlı sunucudaki gerçek ortam
+ * değişkenleriyle bir test mesajı gönderir ve sonucu (ya da tam sebebi)
+ * ekrana döndürür. Anahtarın kendisi ASLA döndürülmez.
+ */
+export async function sendTestNotificationAction(): Promise<TestNotificationResult> {
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false, message: 'Giriş yapmalısınız.' };
+
+  const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+  try {
+    assertRole(profile?.role, 'admin');
+    await assertAal2(supabase);
+  } catch (err) {
+    return { ok: false, message: err instanceof Error ? err.message : 'Yetkisiz işlem.' };
+  }
+
+  const result = await sendTelegramMessage(
+    '🔔 <b>Test bildirimi</b>\nZile Aktar yönetim panelinden gönderildi. Bu mesajı görüyorsanız bildirimler çalışıyor.'
+  );
+
+  if (result.ok) return { ok: true, message: 'Test mesajı gönderildi — telefonunuzu kontrol edin.' };
+  if (result.reason === 'not_configured') {
+    return {
+      ok: false,
+      message: `Bildirim ayarları canlı sunucuda tanımlı değil: ${result.missing.join(', ')}. Vercel'de değişken adını ve "Production" ortamının seçili olduğunu kontrol edip yeniden deploy edin.`
+    };
+  }
+  if (result.reason === 'telegram_error') {
+    const hint =
+      result.status === 401
+        ? 'Bot anahtarı hatalı (Vercel\'deki TELEGRAM_BOT_TOKEN değerini yeniden girin).'
+        : result.status === 400 || result.status === 403
+          ? 'Sohbet numarası hatalı ya da bot engellenmiş/başlatılmamış (bota Telegram\'dan "Başlat" deyin, TELEGRAM_CHAT_ID\'yi kontrol edin).'
+          : 'Telegram isteği reddetti.';
+    return { ok: false, message: `${hint} (Telegram: HTTP ${result.status} ${result.description})` };
+  }
+  return { ok: false, message: `Telegram'a bağlanılamadı (${result.kind}). Biraz sonra tekrar deneyin.` };
 }

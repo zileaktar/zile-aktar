@@ -23,10 +23,25 @@ function escapeHtml(value: string): string {
   return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-export async function sendTelegramMessage(html: string): Promise<void> {
+export type TelegramSendResult =
+  | { ok: true }
+  | { ok: false; reason: 'not_configured'; missing: string[] }
+  | { ok: false; reason: 'telegram_error'; status: number; description: string }
+  | { ok: false; reason: 'network'; kind: string };
+
+/**
+ * Sonucu döndürür (gönderildi / ayarlanmamış / Telegram hatası) — sipariş akışı
+ * bunu yok sayar (fail-open), admin "Test bildirimi" butonu ise ekrana yazar.
+ * Telegram'ın hata açıklaması ("Unauthorized", "chat not found") anahtar
+ * İÇERMEZ, güvenle gösterilebilir.
+ */
+export async function sendTelegramMessage(html: string): Promise<TelegramSendResult> {
   const token = env.TELEGRAM_BOT_TOKEN;
   const chatId = env.TELEGRAM_CHAT_ID;
-  if (!token || !chatId) return;
+  if (!token || !chatId) {
+    const missing = [!token && 'TELEGRAM_BOT_TOKEN', !chatId && 'TELEGRAM_CHAT_ID'].filter(Boolean) as string[];
+    return { ok: false, reason: 'not_configured', missing };
+  }
 
   try {
     const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -37,12 +52,21 @@ export async function sendTelegramMessage(html: string): Promise<void> {
       cache: 'no-store'
     });
     if (!response.ok) {
-      Sentry.captureMessage(`Telegram bildirimi gönderilemedi: HTTP ${response.status}`, { level: 'warning' });
+      let description = '';
+      try {
+        description = String(((await response.json()) as { description?: string }).description ?? '');
+      } catch {
+        // yanıt JSON değil — açıklamasız devam
+      }
+      Sentry.captureMessage(`Telegram bildirimi gönderilemedi: HTTP ${response.status} ${description}`, { level: 'warning' });
+      return { ok: false, reason: 'telegram_error', status: response.status, description };
     }
+    return { ok: true };
   } catch (err) {
     // Hata nesnesi istek adresini (dolayısıyla anahtarı) içerebilir — yalnızca türünü raporla.
     const kind = err instanceof Error ? err.name : 'unknown';
     Sentry.captureMessage(`Telegram bildirimi gönderilemedi: ${kind}`, { level: 'warning' });
+    return { ok: false, reason: 'network', kind };
   }
 }
 

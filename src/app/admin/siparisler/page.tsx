@@ -111,6 +111,14 @@ export default async function AdminOrdersPage() {
                 <td className="px-4 py-3 text-carbon/60">{order.contact_email}</td>
                 <td className="px-4 py-3">{formatPriceFromCents(order.total_cents)}</td>
                 <td className="px-4 py-3">
+                  {/* Başarısız (ödemesi alınmamış) siparişte yapılacak işlem yok; menüde
+                      'failed' seçeneği olmadığı için eskiden ilk seçenek "Beklemede"
+                      görünüyor ve yanıltıyordu. */}
+                  {order.status === 'failed' ? (
+                    <span className="inline-block text-xs font-semibold px-2.5 py-1 rounded-full bg-red-100 text-red-700">
+                      Ödeme başarısız
+                    </span>
+                  ) : (
                   <form action={updateOrderStatus} className="flex items-center gap-2">
                     <input type="hidden" name="orderId" value={order.id} />
                     <select name="status" defaultValue={order.status} className="text-xs border border-primary/15 rounded-lg px-2 py-1.5 bg-cream">
@@ -124,6 +132,7 @@ export default async function AdminOrdersPage() {
                       Güncelle
                     </button>
                   </form>
+                  )}
                 </td>
               </tr>
             ))}

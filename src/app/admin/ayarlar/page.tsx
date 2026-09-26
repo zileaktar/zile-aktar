@@ -1,6 +1,7 @@
 import { getSiteSettings } from '@/lib/data/settings';
 import { LogoSettingsForm } from '@/components/admin/LogoSettingsForm';
 import { BankInfoForm } from '@/components/admin/BankInfoForm';
+import { TelegramTestCard } from '@/components/admin/TelegramTestCard';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,6 +13,7 @@ export default async function AdminSettingsPage() {
       <h1 className="font-display font-bold text-2xl text-primary">Site Ayarları</h1>
       <LogoSettingsForm currentLogoPath={logoPath} />
       <BankInfoForm bank={bank} />
+      <TelegramTestCard />
     </div>
   );
 }
