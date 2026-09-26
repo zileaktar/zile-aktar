@@ -166,6 +166,21 @@ Supabase proje referansı: `gabdklnlojfbdaxtgmtg`.
 - **Vercel Pro'ya geçildi** — Image Optimization dönüşüm limiti (5K) aşılınca site "This deployment is temporarily paused" verdi. Pro: $20/ay (Discover ...1012). Spend Management $200, otomatik durdurma kapalı.
 - **CSP nonce geçişi** tamamlandı (ayrı commit, npm run dev'de uçtan uca test edildi).
 
+### Bu oturumda (26 Eylül — güvenlik denetimi düzeltmeleri + MFA + saat dilimi)
+
+- **Güvenlik denetimi (skor %84) bulgularının tamamı uygulandı** (commit `9105fab`):
+  - Migration **0035**: `mark_order_paid` boolean döner. `confirmVakifbankPayment`: `Rc` yoksa `not_final` (stoğa dokunmaz); güncelleme olmazsa durum yeniden okunur, `paid` değilse Sentry `fatal`.
+  - Cron `expire-pending-orders` iptal etmeden önce bankaya sorar (ödenmişse kurtarır, sorgu hatasında erteler).
+  - Dönüş tokeni süreli (`?e=`, 2 saat, imzanın içinde).
+  - **T.C. Kimlik No tamamen kaldırıldı** (form/şema/API; `tc-kimlik-no.ts` silindi; KVKK metni güncellendi).
+  - **Admin MFA (TOTP/AAL2):** `/admin/mfa` (kurulum + kod), middleware + layout + tüm admin aksiyonları + presigned-url'de `assertAal2`; migration **0036** `is_staff()/is_admin()` `aal2` şartı. Kullanıcı Google Authenticator ile kurdu, çalışıyor. Telefon kaybolursa: Supabase → Auth → Users → faktörü sil.
+  - `safeRateLimit` `failClosed` seçeneği (ödeme başlatma + MFA). Profil/yorum aksiyonlarına hız sınırı. Arama girdisi 64 karakter + `"` temizliği.
+  - `VAKIFBANK_VPOS_BASE_URL` (iptal/iade canlıda `apigw.vakifbank.com.tr`).
+  - **iyzico tamamen silindi** (kod, rotalar, env, CSP). Vercel'den `IYZICO_*` ve `NODE_ENV` silindi.
+- MFA doğrulaması sonrası Firefox "Error in input stream" (yönlendirme yarışı) düzeltildi — `MfaDone` istemci yönlendirmesi.
+- **Saat dilimi:** tüm tarih gösterimleri `format.ts` `formatDateTimeTR/formatDateTR/formatOrderTimeTR` (Europe/Istanbul) üzerinden — önceden UTC yüzünden 3 saat geriydi. Admin sipariş listesine Tarih sütunu.
+- Canlıda test ödemesi yeni kodla tekrar başarılı.
+
 ## 5. Kullanıcı tarafı — YAYINI ENGELLEYEN işler (kod değil)
 
 Tam liste `YAYIN-KONTROL-LISTESI.md`'de (her oturumda güncelleniyor, en güncel kaynak odur). Özet:
