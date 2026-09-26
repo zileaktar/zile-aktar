@@ -91,13 +91,19 @@ function tlToCents(value: string): number {
   return Number.isFinite(num) ? Math.round(num * 100) : 0;
 }
 
+const VARIANT_LABEL = 'block text-[11px] font-semibold text-carbon/55 mb-1';
+const VARIANT_INPUT = 'w-full min-w-0 max-w-full bg-cream border border-primary/15 rounded-lg px-3 py-2 text-sm';
+// Dosya seçme düğmesi: tarayıcının ham "Dosya Seç" görünümü yerine dokunmaya uygun, taşmayan buton.
+const FILE_INPUT =
+  'block w-full max-w-full text-sm text-carbon/60 file:mr-3 file:rounded-full file:border-0 file:bg-primary/10 file:px-4 file:py-2.5 file:text-sm file:font-semibold file:text-primary';
+
 function SubmitButton({ label }: { label: string }) {
   const { pending } = useFormStatus();
   return (
     <button
       type="submit"
       disabled={pending}
-      className="touch-target bg-primary hover:bg-primary-dark disabled:opacity-60 text-white font-bold px-6 py-3 rounded-full transition"
+      className="touch-target flex-1 sm:flex-none bg-primary hover:bg-primary-dark disabled:opacity-60 text-white font-bold px-6 py-3 rounded-full transition"
     >
       {pending ? 'Kaydediliyor...' : label}
     </button>
@@ -266,7 +272,7 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
       <input type="hidden" name="imagePathsJson" value={JSON.stringify(imagePaths)} />
       <input type="hidden" name="variantsJson" value={variantsJson} />
 
-      <div className="bg-white rounded-2xl p-5 shadow-sm space-y-4">
+      <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
         <h2 className="font-display font-bold text-primary">Temel Bilgiler</h2>
 
         <div>
@@ -354,7 +360,7 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
         </label>
       </div>
 
-      <div className="bg-white rounded-2xl p-5 shadow-sm space-y-4">
+      <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
         <h2 className="font-display font-bold text-primary">Ürün Detay Bilgileri</h2>
         <p className="text-xs text-carbon/50">Hepsi opsiyonel. Ürün detay sayfasında müşteriye gösterilir.</p>
 
@@ -423,7 +429,7 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl p-5 shadow-sm space-y-4">
+      <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
         <h2 className="font-display font-bold text-primary">Kampanya (&quot;X alana Y&quot;)</h2>
         <p className="text-xs text-carbon/50">
           Opsiyonel. Aynı gramajdan yeterince alındığında bir kısmı indirimli/bedava olur. Boş bırakırsanız kampanya yoktur.
@@ -444,7 +450,7 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
                 setDealGetQty(preset.g);
                 setDealGetPercent(preset.p);
               }}
-              className="text-xs font-semibold px-3 py-1.5 rounded-full border border-primary/20 text-primary hover:bg-primary/5"
+              className="text-xs font-semibold px-3 py-2 rounded-full border border-primary/20 text-primary hover:bg-primary/5"
             >
               {preset.label}
             </button>
@@ -494,14 +500,14 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
         {state.fieldErrors?.dealBuyQty && <p className="text-xs text-red-600">{state.fieldErrors.dealBuyQty}</p>}
       </div>
 
-      <div className="bg-white rounded-2xl p-5 shadow-sm space-y-4">
+      <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
         <h2 className="font-display font-bold text-primary">Ürün Görseli</h2>
         {imagePath && (
           <div className="relative w-32 h-32 rounded-xl overflow-hidden bg-cream">
             <Image src={getProductImageUrl(imagePath)} alt="Önizleme" fill className="object-cover" />
           </div>
         )}
-        <input type="file" accept="image/jpeg,image/png,image/webp" onChange={handleImageSelect} className="text-sm" />
+        <input type="file" accept="image/jpeg,image/png,image/webp" onChange={handleImageSelect} className={FILE_INPUT} />
         {uploading && <p className="text-xs text-carbon/50">Yükleniyor...</p>}
         {uploadError && <p className="text-xs text-red-600">{uploadError}</p>}
         {!imagePath && <p className="text-xs text-red-500">Görsel yüklenmeden kaydedilemez.</p>}
@@ -518,12 +524,12 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
               {imagePaths.map((path, i) => (
                 <div key={path} className="relative w-24 h-24 rounded-lg overflow-hidden bg-cream group">
                   <Image src={getProductImageUrl(path)} alt={`Galeri görseli ${i + 1}`} fill className="object-cover" />
-                  <div className="absolute inset-x-0 bottom-0 flex justify-between bg-black/45 px-1 py-0.5 opacity-0 group-hover:opacity-100 transition">
+                  <div className="absolute inset-x-0 bottom-0 flex justify-between bg-black/55 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 group-focus-within:opacity-100 transition">
                     <button
                       type="button"
                       onClick={() => moveGalleryImage(i, i - 1)}
                       disabled={i === 0}
-                      className="text-white text-xs disabled:opacity-30"
+                      className="flex h-8 w-8 items-center justify-center text-white text-sm disabled:opacity-30"
                       aria-label="Sola al"
                     >
                       ←
@@ -531,7 +537,7 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
                     <button
                       type="button"
                       onClick={() => setImagePaths((prev) => prev.filter((_, idx) => idx !== i))}
-                      className="text-white text-xs"
+                      className="flex h-8 w-8 items-center justify-center text-white text-sm"
                       aria-label="Kaldır"
                     >
                       ✕
@@ -540,7 +546,7 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
                       type="button"
                       onClick={() => moveGalleryImage(i, i + 1)}
                       disabled={i === imagePaths.length - 1}
-                      className="text-white text-xs disabled:opacity-30"
+                      className="flex h-8 w-8 items-center justify-center text-white text-sm disabled:opacity-30"
                       aria-label="Sağa al"
                     >
                       →
@@ -557,17 +563,17 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
               accept="image/jpeg,image/png,image/webp"
               multiple
               onChange={handleGalleryAdd}
-              className="text-sm"
+              className={FILE_INPUT}
             />
           )}
           {galleryUploading && <p className="text-xs text-carbon/50">Galeri görselleri yükleniyor...</p>}
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl p-5 shadow-sm space-y-4">
-        <div className="flex items-center justify-between">
+      <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-display font-bold text-primary">Gramaj / Fiyat / Stok</h2>
-          <button type="button" onClick={addVariantRow} className="text-sm font-semibold text-primary hover:underline">
+          <button type="button" onClick={addVariantRow} className="touch-target px-2 text-sm font-semibold text-primary hover:underline">
             + Varyant Ekle
           </button>
         </div>
@@ -575,66 +581,87 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
         <div className="space-y-3">
           {variants.map((v, i) => (
             <div key={v.id ?? `new-${i}`} className="rounded-xl border border-primary/10 p-3 space-y-2">
-              <div className="grid grid-cols-[1fr_1fr_1fr_auto] gap-2 items-center">
-                <input
-                  placeholder="Gramaj (örn. 250g)"
-                  value={v.label}
-                  onChange={(e) => updateVariant(i, { label: e.target.value })}
-                  className="bg-cream border border-primary/15 rounded-lg px-3 py-2 text-sm"
-                />
-                <input
-                  placeholder="Fiyat (TL)"
-                  inputMode="decimal"
-                  value={v.price}
-                  onChange={(e) => updateVariant(i, { price: e.target.value })}
-                  className="bg-cream border border-primary/15 rounded-lg px-3 py-2 text-sm"
-                />
-                <input
-                  placeholder="Stok"
-                  inputMode="numeric"
-                  value={v.stock}
-                  onChange={(e) => updateVariant(i, { stock: e.target.value })}
-                  className="bg-cream border border-primary/15 rounded-lg px-3 py-2 text-sm"
-                />
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-xs font-semibold text-carbon/50">Varyant {i + 1}</span>
                 <button
                   type="button"
                   disabled={isDeleting}
                   onClick={() => removeVariantRow(i)}
-                  className="touch-target flex items-center justify-center rounded-full hover:bg-red-50 text-red-400"
-                  aria-label="Kaldır"
+                  className="touch-target flex items-center justify-center gap-1 rounded-full px-3 text-xs font-semibold text-red-500 hover:bg-red-50"
+                  aria-label={`Varyant ${i + 1} sil`}
                 >
-                  ✕
+                  ✕ Sil
                 </button>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <div>
+              {/* Mobilde 2 sütun, geniş ekranda 3 — kutuların üstünde etiket var
+                  (dolu formda placeholder görünmediği için hangisinin fiyat,
+                  hangisinin stok olduğu anlaşılmıyordu). min-w-0: dar ekranda
+                  kutuların kendi doğal genişliğiyle satırdan taşmasını önler. */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-2 gap-y-3">
+                <label className="col-span-2 sm:col-span-1 min-w-0">
+                  <span className={VARIANT_LABEL}>Gramaj</span>
                   <input
-                    placeholder="İndirimsiz fiyat (TL)"
+                    placeholder="örn. 250g"
+                    value={v.label}
+                    onChange={(e) => updateVariant(i, { label: e.target.value })}
+                    className={VARIANT_INPUT}
+                  />
+                </label>
+                <label className="min-w-0">
+                  <span className={VARIANT_LABEL}>Fiyat (TL)</span>
+                  <input
+                    placeholder="0,00"
+                    inputMode="decimal"
+                    value={v.price}
+                    onChange={(e) => updateVariant(i, { price: e.target.value })}
+                    className={VARIANT_INPUT}
+                  />
+                </label>
+                <label className="min-w-0">
+                  <span className={VARIANT_LABEL}>Stok (adet)</span>
+                  <input
+                    placeholder="0"
+                    inputMode="numeric"
+                    value={v.stock}
+                    onChange={(e) => updateVariant(i, { stock: e.target.value })}
+                    className={VARIANT_INPUT}
+                  />
+                </label>
+                <label className="min-w-0">
+                  <span className={VARIANT_LABEL}>İndirimsiz fiyat</span>
+                  <input
+                    placeholder="ops."
                     inputMode="decimal"
                     title="İndirimden önceki fiyat — boş bırakırsanız indirim gösterilmez"
                     value={v.compareAtPrice}
                     onChange={(e) => updateVariant(i, { compareAtPrice: e.target.value })}
-                    className="w-full bg-cream border border-primary/15 rounded-lg px-3 py-2 text-xs"
+                    className={VARIANT_INPUT}
                   />
                   {v.compareAtPrice.trim() && v.price.trim() && tlToCents(v.compareAtPrice) > tlToCents(v.price) && (
-                    <p className="text-[10px] text-accent-dark mt-0.5">
+                    <span className="block text-[11px] text-accent-dark mt-0.5">
                       %{Math.round((1 - tlToCents(v.price) / tlToCents(v.compareAtPrice)) * 100)} indirim
-                    </p>
+                    </span>
                   )}
-                </div>
-                <input
-                  placeholder="Parti / Lot No (ops.)"
-                  value={v.lotNo}
-                  onChange={(e) => updateVariant(i, { lotNo: e.target.value })}
-                  className="bg-cream border border-primary/15 rounded-lg px-3 py-2 text-xs self-start"
-                />
-                <input
-                  type="date"
-                  title="Son Tüketim Tarihi"
-                  value={v.expiryDate}
-                  onChange={(e) => updateVariant(i, { expiryDate: e.target.value })}
-                  className="bg-cream border border-primary/15 rounded-lg px-3 py-2 text-xs text-carbon/70 self-start"
-                />
+                </label>
+                <label className="min-w-0">
+                  <span className={VARIANT_LABEL}>Parti / Lot No</span>
+                  <input
+                    placeholder="ops."
+                    value={v.lotNo}
+                    onChange={(e) => updateVariant(i, { lotNo: e.target.value })}
+                    className={VARIANT_INPUT}
+                  />
+                </label>
+                <label className="col-span-2 sm:col-span-1 min-w-0">
+                  <span className={VARIANT_LABEL}>Son tüketim tarihi</span>
+                  {/* iOS Safari boş tarih kutusunu sıfır yükseklikte çizebiliyor → min-h. */}
+                  <input
+                    type="date"
+                    value={v.expiryDate}
+                    onChange={(e) => updateVariant(i, { expiryDate: e.target.value })}
+                    className={`${VARIANT_INPUT} min-h-[42px] appearance-none text-carbon/80`}
+                  />
+                </label>
               </div>
               {state.fieldErrors?.[`variants.${i}.compareAtPriceCents`] && (
                 <p className="text-xs text-red-600">{state.fieldErrors[`variants.${i}.compareAtPriceCents`]}</p>
@@ -645,9 +672,15 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
         {state.fieldErrors?.variants && <p className="text-xs text-red-600">{state.fieldErrors.variants}</p>}
       </div>
 
-      <div className="flex items-center gap-3">
+      {/* Telefonda form çok uzun — "Kaydet" ekranın altında (alt menünün hemen
+          üstünde) hep görünür kalır; masaüstünde normal akışta durur. */}
+      <div className="sticky bottom-[calc(4rem+env(safe-area-inset-bottom))] lg:static z-30 -mx-4 sm:mx-0 px-4 sm:px-0 py-3 bg-cream/95 backdrop-blur border-t border-primary/10 lg:border-0 lg:bg-transparent flex items-center gap-3">
         <SubmitButton label={mode === 'create' ? 'Ürünü Oluştur' : 'Değişiklikleri Kaydet'} />
-        <button type="button" onClick={() => router.push('/admin/urunler')} className="text-sm font-semibold text-carbon/60 hover:text-carbon">
+        <button
+          type="button"
+          onClick={() => router.push('/admin/urunler')}
+          className="touch-target px-3 text-sm font-semibold text-carbon/60 hover:text-carbon"
+        >
           Vazgeç
         </button>
       </div>
