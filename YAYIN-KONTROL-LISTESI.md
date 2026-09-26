@@ -16,7 +16,7 @@ Mimari + kod durumu: `devir-promptu.md`
   - `sanalpos.vakifbank.com.tr`'ye gir (kullanıcı adı/şifre SMS ile geldi) → Üye İşyeri İşlemleri → **Üye İşyeri Yetkileri** (Üye İşyeri No + API şifresi) ve **Terminal Listesi** (Terminal No).
   - Vercel env: `VAKIFBANK_MERCHANT_NUMBER`, `VAKIFBANK_TERMINAL_NUMBER`, `VAKIFBANK_PASSWORD` → gerçek değerler; `VAKIFBANK_API_BASE_URL=https://inbound.apigateway.vakifbank.com.tr:8443`; `VAKIFBANK_PAYMENT_PAGE_URL=https://guvenliodeme.vakifbank.com.tr`. Redeploy.
   - Canlıda küçük tutarlı gerçek bir kartla 1 test siparişi → admin'de "Ödendi" → aynı gün panelden iptal.
-  - Sonra iyzico kodu tamamen silinecek (`src/lib/iyzico.ts`, `api/webhooks/iyzico/*`, `IYZICO_*` env).
+  - ~~iyzico kodu silinecek~~ ✅ silindi (26 Eylül).
 - [x] **Vercel Pro'ya geçildi** (25 Eylül, $20/ay) — Image Optimization limiti aşılıp site "paused" olunca. Spend Management: $200 bütçe, otomatik durdurma KAPALI (sadece e-posta uyarısı).
 
 ## B. YASAL (TR e-ticaret mevzuatı)
@@ -31,6 +31,7 @@ Mimari + kod durumu: `devir-promptu.md`
 
 - [x] **2FA:** Supabase + Vercel + GitHub — hepsi authenticator ile korumalı.
 - [x] **`CRON_SECRET`** — güçlü rastgele değer, `.env.local` + Vercel'de.
+- [x] **Vercel gizli değişkenleri "Secret" tipine çevrildi** (26 Eylül) — `VAKIFBANK_PASSWORD`, `SUPABASE_SERVICE_ROLE_KEY`, `CRON_SECRET`, `UPSTASH_REDIS_REST_TOKEN`, `BREVO_API_KEY`, `SENTRY_AUTH_TOKEN`, PII anahtarları.
 - [x] Sır sızıntısı kontrolü — git geçmişinde/çalışan dizinde gerçek anahtar yok, `.gitignore` sıkı.
 - [x] **PII / KVKK sızıntı sıkılaştırması (kod):** Sentry Replay `maskAllText:true` + `blockAllMedia:true` · `src/lib/mask.ts` (`redactPII` / `redactPIIString`) · sipariş/webhook/e-posta akışındaki tüm nesne loglayan `console.error` çağrıları maskeleme ile sarıldı · `src/lib/crypto/pii.ts` (AES-256-GCM `encryptPII`/`decryptPII` + HMAC-SHA256 `hashTCKN`) hazır.
 - [x] **`PII_ENCRYPTION_KEY` + `PII_HMAC_PEPPER`** üretildi, `.env.local` + Vercel'de (Secret). **Bu iki değeri ASLA değiştirme.** Yapılacak: ilk şifreli/hash'li sütun eklendiğinde `env.mjs`'te `.optional()` kaldırılıp zorunlu yapılacak.
@@ -43,7 +44,7 @@ Mimari + kod durumu: `devir-promptu.md`
   - ✅ `src/lib/legal.ts` `webAdresi` → `https://zileaktar.com`
   - [ ] Brevo → domaini ekle + SPF/DKIM DNS kayıtları (opsiyonel, e-posta teslim oranı için — acil değil)
   - [ ] Google Search Console kaydı + `sitemap.xml` gönder (aşağıda D'de)
-  - [ ] iyzico canlı onayı gelince callback/notification URL'leri `zileaktar.com` ile güncellenecek (yukarıda A'da)
+  - ~~iyzico callback URL'leri~~ — iyzico kullanılmıyor (VakıfBank dönüş adresi kodda `NEXT_PUBLIC_APP_URL`'den üretilir).
 - [ ] **Vercel Cron doğrula** — deploy sonrası Vercel → Cron sekmesi (`0 3 * * *`, bekleyen iyzico siparişlerini 24 saatte iptal eder).
 - [x] **Havale/EFT IBAN** — `/admin/ayarlar`'dan girildi.
 - [ ] Supabase parolası güçlü mü teyit.

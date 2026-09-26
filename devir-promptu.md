@@ -189,8 +189,9 @@ Supabase proje referansı: `gabdklnlojfbdaxtgmtg`.
 
 Tam liste `YAYIN-KONTROL-LISTESI.md`'de (her oturumda güncelleniyor, en güncel kaynak odur). Özet:
 
-- **iyzico PRODUCTION hesabı** — yeniden başvuru sürüyor (yukarı bak), şu an iyzico'nun sunucu sorunu yüzünden kimlik yükleme adımında bekliyor. Onaylanınca Vercel'de `IYZICO_API_KEY`/`IYZICO_SECRET_KEY`/`IYZICO_BASE_URL`/`IYZICO_WEBHOOK_SECRET` prod değerlerine + callback URL'leri `zileaktar.com`'a güncellenir.
-- **Vercel Pro** (~$20/ay, yıllık ödenirse $240/yıl) — Hobby ticari kullanıma kapalı. Kullanıcıyla anlaşılan sıra: **iyzico onayından SONRA** alınacak.
+- **VakıfBank CANLI bilgilere geçiş** — banka SMS/şube bekleniyor (ayrıntı `YAYIN-KONTROL-LISTESI.md`). ~~iyzico~~ tamamen bırakıldı. ~~Vercel Pro~~ ✅ alındı. ~~Vercel env'leri Secret tipine çevirme~~ ✅ yapıldı (26 Eylül). ~~Telegram grubu~~ — kullanıcı istemedi, tek alıcı (`TELEGRAM_CHAT_ID`) kalıyor.
+- **Kalan panel işleri:** Sentry `fatal` uyarı kuralı, Vercel Preview Deployment Protection, Supabase auth ayarları (min. şifre, e-posta doğrulama, storage boyut sınırı), yedekleme kararı, Google Search Console. Vercel fonksiyon bölgesi `fra1` (vercel.json) — panelde doğrulanacak, taşımadan sonra test ödemesi yapılacak.
+- **Sıradaki kod fikirleri:** admin iade/iptal butonu (`cancelOrRefundTransaction` hazır), kritik stok uyarısı.
 - ~~Özel domain~~ ✅ `zileaktar.com` satın alındı, siteye bağlandı (yukarı bak). Kalan: Brevo SPF/DKIM (opsiyonel), Google Search Console kaydı.
 - ~~`src/lib/legal.ts` alanları~~ ✅ dolduruldu (Suzan EŞAT / VKN 3801213625 / MERSİS / Ticaret Sicil 4076 / `webAdresi` artık zileaktar.com). Avukat/mali müşavir son okuması hâlâ bekliyor.
 - ~~Havale IBAN'ı~~ ✅ `/admin/ayarlar`'dan girildi.
