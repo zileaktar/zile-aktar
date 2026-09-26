@@ -1,6 +1,5 @@
-import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { MfaForm } from './MfaForm';
+import { MfaDone, MfaForm } from './MfaForm';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,8 +13,12 @@ export const dynamic = 'force-dynamic';
 export default async function AdminMfaPage() {
   const supabase = await createSupabaseServerClient();
 
+  // Sunucu tarafı redirect() KULLANILMIYOR: kod doğrulandığında bu sayfa
+  // sunucu aksiyonunun yanıt akışı içinde yeniden çizilir; oradaki redirect
+  // ile istemcideki yönlendirme çakışıp akışı yarıda kesiyordu (Sentry:
+  // "Error in input stream"). Yönlendirmeyi MfaDone istemcide yapar.
   const { data: aal } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
-  if (aal?.currentLevel === 'aal2') redirect('/admin');
+  if (aal?.currentLevel === 'aal2') return <MfaDone />;
 
   // listFactors().totp yalnızca DOĞRULANMIŞ faktörleri içerir.
   const { data: factors } = await supabase.auth.mfa.listFactors();

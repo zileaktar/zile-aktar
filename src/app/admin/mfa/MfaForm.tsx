@@ -1,7 +1,24 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { startMfaEnrollmentAction, verifyMfaCodeAction } from './actions';
+
+/**
+ * Oturum AAL2 olduğunda gösterilir ve tam sayfa yüklemeyle /admin'e geçer
+ * (yumuşak gezinmede ortak admin layout'u yeniden çalışmaz, menü gelmez).
+ * Yönlendirme useEffect'te yapılır: sunucunun akış yanıtı tamamen işlendikten
+ * SONRA — akışı yarıda kesip Firefox'ta "Error in input stream" üretmez.
+ */
+export function MfaDone() {
+  useEffect(() => {
+    window.location.replace('/admin');
+  }, []);
+  return (
+    <div className="bg-white rounded-2xl p-6 shadow-sm text-center text-sm text-carbon/70">
+      Doğrulandı, yönetim paneline yönlendiriliyorsunuz...
+    </div>
+  );
+}
 
 interface Enrollment {
   factorId: string;
@@ -18,7 +35,17 @@ export function MfaForm({ verifiedFactorId }: { verifiedFactorId: string | null 
   const [enrollment, setEnrollment] = useState<Enrollment | null>(null);
   const [code, setCode] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [verified, setVerified] = useState(false);
   const [pending, startTransition] = useTransition();
+
+  // Normalde kod doğrulanınca sunucu (yeni oturum çerezleri yazıldığı için)
+  // sayfayı yeniden çizer ve page.tsx <MfaDone /> döndürür. Bu yeniden çizim
+  // herhangi bir sebeple gelmezse yedek: kısa bir beklemeden sonra yönlendir.
+  useEffect(() => {
+    if (!verified) return;
+    const timer = setTimeout(() => window.location.assign('/admin'), 2000);
+    return () => clearTimeout(timer);
+  }, [verified]);
 
   const factorId = verifiedFactorId ?? enrollment?.factorId ?? null;
 
@@ -42,10 +69,16 @@ export function MfaForm({ verifiedFactorId }: { verifiedFactorId: string | null 
         setCode('');
         return;
       }
-      // Tam sayfa yükleme: yeni (AAL2) oturum çerezleriyle admin layout'u
-      // sıfırdan çalışsın (yumuşak gezinmede ortak layout yeniden çalışmaz).
-      window.location.assign('/admin');
+      setVerified(true);
     });
+  }
+
+  if (verified) {
+    return (
+      <div className="bg-white rounded-2xl p-6 shadow-sm text-center text-sm text-carbon/70">
+        Doğrulandı, yönetim paneline yönlendiriliyorsunuz...
+      </div>
+    );
   }
 
   const codeForm = (
