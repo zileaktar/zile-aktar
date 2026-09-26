@@ -3,6 +3,7 @@ import * as Sentry from '@sentry/nextjs';
 import { env } from '@/lib/env.mjs';
 import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { formatPriceFromCents, formatDateTimeTR } from '@/lib/format';
+import { LOW_STOCK_THRESHOLD, stockAlertFor } from '@/lib/stock';
 
 /**
  * Yönetici Telegram bildirimleri — paneli sürekli yenilemek yerine önemli
@@ -117,6 +118,58 @@ export async function notifyNewOrder(orderId: string, method: 'card' | 'havale')
     await sendTelegramMessage(`${title}\n\n${orderLines(orderId, summary)}`);
   } catch (err) {
     Sentry.captureException(err, { tags: { context: 'telegram-notify' } });
+  }
+  await notifyLowStock(orderId);
+}
+
+/**
+ * Kritik stok uyarısı: siparişteki ürünlerden stoğu bu siparişle eşiğin altına
+ * düşen veya tükenenler için TEK mesaj. notifyNewOrder'ın sonunda çağrılır
+ * (kartta ödeme onaylanınca, havalede sipariş oluşunca). Stok sipariş
+ * oluşurken ayrıldığı için "önceki stok" = güncel stok + bu siparişteki adet.
+ */
+async function notifyLowStock(orderId: string): Promise<void> {
+  try {
+    const supabase = createSupabaseServiceRoleClient();
+    const { data: items } = await supabase.from('order_items').select('variant_id, quantity').eq('order_id', orderId);
+    if (!items || items.length === 0) return;
+
+    const { data } = await supabase
+      .from('product_variants')
+      .select('id, label, stock, product_id, products(name, is_active)')
+      .in(
+        'id',
+        items.map((i) => i.variant_id)
+      );
+    const variants = (data ?? []) as unknown as Array<{
+      id: string;
+      label: string;
+      stock: number;
+      product_id: string;
+      products: { name: string; is_active: boolean } | null;
+    }>;
+
+    const lines: string[] = [];
+    for (const v of variants) {
+      if (!v.products?.is_active) continue;
+      const ordered = items.filter((i) => i.variant_id === v.id).reduce((sum, i) => sum + i.quantity, 0);
+      const alert = stockAlertFor(v.stock + ordered, v.stock);
+      if (!alert) continue;
+      const name = escapeHtml(`${v.products.name} (${v.label})`);
+      const link = `${env.NEXT_PUBLIC_APP_URL}/admin/urunler/${v.product_id}/duzenle`;
+      lines.push(
+        alert === 'out_of_stock'
+          ? `⛔ <b>TÜKENDİ:</b> <a href="${link}">${name}</a>`
+          : `⚠️ <a href="${link}">${name}</a> — <b>${v.stock}</b> adet kaldı`
+      );
+    }
+    if (lines.length === 0) return;
+
+    await sendTelegramMessage(
+      `📦 <b>Kritik stok uyarısı</b> (eşik: ${LOW_STOCK_THRESHOLD} adet)\n\n${lines.join('\n')}\n\nÜrüne tıklayıp stoğu güncelleyebilirsiniz.`
+    );
+  } catch (err) {
+    Sentry.captureException(err, { tags: { context: 'telegram-low-stock' } });
   }
 }
 

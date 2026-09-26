@@ -1,5 +1,7 @@
 import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
+import Link from 'next/link';
 import { formatPriceFromCents, formatDateTimeTR, formatOrderTimeTR } from '@/lib/format';
+import { LOW_STOCK_THRESHOLD } from '@/lib/stock';
 
 // Özet metrikler (sipariş sayısı, son siparişler, düşük stok) her zaman canlı olmalı —
 // service_role sorgusu çerez taşımadığından aksi halde önbelleğe alınır.
@@ -15,7 +17,14 @@ export default async function AdminDashboardPage() {
     supabase.from('orders').select('*', { count: 'exact', head: true }),
     supabase.from('products').select('*', { count: 'exact', head: true }).eq('is_active', true),
     supabase.from('orders').select('order_number, total_cents, status, created_at').order('created_at', { ascending: false }).limit(5),
-    supabase.from('product_variants').select('label, stock, products(name)').lt('stock', 10).order('stock')
+    // Yalnız AKTİF ürünler (pasif ürünlerin stoğu önemsiz), en az stoklu en üstte.
+    supabase
+      .from('product_variants')
+      .select('label, stock, product_id, products!inner(name, is_active)')
+      .lte('stock', LOW_STOCK_THRESHOLD)
+      .eq('products.is_active', true)
+      .order('stock')
+      .limit(50)
   ]);
 
   return (
@@ -52,14 +61,22 @@ export default async function AdminDashboardPage() {
         </div>
 
         <div className="bg-white rounded-2xl p-5 shadow-sm">
-          <h2 className="font-semibold text-red-600 mb-3">⚠️ Düşük Stok (10 altı)</h2>
+          <h2 className="font-semibold text-red-600 mb-3">⚠️ Kritik Stok ({LOW_STOCK_THRESHOLD} adet ve altı)</h2>
           <div className="space-y-2">
             {lowStock && lowStock.length > 0 ? (
               lowStock.map((v, idx) => (
-                <div key={idx} className="flex justify-between text-sm">
-                  <span>{v.products?.name} ({v.label})</span>
-                  <span className="font-bold text-red-600">{v.stock} adet</span>
-                </div>
+                <Link
+                  key={idx}
+                  href={`/admin/urunler/${v.product_id}/duzenle`}
+                  className="flex justify-between gap-3 text-sm hover:underline"
+                >
+                  <span className="min-w-0 break-words">
+                    {v.products?.name} ({v.label})
+                  </span>
+                  <span className="font-bold text-red-600 shrink-0 whitespace-nowrap">
+                    {v.stock <= 0 ? 'Tükendi' : `${v.stock} adet`}
+                  </span>
+                </Link>
               ))
             ) : (
               <p className="text-sm text-carbon/50">Düşük stoklu ürün yok.</p>
