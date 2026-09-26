@@ -35,8 +35,8 @@ export async function renderSalesReportPdf(orders: ReportOrder[], period: Report
       ['Toplam sipariş kaydı', String(overall.orderCount)],
       ['Ödemesi alınan sipariş', String(overall.paidCount)],
       ['Toplam ciro', formatPriceFromCents(overall.revenueCents)],
-      ['  Kartla ödenen', formatPriceFromCents(overall.cardCents)],
-      ['  Havale / EFT', formatPriceFromCents(overall.havaleCents)],
+      ['Ciro — kartla ödenen', formatPriceFromCents(overall.cardCents)],
+      ['Ciro — havale / EFT', formatPriceFromCents(overall.havaleCents)],
       ['Ciro içindeki kargo', formatPriceFromCents(overall.shippingCents)],
       ['Uygulanan indirimler', formatPriceFromCents(overall.discountCents)],
       [
@@ -50,6 +50,7 @@ export async function renderSalesReportPdf(orders: ReportOrder[], period: Report
     ],
     170
   );
+  pdf.space(4);
   pdf.text(
     'Ciro; durumu "Ödendi", "Kargoya Verildi" veya "Teslim Edildi" olan siparişlerin genel toplamıdır (kargo dahil). ' +
       'İade edilen, iptal edilen, başarısız ve bekleyen siparişler ciroya dahil edilmez.',

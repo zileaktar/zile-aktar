@@ -98,9 +98,11 @@ export class PdfBuilder {
     const [regularBytes, boldBytes] = await loadFontBytes();
     const doc = await PDFDocument.create();
     doc.registerFontkit(fontkit);
-    // subset: yalnız kullanılan harfler gömülür → dosya boyutu küçük kalır.
-    const regular = await doc.embedFont(regularBytes, { subset: true });
-    const bold = await doc.embedFont(boldBytes, { subset: true });
+    // subset KAPALI: @pdf-lib/fontkit'in alt küme (subset) üretimi Inter fontunda
+    // harflerin çoğunu bozuyordu (metin seçilebiliyor ama ekranda görünmüyordu).
+    // Fontun tamamı gömülür — PDF ~700 KB olur, ama her harf doğru çizilir.
+    const regular = await doc.embedFont(regularBytes, { subset: false });
+    const bold = await doc.embedFont(boldBytes, { subset: false });
     doc.setTitle(title);
     doc.setAuthor('Zile Aktar');
     doc.setCreator('Zile Aktar Yönetim Paneli');

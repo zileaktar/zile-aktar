@@ -93,7 +93,7 @@ export async function renderOrderPdf(order: OrderPdfData): Promise<Uint8Array> {
   ]);
 
   // --- İletişim + adresler
-  pdf.heading('Müşteri İletişim');
+  pdf.heading('Müşteri İletişim Bilgileri');
   pdf.keyValues([
     ['E-posta', order.contact_email],
     ['Telefon', order.contact_phone]
