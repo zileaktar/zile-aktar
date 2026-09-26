@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState, useTransition } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useEffect, useRef, useState, useTransition, useActionState } from 'react';
+import { ActionForm, useActionFormPending } from '@/components/ui/ActionForm';
 import { useRouter } from 'next/navigation';
 import { formatPriceFromCents, formatDateTR } from '@/lib/format';
 import {
@@ -25,7 +25,7 @@ function couponValueLabel(c: CouponRow): string {
 }
 
 function AddButton() {
-  const { pending } = useFormStatus();
+  const pending = useActionFormPending();
   return (
     <button
       type="submit"
@@ -39,7 +39,7 @@ function AddButton() {
 
 function CreateCouponForm() {
   const router = useRouter();
-  const [state, formAction] = useFormState<CouponActionState, FormData>(createCouponAction, { error: null });
+  const [state, formAction] = useActionState<CouponActionState, FormData>(createCouponAction, { error: null });
   const [type, setType] = useState<CouponRow['type']>('percent');
   const formRef = useRef<HTMLFormElement>(null);
   const first = useRef(true);
@@ -57,7 +57,7 @@ function CreateCouponForm() {
   }, [state, router]);
 
   return (
-    <form ref={formRef} action={formAction} className="bg-white rounded-2xl p-5 shadow-sm space-y-4">
+    <ActionForm ref={formRef} action={formAction} className="bg-white rounded-2xl p-5 shadow-sm space-y-4">
       <h2 className="font-display font-bold text-primary">Yeni İndirim Kodu</h2>
 
       <div className="grid sm:grid-cols-2 gap-3">
@@ -136,7 +136,7 @@ function CreateCouponForm() {
       {state.ok && <p className="text-xs text-green-700">Kupon eklendi.</p>}
 
       <AddButton />
-    </form>
+    </ActionForm>
   );
 }
 

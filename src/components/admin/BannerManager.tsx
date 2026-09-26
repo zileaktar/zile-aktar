@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState, useTransition } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useEffect, useRef, useState, useTransition, useActionState } from 'react';
+import { ActionForm, useActionFormPending } from '@/components/ui/ActionForm';
 import { useRouter } from 'next/navigation';
 import { createSupabaseBrowserClient } from '@/lib/supabase/client';
 import { getProductImageUrl } from '@/lib/media';
@@ -15,7 +15,7 @@ import {
 import type { CampaignBannerRow } from '@/lib/supabase/types';
 
 function SaveButton({ isNew }: { isNew: boolean }) {
-  const { pending } = useFormStatus();
+  const pending = useActionFormPending();
   return (
     <button
       type="submit"
@@ -31,7 +31,7 @@ function BannerEditor({ banner }: { banner?: CampaignBannerRow }) {
   const router = useRouter();
   const isNew = !banner;
   const boundAction = saveBannerAction.bind(null, banner?.id ?? null);
-  const [state, formAction] = useFormState<BannerActionState, FormData>(boundAction, { error: null });
+  const [state, formAction] = useActionState<BannerActionState, FormData>(boundAction, { error: null });
 
   const [imagePath, setImagePath] = useState(banner?.image_path ?? '');
   const [uploading, setUploading] = useState(false);
@@ -86,7 +86,7 @@ function BannerEditor({ banner }: { banner?: CampaignBannerRow }) {
   }
 
   return (
-    <form ref={formRef} action={formAction} className="space-y-3">
+    <ActionForm ref={formRef} action={formAction} className="space-y-3">
       <input type="hidden" name="imagePath" value={imagePath} />
 
       <div className="flex flex-wrap items-start gap-4">
@@ -141,7 +141,7 @@ function BannerEditor({ banner }: { banner?: CampaignBannerRow }) {
       {state.ok && !isNew && <p className="text-xs text-green-700">Kaydedildi.</p>}
 
       <SaveButton isNew={isNew} />
-    </form>
+    </ActionForm>
   );
 }
 

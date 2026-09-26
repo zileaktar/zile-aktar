@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { getSiteSettings } from '@/lib/data/settings';
 import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { verifyOrderNumber } from '@/lib/order-token';
@@ -81,9 +82,9 @@ export default async function OrderSuccessPage({ searchParams }: Props) {
         </div>
       )}
 
-      <a href="/" className="touch-target inline-block bg-primary hover:bg-primary-dark text-white font-bold px-8 py-3.5 rounded-full transition">
+      <Link href="/" className="touch-target inline-block bg-primary hover:bg-primary-dark text-white font-bold px-8 py-3.5 rounded-full transition">
         Alışverişe Devam Et
-      </a>
+      </Link>
     </div>
   );
 }

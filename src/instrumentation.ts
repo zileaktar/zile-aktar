@@ -1,5 +1,6 @@
-// Next.js, sunucu/edge runtime başlatılırken bu dosyayı otomatik çalıştırır
-// (next.config.mjs içinde ek bir ayara gerek yoktur, Next.js 14+ built-in).
+import * as Sentry from '@sentry/nextjs';
+
+// Next.js, sunucu/edge runtime başlatılırken bu dosyayı otomatik çalıştırır.
 export async function register() {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
     await import('../sentry.server.config');
@@ -8,3 +9,7 @@ export async function register() {
     await import('../sentry.edge.config');
   }
 }
+
+// Server Component / route / Server Action içindeki yakalanmamış hatalar
+// (Next.js 15 `onRequestError` kancası) Sentry'ye gider.
+export const onRequestError = Sentry.captureRequestError;

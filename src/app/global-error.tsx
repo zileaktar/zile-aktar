@@ -34,6 +34,9 @@ export default function GlobalError({ error }: { error: Error & { digest?: strin
           <p style={{ fontSize: '0.875rem', color: 'rgba(43,43,43,0.6)', marginBottom: '1.5rem' }}>
             Beklenmeyen bir hata oluştu. Ekibimiz bilgilendirildi. Lütfen sayfayı yenileyin.
           </p>
+          {/* Bilinçli düz <a>: global-error kök layout'un yerine geçer, Next yönlendiricisi
+              güvenilir değil — ana sayfaya TAM sayfa yenilemesiyle gidilir. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a
             href="/"
             style={{

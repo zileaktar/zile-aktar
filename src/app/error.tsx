@@ -25,6 +25,9 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
         >
           Tekrar Dene
         </button>
+        {/* Bilinçli düz <a>: hata sonrası uygulama durumu bozuk olabilir — ana sayfaya
+            TAM sayfa yenilemesiyle gidilir (istemci tarafı gezinme değil). */}
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a href="/" className="touch-target inline-block border border-primary/20 text-primary font-bold px-8 py-3.5 rounded-full transition">
           Ana Sayfa
         </a>

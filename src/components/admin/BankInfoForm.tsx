@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useEffect, useRef, useState, useActionState } from 'react';
+import { ActionForm, useActionFormPending } from '@/components/ui/ActionForm';
 import { updateBankInfoAction, type SettingsFormState } from '@/app/admin/ayarlar/actions';
 
 interface BankInfo {
@@ -12,7 +12,7 @@ interface BankInfo {
 }
 
 function SaveButton() {
-  const { pending } = useFormStatus();
+  const pending = useActionFormPending();
   return (
     <button
       type="submit"
@@ -25,7 +25,7 @@ function SaveButton() {
 }
 
 export function BankInfoForm({ bank }: { bank: BankInfo }) {
-  const [state, formAction] = useFormState<SettingsFormState, FormData>(updateBankInfoAction, { error: null });
+  const [state, formAction] = useActionState<SettingsFormState, FormData>(updateBankInfoAction, { error: null });
   const [saved, setSaved] = useState(false);
   const first = useRef(true);
 
@@ -38,7 +38,7 @@ export function BankInfoForm({ bank }: { bank: BankInfo }) {
   }, [state]);
 
   return (
-    <form action={formAction} className="bg-white rounded-2xl p-5 shadow-sm space-y-4 max-w-lg">
+    <ActionForm action={formAction} className="bg-white rounded-2xl p-5 shadow-sm space-y-4 max-w-lg">
       <h2 className="font-display font-bold text-primary">Havale / EFT Banka Bilgisi</h2>
       <p className="text-xs text-carbon/50">
         Bu bilgiler, müşteri &quot;Havale / EFT&quot; seçip siparişi tamamladığında onay sayfasında gösterilir. IBAN
@@ -69,6 +69,6 @@ export function BankInfoForm({ bank }: { bank: BankInfo }) {
       {saved && !state.error && <div className="bg-green-50 border border-green-200 text-green-700 rounded-xl p-3 text-sm">Banka bilgileri kaydedildi.</div>}
 
       <SaveButton />
-    </form>
+    </ActionForm>
   );
 }

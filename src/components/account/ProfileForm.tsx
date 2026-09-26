@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useEffect, useRef, useState, useActionState } from 'react';
+import { ActionForm, useActionFormPending } from '@/components/ui/ActionForm';
 import { updateProfileAction, type ProfileFormState } from '@/app/hesabim/actions';
 
 function SaveBtn() {
-  const { pending } = useFormStatus();
+  const pending = useActionFormPending();
   return (
     <button
       type="submit"
@@ -18,7 +18,7 @@ function SaveBtn() {
 }
 
 export function ProfileForm({ fullName, phone }: { fullName: string; phone: string }) {
-  const [state, formAction] = useFormState<ProfileFormState, FormData>(updateProfileAction, { error: null });
+  const [state, formAction] = useActionState<ProfileFormState, FormData>(updateProfileAction, { error: null });
   const [saved, setSaved] = useState(false);
   const first = useRef(true);
 
@@ -31,7 +31,7 @@ export function ProfileForm({ fullName, phone }: { fullName: string; phone: stri
   }, [state]);
 
   return (
-    <form action={formAction} className="bg-white rounded-2xl p-5 shadow-sm space-y-3">
+    <ActionForm action={formAction} className="bg-white rounded-2xl p-5 shadow-sm space-y-3">
       <h2 className="font-semibold text-primary">Bilgilerim</h2>
       <label className="block text-xs font-semibold text-carbon/60">
         Ad Soyad
@@ -55,6 +55,6 @@ export function ProfileForm({ fullName, phone }: { fullName: string; phone: stri
       {state.error && <p className="text-xs text-red-600">{state.error}</p>}
       {saved && !state.error && <p className="text-xs text-green-600">Kaydedildi.</p>}
       <SaveBtn />
-    </form>
+    </ActionForm>
   );
 }

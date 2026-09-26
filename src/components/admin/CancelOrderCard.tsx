@@ -1,6 +1,7 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState } from 'react';
+import { ActionForm, useActionFormPending } from '@/components/ui/ActionForm';
 import { cancelOrderAction, type CancelOrderFormState } from '@/app/admin/siparisler/[id]/cancel-actions';
 import type { CancelKind } from '@/lib/order-cancel';
 
@@ -26,7 +27,7 @@ const TEXT: Record<Exclude<CancelKind, 'closed'>, { title: string; info: string;
 };
 
 function SubmitButton({ label }: { label: string }) {
-  const { pending } = useFormStatus();
+  const pending = useActionFormPending();
   return (
     <button
       type="submit"
@@ -50,7 +51,7 @@ export function CancelOrderCard({
   totalLabel: string;
   defaultRestock: boolean;
 }) {
-  const [state, formAction] = useFormState<CancelOrderFormState, FormData>(cancelOrderAction, {
+  const [state, formAction] = useActionState<CancelOrderFormState, FormData>(cancelOrderAction, {
     ok: false,
     message: null
   });
@@ -73,7 +74,7 @@ export function CancelOrderCard({
           </p>
         )}
       </div>
-      <form action={formAction} className="space-y-3">
+      <ActionForm action={formAction} className="space-y-3">
         <input type="hidden" name="orderId" value={orderId} />
         {kind !== 'cancel_unpaid' && (
           <label className="flex items-start gap-2 text-sm text-carbon/80">
@@ -94,7 +95,7 @@ export function CancelOrderCard({
           <p className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-3 py-2">{state.message}</p>
         )}
         <SubmitButton label={text.button} />
-      </form>
+      </ActionForm>
     </div>
   );
 }

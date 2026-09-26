@@ -1,4 +1,4 @@
-import { withSentryConfig } from '@sentry/nextjs';
+import { withSentryConfig } from '@sentry/nextjs/config';
 
 // env.mjs, uygulama build edilmeden önce tüm ortam değişkenlerini doğrular.
 // Eksik/hatalı bir değişken varsa build burada patlar (production'da sessizce yanlış çalışmaz).
@@ -12,13 +12,14 @@ const nextConfig = {
     // İstemci tarafı Router Cache: dinamik sayfalar (admin paneli, sipariş listeleri)
     // her gezinmede yeniden çekilsin — aksi halde admin, birkaç dakika önce ziyaret
     // ettiği "Siparişler" sayfasının eski (yeni siparişleri içermeyen) halini görür.
-    staleTimes: { dynamic: 0, static: 180 },
-    // PDF uçları Türkçe karakterli fontu diskten okur (src/lib/pdf/builder.ts).
-    // Dosya koddan import edilmediği için Vercel paketine ELLE dahil edilmeli.
-    outputFileTracingIncludes: {
-      '/api/admin/orders/[id]/pdf': ['./src/assets/fonts/**/*'],
-      '/api/admin/reports/pdf': ['./src/assets/fonts/**/*']
-    }
+    staleTimes: { dynamic: 0, static: 180 }
+  },
+  // PDF uçları Türkçe karakterli fontu diskten okur (src/lib/pdf/builder.ts).
+  // Dosya koddan import edilmediği için Vercel paketine ELLE dahil edilmeli.
+  // (Next.js 15'te experimental'dan üst seviyeye taşındı.)
+  outputFileTracingIncludes: {
+    '/api/admin/orders/[id]/pdf': ['./src/assets/fonts/**/*'],
+    '/api/admin/reports/pdf': ['./src/assets/fonts/**/*']
   },
   images: {
     remotePatterns: [{ protocol: 'https', hostname: '*.supabase.co', pathname: '/storage/v1/object/**' }],
@@ -73,7 +74,7 @@ export default withSentryConfig(nextConfig, {
   //    servis etmenin anlamı yok; Sentry zaten minified gösterir.
   authToken: process.env.SENTRY_AUTH_TOKEN,
   widenClientFileUpload: true,
-  disableLogger: true,
+  webpack: { treeshake: { removeDebugLogging: true } },
   sourcemaps: {
     disable: !process.env.SENTRY_AUTH_TOKEN,
     deleteSourcemapsAfterUpload: true

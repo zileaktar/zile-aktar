@@ -58,7 +58,7 @@ export async function cancelOrderAction(
   const result = await cancelOrRefundOrder({
     orderId: parsed.data.orderId,
     restock: parsed.data.restock === 'on',
-    clientIp: getClientIp(headers())
+    clientIp: getClientIp(await headers())
   });
 
   revalidatePath(`/admin/siparisler/${parsed.data.orderId}`);

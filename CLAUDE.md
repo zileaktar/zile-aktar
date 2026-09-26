@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Proje
 
-"Zile Aktar" — aktar / yöresel & bitkisel ürünler e-ticaret sitesi. Next.js 14 (App Router, TS strict) + Supabase (Postgres/Auth/Storage/RLS) + VakıfBank Sanal POS (3D Secure, Güvenli Ortak Ödeme) + Cloudflare Turnstile + Vercel Pro (canlı: `https://zileaktar.com`).
+"Zile Aktar" — aktar / yöresel & bitkisel ürünler e-ticaret sitesi. Next.js 15.5 (App Router, TS strict, React 19) + Supabase (Postgres/Auth/Storage/RLS) + VakıfBank Sanal POS (3D Secure, Güvenli Ortak Ödeme) + Cloudflare Turnstile + Vercel Pro (canlı: `https://zileaktar.com`).
 
 **Her oturumun başında `devir-promptu.md`'yi oku** — projenin güncel durumu, yarım kalan işler ve ortam kısıtları orada tutulur. Mimari için `ARCHITECTURE.md`, deploy için `DEPLOYMENT.md`.
 
@@ -72,6 +72,9 @@ Kullanıcının portu 3000'de takılırsa: `npx kill-port 3000`. `NEXT_PUBLIC_AP
 
 ### Admin iki adımlı doğrulama (MFA/TOTP)
 - `/admin/**` AAL2 (Supabase TOTP) ister: middleware + admin layout + her admin aksiyonunda `assertAal2` (`src/lib/admin-auth.ts`) + RLS'te `is_staff()`/`is_admin()` `aal2` şartı (migration 0036). Kurulum/doğrulama: `/admin/mfa` (sunucu aksiyonları — oturum çerezleri HttpOnly olduğundan tarayıcı istemcisi kullanılamaz). Yeni bir admin aksiyonu yazarken `assertRole`'den hemen sonra `await assertAal2(supabase)` EKLE.
+
+### Formlar (React 19)
+`useActionState` ile çalışan formlarda düz `<form action>` yerine **`<ActionForm>`** (`src/components/ui/ActionForm.tsx`) kullan — React 19 `action` prop'lu formu işlem sonrası otomatik sıfırlar (doğrulama hatasında kullanıcının yazdıkları silinir). Gönder düğmesinde `useFormStatus` yerine `useActionFormPending()`.
 
 ### Sepet (Zustand)
 `src/store/cart-store.ts` — `persist` + `skipHydration: true`. `CartHydrator` (providers.tsx) mount sonrası `persist.rehydrate()` çağırır → sunucu ve ilk client render'ı hep boş sepet. Sepet sayısı için **`useCartCount()`** hook'unu kullan (mount öncesi 0 döner, hydration mismatch'i önler). Sepet yalnızca `/siparis-alindi` sayfasında temizlenir (`ClearCartOnSuccess`), checkout→ödeme geçişinde DEĞİL.

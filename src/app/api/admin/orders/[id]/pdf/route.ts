@@ -8,8 +8,9 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 /** Yönetim paneli → sipariş detayı → "PDF İndir": siparişin tüm ayrıntılarını PDF olarak verir. */
-export async function GET(_request: Request, { params }: { params: { id: string } }) {
-  const parsedId = z.string().uuid().safeParse(params.id);
+export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const parsedId = z.string().uuid().safeParse(id);
   if (!parsedId.success) return textResponse('Geçersiz sipariş.', 400);
 
   try {

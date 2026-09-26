@@ -19,7 +19,7 @@ export function ProductListFilters({ categories }: { categories: Category[] }) {
   const searchParams = useSearchParams();
 
   const [q, setQ] = useState(searchParams.get('q') ?? '');
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   function apply(patch: Record<string, string>) {
     const params = new URLSearchParams(searchParams.toString());

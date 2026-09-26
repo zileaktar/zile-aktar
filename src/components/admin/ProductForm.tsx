@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useTransition } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useState, useTransition, useActionState } from 'react';
+import { ActionForm, useActionFormPending } from '@/components/ui/ActionForm';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { createSupabaseBrowserClient } from '@/lib/supabase/client';
@@ -98,7 +98,7 @@ const FILE_INPUT =
   'block w-full max-w-full text-sm text-carbon/60 file:mr-3 file:rounded-full file:border-0 file:bg-primary/10 file:px-4 file:py-2.5 file:text-sm file:font-semibold file:text-primary';
 
 function SubmitButton({ label }: { label: string }) {
-  const { pending } = useFormStatus();
+  const pending = useActionFormPending();
   return (
     <button
       type="submit"
@@ -112,7 +112,7 @@ function SubmitButton({ label }: { label: string }) {
 
 export function ProductForm({ mode, categories, action, initialProduct }: ProductFormProps) {
   const router = useRouter();
-  const [state, formAction] = useFormState<ProductFormState, FormData>(action, { error: null });
+  const [state, formAction] = useActionState<ProductFormState, FormData>(action, { error: null });
 
   const [name, setName] = useState(initialProduct?.name ?? '');
   const [slug, setSlug] = useState(initialProduct?.slug ?? '');
@@ -264,7 +264,7 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
   );
 
   return (
-    <form action={formAction} className="space-y-6 max-w-3xl">
+    <ActionForm action={formAction} className="space-y-6 max-w-3xl">
       {state.error && <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 text-sm">{state.error}</div>}
       {deleteError && <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 text-sm">{deleteError}</div>}
 
@@ -684,6 +684,6 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
           Vazgeç
         </button>
       </div>
-    </form>
+    </ActionForm>
   );
 }

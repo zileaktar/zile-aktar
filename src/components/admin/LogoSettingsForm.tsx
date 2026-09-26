@@ -1,14 +1,14 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useEffect, useRef, useState, useActionState } from 'react';
+import { ActionForm, useActionFormPending } from '@/components/ui/ActionForm';
 import Image from 'next/image';
 import { createSupabaseBrowserClient } from '@/lib/supabase/client';
 import { getProductImageUrl } from '@/lib/media';
 import { updateLogoAction, type SettingsFormState } from '@/app/admin/ayarlar/actions';
 
 function SaveButton() {
-  const { pending } = useFormStatus();
+  const pending = useActionFormPending();
   return (
     <button
       type="submit"
@@ -21,7 +21,7 @@ function SaveButton() {
 }
 
 export function LogoSettingsForm({ currentLogoPath }: { currentLogoPath: string | null }) {
-  const [state, formAction] = useFormState<SettingsFormState, FormData>(updateLogoAction, { error: null });
+  const [state, formAction] = useActionState<SettingsFormState, FormData>(updateLogoAction, { error: null });
   const [logoPath, setLogoPath] = useState(currentLogoPath ?? '');
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -76,7 +76,7 @@ export function LogoSettingsForm({ currentLogoPath }: { currentLogoPath: string 
   }
 
   return (
-    <form action={formAction} className="bg-white rounded-2xl p-5 shadow-sm space-y-4 max-w-lg">
+    <ActionForm action={formAction} className="bg-white rounded-2xl p-5 shadow-sm space-y-4 max-w-lg">
       <h2 className="font-display font-bold text-primary">Site Logosu</h2>
       <p className="text-xs text-carbon/50">
         Yüklenen görsel, üst menü, alt menü ve mobil çekmecede kullanılır. Yükseklik otomatik uyarlanır, kare veya yatay
@@ -100,6 +100,6 @@ export function LogoSettingsForm({ currentLogoPath }: { currentLogoPath: string 
       {savedMessage && !state.error && <div className="bg-green-50 border border-green-200 text-green-700 rounded-xl p-3 text-sm">Logo kaydedildi.</div>}
 
       <SaveButton />
-    </form>
+    </ActionForm>
   );
 }

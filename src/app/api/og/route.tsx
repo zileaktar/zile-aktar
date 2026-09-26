@@ -1,4 +1,5 @@
-import { ImageResponse } from '@vercel/og';
+// next/og: Next.js'e dahil (ayrı @vercel/og paketi React 19 ile uyumsuzdu).
+import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
 

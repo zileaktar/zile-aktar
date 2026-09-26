@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useActionState } from 'react';
 import { formatDateTR } from '@/lib/format';
-import { useFormState, useFormStatus } from 'react-dom';
+import { ActionForm, useActionFormPending } from '@/components/ui/ActionForm';
 import Link from 'next/link';
 import type { PublicReview } from '@/lib/data/reviews';
 import { submitReviewAction, type ReviewFormState } from '@/app/urun/[slug]/actions';
@@ -17,7 +17,7 @@ function Stars({ value, size = 'text-sm' }: { value: number; size?: string }) {
 }
 
 function SubmitBtn() {
-  const { pending } = useFormStatus();
+  const pending = useActionFormPending();
   return (
     <button
       type="submit"
@@ -45,7 +45,7 @@ interface Props {
 
 export function ProductReviews({ productId, slug, reviews, count, average, context }: Props) {
   const [rating, setRating] = useState(0);
-  const [state, formAction] = useFormState<ReviewFormState, FormData>(submitReviewAction.bind(null, slug), { error: null });
+  const [state, formAction] = useActionState<ReviewFormState, FormData>(submitReviewAction.bind(null, slug), { error: null });
   const [showThanks, setShowThanks] = useState(false);
 
   useEffect(() => {
@@ -98,7 +98,7 @@ export function ProductReviews({ productId, slug, reviews, count, average, conte
             : 'Yorumunuz alındı, onaylandıktan sonra yayınlanacak. Teşekkür ederiz!'}
         </div>
       ) : (
-        <form action={formAction} className="bg-white rounded-2xl p-5 shadow-sm space-y-3">
+        <ActionForm action={formAction} className="bg-white rounded-2xl p-5 shadow-sm space-y-3">
           <p className="font-display font-bold text-primary text-sm">Yorum Yap</p>
           {context.verifiedOrderId && (
             <p className="text-[11px] text-green-700 font-semibold">✓ Doğrulanmış alışveriş</p>
@@ -138,7 +138,7 @@ export function ProductReviews({ productId, slug, reviews, count, average, conte
 
           {state.error && <p className="text-xs text-red-600">{state.error}</p>}
           <SubmitBtn />
-        </form>
+        </ActionForm>
       )}
     </section>
   );
