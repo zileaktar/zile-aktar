@@ -99,9 +99,18 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="font-display font-bold text-2xl text-primary break-all">{order.order_number}</h1>
-        <span className="text-xs font-semibold px-3 py-1 rounded-full bg-primary/10 text-primary">
-          {STATUS_LABELS[order.status]}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-primary/10 text-primary">
+            {STATUS_LABELS[order.status]}
+          </span>
+          {/* Düz <a>: dosya indirmesi — Next <Link> istemci tarafı gezinme yapar, PDF'i indiremez. */}
+          <a
+            href={`/api/admin/orders/${order.id}/pdf`}
+            className="text-xs font-semibold text-white bg-primary rounded-lg px-3 py-1.5 hover:bg-primary/90"
+          >
+            PDF İndir
+          </a>
+        </div>
       </div>
 
       <p className="text-xs text-carbon/50">

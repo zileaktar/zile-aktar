@@ -12,7 +12,13 @@ const nextConfig = {
     // İstemci tarafı Router Cache: dinamik sayfalar (admin paneli, sipariş listeleri)
     // her gezinmede yeniden çekilsin — aksi halde admin, birkaç dakika önce ziyaret
     // ettiği "Siparişler" sayfasının eski (yeni siparişleri içermeyen) halini görür.
-    staleTimes: { dynamic: 0, static: 180 }
+    staleTimes: { dynamic: 0, static: 180 },
+    // PDF uçları Türkçe karakterli fontu diskten okur (src/lib/pdf/builder.ts).
+    // Dosya koddan import edilmediği için Vercel paketine ELLE dahil edilmeli.
+    outputFileTracingIncludes: {
+      '/api/admin/orders/[id]/pdf': ['./src/assets/fonts/**/*'],
+      '/api/admin/reports/pdf': ['./src/assets/fonts/**/*']
+    }
   },
   images: {
     remotePatterns: [{ protocol: 'https', hostname: '*.supabase.co', pathname: '/storage/v1/object/**' }],
