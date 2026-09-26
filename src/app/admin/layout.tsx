@@ -48,7 +48,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-      <div className="flex items-center gap-2 mb-6 text-sm font-semibold">
+      {/* flex-wrap: telefonda menü tek satıra sığmayınca alt satıra geçer (eskiden ekrandan taşıyordu). */}
+      <nav aria-label="Yönetim menüsü" className="flex flex-wrap items-center gap-x-2 gap-y-2 mb-6 text-sm font-semibold">
         <Link href="/admin" className="text-primary hover:underline">
           Yönetim Paneli
         </Link>
@@ -84,7 +85,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             </Link>
           </>
         )}
-      </div>
+      </nav>
       {children}
     </div>
   );

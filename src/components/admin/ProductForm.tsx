@@ -451,7 +451,7 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
           ))}
         </div>
 
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
             <label className="text-xs font-semibold text-carbon/60 mb-1 block">Kaç adet alınca</label>
             <input
@@ -606,7 +606,7 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
                   ✕
                 </button>
               </div>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 <div>
                   <input
                     placeholder="İndirimsiz fiyat (TL)"

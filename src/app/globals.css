@@ -11,6 +11,33 @@ body {
   overscroll-behavior-y: none;
 }
 
+/*
+ * Mobil güvenlik ağı: herhangi bir öğe ekrandan taşarsa sayfanın tamamı yana
+ * kaymasın (iOS Safari'de sayfa "yüzüyormuş" gibi sağa sola kayıyordu).
+ * `clip` (hidden DEĞİL) seçildi: kaydırma kabı oluşturmaz, bu yüzden yapışkan
+ * (sticky) başlık bozulmaz. Tablolar gibi gerçekten geniş içerik kendi
+ * kutusunda yatay kaydırılır (overflow-x-auto). Desteklemeyen eski tarayıcı
+ * bu kuralı yok sayar — davranış değişmez.
+ */
+html,
+body {
+  overflow-x: clip;
+}
+
+/*
+ * iOS Safari, yazı boyutu 16px'ten KÜÇÜK bir form alanına dokunulunca sayfayı
+ * otomatik yakınlaştırır ve kaydırır (sitede alanlar 14px). Telefon
+ * genişliğinde form alanları 16px'e sabitlenir; bilerek büyük tutulan
+ * alanlar (MFA kod kutusu gibi text-lg ve üstü) ve onay kutuları hariç.
+ */
+@media (max-width: 767px) {
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not(.text-lg):not(.text-xl):not(.text-2xl):not(.text-3xl),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
 /* Klavye kullanıcıları için belirgin, tutarlı odak halkası (fare tıklamasında çıkmaz). */
 :focus-visible {
   outline: 2px solid #1b4332;

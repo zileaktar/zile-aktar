@@ -98,7 +98,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="font-display font-bold text-2xl text-primary">{order.order_number}</h1>
+        <h1 className="font-display font-bold text-2xl text-primary break-all">{order.order_number}</h1>
         <span className="text-xs font-semibold px-3 py-1 rounded-full bg-primary/10 text-primary">
           {STATUS_LABELS[order.status]}
         </span>
@@ -112,7 +112,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="bg-white rounded-2xl p-5 shadow-sm">
           <h2 className="font-semibold text-primary mb-3">Teslimat Adresi</h2>
-          <div className="text-sm text-carbon/80 space-y-1">
+          <div className="text-sm text-carbon/80 space-y-1 break-words">
             <div className="font-medium">{addr.full_name}</div>
             <div>{addr.phone}</div>
             <div>
@@ -123,7 +123,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
           {billing && (
             <div className="mt-4 pt-3 border-t border-dashed border-primary/15">
               <h3 className="font-semibold text-primary text-sm mb-2">Fatura Adresi</h3>
-              <div className="text-sm text-carbon/80 space-y-1">
+              <div className="text-sm text-carbon/80 space-y-1 break-words">
                 <div className="font-medium">{billing.full_name}</div>
                 <div>{billing.phone}</div>
                 <div>
@@ -137,12 +137,14 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
 
         <div className="bg-white rounded-2xl p-5 shadow-sm">
           <h2 className="font-semibold text-primary mb-3">İletişim</h2>
-          <div className="text-sm text-carbon/80 space-y-1">
+          {/* break-all: e-posta ve banka işlem numarası gibi boşluksuz uzun metinler
+              dar ekranda satıra sığmayıp kutudan taşıyordu. */}
+          <div className="text-sm text-carbon/80 space-y-1 break-all">
             <div>E-posta: {order.contact_email}</div>
             <div>Telefon: {order.contact_phone}</div>
           </div>
           <h2 className="font-semibold text-primary mt-4 mb-2">Ödeme</h2>
-          <div className="text-sm text-carbon/80 space-y-1">
+          <div className="text-sm text-carbon/80 space-y-1 break-all">
             <div>Sağlayıcı: {order.payment_provider}</div>
             <div>Referans: {order.payment_ref ?? '—'}</div>
           </div>
@@ -153,14 +155,14 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
         <h2 className="font-semibold text-primary mb-3">Ürünler</h2>
         <div className="divide-y divide-primary/5">
           {items.map((item) => (
-            <div key={item.id} className="flex justify-between py-2.5 text-sm">
-              <span className="text-carbon/80">
+            <div key={item.id} className="flex justify-between gap-3 py-2.5 text-sm">
+              <span className="text-carbon/80 min-w-0 break-words">
                 {item.product_name_snapshot}{' '}
                 <span className="text-carbon/50">
                   ({item.variant_label_snapshot}) × {item.quantity}
                 </span>
               </span>
-              <span className="font-medium">{formatPriceFromCents(item.unit_price_cents * item.quantity)}</span>
+              <span className="font-medium shrink-0 whitespace-nowrap">{formatPriceFromCents(item.unit_price_cents * item.quantity)}</span>
             </div>
           ))}
         </div>
@@ -195,7 +197,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
       <div className="bg-white rounded-2xl p-5 shadow-sm">
         <h2 className="font-semibold text-primary mb-3">Kargo Bilgisi</h2>
         {order.shipped_at && (
-          <p className="text-sm text-carbon/70 mb-3">
+          <p className="text-sm text-carbon/70 mb-3 break-words">
             {formatDateTimeTR(order.shipped_at)} tarihinde kargoya verildi ve müşteriye e-posta gönderildi.
             {order.shipping_carrier ? ` · ${order.shipping_carrier}` : ''}
             {order.tracking_number ? ` · Takip: ${order.tracking_number}` : ''}
@@ -203,7 +205,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
         )}
         <form action={markShipped} className="flex flex-wrap items-end gap-3">
           <input type="hidden" name="orderId" value={order.id} />
-          <label className="flex flex-col gap-1 text-xs text-carbon/60">
+          <label className="flex flex-col gap-1 text-xs text-carbon/60 w-full sm:w-auto">
             Kargo Firması
             <input
               type="text"
@@ -212,10 +214,10 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
               maxLength={80}
               defaultValue={order.shipping_carrier ?? ''}
               placeholder="Örn. Yurtiçi Kargo"
-              className="text-sm border border-primary/15 rounded-lg px-3 py-2 bg-cream w-48"
+              className="text-sm border border-primary/15 rounded-lg px-3 py-2 bg-cream w-full sm:w-48"
             />
           </label>
-          <label className="flex flex-col gap-1 text-xs text-carbon/60">
+          <label className="flex flex-col gap-1 text-xs text-carbon/60 w-full sm:w-auto">
             Takip Numarası
             <input
               type="text"
@@ -224,12 +226,12 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
               maxLength={80}
               defaultValue={order.tracking_number ?? ''}
               placeholder="Örn. 1234567890123"
-              className="text-sm border border-primary/15 rounded-lg px-3 py-2 bg-cream w-52"
+              className="text-sm border border-primary/15 rounded-lg px-3 py-2 bg-cream w-full sm:w-52"
             />
           </label>
           <button
             type="submit"
-            className="text-sm font-semibold text-white bg-primary rounded-lg px-4 py-2 hover:bg-primary/90"
+            className="w-full sm:w-auto text-sm font-semibold text-white bg-primary rounded-lg px-4 py-2.5 hover:bg-primary/90"
           >
             {order.shipped_at ? 'Güncelle ve tekrar bildir' : 'Kargoya ver ve müşteriye bildir'}
           </button>

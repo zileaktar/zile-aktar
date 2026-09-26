@@ -37,7 +37,7 @@ function ReturnCard({ r }: { r: ReturnRow }) {
   return (
     <div className="bg-white rounded-2xl p-4 shadow-sm">
       <div className="flex items-start justify-between gap-3 mb-1.5">
-        <div>
+        <div className="min-w-0 break-all">
           <Link href={`/admin/siparisler/${r.order_id}`} className="font-semibold text-primary hover:underline">
             {order?.order_number ?? '—'}
           </Link>

@@ -102,7 +102,7 @@ export default async function CustomerOrderDetailPage({ params }: PageProps) {
           {order.shipping_carrier && <div>Kargo firması: {order.shipping_carrier}</div>}
           {order.tracking_number && (
             <div>
-              Takip numarası: <span className="font-mono font-semibold">{order.tracking_number}</span>
+              Takip numarası: <span className="font-mono font-semibold break-all">{order.tracking_number}</span>
             </div>
           )}
           <p className="text-xs text-blue-700/70 mt-1">Kargo firmasının web sitesinden takip numaranızla durumu izleyebilirsiniz.</p>
@@ -113,14 +113,14 @@ export default async function CustomerOrderDetailPage({ params }: PageProps) {
         <h2 className="font-semibold text-primary mb-3">Ürünler</h2>
         <div className="divide-y divide-primary/5">
           {items.map((item) => (
-            <div key={item.id} className="flex justify-between py-2.5 text-sm">
-              <span className="text-carbon/80">
+            <div key={item.id} className="flex justify-between gap-3 py-2.5 text-sm">
+              <span className="text-carbon/80 min-w-0 break-words">
                 {item.product_name_snapshot}{' '}
                 <span className="text-carbon/50">
                   ({item.variant_label_snapshot}) × {item.quantity}
                 </span>
               </span>
-              <span className="font-medium">{formatPriceFromCents(item.unit_price_cents * item.quantity)}</span>
+              <span className="font-medium shrink-0 whitespace-nowrap">{formatPriceFromCents(item.unit_price_cents * item.quantity)}</span>
             </div>
           ))}
         </div>
@@ -161,7 +161,7 @@ export default async function CustomerOrderDetailPage({ params }: PageProps) {
             <div>
               {addr.district} / {addr.city}
             </div>
-            <div className="text-carbon/55">{addr.address_line}</div>
+            <div className="text-carbon/55 break-words">{addr.address_line}</div>
           </div>
           {billing && (
             <div className="mt-3 pt-3 border-t border-dashed border-primary/15">
@@ -172,7 +172,7 @@ export default async function CustomerOrderDetailPage({ params }: PageProps) {
                 <div>
                   {billing.district} / {billing.city}
                 </div>
-                <div className="text-carbon/55">{billing.address_line}</div>
+                <div className="text-carbon/55 break-words">{billing.address_line}</div>
               </div>
             </div>
           )}
@@ -182,7 +182,7 @@ export default async function CustomerOrderDetailPage({ params }: PageProps) {
           <h2 className="font-semibold text-primary mb-2">Ödeme & İletişim</h2>
           <div className="text-sm text-carbon/75 space-y-0.5">
             <div>Ödeme yöntemi: {paymentMethodLabel(order.payment_provider)}</div>
-            <div>E-posta: {order.contact_email}</div>
+            <div className="break-all">E-posta: {order.contact_email}</div>
             <div>Telefon: {order.contact_phone}</div>
           </div>
         </div>

@@ -41,20 +41,20 @@ export default async function OrderHistoryPage() {
                 href={`/hesabim/siparislerim/${order.id}`}
                 className="block bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    <div className="font-bold text-primary">{order.order_number}</div>
+                <div className="flex items-center justify-between gap-3 mb-3">
+                  <div className="min-w-0">
+                    <div className="font-bold text-primary break-all">{order.order_number}</div>
                     <div className="text-xs text-carbon/50">{formatDateTR(order.created_at)}</div>
                   </div>
                   <span className={`text-xs font-semibold px-3 py-1 rounded-full ${status.className}`}>{status.label}</span>
                 </div>
                 <div className="space-y-1 mb-3">
                   {order.order_items.map((item) => (
-                    <div key={item.id} className="flex justify-between text-sm text-carbon/70">
-                      <span>
+                    <div key={item.id} className="flex justify-between gap-3 text-sm text-carbon/70">
+                      <span className="min-w-0 break-words">
                         {item.product_name_snapshot} ({item.variant_label_snapshot}) × {item.quantity}
                       </span>
-                      <span>{formatPriceFromCents(item.unit_price_cents * item.quantity)}</span>
+                      <span className="shrink-0 whitespace-nowrap">{formatPriceFromCents(item.unit_price_cents * item.quantity)}</span>
                     </div>
                   ))}
                 </div>

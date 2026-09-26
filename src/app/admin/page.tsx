@@ -38,8 +38,10 @@ export default async function AdminDashboardPage() {
           <h2 className="font-semibold text-primary mb-3">Son Siparişler</h2>
           <div className="space-y-2">
             {recentOrders?.map((o) => (
-              <div key={o.order_number} className="flex justify-between gap-3 text-sm">
-                <span className="font-medium">{o.order_number}</span>
+              // flex-wrap: dar telefonda (320px) sipariş no + saat + tutar tek satıra
+              // sığmıyordu; artık gerekirse ikinci satıra geçer.
+              <div key={o.order_number} className="flex flex-wrap justify-between gap-x-3 gap-y-0.5 text-sm">
+                <span className="font-medium break-all">{o.order_number}</span>
                 <span className="text-carbon/50 whitespace-nowrap" title={formatDateTimeTR(o.created_at)}>
                   {formatOrderTimeTR(o.created_at)}
                 </span>

@@ -61,9 +61,9 @@ export default async function AdminProductsPage({ searchParams }: AdminProductsP
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <h1 className="font-display font-bold text-2xl text-primary">Ürünler</h1>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-3">
           <span className="text-sm text-carbon/50">
             {products.length} ürün{hasFilter ? ' (filtreli)' : ''}
           </span>
@@ -78,8 +78,47 @@ export default async function AdminProductsPage({ searchParams }: AdminProductsP
 
       <ProductListFilters categories={categories ?? []} />
 
-      <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-        <table className="w-full text-sm">
+      {/* Telefon: kart görünümü (tablo dar ekrana sığmıyor, sütunlar kesiliyordu). */}
+      <div className="sm:hidden space-y-3">
+        {products.length === 0 ? (
+          <p className="text-sm text-carbon/50 text-center py-8">Filtreye uyan ürün bulunamadı.</p>
+        ) : (
+          products.map((p) => (
+            <div key={p.id} className="bg-white rounded-2xl shadow-sm p-4 space-y-2">
+              <div className="flex items-start justify-between gap-3">
+                <span className="font-semibold text-carbon break-words min-w-0">{p.name}</span>
+                <span
+                  className={`shrink-0 text-xs font-semibold px-2.5 py-1 rounded-full ${
+                    p.is_active ? 'bg-green-100 text-green-700' : 'bg-carbon/10 text-carbon/50'
+                  }`}
+                >
+                  {p.is_active ? 'Aktif' : 'Pasif'}
+                </span>
+              </div>
+              <div className="text-xs text-carbon/60">{categoryNameById.get(p.category_id) ?? '—'}</div>
+              <div className="text-xs text-carbon/60 break-words">
+                {p.product_variants.map((v) => `${v.label}: ${formatPriceFromCents(v.price_cents)}`).join(' · ')}
+              </div>
+              <div className="flex items-center justify-between gap-3 pt-1">
+                <span className="text-sm">
+                  Stok:{' '}
+                  <span className={p.totalStock < 10 ? 'font-bold text-red-600' : 'text-carbon/70'}>{p.totalStock}</span>
+                </span>
+                <Link
+                  href={`/admin/urunler/${p.id}/duzenle`}
+                  className="touch-target inline-flex items-center px-3 text-sm font-semibold text-primary hover:underline"
+                >
+                  Düzenle
+                </Link>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Tablet/bilgisayar: tablo. Sığmazsa kendi kutusunda yatay kayar (kesilmez). */}
+      <div className="hidden sm:block bg-white rounded-2xl shadow-sm overflow-x-auto">
+        <table className="w-full min-w-[760px] text-sm">
           <thead className="bg-cream text-left text-xs uppercase text-carbon/50">
             <tr>
               <th className="px-4 py-3">Ürün</th>

@@ -75,70 +75,121 @@ const STATUS_LABELS: Record<OrderStatus, string> = {
   refunded: 'İade Edildi'
 };
 
+interface OrderRow {
+  id: string;
+  order_number: string;
+  status: OrderStatus;
+  total_cents: number;
+  contact_email: string;
+  created_at: string;
+}
+
+/**
+ * Durum değiştirme kontrolü — hem mobil kartta hem masaüstü tabloda aynısı.
+ * Başarısız (ödemesi alınmamış) siparişte yapılacak işlem yok; menüde 'failed'
+ * seçeneği olmadığı için eskiden ilk seçenek "Beklemede" görünüp yanıltıyordu.
+ */
+function StatusControl({ order }: { order: OrderRow }) {
+  if (order.status === 'failed') {
+    return (
+      <span className="inline-block text-xs font-semibold px-2.5 py-1 rounded-full bg-red-100 text-red-700 whitespace-nowrap">
+        Ödeme başarısız
+      </span>
+    );
+  }
+  return (
+    <form action={updateOrderStatus} className="flex items-center gap-2">
+      <input type="hidden" name="orderId" value={order.id} />
+      <select
+        name="status"
+        defaultValue={order.status}
+        aria-label={`${order.order_number} durumu`}
+        className="text-xs border border-primary/15 rounded-lg px-2 py-2 bg-cream"
+      >
+        {STATUS_OPTIONS.map((s) => (
+          <option key={s} value={s}>
+            {STATUS_LABELS[s]}
+          </option>
+        ))}
+      </select>
+      <button type="submit" className="touch-target px-2 text-xs font-semibold text-primary hover:underline">
+        Güncelle
+      </button>
+    </form>
+  );
+}
+
 export default async function AdminOrdersPage() {
   const supabase = createSupabaseServiceRoleClient();
-  const { data: orders } = await supabase
+  const { data } = await supabase
     .from('orders')
     .select('id, order_number, status, total_cents, contact_email, created_at')
     .order('created_at', { ascending: false })
     .limit(50);
+  const orders = (data ?? []) as OrderRow[];
 
   return (
     <div>
       <h1 className="font-display font-bold text-2xl text-primary mb-6">Siparişler</h1>
-      <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-        <table className="w-full text-sm">
-          <thead className="bg-cream text-left text-xs uppercase text-carbon/50">
-            <tr>
-              <th className="px-4 py-3">Sipariş No</th>
-              <th className="px-4 py-3">Tarih</th>
-              <th className="px-4 py-3">E-posta</th>
-              <th className="px-4 py-3">Toplam</th>
-              <th className="px-4 py-3">Durum</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-primary/5">
-            {orders?.map((order) => (
-              <tr key={order.id}>
-                <td className="px-4 py-3 font-medium">
-                  <Link href={`/admin/siparisler/${order.id}`} className="text-primary hover:underline">
-                    {order.order_number}
-                  </Link>
-                </td>
-                <td className="px-4 py-3 whitespace-nowrap text-carbon/70" title={formatDateTimeTR(order.created_at)}>
-                  {formatOrderTimeTR(order.created_at)}
-                </td>
-                <td className="px-4 py-3 text-carbon/60">{order.contact_email}</td>
-                <td className="px-4 py-3">{formatPriceFromCents(order.total_cents)}</td>
-                <td className="px-4 py-3">
-                  {/* Başarısız (ödemesi alınmamış) siparişte yapılacak işlem yok; menüde
-                      'failed' seçeneği olmadığı için eskiden ilk seçenek "Beklemede"
-                      görünüyor ve yanıltıyordu. */}
-                  {order.status === 'failed' ? (
-                    <span className="inline-block text-xs font-semibold px-2.5 py-1 rounded-full bg-red-100 text-red-700">
-                      Ödeme başarısız
-                    </span>
-                  ) : (
-                  <form action={updateOrderStatus} className="flex items-center gap-2">
-                    <input type="hidden" name="orderId" value={order.id} />
-                    <select name="status" defaultValue={order.status} className="text-xs border border-primary/15 rounded-lg px-2 py-1.5 bg-cream">
-                      {STATUS_OPTIONS.map((s) => (
-                        <option key={s} value={s}>
-                          {STATUS_LABELS[s]}
-                        </option>
-                      ))}
-                    </select>
-                    <button type="submit" className="text-xs font-semibold text-primary hover:underline">
-                      Güncelle
-                    </button>
-                  </form>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+
+      {orders.length === 0 && <p className="text-sm text-carbon/50">Henüz sipariş yok.</p>}
+
+      {/* Telefon: kart görünümü — tablo dar ekrana sığmıyor, sütunlar kesiliyordu. */}
+      <div className="sm:hidden space-y-3">
+        {orders.map((order) => (
+          <div key={order.id} className="bg-white rounded-2xl shadow-sm p-4 space-y-2">
+            <div className="flex items-start justify-between gap-3">
+              <Link href={`/admin/siparisler/${order.id}`} className="font-semibold text-primary hover:underline break-all">
+                {order.order_number}
+              </Link>
+              <span className="text-xs text-carbon/60 whitespace-nowrap" title={formatDateTimeTR(order.created_at)}>
+                {formatOrderTimeTR(order.created_at)}
+              </span>
+            </div>
+            <div className="text-xs text-carbon/60 break-all">{order.contact_email}</div>
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
+              <span className="font-semibold text-carbon">{formatPriceFromCents(order.total_cents)}</span>
+              <StatusControl order={order} />
+            </div>
+          </div>
+        ))}
       </div>
+
+      {/* Tablet/bilgisayar: tablo. Sığmazsa kendi kutusunda yatay kayar (kesilmez). */}
+      {orders.length > 0 && (
+        <div className="hidden sm:block bg-white rounded-2xl shadow-sm overflow-x-auto">
+          <table className="w-full min-w-[720px] text-sm">
+            <thead className="bg-cream text-left text-xs uppercase text-carbon/50">
+              <tr>
+                <th className="px-4 py-3">Sipariş No</th>
+                <th className="px-4 py-3">Tarih</th>
+                <th className="px-4 py-3">E-posta</th>
+                <th className="px-4 py-3">Toplam</th>
+                <th className="px-4 py-3">Durum</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-primary/5">
+              {orders.map((order) => (
+                <tr key={order.id}>
+                  <td className="px-4 py-3 font-medium whitespace-nowrap">
+                    <Link href={`/admin/siparisler/${order.id}`} className="text-primary hover:underline">
+                      {order.order_number}
+                    </Link>
+                  </td>
+                  <td className="px-4 py-3 whitespace-nowrap text-carbon/70" title={formatDateTimeTR(order.created_at)}>
+                    {formatOrderTimeTR(order.created_at)}
+                  </td>
+                  <td className="px-4 py-3 text-carbon/60 break-all">{order.contact_email}</td>
+                  <td className="px-4 py-3 whitespace-nowrap">{formatPriceFromCents(order.total_cents)}</td>
+                  <td className="px-4 py-3">
+                    <StatusControl order={order} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

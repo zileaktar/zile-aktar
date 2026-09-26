@@ -33,7 +33,7 @@ function ReviewCard({ r }: { r: ReviewRow }) {
   return (
     <div className="bg-white rounded-2xl p-4 shadow-sm">
       <div className="flex items-start justify-between gap-3 mb-1.5">
-        <div>
+        <div className="min-w-0 break-words">
           <span className="text-accent-dark text-sm">{'★'.repeat(r.rating)}</span>
           <span className="text-carbon/20 text-sm">{'★'.repeat(5 - r.rating)}</span>
           <span className="ml-2 text-sm font-semibold text-primary">{r.author_name}</span>
