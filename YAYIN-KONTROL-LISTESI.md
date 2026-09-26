@@ -53,7 +53,7 @@ Mimari + kod durumu: `devir-promptu.md`
 
 - [x] **Google Analytics 4** — kuruldu, çalışıyor (çerez izniyle koşullu). Ölçüm Kimliği `.env.local` + Vercel'de.
 - [x] **Meta (Facebook) Pixel** — kuruldu, çalışıyor (çerez izniyle koşullu). Veri Seti Kodu `.env.local` + Vercel'de, PageView olayları "Tarayıcı" kaynağından doğrulandı.
-- [ ] **Google Search Console** — domain alınınca kayıt + `sitemap.xml` gönder + doğrulama.
+- [x] **Google Search Console** (26 Eylül) — Domain mülkü `zileaktar.com` (Vercel DNS TXT ile doğrulandı), `sitemap.xml` gönderildi → Başarılı, 209 sayfa.
 - [x] Dinamik `sitemap.xml` (tüm aktif ürünler + sayfalar), `robots.txt`, per-sayfa başlık/açıklama, `Store` + `Product` + `BreadcrumbList` + `FAQPage` şeması, breadcrumbs.
 - [ ] `Store` şemasına `geo` (enlem/boylam) — kod hazır (`src/lib/legal.ts` `haritaLinki`/`enlem`/`boylam`); Google İşletme Profili'nden koordinat girilince otomatik devreye girer.
 - [ ] **Google İşletme Profili ("Zile Lokman Aktar")** — doğrulanmış profil var. Yapılacak: profile web sitesi (`https://zileaktar.com`) + birincil kategori "Aktar" + çalışma saatleri girilecek; sonra Haritalar "Paylaş" linki + koordinat alınıp `legal.ts`'e yazılacak (site ↔ profil bağlantısı + "Google'da Yorum Yap" butonu).
