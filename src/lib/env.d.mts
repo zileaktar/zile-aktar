@@ -20,6 +20,8 @@ export declare const env: {
   readonly KVKK_DATA_EXPORT_FROM_EMAIL: string;
   readonly BREVO_API_KEY: string | undefined;
   readonly ORDER_NOTIFY_EMAIL: string | undefined;
+  readonly TELEGRAM_BOT_TOKEN: string | undefined;
+  readonly TELEGRAM_CHAT_ID: string | undefined;
   readonly PII_ENCRYPTION_KEY: string | undefined;
   readonly PII_HMAC_PEPPER: string | undefined;
   readonly NEXT_PUBLIC_APP_URL: string;

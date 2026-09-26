@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { accountMutationRateLimit, safeRateLimit } from '@/lib/rate-limit';
 import { returnRequestSchema, type ReturnRequestInput } from '@/lib/validations/return-request';
+import { notifyReturnRequest } from '@/lib/notify';
 
 export interface ReturnRequestActionResult {
   error: string | null;
@@ -15,9 +16,9 @@ const idSchema = z.string().uuid();
 /**
  * İade talebi oluşturur — kullanıcının kendi oturumuyla çalışır. Asıl sınır
  * RLS `return_requests_insert_own` politikasıdır: siparişin gerçekten bu
- * kullanıcıya ait ve `delivered` durumda olduğunu, `status`'ün 'pending'
- * gönderildiğini DB seviyesinde zorlar (bkz. migration 0033) — bu action
- * yalnızca form doğrulaması + hız sınırı ekler.
+ * kullanıcıya ait ve paid/shipped/delivered durumda olduğunu, `status`'ün
+ * 'pending' gönderildiğini DB seviyesinde zorlar (bkz. migration 0033/0034) —
+ * bu action form doğrulaması + hız sınırı + yönetici bildirimi ekler.
  */
 export async function createReturnRequestAction(
   orderId: string,
@@ -42,7 +43,11 @@ export async function createReturnRequestAction(
     reason: parsed.data.reason,
     detail: parsed.data.detail
   });
-  if (error) return { error: 'Talep oluşturulamadı. Siparişin teslim edilmiş olduğundan emin olun.' };
+  if (error) return { error: 'Talep oluşturulamadı. Bu sipariş için zaten bir talebiniz olabilir veya sipariş iade/iptale uygun değil.' };
+
+  // Insert RLS'ten geçti → sipariş gerçekten bu kullanıcıya ait. Sebep sabit
+  // listeden gelir; serbest metin açıklama (kişisel bilgi içerebilir) gönderilmez.
+  await notifyReturnRequest(orderId, parsed.data.reason);
 
   revalidatePath(`/hesabim/siparislerim/${orderId}`);
   return { error: null };

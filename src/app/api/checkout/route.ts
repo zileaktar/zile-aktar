@@ -6,6 +6,7 @@ import { checkoutRateLimit, getClientIp, safeRateLimit } from '@/lib/rate-limit'
 import { checkTrustedOrigin } from '@/lib/csrf';
 import { createCommonPaymentToken } from '@/lib/vakifbank';
 import { sendOrderPlacedEmail } from '@/lib/email';
+import { notifyNewOrder } from '@/lib/notify';
 import { env } from '@/lib/env.mjs';
 import { redactPII, redactPIIString } from '@/lib/mask';
 import { signOrderNumber, signPaymentReturn, PAYMENT_RETURN_TTL_MS } from '@/lib/order-token';
@@ -155,6 +156,7 @@ export async function POST(request: Request) {
   // stok rezerve edilmiş sayılır (create_order stoğu düştü).
   if (paymentMethod === 'havale') {
     await sendOrderPlacedEmail(orderId);
+    await notifyNewOrder(orderId, 'havale');
     return NextResponse.json({
       orderNumber,
       redirectUrl: `/siparis-alindi?order=${orderNumber}&odeme=havale&t=${signOrderNumber(orderNumber)}`

@@ -43,6 +43,12 @@ export const env = createEnv({
     BREVO_API_KEY: z.string().optional(),
     ORDER_NOTIFY_EMAIL: z.string().email().optional(),
 
+    // Telegram yönetici bildirimleri (yeni sipariş, başarısız ödeme, iade talebi).
+    // İkisi de opsiyonel — biri eksikse bildirim sessizce atlanır (bkz. src/lib/notify.ts).
+    // Bot anahtarı GİZLİDİR: istek adresinin içinde gittiği için Sentry'de maskelenir.
+    TELEGRAM_BOT_TOKEN: z.string().regex(/^\d+:[A-Za-z0-9_-]+$/, 'TELEGRAM_BOT_TOKEN biçimi hatalı (123456:ABC...)').optional(),
+    TELEGRAM_CHAT_ID: z.string().regex(/^-?\d+$/, 'TELEGRAM_CHAT_ID yalnızca rakam olmalı').optional(),
+
     // Uygulama katmanı PII kriptografisi (src/lib/crypto/pii.ts).
     // PII_ENCRYPTION_KEY: AES-256-GCM anahtarı — 64 hex karakter (32 bayt).
     //   Üret: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
@@ -87,6 +93,8 @@ export const env = createEnv({
     KVKK_DATA_EXPORT_FROM_EMAIL: process.env.KVKK_DATA_EXPORT_FROM_EMAIL,
     BREVO_API_KEY: process.env.BREVO_API_KEY,
     ORDER_NOTIFY_EMAIL: process.env.ORDER_NOTIFY_EMAIL,
+    TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
+    TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
     PII_ENCRYPTION_KEY: process.env.PII_ENCRYPTION_KEY,
     PII_HMAC_PEPPER: process.env.PII_HMAC_PEPPER,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,

@@ -3,6 +3,7 @@ import * as Sentry from '@sentry/nextjs';
 import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { getVposTransaction } from '@/lib/vakifbank';
 import { sendOrderPlacedEmail } from '@/lib/email';
+import { notifyNewOrder, notifyPaymentFailed, notifyPaidButClosed } from '@/lib/notify';
 import { redactPII, redactPIIString } from '@/lib/mask';
 
 export type ConfirmPaymentResult =
@@ -73,8 +74,13 @@ export async function confirmVakifbankPayment(orderId: string): Promise<ConfirmP
   // Başarı yalnızca HEM işlem sonuç kodu HEM yetkilendirme sonuç kodu "0000"
   // olduğunda kabul edilir — biri eksikse ödeme reddedilmiş/yarım sayılır.
   const isSuccessful = result.Rc === '0000' && result.AuthResultCode === '0000';
+  // Bildirim yalnızca sipariş bu çağrıda İLK KEZ kapanıyorsa gider (pending idi):
+  // dönüş sayfası yenilenirse ya da iki kez tetiklenirse telefona mükerrer mesaj düşmez.
+  const wasPending = order.status === 'pending';
+
   if (!isSuccessful) {
     await serviceClient.rpc('mark_order_failed', { p_order_id: orderId });
+    if (wasPending) await notifyPaymentFailed(orderId, 'not_successful');
     return { status: 'failed', orderId, reason: 'not_successful' };
   }
 
@@ -85,6 +91,7 @@ export async function confirmVakifbankPayment(orderId: string): Promise<ConfirmP
       { level: 'error' }
     );
     await serviceClient.rpc('mark_order_failed', { p_order_id: orderId });
+    if (wasPending) await notifyPaymentFailed(orderId, 'amount_mismatch');
     return { status: 'failed', orderId, reason: 'amount_mismatch' };
   }
 
@@ -107,10 +114,12 @@ export async function confirmVakifbankPayment(orderId: string): Promise<ConfirmP
       `KRİTİK: VakıfBank tahsil etti (TxId ${result.TransactionId ?? 'yok'}) ama sipariş ${orderId} durumu '${fresh?.status ?? 'bilinmiyor'}'`,
       { level: 'fatal' }
     );
+    await notifyPaidButClosed(orderId, result.TransactionId ?? null);
     return { status: 'failed', orderId, reason: 'not_successful' };
   }
 
-  // E-postayı yalnızca siparişi GERÇEKTEN pending→paid yapan çağrı gönderir.
+  // E-posta ve bildirim yalnızca siparişi GERÇEKTEN pending→paid yapan çağrıdan gider.
   await sendOrderPlacedEmail(orderId);
+  await notifyNewOrder(orderId, 'card');
   return { status: 'paid', orderId, orderNumber: order.order_number };
 }
