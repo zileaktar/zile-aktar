@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { createSupabaseBrowserClient } from '@/lib/supabase/client';
 import { PasswordInput } from '@/components/auth/PasswordInput';
@@ -13,12 +13,34 @@ export default function ResetPasswordPage() {
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
 
-  // E-postadaki bağlantı, tokenı URL hash'inde taşır. @supabase/ssr browser istemcisi
-  // sayfa yüklenince bunu otomatik yakalayıp bir "recovery" oturumu kurar. Kısa bir
-  // bekleme sonrası oturum var mı diye bakıyoruz.
+  // verifyOtp tek kullanımlık — React StrictMode'da efekt iki kez çalışırsa ikinci
+  // çağrı "geçersiz" dönüp başarılı doğrulamayı ezmesin.
+  const verifyStarted = useRef(false);
+
   useEffect(() => {
     const supabase = createSupabaseBrowserClient();
     let cancelled = false;
+
+    // 1) Asıl yol — e-posta şablonundaki bağlantı `?token_hash=...&type=recovery` taşır
+    //    (Supabase → Authentication → Emails → "Reset password" şablonu). Doğrulama
+    //    burada, bağlantının AÇILDIĞI tarayıcıda yapılır: istek bilgisayardan, e-posta
+    //    telefondan açılsa bile çalışır. (Varsayılan PKCE bağlantısı yalnızca isteğin
+    //    yapıldığı tarayıcıda çalışıyordu — başka cihazda "geçersiz" diyordu.)
+    const params = new URLSearchParams(window.location.search);
+    const tokenHash = params.get('token_hash');
+    if (tokenHash && params.get('type') === 'recovery') {
+      if (verifyStarted.current) return;
+      verifyStarted.current = true;
+      supabase.auth.verifyOtp({ token_hash: tokenHash, type: 'recovery' }).then(({ error }) => {
+        // Token'ı adres çubuğundan/geçmişten sil (paylaşılır, tarayıcı geçmişinde kalır).
+        window.history.replaceState(null, '', window.location.pathname);
+        setReady(error ? 'invalid' : 'ok');
+      });
+      return;
+    }
+
+    // 2) Eski bağlantılar (şablon değişmeden önce gönderilenler): istemci URL'deki
+    //    kodu kendisi yakalayıp "recovery" oturumu kurar; kısa bir bekleme sonrası bakılır.
 
     const { data: sub } = supabase.auth.onAuthStateChange((event) => {
       if (cancelled) return;
