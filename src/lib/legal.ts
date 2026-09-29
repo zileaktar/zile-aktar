@@ -11,6 +11,11 @@ export const LEGAL = {
   adres: 'Dutlupınar Mah., Cumhuriyet Cd., Kültür Sitesi D:26/G, 60400 Zile / Tokat',
   telefon: '0551 173 00 94',
   eposta: 'zileaktar@gmail.com',
+  // Sitenin otomatik e-postalarının (sipariş, kargo, iade) GÖNDEREN adresi.
+  // zileaktar.com Brevo'da doğrulandı (Brevo code + DKIM + DMARC, Vercel DNS'te).
+  // Gmail adresinden Brevo ile göndermek Google/Yahoo/Microsoft gönderici
+  // kurallarına uymuyordu (spam riski). Müşteri yanıtları yine `eposta`ya gider.
+  gonderenEposta: 'siparis@zileaktar.com',
   webAdresi: 'https://zileaktar.com',
 
   // Mağaza çalışma saatleri — gerekirse düzenleyin. İletişim sayfası + Store şemasında kullanılır.

@@ -42,7 +42,7 @@ Mimari + kod durumu: `devir-promptu.md`
   - ✅ Supabase → Auth → URL Configuration (Site URL + Redirect URLs'e eklendi, eski `vercel.app` ve `localhost` silinmedi)
   - ✅ Cloudflare Turnstile → widget hostname listesine eklendi
   - ✅ `src/lib/legal.ts` `webAdresi` → `https://zileaktar.com`
-  - [ ] Brevo → domaini ekle + SPF/DKIM DNS kayıtları (opsiyonel, e-posta teslim oranı için — acil değil)
+  - [x] Brevo alan adı doğrulaması (29 Eylül) — Vercel DNS: `brevo-code` TXT (@), `brevo1/brevo2._domainkey` CNAME, `_dmarc` TXT (p=none). Gönderen artık `siparis@zileaktar.com` (`LEGAL.gonderenEposta`), yanıtlar `zileaktar@gmail.com`'a.
   - [ ] Google Search Console kaydı + `sitemap.xml` gönder (aşağıda D'de)
   - ~~iyzico callback URL'leri~~ — iyzico kullanılmıyor (VakıfBank dönüş adresi kodda `NEXT_PUBLIC_APP_URL`'den üretilir).
 - [ ] **Vercel Cron doğrula** — deploy sonrası Vercel → Cron sekmesi (`0 3 * * *`, bekleyen iyzico siparişlerini 24 saatte iptal eder).

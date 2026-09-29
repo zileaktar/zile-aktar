@@ -7,7 +7,10 @@ import { LEGAL } from '@/lib/legal';
 import { redactPII, redactPIIString } from '@/lib/mask';
 
 const BREVO_URL = 'https://api.brevo.com/v3/smtp/email';
-const SENDER = { name: LEGAL.markaAdi, email: LEGAL.eposta };
+// Gönderen: kendi alan adımız (Brevo'da DKIM/DMARC doğrulamalı). Yanıtlar
+// her zaman mağazanın gmail kutusuna gider (bkz. sendBrevo'daki varsayılan replyTo).
+const SENDER = { name: LEGAL.markaAdi, email: LEGAL.gonderenEposta };
+const REPLY_TO = { email: LEGAL.eposta, name: LEGAL.markaAdi };
 // Yönetici bildirimi: ayrı env verilmişse oraya, yoksa gönderen adresine.
 const ADMIN_EMAIL = env.ORDER_NOTIFY_EMAIL || LEGAL.eposta;
 
@@ -20,7 +23,9 @@ async function sendBrevo(payload: Record<string, unknown>): Promise<void> {
     const res = await fetch(BREVO_URL, {
       method: 'POST',
       headers: { 'api-key': env.BREVO_API_KEY, 'Content-Type': 'application/json', accept: 'application/json' },
-      body: JSON.stringify(payload)
+      // replyTo verilmemişse (ör. yönetici bildirimi) yanıtlar yine mağaza kutusuna gitsin —
+      // siparis@zileaktar.com gerçek bir posta kutusu değil, yalnızca gönderim adresi.
+      body: JSON.stringify({ replyTo: REPLY_TO, ...payload })
     });
     if (!res.ok) {
       const body = await res.text();
@@ -163,7 +168,7 @@ export async function sendOrderPlacedEmail(orderId: string): Promise<void> {
     to: [{ email: order.contact_email }],
     subject: `${LEGAL.markaAdi} — Siparişiniz alındı (${order.order_number})`,
     htmlContent: customerHtml,
-    replyTo: { email: LEGAL.eposta, name: LEGAL.markaAdi }
+    replyTo: REPLY_TO
   });
 
   // Yönetici bildirimi (kısa)
@@ -234,7 +239,7 @@ export async function sendOrderShippedEmail(orderId: string): Promise<void> {
     to: [{ email: order.contact_email }],
     subject: `${LEGAL.markaAdi} — Siparişiniz kargoya verildi (${order.order_number})`,
     htmlContent: html,
-    replyTo: { email: LEGAL.eposta, name: LEGAL.markaAdi }
+    replyTo: REPLY_TO
   });
 }
 
@@ -268,7 +273,7 @@ export async function sendOrderDeliveredEmail(orderId: string): Promise<void> {
     to: [{ email: order.contact_email }],
     subject: `${LEGAL.markaAdi} — Siparişiniz teslim edildi (${order.order_number})`,
     htmlContent: html,
-    replyTo: { email: LEGAL.eposta, name: LEGAL.markaAdi }
+    replyTo: REPLY_TO
   });
 }
 
@@ -314,7 +319,7 @@ export async function sendOrderCancelledEmail(
     to: [{ email: order.contact_email }],
     subject: `${LEGAL.markaAdi} — Siparişiniz iptal edildi (${order.order_number})`,
     htmlContent: html,
-    replyTo: { email: LEGAL.eposta, name: LEGAL.markaAdi }
+    replyTo: REPLY_TO
   });
 }
 
@@ -369,6 +374,6 @@ export async function sendPaymentReminderEmail(orderId: string): Promise<void> {
     to: [{ email: order.contact_email }],
     subject: `${LEGAL.markaAdi} — Sepetiniz sizi bekliyor (${order.order_number})`,
     htmlContent: html,
-    replyTo: { email: LEGAL.eposta, name: LEGAL.markaAdi }
+    replyTo: REPLY_TO
   });
 }
