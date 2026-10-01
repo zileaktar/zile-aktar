@@ -39,8 +39,29 @@ export default function ResetPasswordPage() {
       return;
     }
 
-    // 2) Eski bağlantılar (şablon değişmeden önce gönderilenler): istemci URL'deki
-    //    kodu kendisi yakalayıp "recovery" oturumu kurar; kısa bir bekleme sonrası bakılır.
+    // 2) Varsayılan şablon + implicit akış (bkz. sifremi-unuttum): Supabase doğrulamadan
+    //    sonra buraya `#access_token=...&refresh_token=...&type=recovery` ile yönlendirir.
+    //    #hash sunucuya hiç gitmez; oturum bu tarayıcıda kurulur, hash hemen silinir.
+    const hash = new URLSearchParams(window.location.hash.slice(1));
+    if (hash.get('error') || hash.get('error_code')) {
+      window.history.replaceState(null, '', window.location.pathname);
+      setReady('invalid');
+      return;
+    }
+    const accessToken = hash.get('access_token');
+    const refreshToken = hash.get('refresh_token');
+    if (accessToken && refreshToken && hash.get('type') === 'recovery') {
+      if (verifyStarted.current) return;
+      verifyStarted.current = true;
+      window.history.replaceState(null, '', window.location.pathname);
+      supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken }).then(({ error }) => {
+        setReady(error ? 'invalid' : 'ok');
+      });
+      return;
+    }
+
+    // 3) Eski PKCE bağlantıları (?code=...): istemci URL'deki kodu kendisi yakalayıp
+    //    "recovery" oturumu kurar — yalnızca isteğin yapıldığı tarayıcıda çalışır.
 
     const { data: sub } = supabase.auth.onAuthStateChange((event) => {
       if (cancelled) return;

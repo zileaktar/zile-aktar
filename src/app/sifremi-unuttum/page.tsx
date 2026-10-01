@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import Link from 'next/link';
 import type { TurnstileInstance } from '@marsidev/react-turnstile';
-import { createSupabaseBrowserClient } from '@/lib/supabase/client';
+import { createSupabaseImplicitAuthClient } from '@/lib/supabase/client';
 import { CaptchaField } from '@/components/auth/CaptchaField';
 
 export default function ForgotPasswordPage() {
@@ -23,7 +23,9 @@ export default function ForgotPasswordPage() {
     }
 
     setLoading(true);
-    const supabase = createSupabaseBrowserClient();
+    // implicit akış: e-postadaki bağlantı başka cihaz/tarayıcıda açılsa da çalışsın
+    // (bkz. createSupabaseImplicitAuthClient).
+    const supabase = createSupabaseImplicitAuthClient();
     const { error: resetError } = await supabase.auth.resetPasswordForEmail(email.trim(), {
       captchaToken,
       redirectTo: `${window.location.origin}/sifre-yenile`
