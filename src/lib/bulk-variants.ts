@@ -41,7 +41,10 @@ export interface BulkChange {
 
 export interface BulkPreview {
   changes: BulkChange[];
+  /** Uygulamayı ENGELLER (dosya düzeltilip yeniden yüklenmeli). */
   errors: Array<{ line: number; message: string }>;
+  /** Bilgi amaçlı, engellemez (ör. sitede olmayan ürün atlandı, indirim kaldırılacak). */
+  warnings: Array<{ line: number; message: string }>;
   unchanged: number;
   totalRows: number;
 }
@@ -174,56 +177,126 @@ function findColumn(headers: string[], ...candidates: string[]): number {
   return -1;
 }
 
+/** Ürün adı eşleştirme anahtarı: "biberiye yağı" = "Biberiye Yağı" = "BİBERİYE YAĞI". */
+export function productNameKey(name: string): string {
+  return normalizeHeader(name.replace(/İ/g, 'i'));
+}
+
+const UNIT_ALIASES: Record<string, string> = {
+  g: 'g', gr: 'g', gram: 'g', gramg: 'g',
+  kg: 'kg', kilogram: 'kg', kilogramkg: 'kg',
+  ml: 'ml', mililitre: 'ml', mililitreml: 'ml',
+  l: 'l', lt: 'l', litre: 'l', litrelt: 'l',
+  adet: 'adet', paket: 'paket', kutu: 'kutu', demet: 'demet'
+};
+
+/** "20 ml" / ("20", "Mililitre (ml)") → "20ml"; tanınmayan birimde null. */
+function labelKey(amount: string, unit: string): string | null {
+  const n = Number(amount.replace(',', '.').trim());
+  const u = UNIT_ALIASES[normalizeHeader(unit)];
+  if (!Number.isFinite(n) || n <= 0 || !u) return null;
+  return `${n}${u}`;
+}
+
+function siteLabelKey(label: string): string | null {
+  const m = /^\s*([\d.,]+)\s*(.+?)\s*$/.exec(label);
+  return m ? labelKey(m[1] ?? '', m[2] ?? '') : null;
+}
+
+type RowTarget = { cur: VariantSnapshot } | { error: string } | { warning: string };
+
 /**
- * Yüklenen CSV'yi veritabanındaki güncel değerlerle karşılaştırır. Yalnızca
- * DEĞİŞEN satırlar `changes`'e girer; hatalı satırlar `errors`'a (satır no 1'den,
- * başlık = 1. satır). Hata varsa uygulama yapılmamalı (önizlemede engellenir).
+ * Yüklenen dosyayı (CSV/XLSX satırları) veritabanındaki güncel değerlerle
+ * karşılaştırır. İki dosya biçimi tanınır:
+ *  1. Panelden indirilen liste — "SKU" sütunu var; eşleşme SKU ile, "İndirimsiz
+ *     Fiyat" sütunu da güncellenir. Bilinmeyen SKU HATADIR.
+ *  2. Mağazanın Stok Tablosu aracının "Dışa Aktar" dosyası — "Urun", "Stok",
+ *     "Fiyat" (+ "Miktar", "Birim") sütunları; eşleşme ÜRÜN ADIYLA (siteye bu
+ *     tablodan aktarıldı: "biberiye yağı" → "Biberiye Yağı"). Sitede olmayan ürün
+ *     UYARIDIR (atlanır, engellemez). İndirim sütunu yoktur: yeni fiyat mevcut
+ *     indirimsiz fiyata ulaşırsa indirim kaldırılır (önizlemede görünür).
+ * Yalnızca DEĞİŞEN satırlar `changes`'e girer. `errors` varsa uygulama engellenir;
+ * `warnings` bilgi amaçlıdır. Satır no 1'den (başlık = 1. satır).
  */
 export function buildBulkPreview(rows: string[][], current: Map<string, VariantSnapshot>): BulkPreview {
   const errors: BulkPreview['errors'] = [];
+  const warnings: BulkPreview['warnings'] = [];
   const changes: BulkChange[] = [];
   let unchanged = 0;
 
   const [header, ...dataRows] = rows;
-  if (!header) return { changes, errors: [{ line: 1, message: 'Dosya boş.' }], unchanged, totalRows: 0 };
+  const result = () => ({ changes, errors, warnings, unchanged, totalRows: dataRows.length });
+  if (!header) return { ...result(), errors: [{ line: 1, message: 'Dosya boş.' }] };
 
   const skuCol = findColumn(header, 'sku');
+  const nameCol = findColumn(header, 'urun', 'urunadi');
+  const amountCol = findColumn(header, 'miktar');
+  const unitCol = findColumn(header, 'birim');
   const priceCol = findColumn(header, 'fiyattl', 'fiyat');
   const compareCol = findColumn(header, 'indirimsizfiyattl', 'indirimsizfiyat');
   const stockCol = findColumn(header, 'stok');
-  if (skuCol < 0 || priceCol < 0 || stockCol < 0) {
+  const mode: 'sku' | 'name' | null = skuCol >= 0 ? 'sku' : nameCol >= 0 ? 'name' : null;
+
+  if (!mode || priceCol < 0 || stockCol < 0) {
     errors.push({
       line: 1,
       message:
-        'Başlık satırında "SKU", "Fiyat (TL)" ve "Stok" sütunları bulunamadı. Lütfen panelden indirdiğiniz dosyayı kullanın, başlıkları değiştirmeyin.'
+        'Dosya tanınmadı: başlık satırında "SKU" (panelden indirilen liste) ya da "Urun" (Stok Tablosu aracı) ile birlikte "Fiyat" ve "Stok" sütunları olmalı. Başlıkları değiştirmeyin.'
     });
-    return { changes, errors, unchanged, totalRows: dataRows.length };
+    return result();
   }
   if (dataRows.length > MAX_BULK_ROWS) {
     errors.push({ line: 1, message: `Dosyada en fazla ${MAX_BULK_ROWS} satır olabilir.` });
-    return { changes, errors, unchanged, totalRows: dataRows.length };
+    return result();
   }
+
+  // Ad → varyantlar (yalnız "ad" biçimi için).
+  const byName = new Map<string, VariantSnapshot[]>();
+  if (mode === 'name') {
+    for (const v of current.values()) {
+      const key = productNameKey(v.productName);
+      byName.set(key, [...(byName.get(key) ?? []), v]);
+    }
+  }
+
+  const resolve = (cells: string[]): RowTarget | null => {
+    if (mode === 'sku') {
+      const sku = (cells[skuCol] ?? '').trim();
+      if (!sku) return { error: 'SKU boş.' };
+      const cur = current.get(sku);
+      return cur ? { cur } : { error: `${sku}: bu SKU sistemde yok (yeni ürün bu ekrandan eklenemez).` };
+    }
+    const rawName = (cells[nameCol] ?? '').trim();
+    if (!rawName) return null; // araçtaki boş satırlar sessizce atlanır
+    const candidates = byName.get(productNameKey(rawName)) ?? [];
+    if (candidates.length === 0) {
+      return { warning: `"${rawName}" sitede yok — atlandı (yeni ürünü panelden "Yeni Ürün Ekle" ile ekleyin).` };
+    }
+    const fileKey = amountCol >= 0 && unitCol >= 0 ? labelKey(cells[amountCol] ?? '', cells[unitCol] ?? '') : null;
+    if (candidates.length === 1) return { cur: candidates[0]! };
+    const match = fileKey ? candidates.filter((c) => siteLabelKey(c.label) === fileKey) : [];
+    return match.length === 1
+      ? { cur: match[0]! }
+      : {
+          warning: `"${rawName}" sitede birden fazla seçenekte (${candidates.map((c) => c.label).join(', ')}) — hangisi olduğu anlaşılamadı, atlandı. Panelden indirilen listeyle güncelleyin.`
+        };
+  };
 
   const seen = new Set<string>();
   dataRows.forEach((cells, idx) => {
     const line = idx + 2;
-    const sku = (cells[skuCol] ?? '').trim();
-    if (!sku) {
-      errors.push({ line, message: 'SKU boş.' });
-      return;
-    }
-    if (seen.has(sku)) {
-      errors.push({ line, message: `${sku}: aynı SKU dosyada birden fazla kez var.` });
-      return;
-    }
-    seen.add(sku);
-
-    const cur = current.get(sku);
-    if (!cur) {
-      errors.push({ line, message: `${sku}: bu SKU sistemde yok (yeni ürün bu ekrandan eklenemez).` });
-      return;
-    }
+    const target = resolve(cells);
+    if (!target) return;
+    if ('error' in target) return void errors.push({ line, message: target.error });
+    if ('warning' in target) return void warnings.push({ line, message: target.warning });
+    const cur = target.cur;
     const name = `${cur.productName} (${cur.label})`;
+
+    if (seen.has(cur.sku)) {
+      errors.push({ line, message: `${name}: aynı ürün dosyada birden fazla kez var.` });
+      return;
+    }
+    seen.add(cur.sku);
 
     const price = parseTl(cells[priceCol] ?? '');
     if (price === null || price === 'invalid' || price <= 0 || price > MAX_PRICE_CENTS) {
@@ -231,7 +304,7 @@ export function buildBulkPreview(rows: string[][], current: Map<string, VariantS
       return;
     }
 
-    let compareAt: number | null = null;
+    let compareAt: number | null;
     if (compareCol >= 0) {
       const c = parseTl(cells[compareCol] ?? '');
       if (c === 'invalid' || (c !== null && c > MAX_PRICE_CENTS)) {
@@ -244,7 +317,12 @@ export function buildBulkPreview(rows: string[][], current: Map<string, VariantS
       }
       compareAt = c;
     } else {
-      compareAt = cur.compareAtCents; // sütun yoksa indirim olduğu gibi kalır
+      // Sütun yok (araç dosyası): indirim korunur — ama yeni fiyat indirimsiz fiyata
+      // ulaştıysa "indirim" anlamsızdır (ve veritabanı kuralını bozar) → kaldırılır.
+      compareAt = cur.compareAtCents != null && cur.compareAtCents > price ? cur.compareAtCents : null;
+      if (cur.compareAtCents != null && compareAt === null) {
+        warnings.push({ line, message: `${name}: yeni fiyat indirimsiz fiyata ulaştığı için indirim kaldırılacak.` });
+      }
     }
 
     const stockRaw = (cells[stockCol] ?? '').trim();
@@ -254,12 +332,23 @@ export function buildBulkPreview(rows: string[][], current: Map<string, VariantS
     }
     const stock = Number(stockRaw);
 
+    if (mode === 'name' && amountCol >= 0 && unitCol >= 0) {
+      const fileKey = labelKey(cells[amountCol] ?? '', cells[unitCol] ?? '');
+      const siteKey = siteLabelKey(cur.label);
+      if (fileKey && siteKey && fileKey !== siteKey) {
+        warnings.push({
+          line,
+          message: `${name}: dosyadaki miktar (${(cells[amountCol] ?? '').trim()} ${(cells[unitCol] ?? '').trim()}) sitedekinden farklı — fiyat/stok güncellenir, gramaj etiketini ürün sayfasından düzeltin.`
+        });
+      }
+    }
+
     if (price === cur.priceCents && compareAt === cur.compareAtCents && stock === cur.stock) {
       unchanged++;
       return;
     }
     changes.push({
-      sku,
+      sku: cur.sku,
       productName: cur.productName,
       label: cur.label,
       old: { priceCents: cur.priceCents, compareAtCents: cur.compareAtCents, stock: cur.stock },
@@ -267,5 +356,5 @@ export function buildBulkPreview(rows: string[][], current: Map<string, VariantS
     });
   });
 
-  return { changes, errors, unchanged, totalRows: dataRows.length };
+  return result();
 }

@@ -103,6 +103,49 @@ describe('buildBulkPreview', () => {
     expect(q.errors).toHaveLength(1);
   });
 
+  it('Stok Tablosu aracı dosyası: ürün ADIYLA eşleşir, sitede olmayan uyarıdır', () => {
+    const toolHeader = ['Kategori', 'Urun', 'Miktar', 'Birim', 'Stok', 'Fiyat', 'Ozellik'];
+    const p = buildBulkPreview(
+      [
+        toolHeader,
+        ['Baharatlar', 'kekik', '100', 'Gram (g)', '7', '160', ''],
+        ['Baharatlar', 'NANE', '100', 'Gram (g)', '5', '150', ''],
+        ['Yağlar', 'olmayan ürün', '50', 'Mililitre (ml)', '3', '99', ''],
+        ['', '', '', '', '', '', '']
+      ],
+      current
+    );
+    expect(p.errors).toEqual([]);
+    expect(p.changes.map((c) => c.sku)).toEqual(['KEKIK-STD']);
+    expect(p.changes[0]?.next).toEqual({ priceCents: 16000, compareAtCents: null, stock: 7 });
+    expect(p.unchanged).toBe(1);
+    expect(p.warnings.map((w) => w.line)).toEqual([4]);
+  });
+
+  it('araç dosyasında yeni fiyat indirimsiz fiyata ulaşırsa indirim kalkar', () => {
+    const withDeal = new Map([['KEKIK-STD', v({ priceCents: 15000, compareAtCents: 18000 })]]);
+    const p = buildBulkPreview([['Urun', 'Stok', 'Fiyat'], ['Kekik', '10', '180']], withDeal);
+    expect(p.changes[0]?.next.compareAtCents).toBeNull();
+    expect(p.warnings).toHaveLength(1);
+    const q = buildBulkPreview([['Urun', 'Stok', 'Fiyat'], ['Kekik', '10', '160']], withDeal);
+    expect(q.changes[0]?.next.compareAtCents).toBe(18000);
+  });
+
+  it('araç dosyası: birden fazla seçenekli üründe miktar+birimle seçer', () => {
+    const multi = new Map([
+      ['K-100', v({ sku: 'K-100', label: '100 gr' })],
+      ['K-250', v({ sku: 'K-250', label: '250 gr' })]
+    ]);
+    const p = buildBulkPreview(
+      [['Urun', 'Miktar', 'Birim', 'Stok', 'Fiyat'], ['Kekik', '250', 'Gram (g)', '4', '300']],
+      multi
+    );
+    expect(p.changes.map((c) => c.sku)).toEqual(['K-250']);
+    const q = buildBulkPreview([['Urun', 'Stok', 'Fiyat'], ['Kekik', '4', '300']], multi);
+    expect(q.changes).toEqual([]);
+    expect(q.warnings).toHaveLength(1);
+  });
+
   it('başlıklar eksikse tüm dosya reddedilir', () => {
     const p = buildBulkPreview([['Ürün', 'Fiyat'], ['Kekik', '10']], current);
     expect(p.errors[0]?.line).toBe(1);

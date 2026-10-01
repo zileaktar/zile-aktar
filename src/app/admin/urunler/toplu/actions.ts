@@ -17,6 +17,7 @@ import {
   parseCsv,
   type BulkPreview
 } from '@/lib/bulk-variants';
+import { readXlsxRows } from '@/lib/xlsx-read';
 
 const MAX_FILE_BYTES = 1024 * 1024; // 1 MB — 5000 satır için fazlasıyla yeterli
 
@@ -58,21 +59,26 @@ export async function previewBulkUpdateAction(_prev: PreviewState, formData: For
   const file = formData.get('file');
   if (!(file instanceof File) || file.size === 0) return { error: 'Lütfen bir CSV dosyası seçin.', preview: null };
   if (file.size > MAX_FILE_BYTES) return { error: 'Dosya çok büyük (en fazla 1 MB).', preview: null };
-  if (/\.xlsx?$/i.test(file.name)) {
+  const isXlsx = /\.xlsx$/i.test(file.name);
+  if (/\.xls$/i.test(file.name)) {
     return {
       error:
-        'Excel dosyası (.xlsx) doğrudan yüklenemez. Excel\'de "Dosya → Farklı Kaydet → CSV UTF-8 (virgülle ayrılmış)" seçip kaydedin, o dosyayı yükleyin.',
+        'Eski Excel biçimi (.xls) okunamıyor. Excel\'de "Dosya → Farklı Kaydet → Excel Çalışma Kitabı (.xlsx)" ya da "CSV" seçip kaydedin, o dosyayı yükleyin.',
       preview: null
     };
   }
 
   try {
-    const rows = parseCsv(decodeCsvBytes(new Uint8Array(await file.arrayBuffer())));
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    const rows = isXlsx ? readXlsxRows(bytes) : parseCsv(decodeCsvBytes(bytes));
     const current = new Map((await loadVariantSnapshots(auth.supabase)).map((v) => [v.sku, v]));
     return { error: null, preview: buildBulkPreview(rows, current) };
   } catch (err) {
     Sentry.captureException(err, { tags: { context: 'bulk-variants-preview' } });
-    return { error: 'Dosya okunamadı. Panelden indirdiğiniz CSV dosyasını kullandığınızdan emin olun.', preview: null };
+    return {
+      error: 'Dosya okunamadı. Panelden indirilen listeyi ya da Stok Tablosu aracının dışa aktardığı dosyayı (CSV veya .xlsx) kullanın.',
+      preview: null
+    };
   }
 }
 

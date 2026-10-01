@@ -119,14 +119,15 @@ export function BulkVariantUpdate() {
       <div className="bg-white rounded-2xl p-5 shadow-sm space-y-3">
         <h2 className="font-semibold text-primary">2. Düzenlediğiniz dosyayı yükleyin</h2>
         <p className="text-xs text-carbon/60">
-          Excel&apos;de kaydederken <b>&quot;CSV UTF-8 (virgülle ayrılmış)&quot;</b> ya da <b>&quot;CSV (virgülle ayrılmış)&quot;</b>{' '}
-          seçin. Yükleyince önce değişikliklerin önizlemesi gösterilir; onaylamadan hiçbir şey değişmez.
+          Kabul edilen dosyalar: yukarıdan indirdiğiniz liste <b>ya da Stok Tablosu aracının &quot;Dışa Aktar&quot; dosyası</b>{' '}
+          (ürünler adla eşleşir; yalnız Fiyat ve Stok güncellenir). Biçim <b>CSV</b> veya Excel <b>.xlsx</b> olabilir. Yükleyince
+          önce değişikliklerin önizlemesi gösterilir; onaylamadan hiçbir şey değişmez.
         </p>
         <ActionForm action={previewAction} className="flex flex-col sm:flex-row sm:items-center gap-3">
           <input
             type="file"
             name="file"
-            accept=".csv,text/csv"
+            accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             required
             className="block w-full max-w-full text-sm text-carbon/60 file:mr-3 file:rounded-full file:border-0 file:bg-primary/10 file:px-4 file:py-2.5 file:text-sm file:font-semibold file:text-primary"
           />
@@ -164,6 +165,21 @@ export function BulkVariantUpdate() {
               </ul>
               {preview.errors.length > 100 && <p>… ve {preview.errors.length - 100} hata daha.</p>}
             </div>
+          )}
+
+          {preview.warnings.length > 0 && (
+            <details className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-sm text-amber-900">
+              <summary className="cursor-pointer font-semibold">
+                {preview.warnings.length} uyarı (işlemi engellemez) — görmek için tıklayın
+              </summary>
+              <ul className="list-disc ml-5 mt-2 max-h-60 overflow-y-auto space-y-0.5">
+                {preview.warnings.slice(0, 200).map((w) => (
+                  <li key={`${w.line}-${w.message}`}>
+                    {w.line}. satır: {w.message}
+                  </li>
+                ))}
+              </ul>
+            </details>
           )}
 
           {preview.changes.length > 0 && (

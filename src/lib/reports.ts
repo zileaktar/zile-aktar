@@ -155,6 +155,44 @@ export function currentPeriodRange(
   }
 }
 
+export interface DailyPoint {
+  key: string; // "2026-09-26"
+  shortLabel: string; // "26.09"
+  label: string; // "26.09.2026 Cumartesi"
+  revenueCents: number;
+  paidCount: number;
+}
+
+/**
+ * Panel ana sayfası grafiği: bugün dahil son `days` gün (Türkiye takvimi), HER gün
+ * için bir nokta — siparişsiz günler 0 ile (boşluklar grafikten kaybolmasın).
+ * `orders` aralık başından beri (bkz. lastDaysStart) gelen siparişlerdir.
+ */
+export function buildDailySeries(orders: ReportOrder[], days: number, now: Date = new Date()): DailyPoint[] {
+  const byKey = new Map(buildSalesReport(orders, 'daily').periods.map((p) => [p.key, p]));
+  const { y, m, d } = istanbulDate(now);
+  const points: DailyPoint[] = [];
+  for (let i = days - 1; i >= 0; i--) {
+    const noon = new Date(istanbulMidnight(y, m, d - i).getTime() + 12 * 3_600_000);
+    const { key, label } = periodOf(noon, 'daily');
+    const p = byKey.get(key);
+    points.push({
+      key,
+      shortLabel: label.slice(0, 5),
+      label,
+      revenueCents: p?.revenueCents ?? 0,
+      paidCount: p?.paidCount ?? 0
+    });
+  }
+  return points;
+}
+
+/** buildDailySeries için sorgu başlangıcı: (days-1) gün önceki Türkiye gece yarısı. */
+export function lastDaysStart(days: number, now: Date = new Date()): Date {
+  const { y, m, d } = istanbulDate(now);
+  return istanbulMidnight(y, m, d - (days - 1));
+}
+
 /** Yönetim panelindeki tarih seçimi (URL parametreleri, doğrulanmış). */
 export interface ReportDateSelection {
   /** "YYYY-MM-DD" — günlük ve haftalık rapor için. */

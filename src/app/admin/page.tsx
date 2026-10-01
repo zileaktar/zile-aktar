@@ -2,6 +2,10 @@ import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { formatPriceFromCents, formatDateTimeTR, formatOrderTimeTR } from '@/lib/format';
 import { LOW_STOCK_THRESHOLD } from '@/lib/stock';
+import { buildDailySeries, lastDaysStart, type ReportOrder } from '@/lib/reports';
+import { SalesChart } from '@/components/admin/SalesChart';
+
+const CHART_DAYS = 30;
 
 // Özet metrikler (sipariş sayısı, son siparişler, düşük stok) her zaman canlı olmalı —
 // service_role sorgusu çerez taşımadığından aksi halde önbelleğe alınır.
@@ -13,7 +17,13 @@ export default async function AdminDashboardPage() {
   // geçmiş bir kullanıcıya sunuluyor.
   const supabase = createSupabaseServiceRoleClient();
 
-  const [{ count: orderCount }, { count: productCount }, { data: recentOrders }, { data: lowStock }] = await Promise.all([
+  const [
+    { count: orderCount },
+    { count: productCount },
+    { data: recentOrders },
+    { data: lowStock },
+    { data: chartOrders }
+  ] = await Promise.all([
     supabase.from('orders').select('*', { count: 'exact', head: true }),
     supabase.from('products').select('*', { count: 'exact', head: true }).eq('is_active', true),
     supabase.from('orders').select('order_number, total_cents, status, created_at').order('created_at', { ascending: false }).limit(5),
@@ -24,8 +34,15 @@ export default async function AdminDashboardPage() {
       .lte('stock', LOW_STOCK_THRESHOLD)
       .eq('products.is_active', true)
       .order('stock')
-      .limit(50)
+      .limit(50),
+    // Grafik: son 30 günün siparişleri (Türkiye takvimine göre gün gün toplanır).
+    supabase
+      .from('orders')
+      .select('order_number, status, payment_provider, total_cents, shipping_cents, discount_cents, deal_discount_cents, created_at')
+      .gte('created_at', lastDaysStart(CHART_DAYS).toISOString())
+      .limit(5000)
   ]);
+  const chartPoints = buildDailySeries((chartOrders ?? []) as ReportOrder[], CHART_DAYS);
 
   return (
     <div>
@@ -40,6 +57,10 @@ export default async function AdminDashboardPage() {
           <div className="text-sm text-carbon/50 mb-1">Aktif Ürün</div>
           <div className="font-display font-bold text-3xl text-primary">{productCount ?? 0}</div>
         </div>
+      </div>
+
+      <div className="mb-8">
+        <SalesChart points={chartPoints} />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">

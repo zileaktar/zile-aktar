@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { buildSalesReport, currentPeriodRange, periodOf, reportAnchor, type ReportOrder } from '@/lib/reports';
+import {
+  buildDailySeries,
+  buildSalesReport,
+  currentPeriodRange,
+  lastDaysStart,
+  periodOf,
+  reportAnchor,
+  type ReportOrder
+} from '@/lib/reports';
 
 function order(partial: Partial<ReportOrder>): ReportOrder {
   return {
@@ -102,6 +110,25 @@ describe('currentPeriodRange', () => {
     const y = currentPeriodRange('yearly', now);
     expect(y.start.toISOString()).toBe('2025-12-31T21:00:00.000Z');
     expect(y.end.toISOString()).toBe('2026-12-31T21:00:00.000Z');
+  });
+});
+
+describe('buildDailySeries', () => {
+  it('siparişsiz günleri 0 ile doldurur, en eski gün başta', () => {
+    const now = new Date('2026-09-26T09:00:00Z'); // 26 Eylül TR
+    const s = buildDailySeries(
+      [
+        order({ status: 'paid', total_cents: 5000, created_at: '2026-09-26T08:00:00Z' }),
+        order({ status: 'failed', total_cents: 9999, created_at: '2026-09-26T08:30:00Z' }),
+        order({ status: 'delivered', total_cents: 3000, created_at: '2026-09-24T21:30:00Z' }) // 25 Eylül 00:30 TR
+      ],
+      3,
+      now
+    );
+    expect(s.map((p) => p.shortLabel)).toEqual(['24.09', '25.09', '26.09']);
+    expect(s.map((p) => p.revenueCents)).toEqual([0, 3000, 5000]);
+    expect(s.map((p) => p.paidCount)).toEqual([0, 1, 1]);
+    expect(lastDaysStart(3, now).toISOString()).toBe('2026-09-23T21:00:00.000Z');
   });
 });
 
