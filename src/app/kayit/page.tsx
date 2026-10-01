@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import Link from 'next/link';
 import type { TurnstileInstance } from '@marsidev/react-turnstile';
-import { createSupabaseBrowserClient } from '@/lib/supabase/client';
+import { createSupabaseImplicitAuthClient } from '@/lib/supabase/client';
 import { CaptchaField } from '@/components/auth/CaptchaField';
 import { PasswordInput } from '@/components/auth/PasswordInput';
 
@@ -45,13 +45,19 @@ export default function SignupPage() {
     }
 
     setLoading(true);
-    const supabase = createSupabaseBrowserClient();
+    // implicit akış: doğrulama bağlantısı başka cihaz/tarayıcıda açılsa da oturum
+    // /hesap-dogrulandi sayfasında kurulur (bkz. createSupabaseImplicitAuthClient).
+    const supabase = createSupabaseImplicitAuthClient();
     // Supabase Auth şifreyi Bcrypt ile hash'ler ve DB'de asla düz metin tutmaz.
     // profiles satırı, on_auth_user_created trigger'ı ile otomatik oluşturulur (bkz. migration 0001).
     const { error: signUpError } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { full_name: fullName, marketing_consent: marketingConsent }, captchaToken }
+      options: {
+        data: { full_name: fullName, marketing_consent: marketingConsent },
+        captchaToken,
+        emailRedirectTo: `${window.location.origin}/hesap-dogrulandi`
+      }
     });
 
     setLoading(false);
