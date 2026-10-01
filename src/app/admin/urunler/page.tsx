@@ -68,6 +68,12 @@ export default async function AdminProductsPage({ searchParams }: AdminProductsP
             {products.length} ürün{hasFilter ? ' (filtreli)' : ''}
           </span>
           <Link
+            href="/admin/urunler/toplu"
+            className="touch-target border border-primary/20 text-primary text-sm font-bold px-4 py-2.5 rounded-full hover:bg-primary/5 transition"
+          >
+            Toplu Fiyat / Stok Güncelle
+          </Link>
+          <Link
             href="/admin/urunler/yeni"
             className="touch-target bg-primary hover:bg-primary-dark text-white text-sm font-bold px-4 py-2.5 rounded-full transition"
           >

@@ -605,6 +605,21 @@ export interface Database {
       };
       mark_order_paid: { Args: { p_order_id: string; p_payment_ref: string }; Returns: boolean };
       mark_order_failed: { Args: { p_order_id: string }; Returns: undefined };
+      // supabase/migrations/0038_bulk_update_variants.sql
+      bulk_update_variants: {
+        Args: {
+          p_rows: Array<{
+            sku: string;
+            old_price_cents: number;
+            old_compare_at_price_cents: number | null;
+            old_stock: number;
+            price_cents: number;
+            compare_at_price_cents: number | null;
+            stock: number;
+          }>;
+        };
+        Returns: { updated: number; conflicts: string[] };
+      };
       // supabase/migrations/0037_order_cancel_refund.sql
       close_order_with_restock: {
         Args: { p_order_id: string; p_new_status: OrderStatus; p_restock: boolean; p_refund_ref: string | null };

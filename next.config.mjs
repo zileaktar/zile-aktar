@@ -12,7 +12,10 @@ const nextConfig = {
     // İstemci tarafı Router Cache: dinamik sayfalar (admin paneli, sipariş listeleri)
     // her gezinmede yeniden çekilsin — aksi halde admin, birkaç dakika önce ziyaret
     // ettiği "Siparişler" sayfasının eski (yeni siparişleri içermeyen) halini görür.
-    staleTimes: { dynamic: 0, static: 180 }
+    staleTimes: { dynamic: 0, static: 180 },
+    // Toplu fiyat/stok güncelleme: 1 MB'a kadar CSV + onay listesi (varsayılan 1 MB sınırı
+    // çok parçalı form ek yüküyle aşılabiliyordu). Dosya boyutu aksiyonda ayrıca 1 MB ile sınırlı.
+    serverActions: { bodySizeLimit: '2mb' }
   },
   // PDF uçları Türkçe karakterli fontu diskten okur (src/lib/pdf/builder.ts).
   // Dosya koddan import edilmediği için Vercel paketine ELLE dahil edilmeli.
