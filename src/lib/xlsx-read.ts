@@ -9,11 +9,13 @@ import { inflateRawSync } from 'node:zlib';
  * yayınlanmıyor; ihtiyacımız da yalnızca düz bir tabloyu okumak.
  *
  * Güvenlik: dosya boyutu çağıranda 1 MB ile sınırlı; açılan her parça en fazla
- * 20 MB'a kadar açılır (zip bombasına karşı); yalnız ihtiyaç duyulan iki XML
+ * 5 MB'a kadar açılır (zip bombasına karşı); yalnız ihtiyaç duyulan iki XML
  * parçası okunur; XML regex ile ayrıştırılır (harici varlık / DTD işlenmez).
  */
 
-const MAX_INFLATED_BYTES = 20 * 1024 * 1024;
+// Açılmış XML üst sınırı: 5000 satırlık bir tablo ~1–2 MB tutar; daha büyüğü hem
+// zip bombası hem de regex ayrıştırmasını yavaşlatma (DoS) riskidir.
+const MAX_INFLATED_BYTES = 5 * 1024 * 1024;
 
 interface ZipEntry {
   name: string;

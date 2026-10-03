@@ -47,6 +47,12 @@ describe('CSV okuma/yazma', () => {
     expect(rows[1]?.[5]).toBe('200,00');
   });
 
+  it('formül gibi başlayan metinleri etkisizleştirir (CSV enjeksiyonu)', () => {
+    const rows = parseCsv(variantsToCsv([v({ productName: '=HYPERLINK("http://x")', label: '+1' })]));
+    expect(rows[1]?.[2]).toBe(`'=HYPERLINK("http://x")`);
+    expect(rows[1]?.[3]).toBe("'+1");
+  });
+
   it('virgül ayraçlı dosyayı da tanır, boş satırları atar', () => {
     const rows = parseCsv('SKU,Fiyat (TL),Stok\r\nA,"150,50",3\r\n\r\n');
     expect(rows).toEqual([

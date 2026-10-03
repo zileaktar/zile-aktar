@@ -85,23 +85,31 @@ function csvCell(value: string): string {
   return /[;"\r\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
 }
 
+/**
+ * Metin hücresi için formül enjeksiyonu koruması: "=", "+", "-", "@" (ve sekme/satır
+ * başı) ile başlayan değer Excel'de FORMÜL olarak çalışabilir (ör. bir ürün adı
+ * `=HYPERLINK(...)`). Başına ' eklenir → Excel metin olarak gösterir. Yalnızca
+ * bilgi sütunlarına (kategori/ürün/seçenek) uygulanır; SKU ve sayılar dokunulmaz.
+ */
+function textCell(value: string): string {
+  return csvCell(/^[=+\-@\t\r]/.test(value) ? `'${value}` : value);
+}
+
 /** Güncel varyant listesi → `;` ayraçlı CSV metni (BOM'u çağıran ekler). */
 export function variantsToCsv(rows: VariantSnapshot[]): string {
   const lines = [HEADERS.join(';')];
   for (const r of rows) {
     lines.push(
       [
-        r.sku,
-        r.categoryName,
-        r.productName,
-        r.label,
+        csvCell(r.sku),
+        textCell(r.categoryName),
+        textCell(r.productName),
+        textCell(r.label),
         centsToTl(r.priceCents),
         r.compareAtCents != null ? centsToTl(r.compareAtCents) : '',
         String(r.stock),
         r.isActive ? 'Aktif' : 'Pasif'
-      ]
-        .map(csvCell)
-        .join(';')
+      ].join(';')
     );
   }
   return lines.join('\r\n') + '\r\n';

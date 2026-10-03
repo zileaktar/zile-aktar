@@ -12,6 +12,15 @@ export default function ResetPasswordPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
+  const [accountEmail, setAccountEmail] = useState<string | null>(null);
+
+  // Oturum kurulunca hangi hesabın şifresinin değiştirileceğini göster.
+  useEffect(() => {
+    if (ready !== 'ok') return;
+    createSupabaseBrowserClient()
+      .auth.getUser()
+      .then(({ data }) => setAccountEmail(data.user?.email ?? null));
+  }, [ready]);
 
   // verifyOtp tek kullanımlık — React StrictMode'da efekt iki kez çalışırsa ikinci
   // çağrı "geçersiz" dönüp başarılı doğrulamayı ezmesin.
@@ -93,11 +102,15 @@ export default function ResetPasswordPage() {
     setLoading(true);
     const supabase = createSupabaseBrowserClient();
     const { error: updateError } = await supabase.auth.updateUser({ password });
-    setLoading(false);
     if (updateError) {
+      setLoading(false);
       setError('Şifre güncellenemedi. Bağlantının süresi dolmuş olabilir — tekrar sıfırlama isteyin.');
       return;
     }
+    // Güvenlik: kurtarma oturumu bağlantıdan geldi — başkasının (saldırganın) bağlantısı
+    // olsa bile kullanıcı o hesapta OTURUM AÇIK KALMASIN. Yeni şifreyle kendisi girer.
+    await supabase.auth.signOut();
+    setLoading(false);
     setDone(true);
   }
 
@@ -123,7 +136,7 @@ export default function ResetPasswordPage() {
       <div className="max-w-sm mx-auto px-4 py-24 text-center">
         <div className="text-5xl mb-4">✅</div>
         <h1 className="font-display font-bold text-xl text-primary mb-2">Şifreniz Güncellendi</h1>
-        <p className="text-sm text-carbon/60 mb-6">Yeni şifrenizle giriş yapabilirsiniz.</p>
+        <p className="text-sm text-carbon/60 mb-6">Güvenliğiniz için oturum kapatıldı. Yeni şifrenizle giriş yapın.</p>
         <a
           href="/giris"
           className="touch-target inline-block bg-primary hover:bg-primary-dark text-white font-bold px-8 py-3.5 rounded-full transition"
@@ -136,7 +149,18 @@ export default function ResetPasswordPage() {
 
   return (
     <div className="max-w-sm mx-auto px-4 py-16">
-      <h1 className="font-display font-bold text-2xl text-primary mb-6 text-center">Yeni Şifre Belirle</h1>
+      <h1 className="font-display font-bold text-2xl text-primary mb-2 text-center">Yeni Şifre Belirle</h1>
+      {/* Hangi hesabın şifresinin değiştiğini göster — başkasına ait bir bağlantı
+          açıldıysa kullanıcı bunu fark eder. */}
+      <p className="text-sm text-carbon/60 text-center mb-6 break-all">
+        {accountEmail ? (
+          <>
+            Hesap: <b>{accountEmail}</b>
+          </>
+        ) : (
+          ' '
+        )}
+      </p>
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl p-3 text-sm">{error}</div>}
         <PasswordInput value={password} onChange={setPassword} placeholder="Yeni şifre (en az 8 karakter)" autoComplete="new-password" />

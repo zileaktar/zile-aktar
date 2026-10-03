@@ -8,6 +8,22 @@ import { createSupabaseBrowserClient, createSupabaseImplicitAuthClient } from '@
 import { CaptchaField } from '@/components/auth/CaptchaField';
 import { PasswordInput } from '@/components/auth/PasswordInput';
 
+/**
+ * Giriş sonrası yalnızca KENDİ sitemizdeki bir yola yönlendir. `redirectTo` URL'den
+ * geldiği için saldırgan `?redirectTo=https://sahte-site.com` (açık yönlendirme /
+ * oltalama) veya `javascript:...` verebilir — bunlar reddedilip /hesabim'e gidilir.
+ * "//evil.com" ve "/\evil.com" tarayıcıda başka siteye gider; onlar da reddedilir.
+ */
+function safeRedirectPath(value: string | null): string {
+  if (!value || !value.startsWith('/') || value.startsWith('//') || value.startsWith('/\\')) return '/hesabim';
+  try {
+    const url = new URL(value, window.location.origin);
+    return url.origin === window.location.origin ? url.pathname + url.search + url.hash : '/hesabim';
+  } catch {
+    return '/hesabim';
+  }
+}
+
 function LoginForm() {
   const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
@@ -77,7 +93,7 @@ function LoginForm() {
     // istemcide yazar; router.push hemen ardından çalışınca middleware'in
     // sunucu tarafı okuması çerezi henüz görmez ve kullanıcıyı /giris'e geri atar.
     // window.location ile tarayıcı isteği baştan yapar, taze çerezle.
-    window.location.assign(searchParams.get('redirectTo') ?? '/hesabim');
+    window.location.assign(safeRedirectPath(searchParams.get('redirectTo')));
   }
 
   return (
