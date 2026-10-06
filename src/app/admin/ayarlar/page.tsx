@@ -3,6 +3,7 @@ import { LogoSettingsForm } from '@/components/admin/LogoSettingsForm';
 import { BankInfoForm } from '@/components/admin/BankInfoForm';
 import { TelegramTestCard } from '@/components/admin/TelegramTestCard';
 import { SalesReportCard } from '@/components/admin/SalesReportCard';
+import { VakifbankTestCard } from '@/components/admin/VakifbankTestCard';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,6 +17,7 @@ export default async function AdminSettingsPage() {
       <LogoSettingsForm currentLogoPath={logoPath} />
       <BankInfoForm bank={bank} />
       <TelegramTestCard />
+      <VakifbankTestCard />
     </div>
   );
 }
