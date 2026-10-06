@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import Link from 'next/link';
 import type { TurnstileInstance } from '@marsidev/react-turnstile';
 import { createSupabaseImplicitAuthClient } from '@/lib/supabase/client';
+import { weakPasswordMessage } from '@/lib/auth-errors';
 import { CaptchaField } from '@/components/auth/CaptchaField';
 import { PasswordInput } from '@/components/auth/PasswordInput';
 
@@ -62,7 +63,10 @@ export default function SignupPage() {
 
     setLoading(false);
     if (signUpError) {
-      setError(signUpError.message.includes('already registered') ? 'Bu e-posta zaten kayıtlı.' : 'Kayıt oluşturulamadı.');
+      setError(
+        weakPasswordMessage(signUpError) ??
+          (signUpError.message.includes('already registered') ? 'Bu e-posta zaten kayıtlı.' : 'Kayıt oluşturulamadı.')
+      );
       resetCaptcha(); // token tek kullanımlık — yeni deneme için widget'ı sıfırla
       return;
     }

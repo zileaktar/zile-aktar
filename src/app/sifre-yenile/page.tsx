@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { createSupabaseBrowserClient } from '@/lib/supabase/client';
 import { PasswordInput } from '@/components/auth/PasswordInput';
+import { weakPasswordMessage } from '@/lib/auth-errors';
 
 export default function ResetPasswordPage() {
   const [ready, setReady] = useState<'checking' | 'ok' | 'invalid'>('checking');
@@ -104,7 +105,10 @@ export default function ResetPasswordPage() {
     const { error: updateError } = await supabase.auth.updateUser({ password });
     if (updateError) {
       setLoading(false);
-      setError('Şifre güncellenemedi. Bağlantının süresi dolmuş olabilir — tekrar sıfırlama isteyin.');
+      setError(
+        weakPasswordMessage(updateError) ??
+          'Şifre güncellenemedi. Bağlantının süresi dolmuş olabilir — tekrar sıfırlama isteyin.'
+      );
       return;
     }
     // Güvenlik: kurtarma oturumu bağlantıdan geldi — başkasının (saldırganın) bağlantısı
