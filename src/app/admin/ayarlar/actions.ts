@@ -10,6 +10,7 @@ import * as Sentry from '@sentry/nextjs';
 import { sendTelegramMessage } from '@/lib/notify';
 import { createCommonPaymentToken } from '@/lib/vakifbank';
 import { env } from '@/lib/env.mjs';
+import { LEGAL } from '@/lib/legal';
 import { accountMutationRateLimit, getClientIp, safeRateLimit } from '@/lib/rate-limit';
 
 export interface SettingsFormState {
@@ -200,9 +201,21 @@ export async function testVakifbankConnectionAction(): Promise<VakifbankTestResu
   const { success } = await safeRateLimit(accountMutationRateLimit, `vakifbank-test:${user.id}`, { failClosed: true });
   if (!success) return { ok: false, message: 'Çok fazla deneme. Bir dakika sonra tekrar deneyin.', bankResponse: null, config: [] };
 
-  const apiHost = new URL(env.VAKIFBANK_API_BASE_URL).host;
+  const host = (u: string) => {
+    try {
+      return new URL(u).host;
+    } catch {
+      return `geçersiz adres: ${u.slice(0, 40)}`;
+    }
+  };
+  const label = (h: string) => (h.includes('test') ? '⚠️ TEST' : 'CANLI');
+  const apiHost = host(env.VAKIFBANK_API_BASE_URL);
+  const vposHost = host(env.VAKIFBANK_VPOS_BASE_URL);
+  const pageHost = host(env.VAKIFBANK_PAYMENT_PAGE_URL);
   const config = [
-    `Ortam: ${apiHost.includes('test') ? 'TEST sunucusu' : 'CANLI sunucu'} (${apiHost})`,
+    `VAKIFBANK_API_BASE_URL: ${label(apiHost)} (${apiHost})`,
+    `VAKIFBANK_VPOS_BASE_URL (iptal/iade): ${label(vposHost)} (${vposHost})`,
+    `VAKIFBANK_PAYMENT_PAGE_URL: ${label(pageHost)} (${pageHost})`,
     `Üye işyeri no: ${describeValue(env.VAKIFBANK_MERCHANT_NUMBER, 4)}${env.VAKIFBANK_MERCHANT_NUMBER.trim().length !== 15 ? ' — ⚠️ VakıfBank 15 hane bekler (başına 0 ekleyerek tamamlayın)' : ''}`,
     `Terminal no: ${env.VAKIFBANK_TERMINAL_NUMBER.trim().slice(0, 2)}…, ${describeValue(env.VAKIFBANK_TERMINAL_NUMBER, 2)}`,
     `API şifresi: ${env.VAKIFBANK_PASSWORD.length} karakter${env.VAKIFBANK_PASSWORD.trim().length !== env.VAKIFBANK_PASSWORD.length ? ' — ⚠️ başında/sonunda BOŞLUK var' : ''}`
@@ -215,7 +228,12 @@ export async function testVakifbankConnectionAction(): Promise<VakifbankTestResu
       amount: '1.00',
       clientIp: getClientIp(await headers()),
       successUrl: returnUrl,
-      failUrl: returnUrl
+      failUrl: returnUrl,
+      // Boş telefon/e-posta bankada "alan formatı" (1001) hatası veriyordu — mağazanın
+      // kendi iletişim bilgileri gönderilir (gerçek siparişte müşterininki gider).
+      cardHoldersName: LEGAL.markaAdi,
+      buyerPhone: `90${LEGAL.telefon.replace(/\D/g, '').replace(/^0/, '')}`,
+      buyerEmail: LEGAL.eposta
     });
     const bankResponse = `ErrorCode: ${result.ErrorCode ?? '—'} · ${result.ResponseMessage ?? '—'}`;
     if (result.ErrorCode === '0000' && result.PaymentToken) {
@@ -226,8 +244,9 @@ export async function testVakifbankConnectionAction(): Promise<VakifbankTestResu
         config
       };
     }
-    const hint =
-      result.ErrorCode === '5023'
+    const hint = apiHost.includes('test')
+      ? 'Site bankanın TEST sunucusuna bağlanıyor — gerçek üye işyeri bilgileri orada tanınmaz. Vercel → Environment Variables → VAKIFBANK_API_BASE_URL (Production) değerini canlı adrese çevirip yeniden yayınlayın.'
+      : result.ErrorCode === '5023'
         ? 'Banka üye işyeri numarasını Ortak Ödeme servisinde bulamıyor. Numara biçimi doğruysa (15 hane) üye işyerinin Ortak Ödeme için canlıda tanımlanması gerekir — bankaya bu kodla yazın.'
         : result.ErrorCode === '2005' || result.ErrorCode === '5001'
           ? 'Kimlik doğrulama başarısız: API şifresi ya da üye işyeri/terminal eşleşmesi hatalı.'
