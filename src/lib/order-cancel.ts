@@ -4,6 +4,7 @@ import { createSupabaseServiceRoleClient } from '@/lib/supabase/server';
 import { cancelOrRefundTransaction, getVposTransaction } from '@/lib/vakifbank';
 import { confirmVakifbankPayment } from '@/lib/payments';
 import { sendOrderCancelledEmail } from '@/lib/email';
+import { CARD_REFUND_VIA_BANK_API } from '@/lib/refund-config';
 import { redactPII, redactPIIString } from '@/lib/mask';
 import type { OrderStatus } from '@/lib/supabase/types';
 
@@ -116,7 +117,21 @@ export async function cancelOrRefundOrder(params: {
     return { ok: true, message: 'Sipariş "İade Edildi" olarak kapatıldı ve müşteriye e-posta gönderildi.' };
   }
 
-  // --- Kartla ödenmiş: VakıfBank iptal / iade
+  // --- Kartla ödenmiş, iade VakıfBank PANELİNDEN yapıldı (bkz. refund-config.ts):
+  // banka API'sine gidilmez, sipariş yalnızca kapatılır.
+  if (!CARD_REFUND_VIA_BANK_API) {
+    try {
+      const closed = await close('refunded', params.restock, 'vakifbank-panel');
+      if (!closed) return { ok: false, message: 'Sipariş durumu bu arada değişmiş. Sayfayı yenileyip kontrol edin.' };
+    } catch (err) {
+      logError('iade (kart, panelden)', err);
+      return { ok: false, message: 'Sipariş güncellenemedi. Lütfen tekrar deneyin.' };
+    }
+    await sendOrderCancelledEmail(orderId, 'refunded_card');
+    return { ok: true, message: 'Sipariş "İade Edildi" olarak kapatıldı ve müşteriye e-posta gönderildi.' };
+  }
+
+  // --- Kartla ödenmiş: VakıfBank iptal / iade (API — sabit IP gerektirir)
   // Kilit: yalnızca bir istek bankaya gidebilir.
   const { data: claimed } = await serviceClient
     .from('orders')

@@ -4,6 +4,7 @@ import { useActionState } from 'react';
 import { ActionForm, useActionFormPending } from '@/components/ui/ActionForm';
 import { cancelOrderAction, type CancelOrderFormState } from '@/app/admin/siparisler/[id]/cancel-actions';
 import type { CancelKind } from '@/lib/order-cancel';
+import { CARD_REFUND_VIA_BANK_API } from '@/lib/refund-config';
 
 const TEXT: Record<Exclude<CancelKind, 'closed'>, { title: string; info: string; confirm: string; button: string }> = {
   cancel_unpaid: {
@@ -12,12 +13,19 @@ const TEXT: Record<Exclude<CancelKind, 'closed'>, { title: string; info: string;
     confirm: 'Siparişi iptal etmek istediğimi onaylıyorum.',
     button: 'Siparişi iptal et'
   },
-  refund_card: {
-    title: 'İptal Et ve Ücreti Karta İade Et',
-    info: 'Ödeme VakıfBank üzerinden müşterinin kartına TAM TUTAR olarak iade edilir (aynı gün ise iptal, sonraki günlerde iade). Bu işlem geri alınamaz. Müşteriye bilgi e-postası gider.',
-    confirm: 'Tutarın tamamının müşterinin kartına iade edileceğini onaylıyorum.',
-    button: 'İptal et ve ücreti iade et'
-  },
+  refund_card: CARD_REFUND_VIA_BANK_API
+    ? {
+        title: 'İptal Et ve Ücreti Karta İade Et',
+        info: 'Ödeme VakıfBank üzerinden müşterinin kartına TAM TUTAR olarak iade edilir (aynı gün ise iptal, sonraki günlerde iade). Bu işlem geri alınamaz. Müşteriye bilgi e-postası gider.',
+        confirm: 'Tutarın tamamının müşterinin kartına iade edileceğini onaylıyorum.',
+        button: 'İptal et ve ücreti iade et'
+      }
+    : {
+        title: 'İade Edildi Olarak Kapat (Kartla Ödeme)',
+        info: 'Kart iadesi VakıfBank Sanal POS panelinden (sanalpos.vakifbank.com.tr) yapılır: panelde aşağıdaki banka işlem numarasıyla işlemi bulun, aynı gün ise İPTAL, sonraki günlerde İADE yapın. Ardından bu düğmeyle siparişi kapatın — müşteriye bilgi e-postası gider.',
+        confirm: 'Tutarın tamamını VakıfBank panelinden müşterinin kartına iade ettiğimi onaylıyorum.',
+        button: 'İade edildi olarak kapat'
+      },
   refund_transfer: {
     title: 'İade Edildi Olarak Kapat (Havale)',
     info: 'Havale/EFT ödemeleri otomatik geri gönderilemez. Önce parayı müşterinin hesabına kendi bankanızdan gönderin, ardından bu düğmeyle siparişi kapatın. Müşteriye bilgi e-postası gider.',
@@ -44,12 +52,15 @@ export function CancelOrderCard({
   orderId,
   kind,
   totalLabel,
-  defaultRestock
+  defaultRestock,
+  bankRef
 }: {
   orderId: string;
   kind: Exclude<CancelKind, 'closed'>;
   totalLabel: string;
   defaultRestock: boolean;
+  /** Kartla ödemede bankanın işlem numarası — panelde işlemi bulmak için. */
+  bankRef?: string | null;
 }) {
   const [state, formAction] = useActionState<CancelOrderFormState, FormData>(cancelOrderAction, {
     ok: false,
@@ -71,6 +82,11 @@ export function CancelOrderCard({
         {kind !== 'cancel_unpaid' && (
           <p className="text-sm text-carbon/80 mt-2">
             İade tutarı: <b>{totalLabel}</b>
+          </p>
+        )}
+        {kind === 'refund_card' && !CARD_REFUND_VIA_BANK_API && bankRef && (
+          <p className="text-sm text-carbon/80 mt-1 break-all">
+            Banka işlem no: <b className="font-mono">{bankRef}</b>
           </p>
         )}
       </div>

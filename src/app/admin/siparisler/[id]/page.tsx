@@ -280,6 +280,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
           kind={cancelKind}
           totalLabel={formatPriceFromCents(order.total_cents)}
           defaultRestock={order.status === 'paid'}
+          bankRef={order.payment_ref}
         />
       )}
     </div>
