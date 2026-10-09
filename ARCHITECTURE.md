@@ -74,7 +74,6 @@ product_variants (product_id -> products, sku unique, price_cents, stock)
 carts / cart_items (user_id -> profiles)  — cihazlar arası sepet senkronu için hazır altyapı
 orders (user_id -> profiles NULLABLE, order_number unique, status enum, shipping_address jsonb anlık görüntü)
 order_items (order_id -> orders, product/variant anlık görüntü alanları)
-webhook_events (provider, event_id UNIQUE)  — idempotency
 data_requests (user_id -> profiles SET NULL, user_email_snapshot)  — KVKK denetim izi
 ```
 

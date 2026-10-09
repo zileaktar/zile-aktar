@@ -338,15 +338,6 @@ export interface Database {
           }
         ];
       };
-      webhook_events: {
-        Row: { id: string; provider: string; event_id: string; payload: unknown; processed_at: string };
-        Insert: Omit<Database['public']['Tables']['webhook_events']['Row'], 'id' | 'processed_at'> & {
-          id?: string;
-          processed_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['webhook_events']['Row']>;
-        Relationships: [];
-      };
       data_requests: {
         Row: {
           id: string;
