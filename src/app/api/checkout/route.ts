@@ -4,6 +4,7 @@ import { createSupabaseServerClient, createSupabaseServiceRoleClient } from '@/l
 import { checkoutRequestSchema } from '@/lib/validations/checkout';
 import { checkoutRateLimit, getClientIp, safeRateLimit } from '@/lib/rate-limit';
 import { checkTrustedOrigin } from '@/lib/csrf';
+import { verifyTurnstileToken } from '@/lib/turnstile';
 import { createCommonPaymentToken } from '@/lib/vakifbank';
 import { sendOrderPlacedEmail } from '@/lib/email';
 import { notifyNewOrder } from '@/lib/notify';
@@ -52,7 +53,15 @@ export async function POST(request: Request) {
   if (!parsed.success) {
     return NextResponse.json({ error: 'Geçersiz sipariş bilgisi.', details: parsed.error.flatten() }, { status: 400 });
   }
-  const { items, address, billingAddress, paymentMethod, couponCode } = parsed.data;
+  const { items, address, billingAddress, paymentMethod, couponCode, captchaToken } = parsed.data;
+
+  // "Robot değilim" kontrolü — stok rezerve eden create_order'dan ÖNCE.
+  if (!(await verifyTurnstileToken(captchaToken, ip))) {
+    return NextResponse.json(
+      { error: 'Güvenlik doğrulaması başarısız oldu. Lütfen "robot değilim" kutusunu tekrar onaylayın.', captchaFailed: true },
+      { status: 403 }
+    );
+  }
 
   const supabase = await createSupabaseServerClient();
   const {

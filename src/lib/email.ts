@@ -333,7 +333,7 @@ interface PendingReminderRow {
 /**
  * "Ödemenizi tamamlamadınız" hatırlatma e-postası — kart ödemesine başlayıp
  * (3DS sayfasına yönlenip) tamamlamamış `pending` siparişler için, otomatik
- * iptalden (24 saat) önce GÖNDERİLEN tek hatırlatma. `reminder_sent_at` ile
+ * iptalden (1 saat) önce GÖNDERİLEN tek hatırlatma. `reminder_sent_at` ile
  * tetikleyen cron (`expire-pending-orders`) aynı siparişe iki kez göndermez.
  * Best-effort — başarısız olsa da sipariş akışını etkilemez.
  */
@@ -358,7 +358,7 @@ export async function sendPaymentReminderEmail(orderId: string): Promise<void> {
       <p style="font-size:14px;font-weight:bold;text-align:right;margin:8px 0 0">Toplam: ${formatPriceFromCents(order.total_cents)}</p>
       <p style="font-size:14px;margin-top:16px">
         Ödemenizi tamamlamak için mağazamıza dönüp ürünleri tekrar sepetinize ekleyebilirsiniz.
-        Siparişiniz için ödeme alınmazsa <b>24 saat</b> içinde otomatik iptal edilir ve ürünler tekrar satışa açılır.
+        Siparişiniz için ödeme alınmazsa, oluşturulduğu andan <b>1 saat</b> sonra otomatik iptal edilir ve ürünler tekrar satışa açılır.
       </p>
       <p style="text-align:center;margin:24px 0">
         <a href="${env.NEXT_PUBLIC_APP_URL}" style="background:#1b4332;color:#fff;text-decoration:none;padding:12px 28px;border-radius:999px;font-weight:bold;font-size:14px;display:inline-block">Alışverişe Dön</a>

@@ -45,7 +45,7 @@ Mimari + kod durumu: `devir-promptu.md`
   - [x] Brevo alan adı doğrulaması (29 Eylül) — Vercel DNS: `brevo-code` TXT (@), `brevo1/brevo2._domainkey` CNAME, `_dmarc` TXT (p=none). Gönderen artık `siparis@zileaktar.com` (`LEGAL.gonderenEposta`), yanıtlar `zileaktar@gmail.com`'a.
   - [ ] Google Search Console kaydı + `sitemap.xml` gönder (aşağıda D'de)
   - ~~iyzico callback URL'leri~~ — iyzico kullanılmıyor (VakıfBank dönüş adresi kodda `NEXT_PUBLIC_APP_URL`'den üretilir).
-- [ ] **Vercel Cron doğrula** — deploy sonrası Vercel → Cron sekmesi (`0 3 * * *`, bekleyen iyzico siparişlerini 24 saatte iptal eder).
+- [ ] **Vercel Cron doğrula** — deploy sonrası Vercel → Cron sekmesi (`*/15 * * * *`, ödenmemiş kart siparişlerini 1 saatte iptal eder).
 - [x] **Havale/EFT IBAN** — `/admin/ayarlar`'dan girildi.
 - [ ] Supabase parolası güçlü mü teyit.
 

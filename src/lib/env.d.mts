@@ -22,6 +22,7 @@ export declare const env: {
   readonly ORDER_NOTIFY_EMAIL: string | undefined;
   readonly TELEGRAM_BOT_TOKEN: string | undefined;
   readonly TELEGRAM_CHAT_ID: string | undefined;
+  readonly TURNSTILE_SECRET_KEY: string | undefined;
   readonly PII_ENCRYPTION_KEY: string | undefined;
   readonly PII_HMAC_PEPPER: string | undefined;
   readonly NEXT_PUBLIC_APP_URL: string;

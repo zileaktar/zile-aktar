@@ -17,18 +17,19 @@ function timingSafeEqualString(a: string, b: string): boolean {
   return crypto.timingSafeEqual(bufA, bufB);
 }
 
+/** Ödenmemiş kart siparişinin stoğu ne kadar süre ayrılı tutacağı. */
+const PENDING_CARD_ORDER_TTL_MS = 60 * 60 * 1000; // 1 saat
+
 /**
- * Vercel Cron ile günde bir kez tetiklenir (bkz. vercel.json — Hobby planda
- * günde 1'den sık cron çalıştırılamıyor; Vercel Pro'ya geçilince sıklaştırılabilir).
- * İki iş yapar, sırayla:
+ * Vercel Cron ile 15 dakikada bir tetiklenir (bkz. vercel.json). İki iş yapar, sırayla:
  *
- *  1. "Terk edilmiş sepet" hatırlatması — kart ödemesine başlayıp (3DS'e
- *     yönlenip) tamamlamamış, en az 1 saattir `pending` olan ve daha önce
- *     hatırlatma gitmemiş siparişlere BİR kez e-posta gönderir.
- *  2. 24 saatten uzun süredir "pending" kalan siparişler (kullanıcı hiç
- *     tamamlamadan tamamen vazgeçmiş olabilir) başarısız işaretlenir ve
- *     mark_order_failed RPC'si rezerve edilen stoğu otomatik iade eder —
- *     aksi halde satılmayan ürünler sonsuza kadar "stokta yok" görünür kalırdı.
+ *  1. Ödeme hatırlatması — kart ödemesine başlayıp (3DS'e yönlenip) tamamlamamış,
+ *     20-60 dakikadır `pending` olan ve daha önce hatırlatma gitmemiş siparişlere
+ *     BİR kez e-posta gönderir.
+ *  2. 1 saatten uzun süredir "pending" kalan siparişler (kullanıcı ödemeyi
+ *     tamamlamadan vazgeçmiş) başarısız işaretlenir ve mark_order_failed RPC'si
+ *     rezerve edilen stoğu otomatik iade eder. Süre bilinçli olarak kısa: sahte
+ *     siparişlerle stok kilitlenmesin, gerçek müşteri ürünü "tükendi" görmesin.
  *
  * İkisi de yalnızca KART (vakifbank) siparişlerini kapsar. Havale/EFT siparişleri
  * operasyon ekibi tarafından elle yönetilir (dekont beklenir) — ne hatırlatma
@@ -42,10 +43,10 @@ export async function GET(request: Request) {
 
   const supabase = createSupabaseServiceRoleClient();
   const now = Date.now();
-  const reminderCutoff = new Date(now - 60 * 60 * 1000).toISOString(); // 1 saatten eski
-  const expireCutoff = new Date(now - 24 * 60 * 60 * 1000).toISOString(); // 24 saatten eski
+  const reminderCutoff = new Date(now - 20 * 60 * 1000).toISOString(); // 20 dakikadan eski
+  const expireCutoff = new Date(now - PENDING_CARD_ORDER_TTL_MS).toISOString(); // 1 saatten eski
 
-  // 1) Hatırlatma: 1-24 saat arası pending, daha önce hatırlatma gitmemiş.
+  // 1) Hatırlatma: 20-60 dakika arası pending, daha önce hatırlatma gitmemiş.
   const { data: reminderOrders, error: reminderError } = await supabase
     .from('orders')
     .select('id')
@@ -62,7 +63,7 @@ export async function GET(request: Request) {
     await supabase.from('orders').update({ reminder_sent_at: new Date().toISOString() }).eq('id', order.id);
   }
 
-  // 2) İptal: 24 saatten eski pending siparişler.
+  // 2) İptal: 1 saatten eski pending siparişler.
   const { data: staleOrders, error } = await supabase
     .from('orders')
     .select('id')

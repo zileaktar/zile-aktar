@@ -49,6 +49,10 @@ export const env = createEnv({
     TELEGRAM_BOT_TOKEN: z.string().regex(/^\d+:[A-Za-z0-9_-]+$/, 'TELEGRAM_BOT_TOKEN biçimi hatalı (123456:ABC...)').optional(),
     TELEGRAM_CHAT_ID: z.string().regex(/^-?\d+$/, 'TELEGRAM_CHAT_ID yalnızca rakam olmalı').optional(),
 
+    // Cloudflare Turnstile GİZLİ anahtarı — ödeme sayfasındaki "robot değilim"
+    // kontrolünü sunucuda doğrulamak için (src/lib/turnstile.ts). Yoksa kontrol atlanır.
+    TURNSTILE_SECRET_KEY: z.string().min(10).optional(),
+
     // Uygulama katmanı PII kriptografisi (src/lib/crypto/pii.ts).
     // PII_ENCRYPTION_KEY: AES-256-GCM anahtarı — 64 hex karakter (32 bayt).
     //   Üret: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
@@ -95,6 +99,7 @@ export const env = createEnv({
     ORDER_NOTIFY_EMAIL: process.env.ORDER_NOTIFY_EMAIL,
     TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
     TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
+    TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY,
     PII_ENCRYPTION_KEY: process.env.PII_ENCRYPTION_KEY,
     PII_HMAC_PEPPER: process.env.PII_HMAC_PEPPER,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,

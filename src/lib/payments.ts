@@ -61,7 +61,7 @@ export async function confirmVakifbankPayment(orderId: string): Promise<ConfirmP
   }
 
   // Banka henüz kesin bir karar vermediyse (Rc yok — ör. ödeme oturumu hiç
-  // kullanılmamış/yarım kalmış) stoğa DOKUNMA: sipariş pending kalır, 24 saat
+  // kullanılmamış/yarım kalmış) stoğa DOKUNMA: sipariş pending kalır, 1 saat
   // sonra cron (expire-pending-orders) temizler. Aksi halde müşteri hâlâ banka
   // sayfasındayken erken bir sorgu siparişi iptal edip stoğu iade edebilirdi.
   if (!result.Rc) {

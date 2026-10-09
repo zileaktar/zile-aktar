@@ -9,6 +9,8 @@ import { FREE_SHIPPING_THRESHOLD_CENTS, calculateShippingCents, lineDealDiscount
 import { trackBeginCheckout } from '@/lib/analytics';
 import { checkoutRequestSchema } from '@/lib/validations/checkout';
 import { HealthDisclaimer } from '@/components/product/HealthDisclaimer';
+import { CaptchaField } from '@/components/auth/CaptchaField';
+import type { TurnstileInstance } from '@marsidev/react-turnstile';
 import type { CheckoutPrefill, SavedAddress } from '@/lib/data/account';
 
 export function CheckoutForm({
@@ -116,6 +118,14 @@ export function CheckoutForm({
   const [acceptedKvkk, setAcceptedKvkk] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
+  // Turnstile token'ı tek kullanımlık: başarısız her denemeden sonra widget sıfırlanır.
+  const captchaRef = useRef<TurnstileInstance>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+
+  function resetCaptcha() {
+    captchaRef.current?.reset();
+    setCaptchaToken(null);
+  }
 
   if (items.length === 0) {
     return (
@@ -140,12 +150,17 @@ export function CheckoutForm({
       paymentMethod,
       couponCode: appliedCoupon?.code,
       acceptedDistanceSalesAgreement,
-      acceptedKvkk
+      acceptedKvkk,
+      captchaToken: captchaToken ?? undefined
     };
 
     const parsed = checkoutRequestSchema.safeParse(payload);
     if (!parsed.success) {
       setErrors(parsed.error.issues.map((i) => i.message));
+      return;
+    }
+    if (!captchaToken) {
+      setErrors(['Lütfen "robot değilim" doğrulamasını tamamlayın.']);
       return;
     }
 
@@ -160,6 +175,7 @@ export function CheckoutForm({
 
       if (!res.ok) {
         setErrors([data.error ?? 'Sipariş oluşturulamadı.']);
+        resetCaptcha();
         setSubmitting(false);
         return;
       }
@@ -173,10 +189,12 @@ export function CheckoutForm({
         window.location.href = data.paymentPageUrl;
       } else {
         setErrors(['Ödeme başlatılamadı. Lütfen tekrar deneyin.']);
+        resetCaptcha();
         setSubmitting(false);
       }
     } catch {
       setErrors(['Sunucuya bağlanılamadı. Lütfen tekrar deneyin.']);
+      resetCaptcha();
       setSubmitting(false);
     }
   }
@@ -488,9 +506,10 @@ export function CheckoutForm({
                 <span>{formatPriceFromCents(total)}</span>
               </div>
             </div>
+            <CaptchaField ref={captchaRef} onToken={setCaptchaToken} />
             <button
               type="submit"
-              disabled={submitting}
+              disabled={submitting || !captchaToken}
               className="touch-target w-full bg-accent hover:bg-accent-dark disabled:opacity-60 text-primary-dark font-bold py-3.5 rounded-full transition flex items-center justify-center gap-2"
             >
               {submitting

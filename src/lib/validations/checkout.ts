@@ -46,7 +46,10 @@ export const checkoutRequestSchema = z.object({
   }),
   acceptedKvkk: z.literal(true, {
     errorMap: () => ({ message: 'KVKK Aydınlatma Metni onayı zorunludur.' })
-  })
+  }),
+  // Cloudflare Turnstile ("robot değilim") token'ı — gerçek doğrulama sunucuda
+  // (src/lib/turnstile.ts). Sahte siparişlerle stok kilitleyen botlara karşı.
+  captchaToken: z.string().max(4096).optional()
 });
 
 export type CheckoutRequest = z.infer<typeof checkoutRequestSchema>;
