@@ -3,6 +3,7 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { env } from '@/lib/env.mjs';
 import type { Database } from '@/lib/supabase/types';
+import { LEGACY_HOSTS } from '@/lib/site-url';
 
 // Analytics: Google Analytics (googletagmanager.com) + Meta Pixel (connect.facebook.net).
 // Script'ler yalnızca kullanıcı çerez izni verince yüklenir (bkz. Analytics bileşeni),
@@ -72,6 +73,15 @@ function buildCsp(nonce: string, isDev: boolean): string {
  * TEK güvenlik katmanı olarak GÜVENİLMEZ (bu yüzden RLS de zorunlu).
  */
 export async function middleware(request: NextRequest) {
+  // Eski Vercel adresinden (zile-aktar.vercel.app) gelen SAYFA isteklerini asıl
+  // alan adına kalıcı yönlendir: farklı alan adında sepet boş görünür, giriş
+  // çerezi yoktur, ödeme Origin kontrolüne takılır; Google'da da kopya sayfa olur.
+  // /api/* hariç — Vercel Cron gibi sunucu çağrıları yönlendirmeyi izlemez.
+  if (LEGACY_HOSTS.includes(request.nextUrl.hostname) && !request.nextUrl.pathname.startsWith('/api/')) {
+    const target = new URL(`${request.nextUrl.pathname}${request.nextUrl.search}`, env.NEXT_PUBLIC_APP_URL);
+    return NextResponse.redirect(target, 308);
+  }
+
   const nonce = btoa(crypto.randomUUID());
   const isDev = env.NODE_ENV === 'development';
   const csp = buildCsp(nonce, isDev);

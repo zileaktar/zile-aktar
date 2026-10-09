@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { getProductImageUrl } from '@/lib/media';
+import { toSiteRelativeUrl } from '@/lib/site-url';
 import type { CampaignBannerRow } from '@/lib/supabase/types';
 
 /**
@@ -63,7 +64,7 @@ export function CampaignCarousel({ banners }: { banners: CampaignBannerRow[] }) 
           return (
             <a
               key={b.id}
-              href={b.link_url || '/#urunler'}
+              href={b.link_url ? toSiteRelativeUrl(b.link_url) : '/#urunler'}
               className="group relative block shrink-0 w-full snap-center aspect-[16/9] sm:aspect-[21/9] max-h-[560px] overflow-hidden"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}

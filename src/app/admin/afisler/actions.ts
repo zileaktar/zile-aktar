@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { assertRole } from '@/lib/rbac';
 import { assertAal2 } from '@/lib/admin-auth';
+import { toSiteRelativeUrl } from '@/lib/site-url';
 
 export interface BannerActionState {
   error: string | null;
@@ -21,7 +22,9 @@ const bannerSchema = z.object({
     .max(500)
     .optional()
     .default('')
-    .refine((v) => v === '' || v.startsWith('/') || /^https?:\/\//i.test(v), 'Bağlantı "/" ile başlamalı ya da http(s):// içermeli.'),
+    .refine((v) => v === '' || v.startsWith('/') || /^https?:\/\//i.test(v), 'Bağlantı "/" ile başlamalı ya da http(s):// içermeli.')
+    // Kendi alan adımıza verilen tam link site içi yola çevrilir (bkz. site-url.ts).
+    .transform(toSiteRelativeUrl),
   ctaLabel: z.string().trim().max(40).optional().default('')
 });
 
