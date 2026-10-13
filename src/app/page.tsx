@@ -1,17 +1,37 @@
 import type { Metadata } from 'next';
-import { getCategories, getProducts, getAvailableForms } from '@/lib/data/products';
+import Link from 'next/link';
+import { permanentRedirect } from 'next/navigation';
+import { getCategories } from '@/lib/data/products';
 import { getActiveCampaignBanners } from '@/lib/data/banners';
-import { getFavoritesContext } from '@/lib/data/favorites';
-import { ProductCard } from '@/components/product/ProductCard';
 import { CampaignCarousel } from '@/components/home/CampaignCarousel';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
-import { PRODUCT_FORMS, PRODUCT_FORM_LABELS } from '@/lib/validations/product';
+import { ProductListing } from '@/components/product/ProductListing';
 import { LEGAL } from '@/lib/legal';
 
-export const metadata: Metadata = {
-  title: 'Anasayfa',
-  description: 'Hakiki bal, soğuk sıkım yağlar, taze baharatlar ve şifalı bitki çayları — %100 doğal ve yöresel ürünler.'
-};
+const HOME_TITLE = "Zile Aktar | Tokat Zile'den Baharat, Doğal Yağ, Bitki ve Yöresel Ürünler";
+const HOME_DESCRIPTION =
+  "Tokat Zile'deki aktarımızdan pul biber, isot, sumak, çörek otu yağı, ıhlamur, defne sabunu, doğal sirkeler ve yüzlerce ürün. Güvenli 3D ödeme, hızlı kargo.";
+
+/**
+ * Arama motoru ayarları:
+ * - Filtresiz anasayfa → canonical `/`.
+ * - `?kategori=x` → `/kategori/x`'e kalıcı yönlendirilir (sayfada); canonical da oraya işaret eder.
+ * - `?q=` arama sonuçları → indekslenmez (sonsuz sayıda ince sayfa olmasın), linkler izlenir.
+ */
+export async function generateMetadata({ searchParams }: HomePageProps): Promise<Metadata> {
+  const { kategori, q } = await searchParams;
+  if (q?.trim()) {
+    return { title: `"${q.trim()}" arama sonuçları`, robots: { index: false, follow: true } };
+  }
+  if (kategori && kategori !== 'all') {
+    return { alternates: { canonical: `/kategori/${encodeURIComponent(kategori)}` } };
+  }
+  return {
+    title: { absolute: HOME_TITLE },
+    description: HOME_DESCRIPTION,
+    alternates: { canonical: '/' }
+  };
+}
 
 // Ürün/stok verisi sık değişebileceğinden bu sayfa her istekte sunucuda render edilir
 // (Next.js Full Route Cache devre dışı); kategori listesi ise ayrıca 5dk önbelleklenir.
@@ -23,35 +43,23 @@ interface HomePageProps {
 
 export default async function HomePage({ searchParams }: HomePageProps) {
   const { kategori, q, form, sayfa } = await searchParams;
-  const activeForm = form && (PRODUCT_FORMS as readonly string[]).includes(form) ? form : undefined;
+  // Eski kategori adresi (/?kategori=x — eski afişler, Google'daki eski kayıtlar)
+  // kalıcı olarak kategori sayfasına taşınır. Arama (?q=) kategori içinde kalabilir.
+  if (kategori && kategori !== 'all' && !q?.trim()) {
+    const rest = new URLSearchParams();
+    if (form) rest.set('form', form);
+    if (sayfa) rest.set('sayfa', sayfa);
+    const qs = rest.toString();
+    permanentRedirect(`/kategori/${encodeURIComponent(kategori)}${qs ? `?${qs}` : ''}`);
+  }
   const page = Math.max(1, Number.parseInt(sayfa ?? '1', 10) || 1);
-  const [categories, availableForms, banners, { products, totalCount, totalPages }, { loggedIn, favoriteIds }] = await Promise.all([
-    getCategories(),
-    getAvailableForms(),
-    getActiveCampaignBanners(),
-    getProducts({ categorySlug: kategori, searchQuery: q, form: activeForm, page }),
-    getFavoritesContext()
-  ]);
-  const formChips = PRODUCT_FORMS.filter((f) => availableForms.includes(f));
+  const [categories, banners] = await Promise.all([getCategories(), getActiveCampaignBanners()]);
 
   const activeCategoryName = q?.trim()
     ? `"${q.trim()}" için sonuçlar`
     : kategori && kategori !== 'all'
       ? categories.find((c) => c.slug === kategori)?.name
       : 'Tüm Ürünler';
-
-  function buildHref(overrides: { form?: string | null; sayfa?: number }) {
-    const params = new URLSearchParams();
-    if (kategori) params.set('kategori', kategori);
-    if (q) params.set('q', q);
-    const nextForm = overrides.form === undefined ? activeForm : overrides.form;
-    if (nextForm) params.set('form', nextForm);
-    const nextPage = overrides.sayfa ?? 1;
-    if (nextPage > 1) params.set('sayfa', String(nextPage));
-    const qs = params.toString();
-    return qs ? `/?${qs}#urunler` : '/#urunler';
-  }
-  const pageHref = (targetPage: number) => buildHref({ sayfa: targetPage });
 
   return (
     <>
@@ -66,9 +74,10 @@ export default async function HomePage({ searchParams }: HomePageProps) {
               <span className="inline-block bg-accent/90 text-primary-dark text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full mb-5">
                 🌿 1998&apos;den Beri Aktarlık Geleneği
               </span>
-              <h1 className="font-display font-extrabold text-3xl sm:text-5xl text-white leading-tight mb-5">
+              {/* Sayfanın tek h1'i aşağıdaki tanıtım bölümünde — bu yalnızca görsel başlık. */}
+              <p className="font-display font-extrabold text-3xl sm:text-5xl text-white leading-tight mb-5">
                 Doğadan Gelen <span className="text-accent-light">Şifa</span> & Yöresel Lezzetler
-              </h1>
+              </p>
               <p className="text-cream/85 text-base sm:text-lg mb-8 max-w-md">
                 Hiçbir katkı maddesi içermeyen, doğrudan üreticiden sofranıza gelen hakiki bal, soğuk sıkım yağlar ve
                 şifalı bitkiler.
@@ -110,6 +119,33 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         </div>
       </section>
 
+      {/* TANITIM — filtresiz anasayfada. Google sitenin ne sattığını ve nerede
+          olduğunu bu başlık + metinden anlar; kategori linkleri kategori
+          sayfalarını (/kategori/...) Google'a tanıtır. */}
+      {!q?.trim() && !(kategori && kategori !== 'all') && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-10 sm:pt-12">
+          <h1 className="font-display font-bold text-xl sm:text-2xl text-primary mb-2">
+            Tokat Zile&apos;den Aktar Ürünleri: Baharat, Doğal Yağ, Kurutulmuş Bitki ve Sabun
+          </h1>
+          <p className="text-sm sm:text-base text-carbon/70 max-w-3xl leading-relaxed mb-4">
+            {LEGAL.markaAdi}, Tokat&apos;ın Zile ilçesindeki aktar dükkânının internet mağazasıdır. Pul biber, isot ve sumaktan
+            çörek otu yağına, ıhlamurdan defne sabunu ve doğal sirkelere kadar yüzlerce ürünü güvenli ödeme ile sipariş
+            edebilir, Türkiye&apos;nin her yerine kargoyla teslim alabilirsiniz.
+          </p>
+          <nav aria-label="Kategori sayfaları" className="flex flex-wrap gap-2">
+            {categories.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/kategori/${c.slug}`}
+                className="text-xs sm:text-sm font-semibold px-3 py-1.5 rounded-full border border-primary/20 text-primary bg-white hover:bg-primary/5"
+              >
+                {c.name}
+              </Link>
+            ))}
+          </nav>
+        </section>
+      )}
+
       {/* ÜRÜNLER — landmark <main> layout.tsx'te; burada tekrarı geçersiz olurdu. */}
       <section id="urunler" aria-label="Ürünler" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
         {(q?.trim() || (kategori && kategori !== 'all')) && (
@@ -120,77 +156,14 @@ export default async function HomePage({ searchParams }: HomePageProps) {
             ]}
           />
         )}
-        <div className="flex items-end justify-between mb-4 sm:mb-5">
-          <div>
-            <h2 className="font-display font-bold text-2xl sm:text-3xl text-primary">{activeCategoryName}</h2>
-            <p className="text-sm text-carbon/55 mt-1">{totalCount} ürün bulundu</p>
-          </div>
-        </div>
-
-        {/* FORM FİLTRESİ — yalnızca ürünlere atanmış formlar için gösterilir */}
-        {formChips.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-6 sm:mb-8">
-            <a
-              href={buildHref({ form: null })}
-              className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition ${
-                !activeForm ? 'bg-primary text-white border-primary' : 'bg-white text-carbon/60 border-primary/15 hover:border-primary/30'
-              }`}
-            >
-              Tüm Formlar
-            </a>
-            {formChips.map((f) => (
-              <a
-                key={f}
-                href={buildHref({ form: activeForm === f ? null : f })}
-                className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition ${
-                  activeForm === f ? 'bg-primary text-white border-primary' : 'bg-white text-carbon/60 border-primary/15 hover:border-primary/30'
-                }`}
-              >
-                {PRODUCT_FORM_LABELS[f]}
-              </a>
-            ))}
-          </div>
-        )}
-
-        {products.length === 0 ? (
-          <div className="text-center py-20">
-            <div className="text-5xl mb-4">🔍</div>
-            <p className="font-semibold text-lg text-primary">Aradığınız ürün bulunamadı</p>
-            <p className="text-carbon/50 text-sm mt-1">Farklı bir kelime veya kategori deneyin.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} isFavorited={favoriteIds.has(product.id)} loggedIn={loggedIn} />
-            ))}
-          </div>
-        )}
-
-        {totalPages > 1 && (
-          <nav className="flex items-center justify-center gap-2 mt-10" aria-label="Sayfalar">
-            <a
-              href={pageHref(Math.max(1, page - 1))}
-              aria-disabled={page <= 1}
-              className={`touch-target px-4 py-2 rounded-full text-sm font-semibold border ${
-                page <= 1 ? 'pointer-events-none opacity-40 border-primary/10' : 'border-primary/20 text-primary hover:bg-primary/5'
-              }`}
-            >
-              ← Önceki
-            </a>
-            <span className="text-sm text-carbon/60 px-2">
-              Sayfa {page} / {totalPages}
-            </span>
-            <a
-              href={pageHref(Math.min(totalPages, page + 1))}
-              aria-disabled={page >= totalPages}
-              className={`touch-target px-4 py-2 rounded-full text-sm font-semibold border ${
-                page >= totalPages ? 'pointer-events-none opacity-40 border-primary/10' : 'border-primary/20 text-primary hover:bg-primary/5'
-              }`}
-            >
-              Sonraki →
-            </a>
-          </nav>
-        )}
+        <ProductListing
+          title={activeCategoryName ?? 'Ürünler'}
+          basePath="/"
+          categorySlug={kategori}
+          searchQuery={q}
+          form={form}
+          page={page}
+        />
       </section>
     </>
   );

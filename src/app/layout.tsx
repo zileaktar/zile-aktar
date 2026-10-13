@@ -35,10 +35,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
-    title: { default: 'Zile Aktar | Doğadan Gelen Şifa & Yöresel Lezzetler', template: '%s | Zile Aktar' },
+    title: { default: "Zile Aktar | Tokat Zile'den Aktar ve Yöresel Ürünler", template: '%s | Zile Aktar' },
     description:
-      'Hakiki bal, soğuk sıkım yağlar, taze baharatlar ve şifalı bitki çayları. %100 doğal ve yöresel ürünler, güvenli 3D ödeme ile kapınızda.',
-    keywords: ['aktar', 'yöresel ürünler', 'organik bal', 'şifalı bitkiler', 'soğuk sıkım yağ', 'bitki çayı'],
+      "Tokat Zile'deki aktarımızdan baharatlar, doğal yağlar, kurutulmuş bitkiler, sabunlar ve sirkeler. Güvenli 3D ödeme, Türkiye'nin her yerine kargo.",
+    keywords: ['zile aktar', 'tokat aktar', 'aktar', 'yöresel ürünler', 'pul biber', 'baharat', 'bitkisel yağ', 'bitki çayı', 'doğal sabun'],
     ...(logoUrl ? { icons: { icon: logoUrl, shortcut: logoUrl, apple: logoUrl } } : {}),
     openGraph: {
       type: 'website',
@@ -49,8 +49,10 @@ export async function generateMetadata(): Promise<Metadata> {
       images: [{ url: '/api/og', width: 1200, height: 630, alt: 'Zile Aktar' }]
     },
     twitter: { card: 'summary_large_image' },
-    robots: { index: true, follow: true },
-    alternates: { canonical: '/' }
+    robots: { index: true, follow: true }
+    // canonical burada TANIMLANMAZ: ortak layout'ta '/' verilince canonical'ı
+    // olmayan HER sayfa (yasal sayfalar vb.) Google'a "anasayfanın kopyasıyım"
+    // diyordu. Her sayfa kendi canonical'ını belirler.
   };
 }
 

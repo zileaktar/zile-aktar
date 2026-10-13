@@ -7,6 +7,7 @@ import { getProductReviews, getReviewContext } from '@/lib/data/reviews';
 import { ProductCard } from '@/components/product/ProductCard';
 import { getProductImageUrls } from '@/lib/media';
 import { safeJsonLd, getPlainExcerpt } from '@/lib/format';
+import { env } from '@/lib/env.mjs';
 import { ProductDetailClient } from '@/components/product/ProductDetailClient';
 import { ProductGallery } from '@/components/product/ProductGallery';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
@@ -26,8 +27,12 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   if (!product) return { title: 'Ürün Bulunamadı' };
 
   return {
-    title: product.name,
-    description: product.description ? getPlainExcerpt(product.description) : `${product.name} — Zile Aktar'da %100 doğal ürün.`,
+    // Ör. "Zehir Acı Pulbiber – Baharatlar | Zile Aktar": kategori adı aramalardaki
+    // genel kelimeyle (baharat, sabun, sirke...) eşleşmeye yardım eder.
+    title: `${product.name} – ${product.categories.name}`,
+    description: product.description
+      ? getPlainExcerpt(product.description)
+      : `${product.name} Zile Aktar'da. Tokat Zile'deki aktarımızdan güvenli ödeme ve hızlı kargo ile kapınıza.`,
     openGraph: { images: [{ url: `/api/og?title=${encodeURIComponent(product.name)}` }] },
     alternates: { canonical: `/urun/${product.slug}` }
   };
@@ -54,7 +59,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
     '@type': 'Product',
     name: product.name,
     description: getPlainExcerpt(product.description),
-    image: imageUrls,
+    // Yapısal veride görsel adresi tam (https://...) olmalı; yer tutucular "/urunler/..." ile başlar.
+    image: imageUrls.map((u) => (u.startsWith('/') ? `${env.NEXT_PUBLIC_APP_URL}${u}` : u)),
+    url: `${env.NEXT_PUBLIC_APP_URL}/urun/${product.slug}`,
+    category: product.categories.name,
     ...(reviewCount > 0 && {
       aggregateRating: {
         '@type': 'AggregateRating',
@@ -67,7 +75,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
       price: (v.price_cents / 100).toFixed(2),
       priceCurrency: 'TRY',
       availability: v.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-      sku: v.sku
+      sku: v.sku,
+      url: `${env.NEXT_PUBLIC_APP_URL}/urun/${product.slug}`,
+      seller: { '@type': 'Organization', name: 'Zile Aktar' }
     }))
   };
 
@@ -79,7 +89,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <Breadcrumbs
         items={[
           { name: 'Anasayfa', href: '/' },
-          { name: product.categories.name, href: `/?kategori=${product.categories.slug}` },
+          { name: product.categories.name, href: `/kategori/${product.categories.slug}` },
           { name: product.name }
         ]}
       />

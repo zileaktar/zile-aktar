@@ -133,7 +133,7 @@ function BannerEditor({ banner }: { banner?: CampaignBannerRow }) {
         name="linkUrl"
         defaultValue={banner?.link_url ?? ''}
         maxLength={500}
-        placeholder='Bağlantı (ops.) — örn. /?kategori=bal veya https://...'
+        placeholder='Bağlantı (ops.) — örn. /kategori/baharat veya /urun/zehir-aci-pulbiber'
         className="w-full bg-cream border border-primary/15 rounded-lg px-3 py-2 text-sm font-mono"
       />
 

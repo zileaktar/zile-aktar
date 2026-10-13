@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 import { useCartCount } from '@/store/cart-store';
 import { useUiStore } from '@/store/ui-store';
@@ -18,6 +18,7 @@ interface Category {
 export function SiteHeader({ categories, logoPath }: { categories: Category[]; logoPath: string | null }) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
@@ -32,16 +33,16 @@ export function SiteHeader({ categories, logoPath }: { categories: Category[]; l
     return () => document.removeEventListener('keydown', onKey);
   }, [isCategoryMenuOpen]);
 
-  const activeCategory = searchParams.get('kategori') ?? 'all';
+  // Aktif kategori: kategori sayfası (/kategori/x) ya da eski sorgu biçimi (/?kategori=x).
+  const pathCategory = pathname.startsWith('/kategori/') ? decodeURIComponent(pathname.split('/')[2] ?? '') : null;
+  const activeCategory = pathCategory || searchParams.get('kategori') || 'all';
   const activeCategoryObj = categories.find((c) => c.slug === activeCategory);
   const totalCount = useCartCount();
   const { openCart, openMobileDrawer } = useUiStore();
 
   function goToCategory(slug: string) {
-    const params = new URLSearchParams(searchParams.toString());
-    if (slug === 'all') params.delete('kategori');
-    else params.set('kategori', slug);
-    startTransition(() => router.push(`/?${params.toString()}`));
+    // Kategoriler kendi sayfalarında açılır (Google'da ayrı sayfa olarak listelenir).
+    startTransition(() => router.push(slug === 'all' ? '/' : `/kategori/${slug}`));
     setIsCategoryMenuOpen(false);
   }
 

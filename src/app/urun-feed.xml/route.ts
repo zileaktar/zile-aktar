@@ -33,7 +33,12 @@ export async function GET() {
   const items = (products ?? [])
     .flatMap((p) => {
       const multiVariant = p.product_variants.length > 1;
-      const images = getProductImageUrls(p.image_path, p.image_paths ?? []);
+      // Google Merchant SVG kabul etmez ve yer tutucu görselli ürünleri reddeder
+      // (çok sayıda ret hesabı da etkiler) — yalnız gerçek fotoğraflar (Storage)
+      // gönderilir; fotoğrafı yüklenmemiş ürün, fotoğraf eklenince akışa kendiliğinden girer.
+      const images = getProductImageUrls(p.image_path, p.image_paths ?? []).filter(
+        (url) => /^https:\/\//i.test(url) && !/\.svg(\?|$)/i.test(url)
+      );
       const [imageLink, ...extraImages] = images;
       if (!imageLink) return [];
 

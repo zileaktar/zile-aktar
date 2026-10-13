@@ -26,7 +26,7 @@ export function MobileDrawer({ categories, logoPath }: { categories: Category[];
 
   function goTo(slug: string) {
     closeMobileDrawer();
-    router.push(slug === 'all' ? '/' : `/?kategori=${slug}`);
+    router.push(slug === 'all' ? '/' : `/kategori/${slug}`);
   }
 
   return (

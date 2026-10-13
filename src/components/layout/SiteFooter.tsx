@@ -24,7 +24,7 @@ export function SiteFooter({ categories, logoPath }: { categories: Category[]; l
           <ul className="space-y-2 text-sm text-cream/60">
             {categories.map((cat) => (
               <li key={cat.slug}>
-                <Link href={`/?kategori=${cat.slug}`} className="hover:text-accent-light">
+                <Link href={`/kategori/${cat.slug}`} className="hover:text-accent-light">
                   {cat.name}
                 </Link>
               </li>

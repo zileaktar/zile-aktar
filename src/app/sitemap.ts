@@ -13,6 +13,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8
   }));
 
+  const { data: categories } = await supabase.from('categories').select('slug').eq('is_active', true);
+  const categoryUrls: MetadataRoute.Sitemap = (categories ?? []).map((c) => ({
+    url: `${env.NEXT_PUBLIC_APP_URL}/kategori/${c.slug}`,
+    changeFrequency: 'weekly',
+    priority: 0.9
+  }));
+
   const staticPaths = [
     '/hakkimizda',
     '/sss',
@@ -33,6 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     { url: env.NEXT_PUBLIC_APP_URL, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
+    ...categoryUrls,
     ...productUrls,
     ...staticUrls
   ];
