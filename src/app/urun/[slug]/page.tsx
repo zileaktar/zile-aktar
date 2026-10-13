@@ -8,6 +8,8 @@ import { ProductCard } from '@/components/product/ProductCard';
 import { getProductImageUrls } from '@/lib/media';
 import { safeJsonLd, getPlainExcerpt } from '@/lib/format';
 import { env } from '@/lib/env.mjs';
+import { LEGAL } from '@/lib/legal';
+import { FREE_SHIPPING_THRESHOLD_CENTS, STANDARD_SHIPPING_CENTS } from '@/lib/pricing';
 import { ProductDetailClient } from '@/components/product/ProductDetailClient';
 import { ProductGallery } from '@/components/product/ProductGallery';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
@@ -54,6 +56,32 @@ export default async function ProductPage({ params }: ProductPageProps) {
     ]);
   const nonce = (await headers()).get('x-nonce') ?? '';
 
+  // Google "Satıcı girişleri" için kargo + iade bilgisi (teslimat ve iade sayfalarıyla AYNI kaynak: LEGAL + pricing).
+  const [handlingMin = 1, handlingMax = 5] = LEGAL.teslimatSuresiIsGunu.split(/[–-]/).map((n) => Number.parseInt(n.trim(), 10));
+  const returnPolicy = {
+    '@type': 'MerchantReturnPolicy',
+    applicableCountry: 'TR',
+    returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+    merchantReturnDays: LEGAL.caymaSuresiGun,
+    returnMethod: 'https://schema.org/ReturnByMail',
+    // Cayma (vazgeçme) iadesinde kargo alıcıya ait — bkz. /iptal-iade-kosullari.
+    returnFees: 'https://schema.org/ReturnFeesCustomerResponsibility'
+  };
+  const shippingFor = (priceCents: number) => ({
+    '@type': 'OfferShippingDetails',
+    shippingRate: {
+      '@type': 'MonetaryAmount',
+      value: (priceCents >= FREE_SHIPPING_THRESHOLD_CENTS ? 0 : STANDARD_SHIPPING_CENTS / 100).toFixed(2),
+      currency: 'TRY'
+    },
+    shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'TR' },
+    deliveryTime: {
+      '@type': 'ShippingDeliveryTime',
+      handlingTime: { '@type': 'QuantitativeValue', minValue: handlingMin, maxValue: handlingMax, unitCode: 'DAY' },
+      transitTime: { '@type': 'QuantitativeValue', minValue: 1, maxValue: 4, unitCode: 'DAY' }
+    }
+  });
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -63,12 +91,23 @@ export default async function ProductPage({ params }: ProductPageProps) {
     image: imageUrls.map((u) => (u.startsWith('/') ? `${env.NEXT_PUBLIC_APP_URL}${u}` : u)),
     url: `${env.NEXT_PUBLIC_APP_URL}/urun/${product.slug}`,
     category: product.categories.name,
+    // Ürünlerde üretici barkodu (GTIN) yok; mağazanın kendi markasıyla satılıyor (Merchant akışıyla aynı).
+    brand: { '@type': 'Brand', name: LEGAL.markaAdi },
     ...(reviewCount > 0 && {
       aggregateRating: {
         '@type': 'AggregateRating',
         ratingValue: reviewAverage.toFixed(1),
         reviewCount
-      }
+      },
+      // Yalnız GERÇEK, onaylı yorumlar (yazar adı yorumda zaten herkese açık görünen ad).
+      review: reviews.slice(0, 5).map((r) => ({
+        '@type': 'Review',
+        reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5 },
+        author: { '@type': 'Person', name: r.author_name },
+        datePublished: r.created_at.slice(0, 10),
+        ...(r.title && { name: r.title }),
+        reviewBody: r.body
+      }))
     }),
     offers: product.product_variants.map((v) => ({
       '@type': 'Offer',
@@ -77,7 +116,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
       availability: v.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
       sku: v.sku,
       url: `${env.NEXT_PUBLIC_APP_URL}/urun/${product.slug}`,
-      seller: { '@type': 'Organization', name: 'Zile Aktar' }
+      seller: { '@type': 'Organization', name: LEGAL.markaAdi },
+      shippingDetails: shippingFor(v.price_cents),
+      hasMerchantReturnPolicy: returnPolicy
     }))
   };
 
