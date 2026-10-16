@@ -9,10 +9,11 @@ import { useCartStore } from '@/store/cart-store';
 import { formatPriceFromCents } from '@/lib/format';
 import { getProductImageUrl } from '@/lib/media';
 import { trackAddToCart } from '@/lib/analytics';
-import { FREE_SHIPPING_THRESHOLD_CENTS, calculateShippingCents, lineDealDiscountCents, dealNudge } from '@/lib/pricing';
+import { lineDealDiscountCents, dealNudge } from '@/lib/pricing';
 import type { CartSuggestion } from '@/lib/data/products';
 
-export function CartDrawer() {
+/** `freeThresholdCents`: ücretsiz kargo eşiği (admin → Kargo Ücretleri); null = eşik yok. */
+export function CartDrawer({ freeThresholdCents }: { freeThresholdCents: number | null }) {
   const { isCartOpen, closeCart } = useUiStore();
   const { items, updateQuantity, removeItem, addItem } = useCartStore();
   const router = useRouter();
@@ -56,10 +57,30 @@ export function CartDrawer() {
     (sum, i) => sum + (i.compareAtCents && i.compareAtCents > i.priceCents ? (i.compareAtCents - i.priceCents) * i.quantity : 0),
     0
   );
-  const shipping = calculateShippingCents(subtotal);
-  const total = subtotal - dealDiscount + shipping;
-  const remaining = FREE_SHIPPING_THRESHOLD_CENTS - subtotal;
-  const shippingPct = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD_CENTS) * 100);
+  // Kargo ücreti ağırlığa göre sunucuda hesaplanır (fiyat + ağırlık DB'den, migration 0043);
+  // çekmece açıkken sepet değiştikçe yeniden sorulur. null = hesaplanıyor.
+  const [quotedShipping, setQuotedShipping] = useState<number | null>(null);
+  const quoteBody = JSON.stringify({ items: items.map((i) => ({ variantId: i.variantId, quantity: i.quantity })) });
+  useEffect(() => {
+    if (!isCartOpen || items.length === 0) return;
+    let cancelled = false;
+    setQuotedShipping(null);
+    fetch('/api/shipping-quote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: quoteBody })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: { shippingCents: number } | null) => {
+        if (!cancelled && data) setQuotedShipping(data.shippingCents);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [isCartOpen, quoteBody]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const reachedFree = freeThresholdCents != null && subtotal >= freeThresholdCents;
+  const shipping = reachedFree ? 0 : quotedShipping;
+  const total = subtotal - dealDiscount + (shipping ?? 0);
+  const remaining = freeThresholdCents != null ? freeThresholdCents - subtotal : 0;
+  const shippingPct = freeThresholdCents ? Math.min(100, (subtotal / freeThresholdCents) * 100) : 0;
 
   function goToCheckout() {
     closeCart();
@@ -95,7 +116,7 @@ export function CartDrawer() {
           </button>
         </div>
 
-        {items.length > 0 && (
+        {items.length > 0 && freeThresholdCents != null && (
           <div className="shrink-0 px-5 py-4 border-b border-primary/10">
             <div className="text-xs font-medium text-carbon/70 mb-2">
               {remaining > 0 ? (
@@ -234,7 +255,9 @@ export function CartDrawer() {
             )}
             <div className="flex items-center justify-between text-sm text-carbon/60">
               <span>Kargo</span>
-              <span className="font-medium text-carbon">{shipping === 0 ? 'Bedava' : formatPriceFromCents(shipping)}</span>
+              <span className="font-medium text-carbon">
+                {shipping == null ? 'Hesaplanıyor…' : shipping === 0 ? 'Bedava' : formatPriceFromCents(shipping)}
+              </span>
             </div>
             <div className="flex items-center justify-between font-display font-bold text-lg text-primary pt-2 border-t border-dashed border-primary/15">
               <span>Toplam</span>

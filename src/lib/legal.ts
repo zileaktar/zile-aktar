@@ -41,8 +41,8 @@ export const LEGAL = {
 
   // Kargo & teslimat
   kargoFirmasi: 'Aras Kargo',
-  ucretsizKargoEsigiTl: 700,
-  standartKargoUcretiTl: 39.9,
+  // Kargo ÜCRETLERİ burada değil: admin → Ayarlar → Kargo Ücretleri (ağırlığa göre,
+  // migration 0043). Metinler getShippingConfig() + describeShippingFees() ile üretilir.
   teslimatSuresiIsGunu: '1–5',
 
   // İade / cayma

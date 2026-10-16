@@ -15,6 +15,8 @@ import { MobileDrawer } from '@/components/layout/MobileDrawer';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { getCategories } from '@/lib/data/products';
 import { getSiteSettings } from '@/lib/data/settings';
+import { getShippingConfig } from '@/lib/data/shipping';
+import { freeThresholdTl } from '@/lib/shipping';
 import { getProductImageUrl } from '@/lib/media';
 import { safeJsonLd } from '@/lib/format';
 import { LEGAL } from '@/lib/legal';
@@ -64,7 +66,13 @@ export const viewport: Viewport = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [categories, { logoPath }, requestHeaders] = await Promise.all([getCategories(), getSiteSettings(), headers()]);
+  const [categories, { logoPath }, requestHeaders, shippingConfig] = await Promise.all([
+    getCategories(),
+    getSiteSettings(),
+    headers(),
+    getShippingConfig()
+  ]);
+  const freeShippingTl = freeThresholdTl(shippingConfig);
   // middleware.ts'te üretilen CSP nonce'u — bu satır, `headers()` bir Dynamic
   // Function olduğu için TÜM sayfaları dinamik render'a zorlar (statik
   // önbellekleme devre dışı kalır). Bu, Next.js'in resmi nonce rehberinde
@@ -124,11 +132,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 başarısız olur. Fallback, header'ın yaklaşık yüksekliğinde boş bir alan
                 olduğundan gerçek kullanıcıda fark edilmeyecek kadar kısa sürer. */}
             <Suspense fallback={<div className="h-[104px] sm:h-[132px] bg-cream" />}>
-              <SiteHeader categories={categories} logoPath={logoPath} />
+              <SiteHeader categories={categories} logoPath={logoPath} freeShippingTl={freeShippingTl} />
             </Suspense>
             <main id="main-content">{children}</main>
             <SiteFooter categories={categories} logoPath={logoPath} />
-            <CartDrawer />
+            <CartDrawer freeThresholdCents={shippingConfig.freeThresholdCents} />
             <MobileDrawer categories={categories} logoPath={logoPath} />
             <BottomNav />
             <WhatsAppButton />

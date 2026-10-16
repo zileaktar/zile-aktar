@@ -9,7 +9,8 @@ import { getProductImageUrls } from '@/lib/media';
 import { safeJsonLd, getPlainExcerpt } from '@/lib/format';
 import { env } from '@/lib/env.mjs';
 import { LEGAL } from '@/lib/legal';
-import { FREE_SHIPPING_THRESHOLD_CENTS, STANDARD_SHIPPING_CENTS } from '@/lib/pricing';
+import { getShippingConfig } from '@/lib/data/shipping';
+import { calcShippingCents } from '@/lib/shipping';
 import { ProductDetailClient } from '@/components/product/ProductDetailClient';
 import { ProductGallery } from '@/components/product/ProductGallery';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
@@ -54,9 +55,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
       getRecentSalesCount(product.id),
       getFavoritesContext()
     ]);
-  const nonce = (await headers()).get('x-nonce') ?? '';
+  const [requestHeaders, shippingConfig] = await Promise.all([headers(), getShippingConfig()]);
+  const nonce = requestHeaders.get('x-nonce') ?? '';
 
-  // Google "Satıcı girişleri" için kargo + iade bilgisi (teslimat ve iade sayfalarıyla AYNI kaynak: LEGAL + pricing).
+  // Google "Satıcı girişleri" için kargo + iade bilgisi (teslimat ve iade sayfalarıyla AYNI kaynak:
+  // LEGAL + admin kargo ayarları). Tek adet alındığındaki kargo ücreti (ağırlığa göre).
   const [handlingMin = 1, handlingMax = 5] = LEGAL.teslimatSuresiIsGunu.split(/[–-]/).map((n) => Number.parseInt(n.trim(), 10));
   const returnPolicy = {
     '@type': 'MerchantReturnPolicy',
@@ -67,11 +70,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
     // Cayma (vazgeçme) iadesinde kargo alıcıya ait — bkz. /iptal-iade-kosullari.
     returnFees: 'https://schema.org/ReturnFeesCustomerResponsibility'
   };
-  const shippingFor = (priceCents: number) => ({
+  const shippingFor = (priceCents: number, weightGrams: number | null) => ({
     '@type': 'OfferShippingDetails',
     shippingRate: {
       '@type': 'MonetaryAmount',
-      value: (priceCents >= FREE_SHIPPING_THRESHOLD_CENTS ? 0 : STANDARD_SHIPPING_CENTS / 100).toFixed(2),
+      value: (
+        calcShippingCents(shippingConfig, priceCents, weightGrams ?? shippingConfig.defaultItemGrams) / 100
+      ).toFixed(2),
       currency: 'TRY'
     },
     shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'TR' },
@@ -117,7 +122,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       sku: v.sku,
       url: `${env.NEXT_PUBLIC_APP_URL}/urun/${product.slug}`,
       seller: { '@type': 'Organization', name: LEGAL.markaAdi },
-      shippingDetails: shippingFor(v.price_cents),
+      shippingDetails: shippingFor(v.price_cents, v.weight_grams),
       hasMerchantReturnPolicy: returnPolicy
     }))
   };

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useCartStore } from '@/store/cart-store';
 import { formatPriceFromCents } from '@/lib/format';
-import { FREE_SHIPPING_THRESHOLD_CENTS, calculateShippingCents, lineDealDiscountCents } from '@/lib/pricing';
+import { lineDealDiscountCents } from '@/lib/pricing';
 import { trackBeginCheckout } from '@/lib/analytics';
 import { checkoutRequestSchema } from '@/lib/validations/checkout';
 import { HealthDisclaimer } from '@/components/product/HealthDisclaimer';
@@ -24,7 +24,27 @@ export function CheckoutForm({
   const items = useCartStore((s) => s.items);
   const subtotal = items.reduce((sum, i) => sum + i.priceCents * i.quantity, 0);
   const dealDiscount = items.reduce((sum, i) => sum + lineDealDiscountCents(i.priceCents, i.quantity, i.deal), 0);
-  const baseShipping = calculateShippingCents(subtotal);
+
+  // Kargo ücreti ağırlığa göre — sunucudan (fiyat + ağırlık DB'den, migration 0043).
+  // Sepet değiştikçe yeniden sorulur; sipariş anında create_order aynı hesabı tekrar yapar.
+  const [quote, setQuote] = useState<{ shippingCents: number; freeThresholdCents: number | null } | null>(null);
+  const quoteBody = JSON.stringify({ items: items.map((i) => ({ variantId: i.variantId, quantity: i.quantity })) });
+  useEffect(() => {
+    const body = JSON.parse(quoteBody) as { items: unknown[] };
+    if (body.items.length === 0) return;
+    let cancelled = false;
+    setQuote(null);
+    fetch('/api/shipping-quote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: quoteBody })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: { shippingCents: number; freeThresholdCents: number | null } | null) => {
+        if (!cancelled && data) setQuote({ shippingCents: data.shippingCents, freeThresholdCents: data.freeThresholdCents });
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [quoteBody]);
+  const baseShipping = quote?.shippingCents ?? null;
 
   const [couponInput, setCouponInput] = useState('');
   const [appliedCoupon, setAppliedCoupon] = useState<{
@@ -53,8 +73,10 @@ export function CheckoutForm({
   const rawCouponDiscount = appliedCoupon?.discountCents ?? 0;
   // Sunucu (create_order) ile aynı sınır: kampanya + kupon toplamı ara toplamı geçemez.
   const discount = Math.min(rawCouponDiscount, Math.max(0, subtotal - dealDiscount));
+  // null = kargo ücreti henüz hesaplanıyor
   const shipping = appliedCoupon?.freeShipping ? 0 : baseShipping;
-  const total = subtotal - dealDiscount - discount + shipping;
+  const total = subtotal - dealDiscount - discount + (shipping ?? 0);
+  const freeThresholdCents = quote?.freeThresholdCents ?? null;
 
   async function applyCoupon() {
     const code = couponInput.trim();
@@ -496,10 +518,10 @@ export function CheckoutForm({
               )}
               <div className="flex justify-between text-carbon/60">
                 <span>Kargo</span>
-                <span>{shipping === 0 ? 'Bedava' : formatPriceFromCents(shipping)}</span>
+                <span>{shipping == null ? 'Hesaplanıyor…' : shipping === 0 ? 'Bedava' : formatPriceFromCents(shipping)}</span>
               </div>
-              {shipping > 0 && (
-                <p className="text-[11px] text-accent-dark">{formatPriceFromCents(FREE_SHIPPING_THRESHOLD_CENTS - subtotal)} daha ekleyin, kargo bedava olsun!</p>
+              {shipping != null && shipping > 0 && freeThresholdCents != null && freeThresholdCents > subtotal && (
+                <p className="text-[11px] text-accent-dark">{formatPriceFromCents(freeThresholdCents - subtotal)} daha ekleyin, kargo bedava olsun!</p>
               )}
               <div className="flex justify-between font-display font-bold text-lg text-primary pt-2 border-t border-dashed border-primary/15">
                 <span>Genel Toplam</span>

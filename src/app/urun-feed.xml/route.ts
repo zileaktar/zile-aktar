@@ -4,6 +4,7 @@ import { env } from '@/lib/env.mjs';
 import { getProductImageUrls } from '@/lib/media';
 import { getPlainExcerpt } from '@/lib/format';
 import { LEGAL } from '@/lib/legal';
+import { getShippingConfig } from '@/lib/data/shipping';
 
 /**
  * Google Merchant Center uyumlu ürün akışı (RSS 2.0 + `g:` ad alanı).
@@ -23,12 +24,15 @@ function escapeXml(value: string): string {
 
 export async function GET() {
   const supabase = createSupabaseServiceRoleClient();
-  const { data: products } = await supabase
-    .from('products')
-    .select(
-      'id, slug, name, description, image_path, image_paths, product_variants(sku, label, price_cents, compare_at_price_cents, stock)'
-    )
-    .eq('is_active', true);
+  const [{ data: products }, shippingConfig] = await Promise.all([
+    supabase
+      .from('products')
+      .select(
+        'id, slug, name, description, image_path, image_paths, product_variants(sku, label, price_cents, compare_at_price_cents, stock, weight_grams)'
+      )
+      .eq('is_active', true),
+    getShippingConfig()
+  ]);
 
   const items = (products ?? [])
     .flatMap((p) => {
@@ -63,6 +67,9 @@ export async function GET() {
           `    <g:price>${(priceCents / 100).toFixed(2)} TRY</g:price>`,
           ...(salePriceCents != null ? [`    <g:sale_price>${(salePriceCents / 100).toFixed(2)} TRY</g:sale_price>`] : []),
           `    <g:brand>${escapeXml(LEGAL.markaAdi)}</g:brand>`,
+          // Merchant Center'daki "ağırlığa göre kargo" tablosu bu değeri kullanır: tek adetlik
+          // gönderinin ağırlığı = ürün + koli/ambalaj payı (sitedeki hesapla aynı).
+          `    <g:shipping_weight>${(v.weight_grams ?? shippingConfig.defaultItemGrams) + shippingConfig.packagingGrams} g</g:shipping_weight>`,
           '    <g:identifier_exists>no</g:identifier_exists>',
           ...(multiVariant ? [`    <g:item_group_id>${escapeXml(p.id)}</g:item_group_id>`] : []),
           '  </item>'

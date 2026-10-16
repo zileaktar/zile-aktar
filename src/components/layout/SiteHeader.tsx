@@ -7,7 +7,6 @@ import { useCartCount } from '@/store/cart-store';
 import { useUiStore } from '@/store/ui-store';
 import { SiteLogo } from '@/components/layout/SiteLogo';
 import { SearchBox } from '@/components/layout/SearchBox';
-import { LEGAL } from '@/lib/legal';
 
 interface Category {
   id: string;
@@ -15,7 +14,16 @@ interface Category {
   name: string;
 }
 
-export function SiteHeader({ categories, logoPath }: { categories: Category[]; logoPath: string | null }) {
+export function SiteHeader({
+  categories,
+  logoPath,
+  freeShippingTl
+}: {
+  categories: Category[];
+  logoPath: string | null;
+  /** Ücretsiz kargo eşiği (TL) — admin → Kargo Ücretleri; null = eşik yok. */
+  freeShippingTl: number | null;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -49,7 +57,13 @@ export function SiteHeader({ categories, logoPath }: { categories: Category[]; l
   return (
     <header className="sticky top-0 z-40 bg-cream/95 backdrop-blur border-b border-primary/10 pt-safe">
       <div className="bg-primary-dark text-cream text-xs sm:text-sm py-2 text-center px-4">
-        🌿 {LEGAL.ucretsizKargoEsigiTl}₺ ve üzeri alışverişlerde <span className="font-semibold text-accent-light">kargo bedava</span>!
+        {freeShippingTl != null ? (
+          <>
+            🌿 {freeShippingTl.toLocaleString('tr-TR')}₺ ve üzeri alışverişlerde <span className="font-semibold text-accent-light">kargo bedava</span>!
+          </>
+        ) : (
+          <>🌿 Tokat Zile&apos;den Türkiye&apos;nin her yerine kargo</>
+        )}
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">

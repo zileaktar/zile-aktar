@@ -1,9 +1,12 @@
 import { LegalPage } from '@/components/legal/LegalPage';
 import { LEGAL } from '@/lib/legal';
+import { getShippingConfig } from '@/lib/data/shipping';
+import { describeShippingFees } from '@/lib/shipping';
 
 export const metadata = { title: 'Ön Bilgilendirme Formu', robots: { index: true } };
 
-export default function OnBilgilendirmeFormuPage() {
+export default async function OnBilgilendirmeFormuPage() {
+  const shipping = await getShippingConfig();
   return (
     <LegalPage title="Ön Bilgilendirme Formu">
       <p>
@@ -29,7 +32,7 @@ export default function OnBilgilendirmeFormuPage() {
 
       <h2>3. Kargo ve Teslimat</h2>
       <ul>
-        <li>Kargo ücreti: {LEGAL.ucretsizKargoEsigiTl} TL üzeri ücretsiz; altında {LEGAL.standartKargoUcretiTl} TL.</li>
+        <li>Kargo ücreti: {describeShippingFees(shipping)} Siparişin kargo ücreti sipariş özetinde ayrıca gösterilir.</li>
         <li>Teslimat süresi: ödeme onayından sonra {LEGAL.teslimatSuresiIsGunu} iş günü içinde kargoya verilir (bkz. <a href="/teslimat-ve-kargo">Teslimat ve Kargo Koşulları</a>).</li>
         <li>Teslimat, siparişte belirtilen adrese {LEGAL.kargoFirmasi} ile yapılır.</li>
       </ul>

@@ -1,16 +1,18 @@
 import { LegalPage } from '@/components/legal/LegalPage';
 import { LEGAL } from '@/lib/legal';
+import { getShippingConfig } from '@/lib/data/shipping';
+import { describeShippingFees } from '@/lib/shipping';
 
 export const metadata = { title: 'Teslimat ve Kargo Koşulları', robots: { index: true } };
 
-export default function TeslimatKargoPage() {
+export default async function TeslimatKargoPage() {
+  // Ücretler admin panelden (Kargo Ücretleri) gelir — ödeme sayfasıyla aynı kaynak.
+  const shipping = await getShippingConfig();
   return (
     <LegalPage title="Teslimat ve Kargo Koşulları">
       <h2>Kargo Ücreti</h2>
-      <ul>
-        <li>{LEGAL.ucretsizKargoEsigiTl} TL ve üzeri siparişlerde kargo <b>ücretsizdir</b>.</li>
-        <li>{LEGAL.ucretsizKargoEsigiTl} TL altındaki siparişlerde kargo ücreti {LEGAL.standartKargoUcretiTl} TL&apos;dir ve ödeme sırasında toplam tutara eklenir.</li>
-      </ul>
+      <p>{describeShippingFees(shipping)}</p>
+      <p>Siparişinizin kargo ücreti, sepetinizdeki ürünlere göre ödeme sayfasında ayrıca gösterilir.</p>
 
       <h2>Teslimat Süresi</h2>
       <ul>

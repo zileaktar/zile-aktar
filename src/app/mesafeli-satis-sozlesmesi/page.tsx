@@ -1,9 +1,12 @@
 import { LegalPage } from '@/components/legal/LegalPage';
 import { LEGAL } from '@/lib/legal';
+import { getShippingConfig } from '@/lib/data/shipping';
+import { describeShippingFees } from '@/lib/shipping';
 
 export const metadata = { title: 'Mesafeli Satış Sözleşmesi', robots: { index: true } };
 
-export default function DistanceSalesAgreementPage() {
+export default async function DistanceSalesAgreementPage() {
+  const shipping = await getShippingConfig();
   return (
     <LegalPage title="Mesafeli Satış Sözleşmesi">
       <h2>1. Taraflar</h2>
@@ -37,7 +40,7 @@ export default function DistanceSalesAgreementPage() {
         <li>Alıcı, sipariş öncesi <a href="/on-bilgilendirme-formu">Ön Bilgilendirme Formu</a>&apos;nu ve işbu sözleşmeyi okuyup onayladığını kabul eder.</li>
         <li>Ürünler, yasal {LEGAL.teslimatSuresiIsGunu} iş günü süresi içinde (her hâlükârda 30 günü aşmamak üzere) Alıcı&apos;nın belirttiği adrese kargo firması aracılığıyla teslim edilir.</li>
         <li>Ürün, Alıcı&apos;dan başka bir kişiye teslim edilecekse, o kişinin teslimatı kabul etmemesinden Satıcı sorumlu tutulamaz.</li>
-        <li>Kargo ücreti: {LEGAL.ucretsizKargoEsigiTl} TL ve üzeri siparişlerde ücretsiz; altında {LEGAL.standartKargoUcretiTl} TL Alıcı&apos;ya aittir.</li>
+        <li>Kargo ücreti Alıcı&apos;ya aittir ve sipariş özetinde gösterilir. {describeShippingFees(shipping)}</li>
         <li>Satıcı, mücbir sebepler (doğal afet, salgın, kargo firması kaynaklı aksama vb.) nedeniyle süresinde teslim edemezse Alıcı&apos;yı bilgilendirir; Alıcı siparişi iptal edebilir ve ödediği tutarın tamamı 14 gün içinde iade edilir.</li>
         <li>Ödemenin kredi kartı ile yapılması halinde, Alıcı kartının hukuka aykırı kullanılmadığını kabul eder.</li>
       </ul>

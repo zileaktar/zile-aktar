@@ -47,7 +47,7 @@ Kullanıcının portu 3000'de takılırsa: `npx kill-port 3000`. `NEXT_PUBLIC_AP
 ### Para & sipariş
 - **Tüm parasal alanlar kuruş cinsinden `integer`** (float yok). `1 TL = 100 kuruş`.
 - İstemciden **asla fiyat/toplam kabul edilmez**. Sepet (Zustand, localStorage) yalnızca önizleme. Gerçek toplam `public.create_order(...)` Postgres fonksiyonunda `FOR UPDATE` satır kilidiyle DB'den hesaplanır; bu RPC yalnızca `service_role` çağırabilir, istemci `orders`'a doğrudan INSERT yapamaz (RLS'de INSERT politikası yok).
-- Kargo eşiği (`70000` = 700 TL) ve ücreti (`3990`) hem `src/lib/pricing.ts` hem `create_order`/`preview_coupon` içinde SABİT — **elle senkron tutulmalı**. Değiştirirken üçünü birden güncelleyen yeni bir migration yaz (bkz. `0020_free_shipping_threshold.sql`).
+- **Kargo ücreti AĞIRLIĞA göre ve admin panelden ayarlanır** (migration 0043): `shipping_settings` (tek satır: ücretsiz kargo eşiği, varsayılan ürün ağırlığı, koli payı, ek kg ücreti) + `shipping_rates` ("X g'a kadar Y kuruş"); `product_variants.weight_grams`. Hesap TEK yerde: SQL `calc_shipping_cents()` (create_order, preview_coupon, quote_cart çağırır) ↔ TS aynası `src/lib/shipping.ts` `calcShippingCents` (önizleme/yapısal veri; birim testli). Sepet/ödeme sayfası ücreti `/api/shipping-quote`'tan alır. Metinler `getShippingConfig()` + `describeShippingFees()` — kodda sabit kargo tutarı YAZMA. Admin: Ayarlar → Kargo Ücretleri (`save_shipping_config` RPC, is_admin+AAL2).
 
 ### Supabase istemci üçlüsü (`src/lib/supabase/server.ts`)
 - `createSupabaseServerClient()` — kullanıcının çerezli oturumu, RLS'e tabi. Server Component / Route Handler / Server Action.

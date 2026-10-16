@@ -7,6 +7,8 @@ import { CampaignCarousel } from '@/components/home/CampaignCarousel';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { ProductListing } from '@/components/product/ProductListing';
 import { LEGAL } from '@/lib/legal';
+import { getShippingConfig } from '@/lib/data/shipping';
+import { freeThresholdTl } from '@/lib/shipping';
 
 const HOME_TITLE = "Zile Aktar | Tokat Zile'den Baharat, Doğal Yağ, Bitki ve Yöresel Ürünler";
 const HOME_DESCRIPTION =
@@ -53,7 +55,12 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     permanentRedirect(`/kategori/${encodeURIComponent(kategori)}${qs ? `?${qs}` : ''}`);
   }
   const page = Math.max(1, Number.parseInt(sayfa ?? '1', 10) || 1);
-  const [categories, banners] = await Promise.all([getCategories(), getActiveCampaignBanners()]);
+  const [categories, banners, shippingConfig] = await Promise.all([
+    getCategories(),
+    getActiveCampaignBanners(),
+    getShippingConfig()
+  ]);
+  const freeShippingTl = freeThresholdTl(shippingConfig);
 
   const activeCategoryName = q?.trim()
     ? `"${q.trim()}" için sonuçlar`
@@ -101,7 +108,9 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <section className="bg-white border-b border-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {[
-            { icon: '🚚', title: 'Kargo Bedava', sub: `${LEGAL.ucretsizKargoEsigiTl}₺ üzeri siparişte` },
+            freeShippingTl != null
+              ? { icon: '🚚', title: 'Kargo Bedava', sub: `${freeShippingTl.toLocaleString('tr-TR')}₺ üzeri siparişte` }
+              : { icon: '🚚', title: 'Hızlı Kargo', sub: "Türkiye'nin her yerine" },
             { icon: '🌿', title: '%100 Taze & Doğal', sub: 'Katkı maddesiz' },
             { icon: '🔒', title: 'Güvenli 3D Ödeme', sub: 'VakıfBank ile SSL korumalı' },
             { icon: '🏺', title: 'Geleneksel Üretim', sub: 'Yöresel ustalardan' }

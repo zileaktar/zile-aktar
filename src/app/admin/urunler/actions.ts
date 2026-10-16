@@ -19,6 +19,7 @@ function variantExtras(v: ProductInput['variants'][number]) {
     price_cents: v.priceCents,
     compare_at_price_cents: v.compareAtPriceCents ?? null,
     stock: v.stock,
+    weight_grams: v.weightGrams ?? null,
     lot_no: v.lotNo?.trim() || null,
     expiry_date: v.expiryDate?.trim() || null
   };

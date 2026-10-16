@@ -6,6 +6,7 @@ import { createSupabaseServerClient, createSupabaseServiceRoleClient } from '@/l
 import { assertRole } from '@/lib/rbac';
 import { assertAal2 } from '@/lib/admin-auth';
 import { formatPriceFromCents, formatDateTimeTR } from '@/lib/format';
+import { formatWeight } from '@/lib/shipping';
 import { sendOrderShippedEmail } from '@/lib/email';
 import type { OrderStatus } from '@/lib/supabase/types';
 import { cancelKindFor } from '@/lib/order-cancel';
@@ -80,7 +81,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
   const { data: order } = await supabase
     .from('orders')
     .select(
-      'id, order_number, status, subtotal_cents, shipping_cents, deal_discount_cents, discount_cents, coupon_code, total_cents, currency, shipping_address, billing_address, contact_email, contact_phone, payment_provider, payment_ref, shipping_carrier, tracking_number, shipped_at, cancelled_at, refund_ref, refund_started_at, created_at, updated_at, order_items(id, product_name_snapshot, variant_label_snapshot, unit_price_cents, quantity)'
+      'id, order_number, status, subtotal_cents, shipping_cents, deal_discount_cents, discount_cents, coupon_code, total_cents, currency, shipping_address, billing_address, contact_email, contact_phone, payment_provider, payment_ref, shipping_carrier, tracking_number, shipped_at, cancelled_at, refund_ref, refund_started_at, shipping_weight_grams, created_at, updated_at, order_items(id, product_name_snapshot, variant_label_snapshot, unit_price_cents, quantity)'
     )
     .eq('id', id)
     .single();
@@ -205,7 +206,12 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
             </div>
           )}
           <div className="flex justify-between text-carbon/60">
-            <span>Kargo</span>
+            <span>
+              Kargo
+              {order.shipping_weight_grams != null && (
+                <span className="text-carbon/40"> · ürünler {formatWeight(order.shipping_weight_grams)}</span>
+              )}
+            </span>
             <span>{order.shipping_cents === 0 ? 'Bedava' : formatPriceFromCents(order.shipping_cents)}</span>
           </div>
           <div className="flex justify-between font-display font-bold text-primary pt-1.5 border-t border-dashed border-primary/15">

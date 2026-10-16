@@ -17,6 +17,15 @@ export const productVariantInputSchema = z
     // İndirimsiz (üstü çizili) fiyat — migration 0016. NULL ise indirim yok.
     compareAtPriceCents: z.number().int().positive().nullable().optional().default(null),
     stock: z.number().int().min(0, 'Stok negatif olamaz.'),
+    // Paketli ağırlık (g) — kargo ücreti buna göre (migration 0043). Boşsa varsayılan ağırlık kullanılır.
+    weightGrams: z
+      .number()
+      .int()
+      .min(1, 'Ağırlık en az 1 g olmalı.')
+      .max(100000, 'Ağırlık en fazla 100 kg olabilir.')
+      .nullable()
+      .optional()
+      .default(null),
     // Parti/lot numarası + son tüketim tarihi (migration 0013) — opsiyonel, parti değişince güncellenir.
     lotNo: z.string().trim().max(60).optional().default(''),
     expiryDate: z

@@ -153,16 +153,19 @@ export interface Database {
           sort_order: number;
           lot_no: string | null;
           expiry_date: string | null;
+          // Paketli ağırlık (g) — migration 0043; null ise varsayılan ağırlık kullanılır.
+          weight_grams: number | null;
           created_at: string;
         };
         Insert: Omit<
           Database['public']['Tables']['product_variants']['Row'],
-          'id' | 'created_at' | 'lot_no' | 'expiry_date' | 'compare_at_price_cents'
+          'id' | 'created_at' | 'lot_no' | 'expiry_date' | 'compare_at_price_cents' | 'weight_grams'
         > & {
           id?: string;
           lot_no?: string | null;
           expiry_date?: string | null;
           compare_at_price_cents?: number | null;
+          weight_grams?: number | null;
         };
         Update: Partial<Database['public']['Tables']['product_variants']['Row']>;
         Relationships: [
@@ -255,11 +258,14 @@ export interface Database {
           refund_ref: string | null;
           /** Sipariş iptal/iade durumuna alındığı an (migration 0037). */
           cancelled_at: string | null;
+          /** Kargo ücretinin hesaplandığı ürün ağırlığı (g, ambalaj hariç) — migration 0043. */
+          shipping_weight_grams: number | null;
           created_at: string;
           updated_at: string;
         };
         Insert: Omit<
           Database['public']['Tables']['orders']['Row'],
+          | 'shipping_weight_grams'
           | 'id'
           | 'created_at'
           | 'updated_at'
@@ -289,6 +295,7 @@ export interface Database {
           refund_started_at?: string | null;
           refund_ref?: string | null;
           cancelled_at?: string | null;
+          shipping_weight_grams?: number | null;
         };
         Update: Partial<Database['public']['Tables']['orders']['Row']>;
         Relationships: [
@@ -541,6 +548,27 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['campaign_banners']['Row']>;
         Relationships: [];
       };
+      // migration 0043 — tek satır (id = 1)
+      shipping_settings: {
+        Row: {
+          id: number;
+          free_threshold_cents: number | null;
+          default_item_grams: number;
+          packaging_grams: number;
+          extra_per_kg_cents: number;
+          updated_at: string;
+        };
+        Insert: Partial<Database['public']['Tables']['shipping_settings']['Row']>;
+        Update: Partial<Database['public']['Tables']['shipping_settings']['Row']>;
+        Relationships: [];
+      };
+      // migration 0043 — "max_grams'a kadar price_cents"
+      shipping_rates: {
+        Row: { id: string; max_grams: number; price_cents: number; created_at: string };
+        Insert: { id?: string; max_grams: number; price_cents: number; created_at?: string };
+        Update: Partial<Database['public']['Tables']['shipping_rates']['Row']>;
+        Relationships: [];
+      };
     };
     // `supabase gen types typescript` her zaman Views/Enums/CompositeTypes anahtarlarını
     // BOŞ olsa dahi üretir — postgrest-js'in GenericSchema kısıtı bu anahtarların
@@ -584,6 +612,8 @@ export interface Database {
           p_subtotal_cents: number;
           p_user_id?: string | null;
           p_email?: string | null;
+          // migration 0043 — sepetin ürün ağırlığı (g)
+          p_weight_grams?: number;
         };
         Returns: {
           valid: boolean;
@@ -593,6 +623,22 @@ export interface Database {
           shipping_cents: number;
           final_total_cents: number;
         }[];
+      };
+      // migration 0043 — admin (AAL2) kargo ayarlarını tek işlemde kaydeder
+      save_shipping_config: {
+        Args: {
+          p_free_threshold_cents: number | null;
+          p_default_item_grams: number;
+          p_packaging_grams: number;
+          p_extra_per_kg_cents: number;
+          p_rates: { max_grams: number; price_cents: number }[];
+        };
+        Returns: undefined;
+      };
+      // migration 0043 — fiyat + ağırlık DB'den; yalnız service_role
+      quote_cart: {
+        Args: { p_items: { variant_id: string; quantity: number }[] };
+        Returns: { subtotal_cents: number; weight_grams: number; shipping_cents: number }[];
       };
       mark_order_paid: { Args: { p_order_id: string; p_payment_ref: string }; Returns: boolean };
       mark_order_failed: { Args: { p_order_id: string }; Returns: undefined };

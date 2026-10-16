@@ -10,6 +10,7 @@ import type { ProductFormState } from '@/app/admin/urunler/actions';
 import { deleteVariantAction } from '@/app/admin/urunler/actions';
 import { PRODUCT_FORMS, PRODUCT_FORM_LABELS } from '@/lib/validations/product';
 import type { ProductForm as ProductFormEnum } from '@/lib/supabase/types';
+import { parseWeightFromLabel } from '@/lib/shipping';
 
 // "Sınırlı Stok" burada KASITLI olarak yok — artık elle seçilen sabit bir
 // etiket değil, gerçek stok sayısından CANLI hesaplanan bir gösterge
@@ -24,11 +25,12 @@ interface VariantRow {
   price: string; // TL cinsinden, kullanıcının yazdığı ham metin (örn. "150" veya "150,50")
   compareAtPrice: string; // indirimsiz (üstü çizili) fiyat, TL — boş ise indirim yok
   stock: string;
+  weight: string; // paketli ağırlık (g) — boşsa gramaj etiketinden tahmin edilir
   lotNo: string;
   expiryDate: string; // YYYY-AA-GG veya ''
 }
 
-const EMPTY_VARIANT: VariantRow = { label: '', price: '', compareAtPrice: '', stock: '', lotNo: '', expiryDate: '' };
+const EMPTY_VARIANT: VariantRow = { label: '', price: '', compareAtPrice: '', stock: '', weight: '', lotNo: '', expiryDate: '' };
 
 interface Category {
   id: string;
@@ -258,6 +260,8 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
         priceCents: tlToCents(v.price),
         compareAtPriceCents: v.compareAtPrice.trim() ? tlToCents(v.compareAtPrice) : null,
         stock: Number.parseInt(v.stock, 10) || 0,
+        // Ağırlık boşsa gramaj etiketinden ("250 g", "1 kg", "500 ml") tahmin edilir.
+        weightGrams: v.weight.trim() ? Number.parseInt(v.weight, 10) || null : parseWeightFromLabel(v.label),
         lotNo: v.lotNo.trim(),
         expiryDate: v.expiryDate.trim()
       }))
@@ -644,6 +648,20 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
                   )}
                 </label>
                 <label className="min-w-0">
+                  <span className={VARIANT_LABEL}>Ağırlık (g)</span>
+                  <input
+                    placeholder={(() => {
+                      const guess = parseWeightFromLabel(v.label);
+                      return guess ? `${guess} (otomatik)` : 'paketli';
+                    })()}
+                    inputMode="numeric"
+                    title="Kargo ücreti için paketli ağırlık (şişe/kavanoz dahil). Boş bırakılırsa gramajdan hesaplanır."
+                    value={v.weight}
+                    onChange={(e) => updateVariant(i, { weight: e.target.value.replace(/[^0-9]/g, '') })}
+                    className={VARIANT_INPUT}
+                  />
+                </label>
+                <label className="min-w-0">
                   <span className={VARIANT_LABEL}>Parti / Lot No</span>
                   <input
                     placeholder="ops."
@@ -665,6 +683,9 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
               </div>
               {state.fieldErrors?.[`variants.${i}.compareAtPriceCents`] && (
                 <p className="text-xs text-red-600">{state.fieldErrors[`variants.${i}.compareAtPriceCents`]}</p>
+              )}
+              {state.fieldErrors?.[`variants.${i}.weightGrams`] && (
+                <p className="text-xs text-red-600">{state.fieldErrors[`variants.${i}.weightGrams`]}</p>
               )}
             </div>
           ))}

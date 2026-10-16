@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { headers } from 'next/headers';
 import { LEGAL } from '@/lib/legal';
 import { safeJsonLd } from '@/lib/format';
+import { getShippingConfig } from '@/lib/data/shipping';
+import { describeShippingFees } from '@/lib/shipping';
 
 export const metadata: Metadata = {
   title: 'Sıkça Sorulan Sorular',
@@ -11,7 +13,6 @@ export const metadata: Metadata = {
   alternates: { canonical: '/sss' }
 };
 
-const kargoUcreti = LEGAL.standartKargoUcretiTl.toLocaleString('tr-TR', { minimumFractionDigits: 2 });
 const kargoFirmasi = LEGAL.kargoFirmasi.startsWith('[') ? 'anlaşmalı kargo firmamız' : LEGAL.kargoFirmasi;
 
 interface QA {
@@ -19,7 +20,9 @@ interface QA {
   a: string;
 }
 
-const SECTIONS: { title: string; items: QA[] }[] = [
+/** `kargoCevabi`: admin panelindeki kargo ücretlerinden üretilen metin (describeShippingFees). */
+function buildSections(kargoCevabi: string): { title: string; items: QA[] }[] {
+  return [
   {
     title: 'Sipariş ve Ödeme',
     items: [
@@ -54,7 +57,7 @@ const SECTIONS: { title: string; items: QA[] }[] = [
     items: [
       {
         q: 'Kargo ücreti ne kadar?',
-        a: `${LEGAL.ucretsizKargoEsigiTl} ₺ altındaki siparişlerde kargo ücreti ${kargoUcreti} ₺'dir. ${LEGAL.ucretsizKargoEsigiTl} ₺ ve üzeri siparişlerde kargo ücretsizdir.`
+        a: kargoCevabi
       },
       {
         q: 'Siparişim ne kadar sürede elime ulaşır?',
@@ -133,22 +136,24 @@ const SECTIONS: { title: string; items: QA[] }[] = [
       }
     ]
   }
-];
-
-const faqJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: SECTIONS.flatMap((s) =>
-    s.items.map((it) => ({
-      '@type': 'Question',
-      name: it.q,
-      acceptedAnswer: { '@type': 'Answer', text: it.a }
-    }))
-  )
-};
+  ];
+}
 
 export default async function FaqPage() {
-  const nonce = (await headers()).get('x-nonce') ?? '';
+  const [requestHeaders, shipping] = await Promise.all([headers(), getShippingConfig()]);
+  const nonce = requestHeaders.get('x-nonce') ?? '';
+  const SECTIONS = buildSections(describeShippingFees(shipping));
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: SECTIONS.flatMap((s) =>
+      s.items.map((it) => ({
+        '@type': 'Question',
+        name: it.q,
+        acceptedAnswer: { '@type': 'Answer', text: it.a }
+      }))
+    )
+  };
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
       {/* eslint-disable-next-line react/no-danger */}
