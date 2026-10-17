@@ -28,7 +28,7 @@ export async function GET() {
     supabase
       .from('products')
       .select(
-        'id, slug, name, description, image_path, image_paths, product_variants(sku, label, price_cents, compare_at_price_cents, stock, weight_grams)'
+        'id, slug, name, origin, description, image_path, image_paths, product_variants(sku, label, price_cents, compare_at_price_cents, stock, weight_grams)'
       )
       .eq('is_active', true),
     getShippingConfig()
@@ -47,7 +47,9 @@ export async function GET() {
       if (!imageLink) return [];
 
       return p.product_variants.map((v) => {
-        const title = multiVariant ? `${p.name} - ${v.label}` : p.name;
+        // Menşe doluysa ada eklenir ("Zile acı biber" gibi yöre aramalarında Google Alışveriş eşleşmesi için).
+        const baseName = p.origin?.trim() ? `${p.name} (${p.origin.trim()})` : p.name;
+        const title = multiVariant ? `${baseName} - ${v.label}` : baseName;
         const link = `${env.NEXT_PUBLIC_APP_URL}/urun/${p.slug}`;
         const hasDiscount = v.compare_at_price_cents != null && v.compare_at_price_cents > v.price_cents;
         const priceCents = hasDiscount ? v.compare_at_price_cents! : v.price_cents;

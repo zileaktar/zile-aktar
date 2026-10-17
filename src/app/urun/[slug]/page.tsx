@@ -29,13 +29,18 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const product = await getProductBySlug(slug);
   if (!product) return { title: 'Ürün Bulunamadı' };
 
+  // "Menşe / Yöre" (admin formu) doluysa başlık ve açıklamaya girer — ör. "Zile acı biber"
+  // aramasında yöre adının sayfa başlığında geçmesi eşleşmeyi güçlendirir.
+  const origin = product.origin?.trim() || null;
+  const excerpt = product.description
+    ? getPlainExcerpt(product.description)
+    : `${product.name} Zile Aktar'da. Tokat Zile'deki aktarımızdan güvenli ödeme ve hızlı kargo ile kapınıza.`;
+
   return {
-    // Ör. "Zehir Acı Pulbiber – Baharatlar | Zile Aktar": kategori adı aramalardaki
-    // genel kelimeyle (baharat, sabun, sirke...) eşleşmeye yardım eder.
-    title: `${product.name} – ${product.categories.name}`,
-    description: product.description
-      ? getPlainExcerpt(product.description)
-      : `${product.name} Zile Aktar'da. Tokat Zile'deki aktarımızdan güvenli ödeme ve hızlı kargo ile kapınıza.`,
+    // Ör. "Zehir Acı Pulbiber – Baharatlar | Zile Aktar"; menşe varsa
+    // "Zehir Acı Pulbiber (Zile, Tokat) – Baharatlar | Zile Aktar".
+    title: origin ? `${product.name} (${origin}) – ${product.categories.name}` : `${product.name} – ${product.categories.name}`,
+    description: origin ? `${origin} yöresi. ${excerpt}` : excerpt,
     openGraph: { images: [{ url: `/api/og?title=${encodeURIComponent(product.name)}` }] },
     alternates: { canonical: `/urun/${product.slug}` }
   };
@@ -98,6 +103,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
     category: product.categories.name,
     // Ürünlerde üretici barkodu (GTIN) yok; mağazanın kendi markasıyla satılıyor (Merchant akışıyla aynı).
     brand: { '@type': 'Brand', name: LEGAL.markaAdi },
+    ...(product.origin?.trim() && {
+      additionalProperty: [{ '@type': 'PropertyValue', name: 'Menşe / Yöre', value: product.origin.trim() }]
+    }),
     ...(reviewCount > 0 && {
       aggregateRating: {
         '@type': 'AggregateRating',
