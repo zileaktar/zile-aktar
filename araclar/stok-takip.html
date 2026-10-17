@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stok Tablosu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --grid-line: #d0d5dd;
+    --grid-line-strong: #a8b0bd;
+    --header-bg: #eef1f5;
+    --header-bg-active: #dbe6f5;
+    --accent: #1a6b3d;
+    --accent-2: #0f5fa8;
+    --row-alt: #f7f9fb;
+    --row-hover: #eaf2ff;
+    --ink: #1b1f26;
+    --ink-soft: #626b78;
+    --danger: #b3261e;
+    --paper: #f3f4f6;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 13px;
+    min-height:100vh;
+  }
+
+  /* Toolbar (Excel ribbon-ish) */
+  .ribbon{
+    background: #fff;
+    border-bottom: 1px solid var(--grid-line-strong);
+    padding: 10px 16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap: wrap;
+    position: sticky; top:0; z-index: 30;
+  }
+  .ribbon-secondary{
+    background: var(--paper);
+    padding: 8px 16px;
+    top: 49px;
+    z-index: 29;
+    row-gap: 8px;
+  }
+  .tool-group{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .tool-group-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-right: 2px;
+    white-space: nowrap;
+  }
+  .file-title{
+    font-weight:700;
+    font-size:15px;
+    margin-right: 6px;
+    color: var(--ink);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .file-title .dot{
+    width:10px;height:10px;border-radius:2px;background: var(--accent);
+    display:inline-block;
+  }
+  .divider{ width:1px; height:26px; background: var(--grid-line-strong); margin: 0 4px; }
+
+  .rbtn{
+    display:flex; align-items:center; gap:6px;
+    background: #fff;
+    border: 1px solid var(--grid-line-strong);
+    border-radius: 4px;
+    padding: 7px 12px;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--ink);
+    cursor:pointer;
+    font-weight:500;
+    white-space: nowrap;
+  }
+  .rbtn:hover{ background: var(--header-bg); }
+  .rbtn:active{ background: var(--header-bg-active); }
+  .rbtn.primary{ background: var(--accent); color:#fff; border-color: var(--accent); }
+  .rbtn.primary:hover{ background: #155c33; }
+  .rbtn.danger-outline{ color: var(--danger); border-color: #e3b3af; }
+  .rbtn.danger-outline:hover{ background: #fbeceb; }
+  .rbtn.accent-green{ color: var(--accent); border-color: #a9cdb5; background: #eef8f1; }
+  .rbtn.accent-green:hover{ background: #dcf0e2; }
+  .rbtn.accent-red{ color: var(--danger); border-color: #e3b3af; background: #fbeceb; }
+  .rbtn.accent-red:hover{ background: #f6dbd8; }
+  .rbtn:focus-visible{ outline: 2px solid var(--accent-2); outline-offset:1px; }
+
+  .search-wrap{
+    position: relative;
+    flex: 1 1 220px;
+    max-width: 320px;
+  }
+  .search-wrap input{
+    width:100%;
+    padding: 7px 10px 7px 30px;
+    border: 1px solid var(--grid-line-strong);
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: inherit;
+  }
+  .search-wrap input:focus{ outline: 2px solid var(--accent-2); }
+  .search-wrap svg{ position:absolute; left:9px; top:50%; transform:translateY(-50%); opacity:0.5; }
+
+  select.cat-select{
+    padding: 7px 10px;
+    border: 1px solid var(--grid-line-strong);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 13px;
+    background:#fff;
+  }
+
+  #importFile{ display:none; }
+
+  /* Status / summary bar */
+  .statusbar{
+    background:#fff;
+    border-bottom: 1px solid var(--grid-line);
+    padding: 6px 16px;
+    display:flex;
+    gap: 20px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    flex-wrap: wrap;
+  }
+  .statusbar b{ color: var(--ink); }
+  .statusbar .chip{
+    display:flex; align-items:center; gap:6px;
+  }
+  .statusbar .swatch{ width:9px;height:9px;border-radius:2px; }
+
+  /* Sheet area */
+  .sheet-container{
+    overflow: auto;
+    padding: 0;
+  }
+  table.sheet{
+    border-collapse: collapse;
+    width: 100%;
+    background: #fff;
+  }
+  table.sheet th, table.sheet td{
+    border: 1px solid var(--grid-line);
+  }
+
+  /* Column header row (A B C D E) */
+  thead .col-letters th{
+    background: var(--header-bg);
+    color: var(--ink-soft);
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size: 11px;
+    text-align:center;
+    padding: 4px 0;
+    position: sticky; top:0; z-index: 10;
+    user-select:none;
+  }
+  thead .col-labels th{
+    background: #fff;
+    font-weight:700;
+    font-size: 13px;
+    text-align:left;
+    padding: 8px 12px;
+    position: sticky; top:22px; z-index: 10;
+    border-bottom: 2px solid var(--grid-line-strong);
+  }
+  .rownum-col{
+    width: 42px;
+    min-width:42px;
+    background: var(--header-bg);
+    color: var(--ink-soft);
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-align:center;
+    user-select:none;
+  }
+
+  .checkbox-col{
+    width: 34px;
+    min-width:34px;
+    background: var(--header-bg);
+    text-align:center;
+    user-select:none;
+  }
+  td.checkbox-col{ background: var(--header-bg) !important; }
+  tbody tr:hover td.checkbox-col{ background: var(--header-bg) !important; }
+  .row-checkbox, #selectAllCheckbox{
+    width:15px; height:15px;
+    cursor:pointer;
+    accent-color: var(--accent-2);
+  }
+  tr.row-selected td:not(.checkbox-col){ background: var(--header-bg-active) !important; }
+
+  .rbtn.has-badge{ position:relative; }
+  .selection-badge{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:16px; height:16px; padding:0 4px;
+    background: var(--accent-2); color:#fff;
+    border-radius: 8px;
+    font-size: 10.5px; font-weight:700;
+    font-family:'IBM Plex Mono', monospace;
+    line-height:1;
+  }
+
+  tbody tr:nth-child(even) td:not(.rownum-col){ background: var(--row-alt); }
+  tbody tr:hover td:not(.rownum-col){ background: var(--row-hover); }
+  tbody tr.hidden-row{ display:none; }
+  tbody tr.group-start td{ border-top: 2px solid var(--grid-line-strong); }
+
+  td.cell{
+    padding: 0;
+    position: relative;
+    min-width: 110px;
+  }
+  td.cell.wide{ min-width: 220px; }
+  td.cell.narrow{ min-width: 90px; }
+
+  .cell-input{
+    width:100%;
+    border:none;
+    background: transparent;
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .cell-input:focus{
+    outline: 2px solid var(--accent-2);
+    outline-offset: -2px;
+    background: #fff;
+    position: relative;
+    z-index: 5;
+  }
+  input.cell-input[type="number"]{ font-family:'IBM Plex Mono', monospace; }
+
+  td.stock-cell .cell-input{ font-family:'IBM Plex Mono', monospace; font-weight:600; }
+  td.stock-cell.low .cell-input{ color: var(--danger); }
+  td.stock-cell.mid .cell-input{ color: #a06a10; }
+  td.stock-cell.ok .cell-input{ color: var(--accent); }
+
+  td.price-cell .cell-input{ font-family:'IBM Plex Mono', monospace; }
+  .unit-price-hint{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    padding: 0 12px 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .unit-cell{ padding: 4px 6px !important; min-width: 140px; }
+  .unit-inputs{ display:flex; align-items:center; gap:4px; }
+  .unit-qty-input{
+    width: 54px;
+    flex-shrink:0;
+    border:none;
+    background: transparent;
+    padding: 8px 4px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink);
+    text-align:right;
+    border-radius: 3px;
+  }
+  .unit-qty-input:focus{ outline: 2px solid var(--accent-2); outline-offset:-2px; background:#fff; }
+  .unit-type-select{
+    flex: 1;
+    min-width: 62px;
+    border:none;
+    background: transparent;
+    padding: 8px 4px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight:600;
+    color: var(--ink);
+    border-radius: 3px;
+    appearance:none; -webkit-appearance:none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' fill='none' stroke='%23626b78' stroke-width='1.5'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 4px center;
+    padding-right: 16px;
+  }
+  .unit-type-select:focus{ outline: 2px solid var(--accent-2); outline-offset:-2px; background-color:#fff; }
+
+  .cat-cell{ padding: 4px 8px !important; }
+  .cat-tag-input{
+    width:100%;
+    border:none;
+    background: transparent;
+    padding: 6px 8px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight:600;
+    border-radius: 3px;
+  }
+
+  .cat-multiselect-trigger{
+    display:block;
+    width:100%;
+    text-align:left;
+    border:none;
+    background: transparent;
+    padding: 8px 10px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight:600;
+    border-radius: 3px;
+    cursor:pointer;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+  }
+  .cat-multiselect-trigger:hover{ background: var(--header-bg); }
+  .cat-multiselect-trigger:focus-visible{ outline: 2px solid var(--accent-2); outline-offset:-2px; }
+  .cat-multiselect-trigger.unassigned{ color: var(--ink-soft); font-style: italic; font-weight:500; }
+
+  .cat-dropdown-panel{
+    position: fixed;
+    background:#fff;
+    border:1px solid var(--grid-line-strong);
+    border-radius:6px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    padding:6px;
+    max-height:240px;
+    overflow-y:auto;
+    z-index:200;
+    min-width:180px;
+  }
+  .cat-dropdown-empty{
+    padding: 8px 10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+  }
+  .cat-dropdown-item{
+    display:flex; align-items:center; gap:8px;
+    padding:7px 8px;
+    border-radius:4px;
+    cursor:pointer;
+    font-size:12.5px;
+    font-weight:500;
+    color: var(--ink);
+  }
+  .cat-dropdown-item:hover{ background: var(--header-bg); }
+  .cat-dropdown-item input{ width:14px;height:14px; accent-color: var(--accent-2); cursor:pointer; flex-shrink:0; }
+
+  .bulk-cat-checklist{
+    display:flex; flex-direction:column; gap:4px;
+    max-height: 240px;
+    overflow-y:auto;
+    margin-bottom: 4px;
+  }
+  .bulk-cat-checklist .cat-dropdown-item{
+    border: 1px solid var(--grid-line);
+  }
+
+  .rowaction-btn{
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    width: 26px; height: 26px;
+    display:inline-flex; align-items:center; justify-content:center;
+    border-radius: 4px;
+    color: var(--ink-soft);
+  }
+  .rowaction-btn:hover{ background: #e6e9ee; color: var(--danger); }
+  .rowaction-btn.sell-btn:hover{ background: #e6f4ea; color: var(--accent); }
+  .rowaction-btn.restock-btn:hover{ background: #e5eefc; color: var(--accent-2); }
+  .actions-cell{ text-align:center; background:#fff !important; white-space:nowrap; }
+  .actions-col{ width: 140px; min-width:140px; }
+
+  tfoot td{
+    background: var(--header-bg);
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:700;
+    font-size: 12px;
+    padding: 10px 12px;
+    border-top: 2px solid var(--grid-line-strong);
+  }
+
+  .add-row-bar{
+    padding: 10px 16px;
+    background:#fff;
+    border-top: 1px solid var(--grid-line);
+  }
+  .add-row-btn{
+    display:flex; align-items:center; gap:8px;
+    background: transparent;
+    border: 1px dashed var(--grid-line-strong);
+    border-radius: 4px;
+    padding: 9px 14px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--ink-soft);
+    cursor:pointer;
+    width: 100%;
+    text-align:left;
+  }
+  .add-row-btn:hover{ background: var(--header-bg); color: var(--ink); border-color: var(--accent-2); }
+
+  .empty-state{
+    padding: 60px 20px; text-align:center; color: var(--ink-soft);
+  }
+  .empty-state p{ font-family:'IBM Plex Mono', monospace; font-size:13px; margin-top:10px; }
+
+  .footer-note{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    padding: 12px 16px 40px;
+    line-height: 1.7;
+  }
+  .footer-note b{ color: var(--ink); }
+
+  .toast{
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--ink); color: #fff;
+    font-family:'IBM Plex Mono', monospace; font-size: 12.5px;
+    padding: 10px 18px; border-radius: 4px;
+    opacity:0; transition: all 0.25s ease; pointer-events:none;
+    z-index: 50;
+  }
+  .toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
+
+  select.cell-input{
+    width:100%;
+    border:none;
+    background: transparent;
+    padding: 8px 10px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--ink);
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' fill='none' stroke='%23626b78' stroke-width='1.5'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 26px;
+  }
+  select.cell-input:focus{
+    outline: 2px solid var(--accent-2);
+    outline-offset: -2px;
+    background-color: #fff;
+  }
+  select.cell-input.unassigned{ color: var(--ink-soft); font-style: italic; }
+
+  /* Modal */
+  .modal-overlay{
+    position: fixed; inset: 0;
+    background: rgba(20,24,30,0.45);
+    display:none;
+    align-items:center; justify-content:center;
+    z-index: 100;
+    padding: 20px;
+  }
+  .modal-overlay.open{ display:flex; }
+  .modal{
+    background:#fff;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 420px;
+    max-height: 80vh;
+    display:flex;
+    flex-direction:column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+  .modal-header{
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--grid-line);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .modal-header h2{
+    margin:0; font-size:15px; font-weight:700;
+  }
+  .modal-close{
+    background:none; border:none; cursor:pointer;
+    color: var(--ink-soft);
+    width:28px; height:28px;
+    display:flex; align-items:center; justify-content:center;
+    border-radius: 4px;
+  }
+  .modal-close:hover{ background: var(--header-bg); color: var(--ink); }
+  .modal-body{
+    padding: 16px 20px;
+    overflow-y:auto;
+    flex: 1;
+  }
+  .cat-list{
+    display:flex; flex-direction:column; gap:6px;
+    margin-bottom: 16px;
+  }
+  .cat-list-item{
+    display:flex; align-items:center; gap:8px;
+    border: 1px solid var(--grid-line);
+    border-radius: 4px;
+    padding: 4px 4px 4px 10px;
+  }
+  .cat-list-item input{
+    flex:1;
+    border:none;
+    background:transparent;
+    font-family: inherit;
+    font-size: 13px;
+    padding: 6px 4px;
+    color: var(--ink);
+  }
+  .cat-list-item input:focus{ outline: none; }
+  .cat-list-item .cat-count{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    white-space:nowrap;
+  }
+  .cat-del-btn{
+    border:none; background:transparent; cursor:pointer;
+    width:26px; height:26px;
+    display:flex; align-items:center; justify-content:center;
+    border-radius: 4px;
+    color: var(--ink-soft);
+    flex-shrink:0;
+  }
+  .cat-del-btn:hover{ background:#fbeceb; color: var(--danger); }
+  .cat-add-row{
+    display:flex; gap:8px;
+  }
+  .cat-add-row input{
+    flex:1;
+    border: 1px solid var(--grid-line-strong);
+    border-radius: 4px;
+    padding: 9px 12px;
+    font-family: inherit;
+    font-size: 13px;
+  }
+  .cat-add-row input:focus{ outline: 2px solid var(--accent-2); }
+  .cat-add-row button{
+    background: var(--accent);
+    color:#fff;
+    border:none;
+    border-radius:4px;
+    padding: 0 16px;
+    font-weight:600;
+    cursor:pointer;
+    font-size:13px;
+  }
+  .cat-add-row button:hover{ background:#155c33; }
+  .modal-footer{
+    padding: 14px 20px;
+    border-top: 1px solid var(--grid-line);
+    display:flex; justify-content:flex-end;
+  }
+  .cat-empty-hint{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    margin: 0 0 12px;
+  }
+
+  @media (max-width: 700px){
+    .file-title{ display:none; }
+    .divider{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ribbon">
+  <div class="file-title"><span class="dot"></span>Stok Tablosu.xlsx</div>
+  <div class="divider"></div>
+  <button class="rbtn primary" id="addBtn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Satır Ekle
+  </button>
+  <button class="rbtn" id="bulkAddBtn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/><path d="M3 3h18v18H3z"/></svg>
+    Toplu Ekle
+  </button>
+  <div class="divider"></div>
+  <div class="search-wrap">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="searchInput" placeholder="Tabloda ara...">
+  </div>
+  <select class="cat-select" id="categoryFilter">
+    <option value="">Tüm kategoriler</option>
+  </select>
+</div>
+
+<div class="ribbon ribbon-secondary">
+  <div class="tool-group">
+    <span class="tool-group-label">Kategori</span>
+    <button class="rbtn" id="manageCatBtn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h6"/></svg>
+      Düzenle
+    </button>
+    <button class="rbtn" id="sortByCatBtn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5h10"/><path d="M11 9h7"/><path d="M11 13h4"/><path d="M3 17l3 3 3-3"/><path d="M6 18V4"/></svg>
+      Grupla
+    </button>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="tool-group">
+    <span class="tool-group-label">Seçili Satırlar</span>
+    <button class="rbtn has-badge" id="bulkCatBtn" title="Seçili satırlara toplu kategori ata">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Toplu Kategori Ata
+      <span class="selection-badge" id="selectionBadge" style="display:none;">0</span>
+    </button>
+    <button class="rbtn danger-outline has-badge" id="bulkDeleteBtn" title="Seçili satırları sil">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>
+      Seçilenleri Sil
+      <span class="selection-badge" id="selectionBadgeDelete" style="display:none;">0</span>
+    </button>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="tool-group">
+    <span class="tool-group-label">Stok Hareketi</span>
+    <button class="rbtn accent-green" id="stockInImportBtn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2"/><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M12 12v5"/><path d="M9 14l3-3 3 3"/></svg>
+      Depoya Giriş
+    </button>
+    <button class="rbtn accent-red" id="salesImportBtn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M9 13l2 2 4-4"/></svg>
+      Satış Girişi
+    </button>
+    <input type="file" id="stockInImportFile" accept=".csv,.txt,text/csv,text/plain,*/*">
+    <input type="file" id="salesImportFile" accept=".csv,.txt,text/csv,text/plain,*/*">
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="tool-group">
+    <span class="tool-group-label">Dosya</span>
+    <button class="rbtn" id="exportBtn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Dışa Aktar
+    </button>
+    <button class="rbtn" id="importBtn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      İçe Aktar
+    </button>
+    <input type="file" id="importFile" accept=".csv,.txt,text/csv,text/plain,application/vnd.ms-excel,*/*">
+  </div>
+</div>
+
+<div class="statusbar">
+  <div class="chip"><b id="rowCount">0</b>&nbsp;satır</div>
+  <div class="chip">Toplam stok: <b id="totalStock">0</b></div>
+  <div class="chip">Toplam değer: <b id="totalValue">₺0,00</b></div>
+  <div class="chip"><span class="swatch" style="background:#b3261e"></span>≤5 kritik</div>
+  <div class="chip"><span class="swatch" style="background:#a06a10"></span>≤20 orta</div>
+  <div class="chip"><span class="swatch" style="background:#1a6b3d"></span>güvenli</div>
+  <div class="chip" id="saveIndicator" style="font-weight:600;">Kaydedildi ✓</div>
+</div>
+
+<div class="sheet-container">
+  <table class="sheet">
+    <thead>
+      <tr class="col-letters">
+        <th></th>
+        <th></th>
+        <th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th></th>
+      </tr>
+      <tr class="col-labels">
+        <th class="checkbox-col"><input type="checkbox" id="selectAllCheckbox" title="Görünen tüm satırları seç"></th>
+        <th class="rownum-col">#</th>
+        <th>Kategori</th>
+        <th>Ürün</th>
+        <th>Birim</th>
+        <th>Stok</th>
+        <th>Fiyat (₺)</th>
+        <th>Özellik</th>
+        <th class="actions-col"></th>
+      </tr>
+    </thead>
+    <tbody id="sheetBody"></tbody>
+    <tfoot>
+      <tr>
+        <td class="checkbox-col"></td>
+        <td class="rownum-col"></td>
+        <td colspan="3">TOPLAM</td>
+        <td id="footStock">0</td>
+        <td id="footValue">₺0,00</td>
+        <td colspan="2"></td>
+      </tr>
+    </tfoot>
+  </table>
+  <div class="empty-state" id="emptyState" style="display:none;">
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
+    <p id="emptyText">KAYIT YOK — "Satır Ekle" ile başlayın</p>
+  </div>
+</div>
+
+<div class="add-row-bar">
+  <button class="add-row-btn" id="addRowBottom">+ Yeni satır ekle</button>
+</div>
+
+<p class="footer-note">
+  <b>Not:</b> Veriler otomatik kaydedilir (üstteki durum göstergesine bakın).
+  Hücrelere doğrudan tıklayıp yazabilirsiniz — tıpkı Excel gibi.
+  <b>Kategori</b> hücresine tıklayınca açılan listeden bir ürün için birden fazla kategori seçebilirsiniz (ör. "nane" hem Baharatlar hem Şifalı Bitkiler olabilir).
+  <b>Birim</b> sütununa ürünün paket miktarını (100, 5, 250 vb.) ve türünü (Gram, Kilogram, Litre, Mililitre, Adet, Paket...) girin;
+  fiyat hücresinin altında otomatik olarak "kg/lt başına fiyat" gibi net bir bilgi hesaplanıp gösterilir (ör. 100 gr için ₺15 girerseniz altında ₺150,00 / kg yazar).
+  Satır sonundaki üç ikon: <b>artı (+)</b> depoya giriş yapar, <b>fiş</b> satış girer (stoktan 1 düşer), <b>çöp kutusu</b> satırı siler.
+  Toplu işlemler için "Stok Hareketi" grubundaki <b>Depoya Giriş</b> / <b>Satış Girişi</b> butonlarıyla bir CSV yükleyip
+  birden çok ürünün stoğunu tek seferde güncelleyebilirsiniz (dosyada ürün adı ve adet sütunu aranır).
+  <b>İçe Aktar</b> hem bu tablonun kendi dosyasını hem de zileaktar.com yönetim panelinden indirilen
+  "ürün-fiyat-stok" listesini tanır; aynı ürünün farklı gramajları ayrı satır olarak gelir, sitede pasif olan ürünler atlanır.
+</p>
+
+<div class="modal-overlay" id="bulkModalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Toplu Ürün Ekle</h2>
+      <button class="modal-close" id="bulkModalClose">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="cat-empty-hint">Her satıra bir ürün adı gelecek şekilde yapıştır. Her satır için stok, kategori vb. boş yeni bir satır oluşturulur — sonradan doldurursun.</p>
+      <textarea id="bulkNamesInput" placeholder="Zeytinyağı
+Kekik
+El Sabunu
+..." style="width:100%; min-height:180px; border:1px solid var(--grid-line-strong); border-radius:4px; padding:10px 12px; font-family:'IBM Plex Mono', monospace; font-size:13px; resize:vertical;"></textarea>
+      <p class="cat-empty-hint" id="bulkCountHint" style="margin-top:8px;">0 ürün algılandı</p>
+    </div>
+    <div class="modal-footer">
+      <button class="rbtn" id="bulkModalCancel" style="margin-right:8px;">Vazgeç</button>
+      <button class="rbtn primary" id="bulkModalAdd">Satırları Ekle</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="bulkCatModalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Toplu Kategori Ata</h2>
+      <button class="modal-close" id="bulkCatModalClose">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="cat-empty-hint" id="bulkCatCountHint">0 ürün seçili</p>
+      <p class="cat-empty-hint">Seçtiğiniz kategoriler, mevcut kategorilerine ek olarak ürünlere eklenir (var olanlar silinmez).</p>
+      <div class="bulk-cat-checklist" id="bulkCatCheckList"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="rbtn" id="bulkCatModalCancel" style="margin-right:8px;">Vazgeç</button>
+      <button class="rbtn primary" id="bulkCatModalApply">Uygula</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="catModalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Kategorileri Düzenle</h2>
+      <button class="modal-close" id="catModalClose">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="cat-empty-hint">Buradaki liste, tablodaki kategori seçim kutusunu besler. Adını değiştirebilir veya silebilirsin.</p>
+      <div class="cat-list" id="catList"></div>
+      <div class="cat-add-row">
+        <input type="text" id="newCatInput" placeholder="Yeni kategori adı...">
+        <button id="addCatBtn">Ekle</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="rbtn primary" id="catModalDone">Bitti</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let rows = [];
+  let selectedIds = new Set();
+  let categories = [
+    'Yağlar',
+    'Baharatlar',
+    'Şifalı Bitkiler',
+    'Sabun Çeşitleri',
+    'Sirkeler',
+    'Kozmetik',
+    'Macun Çeşitleri',
+    'Yöresel Ürünler'
+  ];
+
+  const STORAGE_KEY = 'stok-tablosu-veri';
+  let saveTimer = null;
+  let storageMode = null; // 'cloud' | 'local' | 'none'
+
+  function hasCloudStorage(){
+    return typeof window.storage !== 'undefined' && window.storage
+      && typeof window.storage.set === 'function'
+      && typeof window.storage.get === 'function';
+  }
+
+  function hasLocalStorage(){
+    try{
+      const testKey = '__stok_test__';
+      window.localStorage.setItem(testKey, '1');
+      window.localStorage.removeItem(testKey);
+      return true;
+    } catch(err){
+      return false;
+    }
+  }
+
+  async function saveToStorage(){
+    const payload = JSON.stringify({ rows, categories });
+    // Try cloud storage first (works when opened inside Claude)
+    if(storageMode === 'cloud' || storageMode === null){
+      if(hasCloudStorage()){
+        try{
+          await window.storage.set(STORAGE_KEY, payload, false);
+          storageMode = 'cloud';
+          setSaveIndicator('saved');
+          return;
+        } catch(err){
+          // fall through to local storage below
+        }
+      }
+    }
+    // Fallback: browser's local storage (works when the file is opened directly)
+    if(hasLocalStorage()){
+      try{
+        window.localStorage.setItem(STORAGE_KEY, payload);
+        storageMode = 'local';
+        setSaveIndicator('saved-local');
+        return;
+      } catch(err){
+        // fall through to failure state
+      }
+    }
+    storageMode = 'none';
+    setSaveIndicator('error');
+  }
+
+  function scheduleSave(){
+    setSaveIndicator('saving');
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveToStorage, 500);
+  }
+
+  function setSaveIndicator(state){
+    const el = document.getElementById('saveIndicator');
+    if(!el) return;
+    if(state === 'saving'){ el.textContent = 'Kaydediliyor...'; el.style.color = 'var(--ink-soft)'; }
+    else if(state === 'saved'){ el.textContent = 'Kaydedildi ✓'; el.style.color = 'var(--accent)'; }
+    else if(state === 'saved-local'){ el.textContent = 'Kaydedildi (bu tarayıcıda) ✓'; el.style.color = 'var(--accent)'; }
+    else if(state === 'error'){ el.textContent = 'Kayıt hatası — CSV ile yedekleyin'; el.style.color = 'var(--danger)'; }
+  }
+
+  function migrateLegacyRows(){
+    rows.forEach(r => {
+      if(!Array.isArray(r.categories)){
+        r.categories = normalizeCategories(r.category !== undefined ? r.category : r.categories);
+      }
+      delete r.category;
+      if(r.unitQty === undefined || r.unitQty === null || isNaN(Number(r.unitQty)) || Number(r.unitQty) < 0){
+        r.unitQty = 1;
+      } else {
+        r.unitQty = Number(r.unitQty);
+      }
+      r.unitType = normalizeUnitType(r.unitType);
+    });
+  }
+
+  async function loadFromStorage(){
+    // Try cloud storage first
+    if(hasCloudStorage()){
+      try{
+        const result = await window.storage.get(STORAGE_KEY, false);
+        if(result && result.value){
+          const data = JSON.parse(result.value);
+          if(Array.isArray(data.rows) && data.rows.length > 0) rows = data.rows;
+          if(Array.isArray(data.categories) && data.categories.length > 0) categories = data.categories;
+          storageMode = 'cloud';
+          showToast('Önceki kayıtlı veriler yüklendi');
+          return;
+        }
+        storageMode = 'cloud';
+        return;
+      } catch(err){
+        // no saved data yet in cloud storage, try local next
+      }
+    }
+    // Fallback: browser's local storage
+    if(hasLocalStorage()){
+      try{
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+        if(raw){
+          const data = JSON.parse(raw);
+          if(Array.isArray(data.rows) && data.rows.length > 0) rows = data.rows;
+          if(Array.isArray(data.categories) && data.categories.length > 0) categories = data.categories;
+          showToast('Önceki kayıtlı veriler bu tarayıcıdan yüklendi');
+        }
+        storageMode = 'local';
+        return;
+      } catch(err){
+        // ignore
+      }
+    }
+    storageMode = 'none';
+  }
+
+  const sheetBody = document.getElementById('sheetBody');
+  const emptyState = document.getElementById('emptyState');
+  const emptyText = document.getElementById('emptyText');
+  const searchInput = document.getElementById('searchInput');
+  const categoryFilter = document.getElementById('categoryFilter');
+  const toast = document.getElementById('toast');
+  const rowCountEl = document.getElementById('rowCount');
+  const totalStockEl = document.getElementById('totalStock');
+  const totalValueEl = document.getElementById('totalValue');
+  const footStockEl = document.getElementById('footStock');
+  const footValueEl = document.getElementById('footValue');
+
+  function uid(){ return 'r_' + Date.now() + '_' + Math.random().toString(36).slice(2,7); }
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(()=> toast.classList.remove('show'), 2000);
+  }
+
+  function fmtMoney(n){
+    return '₺' + Number(n||0).toLocaleString('tr-TR', {minimumFractionDigits:2, maximumFractionDigits:2});
+  }
+
+  function stockClass(n){
+    n = Number(n)||0;
+    if(n <= 5) return 'low';
+    if(n <= 20) return 'mid';
+    return 'ok';
+  }
+
+  const UNIT_TYPES = [
+    { value: 'adet', label: 'Adet' },
+    { value: 'gr', label: 'Gram (g)' },
+    { value: 'kg', label: 'Kilogram (kg)' },
+    { value: 'ml', label: 'Mililitre (ml)' },
+    { value: 'lt', label: 'Litre (lt)' },
+    { value: 'paket', label: 'Paket' },
+    { value: 'kutu', label: 'Kutu' },
+    { value: 'demet', label: 'Demet' }
+  ];
+  const UNIT_TYPE_VALUES = UNIT_TYPES.map(u => u.value);
+
+  function unitTypeLabel(value){
+    return (UNIT_TYPES.find(u => u.value === value) || UNIT_TYPES[0]).label;
+  }
+
+  function normalizeUnitType(value){
+    const v = String(value || '').trim().toLocaleLowerCase('tr');
+    if(!v) return 'adet';
+    const byValue = UNIT_TYPES.find(u => u.value === v);
+    if(byValue) return byValue.value;
+    const byLabel = UNIT_TYPES.find(u => u.label.toLocaleLowerCase('tr') === v || u.label.toLocaleLowerCase('tr').startsWith(v));
+    if(byLabel) return byLabel.value;
+    return 'adet';
+  }
+
+  function unitTypeOptionsHtml(selected){
+    return UNIT_TYPES.map(u => `<option value="${u.value}" ${u.value === selected ? 'selected' : ''}>${escapeHtml(u.label)}</option>`).join('');
+  }
+
+  // Converts a row's price to a clear "price per standard unit" hint,
+  // e.g. 100 gr for ₺15 -> "₺150,00 / kg". Returns '' when there's nothing useful to show.
+  function unitPriceHint(row){
+    const qty = Number(row.unitQty) || 0;
+    const price = Number(row.price) || 0;
+    if(qty <= 0) return '';
+    let factor = 1, targetLabel = unitTypeLabel(row.unitType);
+    if(row.unitType === 'gr'){ factor = 1000; targetLabel = 'kg'; }
+    else if(row.unitType === 'kg'){ factor = 1; targetLabel = 'kg'; }
+    else if(row.unitType === 'ml'){ factor = 1000; targetLabel = 'lt'; }
+    else if(row.unitType === 'lt'){ factor = 1; targetLabel = 'lt'; }
+    else { targetLabel = unitTypeLabel(row.unitType); }
+    // Nothing extra to show when the price is already quoted per single standard unit
+    if(factor === 1 && qty === 1) return '';
+    const perUnitPrice = price * (factor / qty);
+    return `${fmtMoney(perUnitPrice)} / ${targetLabel}`;
+  }
+
+  function newRow(data){
+    const r = Object.assign({
+      id: uid(), categories: [], name: '', stock: 0, price: 0, description: '',
+      unitQty: 1, unitType: 'adet'
+    }, data || {});
+    r.categories = normalizeCategories(r.categories);
+    r.unitQty = Number(r.unitQty);
+    if(!isFinite(r.unitQty) || r.unitQty < 0) r.unitQty = 1;
+    r.unitType = normalizeUnitType(r.unitType);
+    return r;
+  }
+
+  // Accepts an array, a single string, or undefined/legacy `category` field
+  // and returns a clean array of category names.
+  function normalizeCategories(input){
+    if(Array.isArray(input)) return [...new Set(input.map(c => String(c).trim()).filter(Boolean))];
+    if(typeof input === 'string' && input.trim()) return [input.trim()];
+    return [];
+  }
+
+  function refreshCategoryOptions(){
+    const current = categoryFilter.value;
+    categoryFilter.innerHTML = '<option value="">Tüm kategoriler</option>' +
+      categories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+    if(categories.includes(current)) categoryFilter.value = current;
+  }
+
+  function categoryLabel(cats){
+    return (cats && cats.length) ? cats.join(', ') : 'Seç...';
+  }
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+  }
+
+  function matchesFilters(r){
+    const q = searchInput.value.trim().toLocaleLowerCase('tr');
+    const cat = categoryFilter.value;
+    const cats = r.categories || [];
+    const matchesQ = !q || [cats.join(' '), r.name, r.description].join(' ').toLocaleLowerCase('tr').includes(q);
+    const matchesCat = !cat || cats.includes(cat);
+    return matchesQ && matchesCat;
+  }
+
+  function render(){
+    closeCatDropdown();
+    sheetBody.innerHTML = '';
+    let visibleCount = 0;
+    let prevCategory = undefined;
+
+    rows.forEach((r, idx) => {
+      const tr = document.createElement('tr');
+      const visible = matchesFilters(r);
+      if(!visible) tr.classList.add('hidden-row');
+      else visibleCount++;
+
+      const primaryCategory = (r.categories && r.categories[0]) || '';
+      if(prevCategory !== undefined && primaryCategory !== prevCategory) tr.classList.add('group-start');
+      prevCategory = primaryCategory;
+
+      tr.dataset.id = r.id;
+      const sc = stockClass(r.stock);
+      const isSelected = selectedIds.has(r.id);
+      if(isSelected) tr.classList.add('row-selected');
+      const catsUnassigned = !r.categories || r.categories.length === 0;
+      tr.innerHTML = `
+        <td class="checkbox-col"><input type="checkbox" class="row-checkbox" data-row-id="${r.id}" ${isSelected ? 'checked' : ''}></td>
+        <td class="rownum-col">${idx + 1}</td>
+        <td class="cell cat-cell">
+          <button type="button" class="cat-multiselect-trigger ${catsUnassigned ? 'unassigned' : ''}" data-row-id="${r.id}" title="${escapeHtml(categoryLabel(r.categories))}">${escapeHtml(categoryLabel(r.categories))}</button>
+        </td>
+        <td class="cell wide">
+          <input class="cell-input" data-field="name" value="${escapeHtml(r.name)}" placeholder="Ürün adı">
+        </td>
+        <td class="cell unit-cell">
+          <div class="unit-inputs">
+            <input class="unit-qty-input" type="number" min="0" step="0.01" data-field="unitQty" value="${r.unitQty}">
+            <select class="unit-type-select" data-field="unitType">${unitTypeOptionsHtml(r.unitType)}</select>
+          </div>
+        </td>
+        <td class="cell narrow stock-cell ${sc}">
+          <input class="cell-input" type="number" min="0" data-field="stock" value="${r.stock}">
+        </td>
+        <td class="cell narrow price-cell">
+          <input class="cell-input" type="number" min="0" step="0.01" data-field="price" value="${r.price}">
+          <div class="unit-price-hint" data-hint-for="${r.id}">${unitPriceHint(r)}</div>
+        </td>
+        <td class="cell wide">
+          <input class="cell-input" data-field="description" value="${escapeHtml(r.description)}" placeholder="Ne işe yarar...">
+        </td>
+        <td class="actions-cell">
+          <button class="rowaction-btn restock-btn" data-restock="${r.id}" title="Depoya giriş (stok ekle)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <button class="rowaction-btn sell-btn" data-sell="${r.id}" title="Satıldı (stoktan 1 düş)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M9 13l2 2 4-4"/></svg>
+          </button>
+          <button class="rowaction-btn" data-del="${r.id}" title="Satırı sil">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>
+          </button>
+        </td>`;
+      sheetBody.appendChild(tr);
+    });
+
+    emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+    emptyText.textContent = rows.length === 0
+      ? 'KAYIT YOK — "Satır Ekle" ile başlayın'
+      : 'ARAMA SONUCU BULUNAMADI';
+
+    const totalStock = rows.reduce((s,r)=> s + (Number(r.stock)||0), 0);
+    const totalValue = rows.reduce((s,r)=> s + (Number(r.stock)||0)*(Number(r.price)||0), 0);
+    rowCountEl.textContent = rows.length;
+    totalStockEl.textContent = totalStock;
+    totalValueEl.textContent = fmtMoney(totalValue);
+    footStockEl.textContent = totalStock;
+    footValueEl.textContent = fmtMoney(totalValue);
+
+    refreshCategoryOptions();
+
+    // Prune selection ids for rows that no longer exist, then sync UI
+    const existingIds = new Set(rows.map(r => r.id));
+    selectedIds.forEach(id => { if(!existingIds.has(id)) selectedIds.delete(id); });
+    syncSelectionUI();
+  }
+
+  function visibleRows(){
+    return rows.filter(matchesFilters);
+  }
+
+  function syncSelectionUI(){
+    const n = selectedIds.size;
+    ['selectionBadge', 'selectionBadgeDelete'].forEach(id => {
+      const badge = document.getElementById(id);
+      if(badge){
+        badge.style.display = n > 0 ? 'inline-flex' : 'none';
+        badge.textContent = n;
+      }
+    });
+    const visible = visibleRows();
+    const selectAllCb = document.getElementById('selectAllCheckbox');
+    if(selectAllCb){
+      if(visible.length === 0){
+        selectAllCb.checked = false;
+        selectAllCb.indeterminate = false;
+      } else {
+        const selectedVisible = visible.filter(r => selectedIds.has(r.id)).length;
+        selectAllCb.checked = selectedVisible === visible.length;
+        selectAllCb.indeterminate = selectedVisible > 0 && selectedVisible < visible.length;
+      }
+    }
+  }
+
+  function addRow(data, focus){
+    const r = newRow(data);
+    rows.push(r);
+    render();
+    scheduleSave();
+    if(focus !== false){
+      requestAnimationFrame(() => {
+        const tr = sheetBody.querySelector(`tr[data-id="${r.id}"]`);
+        tr?.querySelector('input[data-field="name"]')?.focus();
+      });
+    }
+    return r;
+  }
+
+  document.getElementById('addBtn').addEventListener('click', () => addRow());
+  document.getElementById('addRowBottom').addEventListener('click', () => addRow());
+
+  document.getElementById('sortByCatBtn').addEventListener('click', () => {
+    if(rows.length < 2){ showToast('Sıralanacak yeterli satır yok'); return; }
+    rows.sort((a, b) => {
+      const aCat = (a.categories && a.categories[0]) || '';
+      const bCat = (b.categories && b.categories[0]) || '';
+      const ai = categories.indexOf(aCat);
+      const bi = categories.indexOf(bCat);
+      const aRank = ai === -1 ? categories.length : ai;
+      const bRank = bi === -1 ? categories.length : bi;
+      if(aRank !== bRank) return aRank - bRank;
+      return a.name.localeCompare(b.name, 'tr');
+    });
+    render();
+    scheduleSave();
+    showToast('Ürünler birincil kategoriye göre gruplandı');
+  });
+
+  // live editing
+  function handleCellChange(e){
+    const input = e.target;
+    if(!input.dataset.field) return;
+    const tr = input.closest('tr');
+    const id = tr.dataset.id;
+    const row = rows.find(r => r.id === id);
+    if(!row) return;
+    const field = input.dataset.field;
+    row[field] = input.value;
+
+    // update stock coloring live without full re-render (keeps focus)
+    if(field === 'stock'){
+      const cell = tr.querySelector('.stock-cell');
+      cell.classList.remove('low','mid','ok');
+      cell.classList.add(stockClass(row.stock));
+    }
+    // update the "per standard unit" price hint live
+    if(field === 'price' || field === 'unitQty' || field === 'unitType'){
+      const hintEl = tr.querySelector(`.unit-price-hint[data-hint-for="${row.id}"]`);
+      if(hintEl) hintEl.textContent = unitPriceHint(row);
+    }
+    // update totals live
+    const totalStock = rows.reduce((s,r)=> s + (Number(r.stock)||0), 0);
+    const totalValue = rows.reduce((s,r)=> s + (Number(r.stock)||0)*(Number(r.price)||0), 0);
+    rowCountEl.textContent = rows.length;
+    totalStockEl.textContent = totalStock;
+    totalValueEl.textContent = fmtMoney(totalValue);
+    footStockEl.textContent = totalStock;
+    footValueEl.textContent = fmtMoney(totalValue);
+  }
+  sheetBody.addEventListener('input', handleCellChange);
+  sheetBody.addEventListener('change', handleCellChange);
+  function scheduleSaveIfDataField(e){
+    if(e.target.classList.contains('row-checkbox')) return;
+    scheduleSave();
+  }
+  sheetBody.addEventListener('input', scheduleSaveIfDataField);
+  sheetBody.addEventListener('change', scheduleSaveIfDataField);
+
+  // Row selection checkboxes
+  sheetBody.addEventListener('change', (e) => {
+    if(!e.target.classList.contains('row-checkbox')) return;
+    const id = e.target.dataset.rowId;
+    if(e.target.checked) selectedIds.add(id);
+    else selectedIds.delete(id);
+    e.target.closest('tr')?.classList.toggle('row-selected', e.target.checked);
+    syncSelectionUI();
+  });
+
+  document.getElementById('selectAllCheckbox').addEventListener('change', (e) => {
+    const visible = visibleRows();
+    if(e.target.checked){
+      visible.forEach(r => selectedIds.add(r.id));
+    } else {
+      visible.forEach(r => selectedIds.delete(r.id));
+    }
+    render();
+  });
+
+  // ---- Per-row category multi-select dropdown ----
+  let openCatDropdownRowId = null;
+  let catDropdownEl = null;
+
+  function closeCatDropdown(){
+    if(catDropdownEl){ catDropdownEl.remove(); catDropdownEl = null; }
+    openCatDropdownRowId = null;
+  }
+
+  function positionCatDropdown(panel, triggerEl){
+    const rect = triggerEl.getBoundingClientRect();
+    const panelWidth = Math.max(rect.width, 180);
+    let left = rect.left;
+    if(left + panelWidth > window.innerWidth - 8) left = Math.max(8, window.innerWidth - panelWidth - 8);
+    let top = rect.bottom + 4;
+    panel.style.left = left + 'px';
+    panel.style.top = top + 'px';
+    panel.style.minWidth = panelWidth + 'px';
+    // Flip above the trigger if there isn't enough room below
+    const panelRect = panel.getBoundingClientRect();
+    if(panelRect.bottom > window.innerHeight - 8){
+      panel.style.top = Math.max(8, rect.top - panelRect.height - 4) + 'px';
+    }
+  }
+
+  function updateCatTriggerLabel(rowId){
+    const row = rows.find(r => r.id === rowId);
+    const trigger = sheetBody.querySelector(`.cat-multiselect-trigger[data-row-id="${rowId}"]`);
+    if(!trigger || !row) return;
+    const label = categoryLabel(row.categories);
+    trigger.textContent = label;
+    trigger.title = label;
+    trigger.classList.toggle('unassigned', !row.categories || row.categories.length === 0);
+  }
+
+  function toggleCatDropdown(rowId, triggerEl){
+    if(openCatDropdownRowId === rowId){ closeCatDropdown(); return; }
+    closeCatDropdown();
+    const row = rows.find(r => r.id === rowId);
+    if(!row) return;
+    if(categories.length === 0){
+      showToast('Önce "Düzenle" ile en az bir kategori oluşturun');
+      return;
+    }
+    openCatDropdownRowId = rowId;
+    const panel = document.createElement('div');
+    panel.className = 'cat-dropdown-panel';
+    panel.innerHTML = categories.map(c => {
+      const checked = (row.categories || []).includes(c);
+      return `<label class="cat-dropdown-item"><input type="checkbox" data-cat-name="${escapeHtml(c)}" ${checked ? 'checked' : ''}><span>${escapeHtml(c)}</span></label>`;
+    }).join('');
+    document.body.appendChild(panel);
+    positionCatDropdown(panel, triggerEl);
+    catDropdownEl = panel;
+
+    panel.addEventListener('change', (e) => {
+      const cb = e.target.closest('input[type="checkbox"]');
+      if(!cb) return;
+      const catName = cb.dataset.catName;
+      row.categories = row.categories || [];
+      if(cb.checked){
+        if(!row.categories.includes(catName)) row.categories.push(catName);
+      } else {
+        row.categories = row.categories.filter(c => c !== catName);
+      }
+      updateCatTriggerLabel(rowId);
+      scheduleSave();
+      const tr = sheetBody.querySelector(`tr[data-id="${rowId}"]`);
+      if(tr){
+        if(!matchesFilters(row)) tr.classList.add('hidden-row');
+        else tr.classList.remove('hidden-row');
+      }
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    if(!openCatDropdownRowId) return;
+    if(catDropdownEl && catDropdownEl.contains(e.target)) return;
+    if(e.target.closest('.cat-multiselect-trigger')) return;
+    closeCatDropdown();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeCatDropdown();
+  });
+  document.addEventListener('scroll', () => closeCatDropdown(), true);
+  window.addEventListener('resize', () => closeCatDropdown());
+
+  sheetBody.addEventListener('click', (e) => {
+    const catTrigger = e.target.closest('.cat-multiselect-trigger');
+    if(catTrigger){
+      toggleCatDropdown(catTrigger.dataset.rowId, catTrigger);
+      return;
+    }
+    const restockId = e.target.closest('[data-restock]')?.dataset.restock;
+    if(restockId){
+      const row = rows.find(r => r.id === restockId);
+      if(row){
+        const input = window.prompt(`"${row.name || 'Ürün'}" için depoya kaç adet girdi?`, '1');
+        if(input === null) return;
+        const qty = Math.round(parseNumberStr(input));
+        if(!qty || qty <= 0){ showToast('Geçerli bir adet girin'); return; }
+        row.stock = (Number(row.stock) || 0) + qty;
+        render();
+        scheduleSave();
+        showToast(`${row.name || 'Ürün'}: stoğa ${qty} adet eklendi (${row.stock} oldu)`);
+      }
+      return;
+    }
+    const sellId = e.target.closest('[data-sell]')?.dataset.sell;
+    if(sellId){
+      const row = rows.find(r => r.id === sellId);
+      if(row){
+        const current = Number(row.stock) || 0;
+        if(current <= 0){
+          showToast('Stok zaten 0');
+        } else {
+          row.stock = current - 1;
+          render();
+          scheduleSave();
+          showToast(`${row.name || 'Ürün'}: stoktan 1 düştü (${row.stock} kaldı)`);
+        }
+      }
+      return;
+    }
+    const delId = e.target.closest('[data-del]')?.dataset.del;
+    if(delId){
+      const row = rows.find(r => r.id === delId);
+      if(row && confirm(`"${row.name || 'Bu satır'}" silinsin mi?`)){
+        rows = rows.filter(r => r.id !== delId);
+        render();
+        scheduleSave();
+        showToast('Satır silindi');
+      }
+    }
+  });
+
+  // Enter moves to next row's same-field input
+  sheetBody.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' && e.target.dataset.field){
+      e.preventDefault();
+      const tr = e.target.closest('tr');
+      const nextTr = tr.nextElementSibling;
+      const field = e.target.dataset.field;
+      if(nextTr){
+        nextTr.querySelector(`input[data-field="${field}"]`)?.focus();
+      } else {
+        addRow();
+      }
+    }
+  });
+
+  searchInput.addEventListener('input', render);
+  categoryFilter.addEventListener('change', render);
+
+  // CSV export
+  function csvEscape(val){
+    const s = String(val ?? '');
+    if(/[",\n\r;]/.test(s)) return '"' + s.replace(/"/g,'""') + '"';
+    return s;
+  }
+
+  document.getElementById('exportBtn').addEventListener('click', () => {
+    if(rows.length === 0){ showToast('Dışa aktarılacak satır yok'); return; }
+    const header = ['Kategori','Urun','Miktar','Birim','Stok','Fiyat','Ozellik'];
+    const csvRows = rows.map(r => [(r.categories||[]).join('; '), r.name, r.unitQty, unitTypeLabel(r.unitType), r.stock, r.price, r.description].map(csvEscape).join(','));
+    const csv = '﻿' + [header.join(','), ...csvRows].join('\r\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const stamp = new Date().toISOString().slice(0,10);
+    a.href = url;
+    a.download = `stok-tablosu-${stamp}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('CSV indirildi');
+  });
+
+  // Full-text CSV parser (handles quoted fields containing commas, semicolons and line breaks)
+  function detectDelimiter(text){
+    const firstLine = text.split(/\r\n|\r|\n/, 1)[0] || '';
+    let inQ = false, commaCount = 0, semiCount = 0;
+    for(const ch of firstLine){
+      if(ch === '"') inQ = !inQ;
+      else if(!inQ && ch === ',') commaCount++;
+      else if(!inQ && ch === ';') semiCount++;
+    }
+    return semiCount > commaCount ? ';' : ',';
+  }
+
+  function parseCSVText(text, delimiter){
+    const table = [];
+    let row = [], field = '', inQuotes = false;
+    for(let i = 0; i < text.length; i++){
+      const ch = text[i], next = text[i+1];
+      if(inQuotes){
+        if(ch === '"' && next === '"'){ field += '"'; i++; }
+        else if(ch === '"'){ inQuotes = false; }
+        else field += ch;
+      } else {
+        if(ch === '"'){ inQuotes = true; }
+        else if(ch === delimiter){ row.push(field); field = ''; }
+        else if(ch === '\r'){ /* ignore, \n handles line end */ }
+        else if(ch === '\n'){ row.push(field); table.push(row); row = []; field = ''; }
+        else field += ch;
+      }
+    }
+    if(field.length > 0 || row.length > 0){ row.push(field); table.push(row); }
+    return table.filter(r => r.some(cell => cell.trim() !== ''));
+  }
+
+  function parseNumberStr(s){
+    if(s === undefined || s === null) return 0;
+    s = String(s).trim();
+    if(!s) return 0;
+    if(s.includes(',') && s.includes('.')){
+      // thousands + decimal, e.g. "1.234,56" -> 1234.56
+      s = s.replace(/\./g, '').replace(',', '.');
+    } else if(s.includes(',') && !s.includes('.')){
+      // comma as decimal separator, e.g. "12,50" -> 12.50
+      s = s.replace(',', '.');
+    }
+    const n = parseFloat(s);
+    return isNaN(n) ? 0 : n;
+  }
+
+  // Splits a CSV category cell into multiple category names.
+  // Supports "Baharatlar; Şifalı Bitkiler" or "Baharatlar, Şifalı Bitkiler".
+  function splitCategoryCell(cell){
+    return String(cell || '')
+      .split(/[;,]+/)
+      .map(s => s.trim())
+      .filter(Boolean);
+  }
+
+  // Başlık hücresini karşılaştırma anahtarına çevirir:
+  // "Fiyat (TL)" -> "fiyattl", "Ürün" -> "urun", "Seçenek" -> "secenek"
+  function headerKey(s){
+    return String(s || '').trim().toLocaleLowerCase('tr')
+      .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/i̇/g,'i')
+      .replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u')
+      .replace(/[^a-z0-9]/g,'');
+  }
+  function findCol(keys, ...names){
+    for(const n of names){ const i = keys.indexOf(n); if(i >= 0) return i; }
+    return -1;
+  }
+  // Sitenin "Seçenek" değeri: "250gr" / "1 kg" / "20 ml" / "1 Adet" -> { unitQty, unitType }
+  function parseOptionLabel(label){
+    const m = String(label || '').trim().match(/^([\d.,]+)\s*(.*)$/);
+    if(!m) return { unitQty: 1, unitType: 'adet' };
+    const qty = parseNumberStr(m[1]);
+    return { unitQty: qty > 0 ? qty : 1, unitType: normalizeUnitType(m[2] || 'adet') };
+  }
+  function sameUnit(a, b){
+    return Number(a.unitQty) === Number(b.unitQty) && normalizeUnitType(a.unitType) === normalizeUnitType(b.unitType);
+  }
+
+  // CSV import — sütunlar BAŞLIK ADINA göre okunur (sıraya göre değil). İki biçim tanınır:
+  //  1. Bu tablonun kendi "Dışa Aktar" dosyası: Kategori, Urun, Miktar, Birim, Stok, Fiyat, Ozellik
+  //  2. zileaktar.com panelinden indirilen liste: SKU; Kategori; Ürün; Seçenek; Fiyat (TL); ...; Stok; Durum
+  // Eşleşme ürün adı + birim ile yapılır: aynı ürünün farklı gramajları (ör. Köfte Baharatı 1 kg ve 250 gr)
+  // ayrı satır olarak kalır.
+  const importBtn = document.getElementById('importBtn');
+  const importFile = document.getElementById('importFile');
+  importBtn.addEventListener('click', () => importFile.click());
+
+  importFile.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+
+    const lowerName = file.name.toLowerCase();
+    if(lowerName.endsWith('.xlsx') || lowerName.endsWith('.xls')){
+      showToast('Bu bir Excel dosyası — lütfen "CSV" olarak kaydedip tekrar deneyin');
+      importFile.value = '';
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const text = ev.target.result.replace(/^﻿/, '');
+        if(!text || !text.trim()){
+          showToast('Dosya boş görünüyor');
+          importFile.value = '';
+          return;
+        }
+        const delimiter = detectDelimiter(text);
+        const table = parseCSVText(text, delimiter);
+        if(table.length < 2){ showToast('CSV boş görünüyor'); importFile.value = ''; return; }
+
+        const dataRows = table.slice(1);
+        const keys = table[0].map(headerKey);
+        const isSiteExport = keys.includes('sku');
+        const isLegacyFormat = !isSiteExport && table[0].length <= 5;
+        let skippedPassive = 0;
+        let parsedRows;
+
+        if(isSiteExport){
+          const cCat = findCol(keys, 'kategori');
+          const cName = findCol(keys, 'urun', 'urunadi');
+          const cOpt = findCol(keys, 'secenek');
+          const cPrice = findCol(keys, 'fiyattl', 'fiyat');
+          const cStock = findCol(keys, 'stok');
+          const cStatus = findCol(keys, 'durum');
+          if(cName < 0 || cPrice < 0 || cStock < 0){
+            showToast('Dosya tanınmadı — panelden indirilen listeyi değiştirmeden yükleyin');
+            importFile.value = '';
+            return;
+          }
+          parsedRows = dataRows
+            .filter(cols => {
+              if(cStatus >= 0 && normalizeName(cols[cStatus]) === 'pasif'){ skippedPassive++; return false; }
+              return true;
+            })
+            .map(cols => {
+              // Sitede kategori adı virgül içerebilir ("Tohumlar, Çekirdekler ...") — bölünmez.
+              const cat = cCat >= 0 ? String(cols[cCat] || '').trim() : '';
+              const unit = cOpt >= 0 ? parseOptionLabel(cols[cOpt]) : { unitQty: 1, unitType: 'adet' };
+              // "Özellik" (açıklama) sitede yok — mevcut açıklama korunur.
+              return {
+                categories: cat ? [cat] : [],
+                name: String(cols[cName] || '').trim(),
+                unitQty: unit.unitQty,
+                unitType: unit.unitType,
+                stock: Math.max(0, Math.round(parseNumberStr(cols[cStock]))),
+                price: Math.max(0, parseNumberStr(cols[cPrice]))
+              };
+            })
+            .filter(r => r.name);
+        } else if(isLegacyFormat){
+          parsedRows = dataRows.map(cols => {
+            const [categoryCell, name, stock, price, description] = cols;
+            return {
+              categories: splitCategoryCell(categoryCell),
+              name: (name || '').trim(),
+              stock: Math.max(0, Math.round(parseNumberStr(stock))),
+              price: Math.max(0, parseNumberStr(price)),
+              description: (description || '').trim()
+            };
+          }).filter(r => r.name);
+        } else {
+          const cCat = findCol(keys, 'kategori');
+          const cName = findCol(keys, 'urun', 'urunadi');
+          const cQty = findCol(keys, 'miktar');
+          const cUnit = findCol(keys, 'birim');
+          const cStock = findCol(keys, 'stok');
+          const cPrice = findCol(keys, 'fiyat', 'fiyattl');
+          const cDesc = findCol(keys, 'ozellik', 'aciklama');
+          if(cName < 0){
+            showToast('Dosya tanınmadı — başlık satırında "Urun" sütunu olmalı');
+            importFile.value = '';
+            return;
+          }
+          parsedRows = dataRows.map(cols => {
+            const parsedQty = cQty >= 0 ? parseNumberStr(cols[cQty]) : 1;
+            const r = {
+              categories: cCat >= 0 ? splitCategoryCell(cols[cCat]) : [],
+              name: String(cols[cName] || '').trim(),
+              unitQty: parsedQty > 0 ? parsedQty : 1,
+              unitType: cUnit >= 0 ? normalizeUnitType(cols[cUnit]) : 'adet',
+              stock: cStock >= 0 ? Math.max(0, Math.round(parseNumberStr(cols[cStock]))) : 0,
+              price: cPrice >= 0 ? Math.max(0, parseNumberStr(cols[cPrice])) : 0
+            };
+            if(cDesc >= 0) r.description = String(cols[cDesc] || '').trim();
+            return r;
+          }).filter(r => r.name);
+        }
+
+        if(parsedRows.length === 0){
+          showToast('İçe aktarılacak geçerli satır bulunamadı');
+          importFile.value = '';
+          return;
+        }
+
+        // Dosyada aynı addan kaç satır var (gramaj farkı)?
+        const nameCounts = new Map();
+        parsedRows.forEach(pr => {
+          const k = normalizeName(pr.name);
+          nameCounts.set(k, (nameCounts.get(k) || 0) + 1);
+        });
+
+        let updatedCount = 0, addedCount = 0;
+        parsedRows.forEach(pr => {
+          const k = normalizeName(pr.name);
+          const sameName = rows.filter(r => normalizeName(r.name) === k);
+          // Önce ad + birim birebir; yoksa (dosyada bu addan tek satır ve tabloda tek satır varsa) ada göre.
+          let existing = pr.unitType !== undefined ? sameName.find(r => sameUnit(r, pr)) : undefined;
+          if(!existing && sameName.length === 1 && nameCounts.get(k) === 1) existing = sameName[0];
+
+          if(existing){
+            if(pr.categories.length > 0) existing.categories = pr.categories;
+            if(pr.unitQty !== undefined) existing.unitQty = pr.unitQty;
+            if(pr.unitType !== undefined) existing.unitType = pr.unitType;
+            existing.stock = pr.stock;
+            existing.price = pr.price;
+            if(pr.description !== undefined) existing.description = pr.description;
+            updatedCount++;
+          } else {
+            rows.push(newRow(pr));
+            addedCount++;
+          }
+          pr.categories.forEach(catName => {
+            if(catName && !categories.some(c => c.toLocaleLowerCase('tr') === catName.toLocaleLowerCase('tr'))){
+              categories.push(catName);
+            }
+          });
+        });
+        render();
+        scheduleSave();
+        const parts = [];
+        if(updatedCount > 0) parts.push(`${updatedCount} ürün güncellendi`);
+        if(addedCount > 0) parts.push(`${addedCount} yeni ürün eklendi`);
+        if(skippedPassive > 0) parts.push(`${skippedPassive} pasif ürün atlandı`);
+        showToast(parts.join(', '));
+      } catch(err){
+        showToast('CSV okunamadı — formatı kontrol edin');
+      }
+      importFile.value = '';
+    };
+    reader.readAsText(file, 'UTF-8');
+  });
+
+  // ---- Stock-in import: increment stock based on a warehouse-arrival CSV ----
+  const stockInImportBtn = document.getElementById('stockInImportBtn');
+  const stockInImportFile = document.getElementById('stockInImportFile');
+  stockInImportBtn.addEventListener('click', () => stockInImportFile.click());
+
+  stockInImportFile.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+
+    const lowerName = file.name.toLowerCase();
+    if(lowerName.endsWith('.xlsx') || lowerName.endsWith('.xls')){
+      showToast('Bu bir Excel dosyası — lütfen "CSV" olarak kaydedip tekrar deneyin');
+      stockInImportFile.value = '';
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const text = ev.target.result.replace(/^﻿/, '');
+        if(!text || !text.trim()){
+          showToast('Dosya boş görünüyor');
+          stockInImportFile.value = '';
+          return;
+        }
+        const delimiter = detectDelimiter(text);
+        const table = parseCSVText(text, delimiter);
+        if(table.length < 2){ showToast('Depo giriş dosyası boş görünüyor'); stockInImportFile.value=''; return; }
+
+        const header = table[0].map(h => normalizeName(h));
+        const nameKeywords = ['urun', 'ürün', 'product', 'name', 'ad'];
+        const qtyKeywords = ['adet', 'miktar', 'quantity', 'qty', 'giris', 'giriş', 'gelen', 'stok'];
+
+        let nameIdx = header.findIndex(h => nameKeywords.some(k => h.includes(k)));
+        let qtyIdx = header.findIndex(h => qtyKeywords.some(k => h.includes(k)));
+        if(nameIdx === -1) nameIdx = 0;
+        if(qtyIdx === -1) qtyIdx = 1;
+
+        const dataRows = table.slice(1);
+        let matchedCount = 0, unmatchedNames = [], totalUnitsAdded = 0;
+
+        dataRows.forEach(cols => {
+          const arrivedName = normalizeName(cols[nameIdx]);
+          const qty = Math.max(1, Math.round(parseNumberStr(cols[qtyIdx])) || 1);
+          if(!arrivedName) return;
+
+          const row = rows.find(r => normalizeName(r.name) === arrivedName);
+          if(row){
+            row.stock = (Number(row.stock) || 0) + qty;
+            matchedCount++;
+            totalUnitsAdded += qty;
+          } else {
+            unmatchedNames.push(cols[nameIdx]);
+          }
+        });
+
+        render();
+        scheduleSave();
+
+        if(matchedCount === 0){
+          showToast('Eşleşen ürün bulunamadı — ürün adlarını kontrol edin');
+        } else if(unmatchedNames.length > 0){
+          showToast(`${matchedCount} ürün güncellendi (${totalUnitsAdded} adet eklendi), ${unmatchedNames.length} ürün eşleşmedi`);
+        } else {
+          showToast(`${matchedCount} ürün güncellendi, toplam ${totalUnitsAdded} adet stoğa eklendi`);
+        }
+      } catch(err){
+        showToast('Depo giriş dosyası okunamadı — formatı kontrol edin');
+      }
+      stockInImportFile.value = '';
+    };
+    reader.readAsText(file, 'UTF-8');
+  });
+
+  // ---- Sales import: decrement stock based on a sales export CSV ----
+  const salesImportBtn = document.getElementById('salesImportBtn');
+  const salesImportFile = document.getElementById('salesImportFile');
+  salesImportBtn.addEventListener('click', () => salesImportFile.click());
+
+  function normalizeName(s){
+    return String(s || '').trim().toLocaleLowerCase('tr');
+  }
+
+  salesImportFile.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+
+    const lowerName = file.name.toLowerCase();
+    if(lowerName.endsWith('.xlsx') || lowerName.endsWith('.xls')){
+      showToast('Bu bir Excel dosyası — lütfen "CSV" olarak kaydedip tekrar deneyin');
+      salesImportFile.value = '';
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const text = ev.target.result.replace(/^﻿/, '');
+        if(!text || !text.trim()){
+          showToast('Dosya boş görünüyor');
+          salesImportFile.value = '';
+          return;
+        }
+        const delimiter = detectDelimiter(text);
+        const table = parseCSVText(text, delimiter);
+        if(table.length < 2){ showToast('Satış dosyası boş görünüyor'); salesImportFile.value=''; return; }
+
+        // Try to find which columns hold "product name" and "quantity".
+        // Flexible: looks for header keywords in Turkish/English; falls back to first two columns.
+        const header = table[0].map(h => normalizeName(h));
+        const nameKeywords = ['urun', 'ürün', 'product', 'name', 'ad'];
+        const qtyKeywords = ['adet', 'miktar', 'quantity', 'qty', 'satis', 'satış', 'sold'];
+
+        let nameIdx = header.findIndex(h => nameKeywords.some(k => h.includes(k)));
+        let qtyIdx = header.findIndex(h => qtyKeywords.some(k => h.includes(k)));
+        if(nameIdx === -1) nameIdx = 0;
+        if(qtyIdx === -1) qtyIdx = 1;
+
+        const dataRows = table.slice(1);
+        let matchedCount = 0, unmatchedNames = [], totalUnitsSold = 0;
+
+        dataRows.forEach(cols => {
+          const soldName = normalizeName(cols[nameIdx]);
+          const qty = Math.max(1, Math.round(parseNumberStr(cols[qtyIdx])) || 1);
+          if(!soldName) return;
+
+          const row = rows.find(r => normalizeName(r.name) === soldName);
+          if(row){
+            row.stock = Math.max(0, (Number(row.stock) || 0) - qty);
+            matchedCount++;
+            totalUnitsSold += qty;
+          } else {
+            unmatchedNames.push(cols[nameIdx]);
+          }
+        });
+
+        render();
+        scheduleSave();
+
+        if(matchedCount === 0){
+          showToast('Eşleşen ürün bulunamadı — ürün adlarını kontrol edin');
+        } else if(unmatchedNames.length > 0){
+          showToast(`${matchedCount} ürün güncellendi (${totalUnitsSold} adet düştü), ${unmatchedNames.length} ürün eşleşmedi`);
+        } else {
+          showToast(`${matchedCount} ürün güncellendi, toplam ${totalUnitsSold} adet stoktan düştü`);
+        }
+      } catch(err){
+        showToast('Satış dosyası okunamadı — formatı kontrol edin');
+      }
+      salesImportFile.value = '';
+    };
+    reader.readAsText(file, 'UTF-8');
+  });
+
+  // ---- Bulk add products modal ----
+  const bulkModalOverlay = document.getElementById('bulkModalOverlay');
+  const bulkNamesInput = document.getElementById('bulkNamesInput');
+  const bulkCountHint = document.getElementById('bulkCountHint');
+
+  function getBulkNames(){
+    return bulkNamesInput.value
+      .split(/\r?\n/)
+      .map(s => s.trim())
+      .filter(Boolean);
+  }
+
+  function updateBulkCount(){
+    const n = getBulkNames().length;
+    bulkCountHint.textContent = n + (n === 1 ? ' ürün algılandı' : ' ürün algılandı');
+  }
+
+  function openBulkModal(){
+    bulkNamesInput.value = '';
+    updateBulkCount();
+    bulkModalOverlay.classList.add('open');
+    setTimeout(() => bulkNamesInput.focus(), 50);
+  }
+  function closeBulkModal(){
+    bulkModalOverlay.classList.remove('open');
+  }
+
+  document.getElementById('bulkAddBtn').addEventListener('click', openBulkModal);
+  document.getElementById('bulkModalClose').addEventListener('click', closeBulkModal);
+  document.getElementById('bulkModalCancel').addEventListener('click', closeBulkModal);
+  bulkModalOverlay.addEventListener('click', (e) => {
+    if(e.target === bulkModalOverlay) closeBulkModal();
+  });
+  bulkNamesInput.addEventListener('input', updateBulkCount);
+
+  document.getElementById('bulkModalAdd').addEventListener('click', () => {
+    const names = getBulkNames();
+    if(names.length === 0){ showToast('Önce en az bir ürün adı yapıştırın'); return; }
+    names.forEach(name => addRow({ name }, false));
+    render();
+    scheduleSave();
+    showToast(`${names.length} ürün eklendi`);
+    closeBulkModal();
+  });
+
+  // ---- Bulk category assign modal ----
+  const bulkCatModalOverlay = document.getElementById('bulkCatModalOverlay');
+  const bulkCatCountHint = document.getElementById('bulkCatCountHint');
+  const bulkCatCheckList = document.getElementById('bulkCatCheckList');
+
+  function openBulkCatModal(){
+    if(selectedIds.size === 0){
+      showToast('Önce en az bir ürün seçin (satır başındaki kutucuklar)');
+      return;
+    }
+    if(categories.length === 0){
+      showToast('Önce "Düzenle" ile en az bir kategori oluşturun');
+      return;
+    }
+    bulkCatCountHint.textContent = `${selectedIds.size} ürün seçili`;
+    bulkCatCheckList.innerHTML = categories.map(c => `
+      <label class="cat-dropdown-item">
+        <input type="checkbox" value="${escapeHtml(c)}">
+        <span>${escapeHtml(c)}</span>
+      </label>`).join('');
+    bulkCatModalOverlay.classList.add('open');
+  }
+  function closeBulkCatModal(){
+    bulkCatModalOverlay.classList.remove('open');
+  }
+
+  document.getElementById('bulkCatBtn').addEventListener('click', openBulkCatModal);
+  document.getElementById('bulkCatModalClose').addEventListener('click', closeBulkCatModal);
+  document.getElementById('bulkCatModalCancel').addEventListener('click', closeBulkCatModal);
+  bulkCatModalOverlay.addEventListener('click', (e) => {
+    if(e.target === bulkCatModalOverlay) closeBulkCatModal();
+  });
+
+  document.getElementById('bulkCatModalApply').addEventListener('click', () => {
+    const chosen = Array.from(bulkCatCheckList.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+    if(chosen.length === 0){ showToast('En az bir kategori seçin'); return; }
+    let count = 0;
+    rows.forEach(r => {
+      if(selectedIds.has(r.id)){
+        r.categories = r.categories || [];
+        chosen.forEach(c => { if(!r.categories.includes(c)) r.categories.push(c); });
+        count++;
+      }
+    });
+    selectedIds.clear();
+    render();
+    scheduleSave();
+    closeBulkCatModal();
+    showToast(`${count} ürüne ${chosen.length === 1 ? `"${chosen[0]}"` : chosen.length + ' kategori'} eklendi`);
+  });
+
+  // ---- Bulk delete selected rows ----
+  document.getElementById('bulkDeleteBtn').addEventListener('click', () => {
+    if(selectedIds.size === 0){
+      showToast('Önce en az bir ürün seçin (satır başındaki kutucuklar)');
+      return;
+    }
+    const n = selectedIds.size;
+    const msg = n === 1
+      ? 'Seçili 1 ürün silinsin mi?'
+      : `Seçili ${n} ürün silinsin mi?`;
+    if(!confirm(msg)) return;
+    rows = rows.filter(r => !selectedIds.has(r.id));
+    selectedIds.clear();
+    render();
+    scheduleSave();
+    showToast(`${n} ürün silindi`);
+  });
+
+  // ---- Category manager modal ----
+  const catModalOverlay = document.getElementById('catModalOverlay');
+  const catList = document.getElementById('catList');
+  const newCatInput = document.getElementById('newCatInput');
+
+  function renderCatList(){
+    if(categories.length === 0){
+      catList.innerHTML = '<p class="cat-empty-hint">Henüz kategori yok. Aşağıdan ekleyin.</p>';
+      return;
+    }
+    catList.innerHTML = categories.map((c, idx) => {
+      const count = rows.filter(r => (r.categories||[]).includes(c)).length;
+      return `
+        <div class="cat-list-item" data-idx="${idx}">
+          <input type="text" value="${escapeHtml(c)}" data-cat-rename="${idx}">
+          <span class="cat-count">${count} ürün</span>
+          <button class="cat-del-btn" data-cat-del="${idx}" title="Kategoriyi sil">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>
+          </button>
+        </div>`;
+    }).join('');
+  }
+
+  function openCatModal(){
+    renderCatList();
+    catModalOverlay.classList.add('open');
+    newCatInput.value = '';
+  }
+  function closeCatModal(){
+    catModalOverlay.classList.remove('open');
+    render();
+    scheduleSave();
+  }
+
+  document.getElementById('manageCatBtn').addEventListener('click', openCatModal);
+  document.getElementById('catModalClose').addEventListener('click', closeCatModal);
+  document.getElementById('catModalDone').addEventListener('click', closeCatModal);
+  catModalOverlay.addEventListener('click', (e) => {
+    if(e.target === catModalOverlay) closeCatModal();
+  });
+
+  function addCategory(){
+    const name = newCatInput.value.trim();
+    if(!name){ return; }
+    if(categories.some(c => c.toLocaleLowerCase('tr') === name.toLocaleLowerCase('tr'))){
+      showToast('Bu kategori zaten var');
+      return;
+    }
+    categories.push(name);
+    newCatInput.value = '';
+    renderCatList();
+    showToast('Kategori eklendi');
+    scheduleSave();
+  }
+  document.getElementById('addCatBtn').addEventListener('click', addCategory);
+  newCatInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter'){ e.preventDefault(); addCategory(); }
+  });
+
+  catList.addEventListener('change', (e) => {
+    const idx = e.target.dataset.catRename;
+    if(idx === undefined) return;
+    const newName = e.target.value.trim();
+    if(!newName){ e.target.value = categories[idx]; return; }
+    const oldName = categories[idx];
+    if(newName === oldName) return;
+    if(categories.some((c,i) => i != idx && c.toLocaleLowerCase('tr') === newName.toLocaleLowerCase('tr'))){
+      showToast('Bu isimde bir kategori zaten var');
+      e.target.value = oldName;
+      return;
+    }
+    categories[idx] = newName;
+    rows.forEach(r => {
+      if(r.categories && r.categories.includes(oldName)){
+        r.categories = r.categories.map(c => c === oldName ? newName : c);
+      }
+    });
+    renderCatList();
+    showToast('Kategori güncellendi');
+    scheduleSave();
+  });
+
+  catList.addEventListener('click', (e) => {
+    const idx = e.target.closest('[data-cat-del]')?.dataset.catDel;
+    if(idx === undefined) return;
+    const name = categories[idx];
+    const count = rows.filter(r => (r.categories||[]).includes(name)).length;
+    const msg = count > 0
+      ? `"${name}" silinsin mi? Bu kategorideki ${count} üründen bu kategori kaldırılacak (diğer kategorileri kalır).`
+      : `"${name}" silinsin mi?`;
+    if(confirm(msg)){
+      categories.splice(idx, 1);
+      rows.forEach(r => {
+        if(r.categories) r.categories = r.categories.filter(c => c !== name);
+      });
+      renderCatList();
+      showToast('Kategori silindi');
+      scheduleSave();
+    }
+  });
+
+  // On startup: try to load previously saved data; if none exists, start fresh
+  (async function init(){
+    await loadFromStorage();
+    migrateLegacyRows();
+    if(rows.length === 0){
+      addRow({}, false);
+      addRow({}, false);
+      addRow({}, false);
+    }
+    render();
+  })();
+</script>
+</body>
+</html>
