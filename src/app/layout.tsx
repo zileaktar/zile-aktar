@@ -88,6 +88,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     '@context': 'https://schema.org',
     '@type': 'Store',
     name: LEGAL.markaAdi,
+    // Dükkânın tabela / Google İşletme Profili adı — site ile harita kaydını aynı işletme olarak bağlar.
+    alternateName: LEGAL.dukkanAdi,
     url: env.NEXT_PUBLIC_APP_URL,
     telephone: '+90 551 173 00 94',
     email: LEGAL.eposta,
@@ -108,7 +110,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     paymentAccepted: 'Kredi Kartı, Banka Kartı, Havale/EFT',
     hasMap:
       LEGAL.haritaLinki ||
-      `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${LEGAL.markaAdi} ${LEGAL.adres}`)}`,
+      `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${LEGAL.dukkanAdi} ${LEGAL.adres}`)}`,
     openingHours: 'Mo-Sa 09:00-19:00'
   };
 

@@ -13,7 +13,7 @@ const telHref = `+90${LEGAL.telefon.replace(/\D/g, '').replace(/^0/, '')}`;
 const hasGeo = Boolean(LEGAL.enlem && LEGAL.boylam);
 const mapsQuery = hasGeo
   ? `${LEGAL.enlem},${LEGAL.boylam}`
-  : encodeURIComponent(`${LEGAL.markaAdi} ${LEGAL.adres}`);
+  : encodeURIComponent(`${LEGAL.dukkanAdi} ${LEGAL.adres}`);
 const mapsEmbed = `https://maps.google.com/maps?q=${mapsQuery}&z=16&output=embed`;
 const mapsDirections = `https://www.google.com/maps/dir/?api=1&destination=${mapsQuery}`;
 // "Haritalar'da Aç": profil bağlantısı varsa doğrudan işletme profiline, yoksa aramaya götürür.

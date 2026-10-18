@@ -34,7 +34,7 @@ export function SiteFooter({ categories, logoPath }: { categories: Category[]; l
         <div>
           <h4 className="font-semibold text-white mb-4">İletişim</h4>
           <ul className="space-y-2 text-sm text-cream/60">
-            <li>📍 Dutlupınar, Cumhuriyet Cd. Kültür Sitesi D:26/G, 60400 Zile/Tokat</li>
+            <li>📍 Zile Lokman Aktar — Dutlupınar, Cumhuriyet Cd. Kültür Sitesi D:26/G, 60400 Zile/Tokat</li>
             <li>
               📞{' '}
               <a href="tel:+905511730094" className="hover:text-cream">

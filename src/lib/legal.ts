@@ -8,6 +8,10 @@ export const LEGAL = {
   unvan: 'Suzan EŞAT',
   isletmeTuru: 'Gerçek kişilere ait ticari işletme',
   markaAdi: 'Zile Aktar',
+  // Fiziksel dükkânın tabela / Google İşletme Profili adı. Site (Zile Aktar) bu
+  // dükkânın internet mağazası — Google'ın ikisini aynı işletme sayması için
+  // Store şemasında alternateName, Hakkımızda ve İletişim'de bu ad geçer.
+  dukkanAdi: 'Zile Lokman Aktar',
   adres: 'Dutlupınar Mah., Cumhuriyet Cd., Kültür Sitesi D:26/G, 60400 Zile / Tokat',
   telefon: '0551 173 00 94',
   eposta: 'zileaktar@gmail.com',
@@ -26,7 +30,8 @@ export const LEGAL = {
   //  - Pin'e sağ tıklayıp koordinatı (ör. "40.304512, 35.887934") `enlem`/`boylam`'a girin.
   // Boş bırakılırsa yapısal veriye (Store şeması) konum eklenmez; İletişim sayfası
   // adrese göre yaklaşık harita gösterir.
-  haritaLinki: '', // https://maps.app.goo.gl/... veya https://g.page/...
+  // "ZİLE LOKMAN AKTAR" İşletme Profili (Google bilgi kaydı /g/11zjd8nn_g) — 18 Ekim 2026.
+  haritaLinki: 'https://share.google/WyQdocEUeHnCbEnZN',
   enlem: '', // ör. '40.304512'
   boylam: '', // ör. '35.887934'
 

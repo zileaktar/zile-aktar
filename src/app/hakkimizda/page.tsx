@@ -22,7 +22,8 @@ export default function AboutPage() {
           <h2 className="font-display font-bold text-primary text-lg mb-2">Biz Kimiz?</h2>
           <p>
             Zile Aktar, {LEGAL.markaAdi} markasıyla {LEGAL.unvan} tarafından işletilen bir aktar ve yöresel ürünler
-            satış noktasıdır. Zile&apos;deki dükkanımızda uzun yıllardır aktarlık yapıyor; baharattan bitki çayına,
+            satış noktasıdır ve Zile&apos;deki <b>{LEGAL.dukkanAdi}</b> dükkânının internet mağazasıdır.
+            Zile&apos;deki dükkanımızda uzun yıllardır aktarlık yapıyor; baharattan bitki çayına,
             soğuk sıkım yağlardan doğal kozmetik ve sirkelere kadar geniş bir ürün yelpazesini müşterilerimize
             sunuyoruz. Bu web sitesiyle birlikte aynı ürünleri, aynı özenle Türkiye&apos;nin her yerine gönderiyoruz.
           </p>
