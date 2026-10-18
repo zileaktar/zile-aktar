@@ -32,8 +32,9 @@ export const LEGAL = {
   // adrese göre yaklaşık harita gösterir.
   // "ZİLE LOKMAN AKTAR" İşletme Profili (Google bilgi kaydı /g/11zjd8nn_g) — 18 Ekim 2026.
   haritaLinki: 'https://share.google/WyQdocEUeHnCbEnZN',
-  enlem: '', // ör. '40.304512'
-  boylam: '', // ör. '35.887934'
+  // Dükkânın Google Haritalar konumu (18 Ekim 2026, mağaza sahibinden).
+  enlem: '40.301151',
+  boylam: '35.883776',
 
   // İletişim mesajlarına dönüş taahhüdü (İletişim sayfasında gösterilir).
   yanitSuresi: 'Mesajlarınıza en geç 1 iş günü içinde dönüş yapıyoruz.',
