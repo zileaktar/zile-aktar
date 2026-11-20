@@ -22,6 +22,8 @@ export default async function OnBilgilendirmeFormuPage() {
         <li>Telefon: {LEGAL.telefon} · E-posta: {LEGAL.eposta}</li>
         <li>Vergi Dairesi / No: {LEGAL.vergiDairesi} / {LEGAL.vergiNo}</li>
         <li>MERSİS No: {LEGAL.mersisNo} · Ticaret Sicil No: {LEGAL.ticaretSicilNo}</li>
+        {LEGAL.meslekOdasi && <li>Kayıtlı olunan meslek odası: {LEGAL.meslekOdasi}</li>}
+        {LEGAL.kepAdresi && <li>KEP adresi: {LEGAL.kepAdresi}</li>}
       </ul>
 
       <h2>2. Ürün / Hizmet Bilgileri</h2>
@@ -59,11 +61,15 @@ export default async function OnBilgilendirmeFormuPage() {
       <p>
         Cayma hakkını kullanırsanız; ürün bedeli <b>ve teslimat sırasında ödemiş olduğunuz standart kargo ücreti
         (varsa)</b>, cayma bildiriminin bize ulaşmasından itibaren en geç 14 gün içinde ödemeyi yaptığınız yönteme
-        (kart / havale) iade edilir. Ürünü {LEGAL.kargoFirmasi} ile satıcının adresine geri göndermeniz yeterlidir.
+        (kart / havale) iade edilir. Ürünü, cayma bildiriminden itibaren 10 gün içinde satıcının adresine geri
+        göndermeniz yeterlidir.
       </p>
       <p>
-        <b>Cayma halinde ürünün geri gönderim (iade kargo) masrafı Alıcı&apos;ya aittir.</b> Ayıplı/yanlış/eksik ürün
-        gönderiminde ise iade kargo masrafı Satıcı&apos;ya aittir.
+        <b>İade için belirlenen taşıyıcı: {LEGAL.iadeKargoFirmasi}.</b> Ürünü {LEGAL.iadeKargoFirmasi} ile, size
+        ileteceğimiz anlaşmalı iade koduyla gönderdiğinizde <b>iade kargo ücreti ödemezsiniz</b>. Bulunduğunuz yerde{' '}
+        {LEGAL.iadeKargoFirmasi} şubesi yoksa, ürünün sizden ek ücret alınmadan teslim alınmasını biz sağlarız. Ürünü
+        kendi tercihinizle başka bir kargo firmasıyla gönderirseniz o gönderimin ücreti size aittir. Ayıplı, yanlış
+        veya eksik ürün iadelerinde hiçbir kargo masrafı sizden istenmez.
       </p>
       <p>
         <b>Cayma hakkının istisnaları:</b> Ambalajı/koruyucu bandı açılmış gıda ürünleri (baharat, çay, bitki, yağ,
@@ -76,7 +82,8 @@ export default async function OnBilgilendirmeFormuPage() {
       <p>
         Uyuşmazlık durumunda, Ticaret Bakanlığı&apos;nca her yıl ilan edilen parasal sınırlar dahilinde tüketicinin
         yerleşim yerindeki veya işlemin yapıldığı yerdeki <b>Tüketici Hakem Heyeti</b>&apos;ne, bu sınırı aşan
-        uyuşmazlıklarda <b>Tüketici Mahkemesi</b>&apos;ne başvurabilirsiniz. Ayrıca talep ve şikâyetlerinizi{' '}
+        uyuşmazlıklarda 6502 sayılı Kanun&apos;un 73/A maddesi uyarınca dava öncesi <b>arabuluculuğa</b> başvurulması
+        şartıyla <b>Tüketici Mahkemesi</b>&apos;ne başvurabilirsiniz. Ayrıca talep ve şikâyetlerinizi{' '}
         {LEGAL.eposta} veya {LEGAL.telefon} üzerinden doğrudan bize iletebilirsiniz.
       </p>
 

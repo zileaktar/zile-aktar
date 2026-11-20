@@ -7,6 +7,7 @@ import { createSupabaseImplicitAuthClient } from '@/lib/supabase/client';
 import { weakPasswordMessage } from '@/lib/auth-errors';
 import { CaptchaField } from '@/components/auth/CaptchaField';
 import { PasswordInput } from '@/components/auth/PasswordInput';
+import { LEGAL } from '@/lib/legal';
 
 export default function SignupPage() {
   const [fullName, setFullName] = useState('');
@@ -123,10 +124,23 @@ export default function SignupPage() {
           </p>
         )}
 
+        {/* 6563 sayılı Kanun m.6 + Ticari İletişim Yön. m.7: onay isteğe bağlı, varsayılan
+            işaretsiz, gönderen + kanal belirtilmiş, geri alınabilir. Onaylar İYS'ye yüklenmeden
+            pazarlama e-postası GÖNDERİLMEZ. */}
         <label className="flex items-start gap-2 text-xs text-carbon/60 cursor-pointer">
           <input type="checkbox" checked={marketingConsent} onChange={(e) => setMarketingConsent(e.target.checked)} className="mt-0.5 accent-primary" />
-          Kampanya ve fırsatlardan e-posta ile haberdar olmak istiyorum.
+          <span>
+            {LEGAL.unvan} ({LEGAL.markaAdi}) tarafından kampanya ve fırsatlarla ilgili tarafıma e-posta ile ticari
+            elektronik ileti gönderilmesine onay veriyorum. (İsteğe bağlıdır; onayımı dilediğim an, gelen her iletideki
+            bağlantıdan veya {LEGAL.eposta} adresine yazarak geri alabilirim.)
+          </span>
         </label>
+        <p className="text-xs text-carbon/60">
+          Üye olarak <Link href="/kullanim-kosullari" target="_blank" className="text-primary underline">Site Kullanım Koşulları</Link>&apos;nı
+          kabul etmiş olursunuz. Kişisel verileriniz{' '}
+          <Link href="/kvkk" target="_blank" className="text-primary underline">KVKK Aydınlatma Metni</Link>&apos;nde
+          açıklandığı şekilde işlenir.
+        </p>
         <CaptchaField ref={captchaRef} onToken={setCaptchaToken} />
         <button
           disabled={loading || !passwordsMatch || !passwordsFilled || !captchaToken}

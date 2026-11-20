@@ -23,7 +23,8 @@ export default function IptalIadePage() {
       <p>
         Cayma halinde; ödediğiniz <b>ürün bedeli ile teslimat sırasında ödediğiniz standart kargo ücreti (varsa)</b>,
         cayma bildiriminin bize ulaşmasından itibaren en geç 14 gün içinde ödemeyi yaptığınız yönteme (kart / havale)
-        iade edilir. Yalnızca ürünün geri gönderim (iade kargo) masrafı size aittir.
+        iade edilir. Ürünü {LEGAL.iadeKargoFirmasi} ile anlaşmalı iade kodumuzla gönderdiğinizde iade kargo ücreti
+        de ödemezsiniz (ayrıntı aşağıda).
       </p>
 
       <h2>Cayma Hakkının Kullanılamayacağı Ürünler</h2>
@@ -40,9 +41,9 @@ export default function IptalIadePage() {
 
       <h2>İade Süreci</h2>
       <ol>
-        <li>{LEGAL.iadeIcinIletisim} üzerinden iade talebinizi ve sipariş numaranızı bildirin.</li>
-        <li>Onay sonrası ürünü, faturası ve tüm aksesuarlarıyla birlikte {LEGAL.kargoFirmasi} ile belirtilen adrese gönderin (cayma bildiriminden itibaren 10 gün içinde).</li>
-        <li>Ürün tarafımıza ulaşıp kontrol edildikten sonra ödemeniz (ürün bedeli + varsa ödediğiniz standart kargo ücreti), cayma bildiriminden itibaren <b>en geç 14 gün</b> içinde iade edilir.</li>
+        <li>Hesabım → Siparişlerim sayfasından veya {LEGAL.iadeIcinIletisim} üzerinden iade talebinizi ve sipariş numaranızı bildirin. Size {LEGAL.iadeKargoFirmasi} anlaşmalı iade kodunu iletiriz.</li>
+        <li>Ürünü, faturasıyla birlikte, cayma bildiriminden itibaren 10 gün içinde {LEGAL.iadeKargoFirmasi} şubesine iade koduyla teslim edin — ücret ödemezsiniz.</li>
+        <li>Ödemeniz (ürün bedeli + varsa ödediğiniz standart kargo ücreti), cayma bildiriminin bize ulaşmasından itibaren <b>en geç 14 gün</b> içinde ödemeyi yaptığınız yönteme iade edilir.</li>
       </ol>
 
       <h2>Cayma Bildirim Formu</h2>
@@ -69,8 +70,10 @@ Bu formla, aşağıdaki ürün(ler)in satışına ilişkin sözleşmeden cayma h
 
       <h2>İade Kargo Ücreti</h2>
       <ul>
-        <li>Ayıplı/yanlış/eksik ürün gönderiminde iade kargo ücreti <b>bize</b> aittir (anlaşmalı kargo ile ücretsiz gönderirsiniz).</li>
-        <li>Cayma hakkı kapsamındaki (ürün sağlam ama vazgeçtiniz) iadelerde kargo ücreti <b>alıcıya</b> aittir.</li>
+        <li>İade için belirlediğimiz taşıyıcı <b>{LEGAL.iadeKargoFirmasi}</b>&apos;dır. Ürünü {LEGAL.iadeKargoFirmasi} ile anlaşmalı iade kodumuzla gönderdiğinizde iade kargo ücreti <b>bize</b> aittir.</li>
+        <li>Bulunduğunuz yerde {LEGAL.iadeKargoFirmasi} şubesi yoksa bize bildirin; ürünün sizden ek ücret alınmadan teslim alınmasını sağlarız.</li>
+        <li>Ayıplı/yanlış/eksik ürün iadelerinde hiçbir kargo masrafı sizden istenmez.</li>
+        <li>Ürünü kendi tercihinizle başka bir kargo firmasıyla gönderirseniz, o gönderimin ücreti size aittir.</li>
       </ul>
 
       <h2>Ayıplı Ürün</h2>

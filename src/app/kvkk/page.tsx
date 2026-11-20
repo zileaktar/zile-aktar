@@ -19,6 +19,8 @@ export default function KvkkPage() {
         <li>E-posta: {LEGAL.eposta} · Telefon: {LEGAL.telefon}</li>
         <li>Vergi Dairesi / No: {LEGAL.vergiDairesi} / {LEGAL.vergiNo}</li>
         <li>MERSİS No: {LEGAL.mersisNo} · Ticaret Sicil No: {LEGAL.ticaretSicilNo}</li>
+        {LEGAL.meslekOdasi && <li>Kayıtlı olunan meslek odası: {LEGAL.meslekOdasi}</li>}
+        {LEGAL.kepAdresi && <li>KEP adresi: {LEGAL.kepAdresi}</li>}
       </ul>
 
       <h2>2. İşlenen Kişisel Veriler</h2>
@@ -74,8 +76,10 @@ export default function KvkkPage() {
       </ul>
       <p>
         Yurt dışında sunucusu bulunan sağlayıcılara (Supabase, Brevo, Vercel, Cloudflare, Sentry, Upstash, Google, Meta)
-        aktarım; KVKK m.9 uyarınca, sözleşmenin ifası için gerekli olması ve/veya açık rızanız (pazarlama/analitik çerezleri)
-        hukuki sebeplerine dayanılarak, yeterli koruma sağlayan taahhütler çerçevesinde yapılır.
+        aktarım; KVKK m.5 ve m.6&apos;daki işleme şartlarından birinin bulunması kaydıyla, KVKK m.9&apos;da öngörülen uygun
+        güvenceler (Kişisel Verileri Koruma Kurulu&apos;nca ilan edilen standart sözleşmeler) çerçevesinde yapılır.
+        Google ve Meta&apos;ya analitik/pazarlama amaçlı aktarım ayrıca yalnızca çerez tercihinizde onay vermeniz
+        hâlinde gerçekleşir.
       </p>
 
       <h2>6. Saklama Süreleri</h2>

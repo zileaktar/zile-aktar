@@ -41,8 +41,9 @@ export default function CerezPolitikasiPage() {
       <h2>Çerezleri Yönetme</h2>
       <p>
         Analitik ve pazarlama çerezleri için siteyi ilk açtığınızda gösterilen çerez bildiriminden &quot;Yalnızca
-        Zorunlu&quot; veya &quot;Tümünü Kabul Et&quot; seçiminizi yapabilirsiniz. Tercihinizi değiştirmek için
-        tarayıcınızın site verilerini (localStorage) temizleyip sayfayı yeniden yükleyin. Ayrıca tarayıcı ayarlarından
+        Zorunlu&quot; veya &quot;Tümünü Kabul Et&quot; seçiminizi yapabilirsiniz. Verdiğiniz onayı dilediğiniz an geri
+        çekmek veya tercihinizi değiştirmek için her sayfanın altındaki <b>&quot;Çerez Tercihleri&quot;</b> bağlantısını
+        kullanabilirsiniz. Ayrıca tarayıcı ayarlarından
         tüm çerezleri silebilir veya engelleyebilirsiniz; ancak zorunlu çerezleri engellerseniz giriş, sepet ve ödeme
         işlevleri çalışmayabilir.
       </p>

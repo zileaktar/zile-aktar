@@ -449,6 +449,45 @@ export interface Database {
           }
         ];
       };
+      /** Siparişe özel ÖBF + MSS arşivi (migration 0044) — DEĞİŞTİRİLEMEZ, 10 yıl silinemez. */
+      order_legal_documents: {
+        Row: {
+          id: string;
+          order_id: string;
+          doc_type: 'preliminary_info' | 'distance_sales';
+          doc_version: string;
+          content_html: string;
+          content_sha256: string;
+          accepted_at: string;
+          accepted_ip: string | null;
+          accepted_user_agent: string | null;
+          /** Trigger tarafından accepted_at + 10 yıl olarak sabitlenir. */
+          retain_until: string;
+          emailed_at: string | null;
+          created_at: string;
+        };
+        Insert: Omit<
+          Database['public']['Tables']['order_legal_documents']['Row'],
+          'id' | 'accepted_ip' | 'accepted_user_agent' | 'retain_until' | 'emailed_at' | 'created_at'
+        > & {
+          id?: string;
+          accepted_ip?: string | null;
+          accepted_user_agent?: string | null;
+          retain_until?: string;
+          emailed_at?: string | null;
+          created_at?: string;
+        };
+        Update: { emailed_at?: string };
+        Relationships: [
+          {
+            foreignKeyName: 'order_legal_documents_order_id_fkey';
+            columns: ['order_id'];
+            isOneToOne: false;
+            referencedRelation: 'orders';
+            referencedColumns: ['id'];
+          }
+        ];
+      };
       return_requests: {
         Row: {
           id: string;

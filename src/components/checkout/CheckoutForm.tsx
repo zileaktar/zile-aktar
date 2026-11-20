@@ -9,6 +9,7 @@ import { lineDealDiscountCents } from '@/lib/pricing';
 import { trackBeginCheckout } from '@/lib/analytics';
 import { checkoutRequestSchema } from '@/lib/validations/checkout';
 import { HealthDisclaimer } from '@/components/product/HealthDisclaimer';
+import { OrderLegalPreview } from '@/components/checkout/OrderLegalPreview';
 import { CaptchaField } from '@/components/auth/CaptchaField';
 import type { TurnstileInstance } from '@marsidev/react-turnstile';
 import type { CheckoutPrefill, SavedAddress } from '@/lib/data/account';
@@ -137,7 +138,7 @@ export function CheckoutForm({
   const [billing, setBilling] = useState({ fullName: '', phone: '', city: '', district: '', addressLine: '' });
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'havale'>('card');
   const [acceptedDistanceSalesAgreement, setAcceptedDistanceSalesAgreement] = useState(false);
-  const [acceptedKvkk, setAcceptedKvkk] = useState(false);
+  const [acceptedPreliminaryInfo, setAcceptedPreliminaryInfo] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   // Turnstile token'ı tek kullanımlık: başarısız her denemeden sonra widget sıfırlanır.
@@ -172,7 +173,7 @@ export function CheckoutForm({
       paymentMethod,
       couponCode: appliedCoupon?.code,
       acceptedDistanceSalesAgreement,
-      acceptedKvkk,
+      acceptedPreliminaryInfo,
       captchaToken: captchaToken ?? undefined
     };
 
@@ -415,20 +416,51 @@ export function CheckoutForm({
           </div>
 
           <div className="bg-white rounded-2xl p-5 shadow-sm space-y-3">
+            <OrderLegalPreview
+              input={{
+                orderNumber: null,
+                orderDate: new Date(),
+                buyerEmail: form.email,
+                shippingAddress: form,
+                billingAddress: billingDifferent ? billing : null,
+                items: items.map((i) => ({
+                  name: i.productName,
+                  variantLabel: i.variantLabel,
+                  quantity: i.quantity,
+                  unitPriceCents: i.priceCents
+                })),
+                subtotalCents: subtotal,
+                dealDiscountCents: dealDiscount,
+                couponDiscountCents: discount,
+                couponCode: appliedCoupon?.code ?? null,
+                shippingCents: shipping,
+                totalCents: total,
+                paymentMethod
+              }}
+            />
+            {/* Mesafeli Sözleşmeler Yön. m.6: ön bilgilendirmenin teyidi sözleşme onayından AYRI alınır.
+                Kutular varsayılan BOŞ; HTML required + istemci Zod + sunucu Zod (z.literal(true)) üç katmanda zorlanır. */}
+            <label className="flex items-start gap-3 text-xs sm:text-sm text-carbon/70 cursor-pointer">
+              <input required type="checkbox" className="mt-0.5 accent-primary w-4 h-4 shrink-0" checked={acceptedPreliminaryInfo} onChange={(e) => setAcceptedPreliminaryInfo(e.target.checked)} />
+              <span>
+                <a href="/on-bilgilendirme-formu" target="_blank" className="text-primary underline">Ön Bilgilendirme Formu</a>&apos;nu
+                okudum; siparişi onaylarsam ödeme yükümlülüğü altına gireceğimi biliyorum.
+              </span>
+            </label>
             <label className="flex items-start gap-3 text-xs sm:text-sm text-carbon/70 cursor-pointer">
               <input required type="checkbox" className="mt-0.5 accent-primary w-4 h-4 shrink-0" checked={acceptedDistanceSalesAgreement} onChange={(e) => setAcceptedDistanceSalesAgreement(e.target.checked)} />
               <span>
-                <a href="/on-bilgilendirme-formu" target="_blank" className="text-primary underline">Ön Bilgilendirme Formu</a>&apos;nu ve{' '}
                 <a href="/mesafeli-satis-sozlesmesi" target="_blank" className="text-primary underline">Mesafeli Satış Sözleşmesi</a>&apos;ni
                 okudum, kabul ediyorum.
               </span>
             </label>
-            <label className="flex items-start gap-3 text-xs sm:text-sm text-carbon/70 cursor-pointer">
-              <input required type="checkbox" className="mt-0.5 accent-primary w-4 h-4 shrink-0" checked={acceptedKvkk} onChange={(e) => setAcceptedKvkk(e.target.checked)} />
-              <span>
-                <a href="/kvkk" target="_blank" className="text-primary underline">KVKK Aydınlatma Metni</a> kapsamında kişisel verilerimin işlenmesini kabul ediyorum.
-              </span>
-            </label>
+            {/* KVKK: aydınlatma bir BİLGİLENDİRMEDİR, onaya bağlanmaz (Kurul kararları) —
+                sipariş verisi sözleşmenin ifası hukuki sebebiyle işlenir, onay kutusu yok. */}
+            <p className="text-xs text-carbon/60">
+              Kişisel verileriniz, siparişinizin yerine getirilmesi amacıyla{' '}
+              <a href="/kvkk" target="_blank" className="text-primary underline">KVKK Aydınlatma Metni</a>&apos;nde
+              açıklandığı şekilde işlenir.
+            </p>
             <HealthDisclaimer compact />
           </div>
         </div>

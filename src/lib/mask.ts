@@ -89,6 +89,7 @@ const FIELD_MASKERS: Record<string, (v: unknown) => string> = {
   mail: maskEmail,
   cardnumber: maskCardNumber,
   pan: maskCardNumber,
+  maskedpan: maskCardNumber, // VakıfBank GetVposTransaction yanıtı — maskeli olsa da loga yazılmaz
   lastfourdigits: (v) => String(v ?? ''), // zaten yalnızca son 4 hane; olduğu gibi bırak
   binnumber: (v) => maskMiddle(String(v ?? ''), 0, 0) // ilk 6 hane — tamamen gizle
 };

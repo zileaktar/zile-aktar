@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { SiteLogo } from '@/components/layout/SiteLogo';
+import { CookiePreferencesButton } from '@/components/consent/CookieConsent';
+import { LEGAL } from '@/lib/legal';
 
 interface Category {
   slug: string;
@@ -34,11 +36,13 @@ export function SiteFooter({ categories, logoPath }: { categories: Category[]; l
         <div>
           <h4 className="font-semibold text-white mb-4">İletişim</h4>
           <ul className="space-y-2 text-sm text-cream/60">
-            <li>📍 Zile Lokman Aktar — Dutlupınar, Cumhuriyet Cd. Kültür Sitesi D:26/G, 60400 Zile/Tokat</li>
+            <li>
+              📍 {LEGAL.dukkanAdi} — {LEGAL.adres}
+            </li>
             <li>
               📞{' '}
-              <a href="tel:+905511730094" className="hover:text-cream">
-                0551 173 00 94
+              <a href={`tel:+9${LEGAL.telefon.replace(/\D/g, '')}`} className="hover:text-cream">
+                {LEGAL.telefon}
               </a>
             </li>
             <li>
@@ -47,7 +51,8 @@ export function SiteFooter({ categories, logoPath }: { categories: Category[]; l
                 WhatsApp
               </a>
             </li>
-            <li>✉️ zileaktar@gmail.com</li>
+            <li>✉️ {LEGAL.eposta}</li>
+            {LEGAL.kepAdresi && <li>📨 KEP: {LEGAL.kepAdresi}</li>}
             <li>
               🧭{' '}
               <Link href="/iletisim" className="hover:text-cream underline">
@@ -100,11 +105,39 @@ export function SiteFooter({ categories, logoPath }: { categories: Category[]; l
             <Link href="/cerez-politikasi" className="hover:text-accent-light">
               Çerez Politikası
             </Link>
+            <CookiePreferencesButton className="text-left hover:text-accent-light" />
           </div>
         </div>
       </div>
-      <div className="border-t border-white/10 py-5 text-center text-xs text-cream/45">
-        © {new Date().getFullYear()} Zile Aktar — Tüm hakları saklıdır.
+      <div className="border-t border-white/10 py-5 px-4 text-center text-xs text-cream/45 space-y-1">
+        {/* 6563 sayılı Kanun m.3 + Ticari İletişim Yönetmeliği m.5: hizmet sağlayıcının
+            kimlik bilgileri her sayfadan kolayca ve sürekli erişilebilir olmalı. */}
+        <p>
+          Satıcı: {LEGAL.unvan} ({LEGAL.markaAdi}) · {LEGAL.vergiDairesi} VKN {LEGAL.vergiNo} · MERSİS{' '}
+          {LEGAL.mersisNo} · Ticaret Sicil No {LEGAL.ticaretSicilNo}
+          {LEGAL.meslekOdasi && <> · {LEGAL.meslekOdasi}</>}
+        </p>
+        <p>Adres: {LEGAL.adres} · Tel: {LEGAL.telefon} · E-posta: {LEGAL.eposta}{LEGAL.kepAdresi && <> · KEP: {LEGAL.kepAdresi}</>}</p>
+        {/* ETBİS doğrulama alanı — legal.ts'de bağlantı girilince görünür. */}
+        {LEGAL.etbisDogrulamaLinki && (
+          <p className="pt-2">
+            <a
+              href={LEGAL.etbisDogrulamaLinki}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 hover:text-cream"
+            >
+              {LEGAL.etbisGorselYolu ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={LEGAL.etbisGorselYolu} alt="ETBİS kayıt doğrulama" width={64} height={64} className="bg-white rounded" />
+              ) : null}
+              <span>ETBİS&apos;e kayıtlıdır</span>
+            </a>
+          </p>
+        )}
+        <p>
+          © {new Date().getFullYear()} {LEGAL.markaAdi} — Tüm hakları saklıdır.
+        </p>
       </div>
     </footer>
   );

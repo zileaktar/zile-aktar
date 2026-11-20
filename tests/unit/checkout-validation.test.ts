@@ -13,7 +13,7 @@ const validPayload = {
   },
   paymentMethod: 'card' as const,
   acceptedDistanceSalesAgreement: true as const,
-  acceptedKvkk: true as const
+  acceptedPreliminaryInfo: true as const
 };
 
 describe('checkoutRequestSchema', () => {
@@ -27,9 +27,54 @@ describe('checkoutRequestSchema', () => {
     expect(result.success).toBe(false);
   });
 
-  it('KVKK onayı olmadan siparişi reddeder — istemci fiyat/onay göndermeden geçemez', () => {
-    const result = checkoutRequestSchema.safeParse({ ...validPayload, acceptedKvkk: false });
+  it('ön bilgilendirme teyidi olmadan siparişi reddeder', () => {
+    const result = checkoutRequestSchema.safeParse({ ...validPayload, acceptedPreliminaryInfo: false });
     expect(result.success).toBe(false);
+  });
+
+  it('Mesafeli Satış Sözleşmesi onayı olmadan siparişi reddeder', () => {
+    const result = checkoutRequestSchema.safeParse({ ...validPayload, acceptedDistanceSalesAgreement: false });
+    expect(result.success).toBe(false);
+  });
+
+  it('iki onay kutusu da boşken (varsayılan durum) siparişi reddeder', () => {
+    const result = checkoutRequestSchema.safeParse({
+      ...validPayload,
+      acceptedDistanceSalesAgreement: false,
+      acceptedPreliminaryInfo: false
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const messages = result.error.issues.map((i) => i.message);
+      expect(messages).toContain('Mesafeli Satış Sözleşmesi onayı zorunludur.');
+      expect(messages).toContain('Ön Bilgilendirme Formu teyidi zorunludur.');
+    }
+  });
+
+  it('onay alanları hiç gönderilmezse siparişi reddeder', () => {
+    const { acceptedDistanceSalesAgreement: _a, acceptedPreliminaryInfo: _b, ...rest } = validPayload;
+    expect(checkoutRequestSchema.safeParse(rest).success).toBe(false);
+  });
+
+  it('onay alanında "true" metni (boolean olmayan) kabul edilmez', () => {
+    const result = checkoutRequestSchema.safeParse({ ...validPayload, acceptedPreliminaryInfo: 'true' });
+    expect(result.success).toBe(false);
+  });
+
+  it('kart numarası/CVV alanları gönderilse bile şema onları atar (kart verisi sunucuya alınmaz)', () => {
+    const result = checkoutRequestSchema.safeParse({
+      ...validPayload,
+      cardNumber: '5521010140829928',
+      cvv: '691',
+      expiry: '12/29'
+    });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      const data = result.data as Record<string, unknown>;
+      expect(data.cardNumber).toBeUndefined();
+      expect(data.cvv).toBeUndefined();
+      expect(data.expiry).toBeUndefined();
+    }
   });
 
   it('geçersiz telefon formatını reddeder', () => {

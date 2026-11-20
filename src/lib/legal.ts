@@ -44,6 +44,24 @@ export const LEGAL = {
   mersisNo: '2246369545600001',
   ticaretSicilNo: '4076',
   faaliyetKodu: '47.27.04', // NACE ana faaliyet kodu
+  // 6563 sayılı Kanun / Ticari İletişim Yönetmeliği m.5: hizmet sağlayıcı bir meslek
+  // odasına kayıtlıysa oda adı sitede gösterilir. Boş bırakılırsa hiçbir yerde görünmez.
+  meslekOdasi: '' as string,
+
+  // ── HENÜZ DOLDURULMAMIŞ ALANLAR ──────────────────────────────────────────
+  // Boş bırakılan alan sitede HİÇ görünmez; doldurunca footer, KVKK, ÖBF, MSS ve
+  // sipariş sözleşmelerine otomatik yansır.
+  //
+  // KEP (Kayıtlı Elektronik Posta) adresi — ör. 'suzan.esat@hs01.kep.tr'.
+  // Gerçek kişi tacir için zorunlu değil; alındığında buraya yazın.
+  kepAdresi: '' as string,
+  // ETBİS: Ticaret Bakanlığı karekod uygulamasını Eylül 2025'te sonlandırdı — sitede
+  // karekod GÖSTERME zorunluluğu artık yok, ama KAYIT zorunluluğu sürüyor.
+  // Kayıt sonrası Bakanlık yeni bir doğrulama bağlantısı/görseli verirse:
+  //  - etbisDogrulamaLinki: bağlantının tam adresi (https://...)
+  //  - etbisGorselYolu: görseli public/ klasörüne koyup yolunu yazın (ör. '/etbis.png')
+  etbisDogrulamaLinki: '' as string,
+  etbisGorselYolu: '' as string,
 
   // Kargo & teslimat
   kargoFirmasi: 'Aras Kargo',
@@ -53,6 +71,12 @@ export const LEGAL = {
 
   // İade / cayma
   caymaSuresiGun: 14,
+  // Cayma iadesi için ön bilgilendirmede belirtilen taşıyıcı. Mesafeli Sözleşmeler
+  // Yönetmeliği m.5/1-g ve m.12/5 (1 Ocak 2026'dan beri): ürün BU firmayla geri
+  // gönderilirse iade kargo ücreti müşteriden ALINAMAZ; firmanın müşterinin
+  // bulunduğu yerde şubesi yoksa ürünü ücretsiz teslim almak satıcının işidir.
+  // Mağaza bu firmayla "anlaşmalı iade (müşteri iade kodu)" kullanır.
+  iadeKargoFirmasi: 'Aras Kargo',
   iadeIcinIletisim: 'zileaktar@gmail.com veya 0551 173 00 94',
 
   sonGuncelleme: '2026' // metin güncellendiğinde değiştir

@@ -44,8 +44,10 @@ export const checkoutRequestSchema = z.object({
   acceptedDistanceSalesAgreement: z.literal(true, {
     errorMap: () => ({ message: 'Mesafeli Satış Sözleşmesi onayı zorunludur.' })
   }),
-  acceptedKvkk: z.literal(true, {
-    errorMap: () => ({ message: 'KVKK Aydınlatma Metni onayı zorunludur.' })
+  // Ön bilgilendirme teyidi sözleşme onayından ayrı alınır (Mesafeli Sözleşmeler Yön. m.6).
+  // KVKK aydınlatması bilerek onay kutusu DEĞİL — aydınlatma rızaya bağlanmaz.
+  acceptedPreliminaryInfo: z.literal(true, {
+    errorMap: () => ({ message: 'Ön Bilgilendirme Formu teyidi zorunludur.' })
   }),
   // Cloudflare Turnstile ("robot değilim") token'ı — gerçek doğrulama sunucuda
   // (src/lib/turnstile.ts). Sahte siparişlerle stok kilitleyen botlara karşı.

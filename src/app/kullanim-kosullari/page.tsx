@@ -82,7 +82,7 @@ export default function KullanimKosullariPage() {
       <p>
         Bu koşullara Türkiye Cumhuriyeti hukuku uygulanır. Tüketici işlemlerinden doğan uyuşmazlıklarda, Ticaret
         Bakanlığı&apos;nca ilan edilen parasal sınırlar dahilinde tüketicinin yerleşim yerindeki Tüketici Hakem Heyeti,
-        aşan hâllerde Tüketici Mahkemeleri yetkilidir.
+        aşan hâllerde dava öncesi arabuluculuğa başvurulması şartıyla Tüketici Mahkemeleri yetkilidir.
       </p>
 
       <h2>11. İletişim</h2>

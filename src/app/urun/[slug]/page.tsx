@@ -72,8 +72,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
     returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
     merchantReturnDays: LEGAL.caymaSuresiGun,
     returnMethod: 'https://schema.org/ReturnByMail',
-    // Cayma (vazgeçme) iadesinde kargo alıcıya ait — bkz. /iptal-iade-kosullari.
-    returnFees: 'https://schema.org/ReturnFeesCustomerResponsibility'
+    // Belirlenen taşıyıcıyla (LEGAL.iadeKargoFirmasi) iade ücretsiz — Mesafeli Söz. Yön. m.12/5.
+    returnFees: 'https://schema.org/FreeReturn'
   };
   const shippingFor = (priceCents: number, weightGrams: number | null) => ({
     '@type': 'OfferShippingDetails',
@@ -166,10 +166,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </div>
       )}
 
-      {(product.origin || product.allergen_info || product.shelf_life_note || product.storage_info) && (
-        <div className="max-w-3xl mt-10">
+      {/* Uzaktan satışta zorunlu bilgiler (Gıda Etiketleme Yön. + 6502 m.48): net miktar,
+          menşe, saklama, alerjen ve işletme bilgisi satın almadan ÖNCE görünür. */}
+      <div className="max-w-3xl mt-10">
           <h3 className="font-display font-bold text-primary text-base mb-3">Ürün Bilgileri</h3>
           <dl className="grid sm:grid-cols-2 gap-x-8 gap-y-2 text-sm">
+            <div className="flex justify-between gap-3 border-b border-primary/5 py-1.5">
+              <dt className="text-carbon/50">Net Miktar</dt>
+              <dd className="font-medium text-right">{product.product_variants.map((v) => v.label).join(' · ')}</dd>
+            </div>
             {product.origin && (
               <div className="flex justify-between gap-3 border-b border-primary/5 py-1.5">
                 <dt className="text-carbon/50">Menşe / Yöre</dt>
@@ -194,9 +199,18 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 <dd className="font-semibold text-right">{product.allergen_info}</dd>
               </div>
             )}
+            <div className="flex justify-between gap-3 border-b border-primary/5 py-1.5 sm:col-span-2">
+              <dt className="text-carbon/50 shrink-0">Satıcı</dt>
+              <dd className="font-medium text-right">
+                {LEGAL.unvan} ({LEGAL.markaAdi}) — {LEGAL.adres}
+              </dd>
+            </div>
+            <div className="flex justify-between gap-3 py-1.5 sm:col-span-2 text-carbon/50 text-xs">
+              <dt className="shrink-0">Fiyatlar</dt>
+              <dd className="text-right">Tüm fiyatlara KDV dahildir.</dd>
+            </div>
           </dl>
-        </div>
-      )}
+      </div>
 
       <ProductReviews
         productId={product.id}

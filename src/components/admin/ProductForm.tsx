@@ -636,14 +636,14 @@ export function ProductForm({ mode, categories, action, initialProduct }: Produc
                   <input
                     placeholder="ops."
                     inputMode="decimal"
-                    title="İndirimden önceki fiyat — boş bırakırsanız indirim gösterilmez"
+                    title="Doldurursanız indirim gösterilir. Sitede üstü çizili tutar, yasa gereği (son 30 gün kuralı) OTOMATİK olarak bu ürünün son 30 gündeki en düşük fiyatına ayarlanır; o fiyat bugünkünden yüksek değilse indirim gösterilmez."
                     value={v.compareAtPrice}
                     onChange={(e) => updateVariant(i, { compareAtPrice: e.target.value })}
                     className={VARIANT_INPUT}
                   />
                   {v.compareAtPrice.trim() && v.price.trim() && tlToCents(v.compareAtPrice) > tlToCents(v.price) && (
                     <span className="block text-[11px] text-accent-dark mt-0.5">
-                      %{Math.round((1 - tlToCents(v.price) / tlToCents(v.compareAtPrice)) * 100)} indirim
+                      İndirim açık — üstü çizili tutar kayıtta son 30 günün en düşük fiyatına ayarlanır
                     </span>
                   )}
                 </label>

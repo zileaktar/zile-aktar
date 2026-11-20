@@ -26,6 +26,19 @@ Mimari + kod durumu: `devir-promptu.md`
 - [ ] **Avukat / mali müşavir son kontrolü** (metinler yayında ama uzman gözünden geçmedi) — taksitli ödeme açıksa vade farkı bilgisi · VERBİS muafiyeti · KEP adresi eklensin mi.
 - [x] **`src/lib/legal.ts` işletme bilgileri dolduruldu:** Unvan: Suzan EŞAT (gerçek kişi ticari işletme) · Zile V.D. · VKN 3801213625 · MERSİS 2246369545600001 · Ticaret Sicil 4076 · NACE 47.27.04 · Kargo: Aras Kargo · Çalışma saatleri: Pzt–Cmt 09:00–19:00.
 - [x] Sağlık beyanı disclaimer + admin ürün formunda yasaklı ifade kontrolü.
+- [x] **Mevzuat uyum turu (20 Kasım 2026, kod):** iade kargo 1 Ocak 2026 kuralına uyarlandı (belirtilen taşıyıcı Aras Kargo ile iade ÜCRETSİZ — ÖBF/MSS/iade/SSS/ürün şeması) · uyuşmazlıkta dava öncesi arabuluculuk ibaresi · KVKK yurt dışı aktarım paragrafı 2024 m.9'a göre · ödeme sayfasında ÖBF ve MSS ayrı teyit, KVKK onay kutusu kaldırılıp bilgilendirme notu yapıldı · footer'da satıcı kimlik bilgileri + "Çerez Tercihleri" (rızayı geri çekme) · üyelikte Kullanım Koşulları/KVKK bağlantısı + ticari ileti onay metni.
+- [ ] **Aras Kargo anlaşmalı iade (müşteri iade kodu)** — Aras Kargo Zile şubesinden "anlaşmalı müşteri + iade kodu" tanımlatılacak. Sitede artık "Aras ile iade ücretsiz" yazıyor; kod yoksa müşterinin ödediği iade ücreti mağazaca karşılanmalı.
+- [ ] **ETBİS kaydı** — e-Devlet → "Elektronik Ticaret Bilgi Sistemi (ETBİS)" → zileaktar.com kaydı (faaliyete başlamadan önce zorunlu). Karekod uygulaması Eylül 2025'te kaldırıldı — sitede göstermek zorunlu değil; Bakanlık bir doğrulama bağlantısı verirse `legal.ts` → `etbisDogrulamaLinki`.
+- [x] **Mevzuat uyum turu 2 (20 Kasım 2026, kod):** siparişe özel ÖBF + MSS (ödeme sayfasında önizleme, sipariş anında `order_legal_documents` arşivi — migration 0044, değiştirilemez, 10 yıl silinemez — ve müşteriye ayrı e-posta) · satış şalteri `CHECKOUT_ENABLED` (false = yalnız admin sipariş verebilir) · `legal.ts` KEP/ETBİS alanları (boşsa görünmez).
+- [ ] **`supabase db push`** — migration 0044 canlıya uygulanmadan yeni kod sipariş ALAMAZ (arşiv yazılamazsa sipariş iptal edilir). Önce db push, sonra deploy.
+- [ ] **KVKK yurt dışı aktarım standart sözleşmeleri** — Supabase, Vercel, Brevo, Cloudflare, Sentry, Upstash, Google, Meta. Kurul'un standart sözleşmesi imzalanıp **imzadan sonra 5 iş günü içinde** Kurum'a bildirilmeli. KVKK metni bu güvenceye dayanıyor — avukatla yürütülecek.
+- [ ] **VERBİS** — 50'den az çalışan + bilanço eşiği altında (2025/1572 Kurul kararı) ve ana faaliyet özel nitelikli veri işleme değil → muaf. Mali müşavirle teyit. Muafiyet aydınlatma/güvenlik yükümlülüklerini kaldırmaz.
+- [ ] **İYS (İleti Yönetim Sistemi)** — üyelikte pazarlama onayı toplanıyor. Pazarlama e-postası/SMS/WhatsApp kampanyası GÖNDERİLMEDEN önce iys.org.tr'ye kayıt + toplanan onayların İYS'ye yüklenmesi gerekir. Sipariş/kargo e-postaları kapsam dışı.
+- [ ] **Meslek odası** — kayıtlı oda (muhtemelen Zile TSO) `legal.ts` `meslekOdasi` alanına yazılınca footer + KVKK + ÖBF'de görünür.
+- [ ] **e-Arşiv / e-Fatura** — internetten satışta e-Arşiv fatura zorunluluk eşiği mali müşavirle kontrol edilecek.
+- [x] **Mevzuat uyum turu 3 (20 Kasım 2026, kod):** son 30 gün kuralı (migration 0045 — fiyat geçmişi + üstü çizili fiyat DB'de otomatik son 30 günün en düşüğüne eşitlenir) · birim fiyat (1 kg / 1 lt, `src/lib/unit-price.ts`) · ürün sayfasında Net Miktar + Satıcı + KDV satırı.
+- [ ] **`supabase db push`** — migration 0045.
+- [ ] **Ürün bilgisi doldurma (admin, ürün ürün):** menşe, saklama koşulu, alerjen, raf ömrü alanları; birden fazla bileşenli ürünlerde (karışım çay/baharat, kozmetik) içindekiler listesi açıklamaya yazılmalı.
 
 ## C. ALTYAPI / GÜVENLİK
 

@@ -25,6 +25,7 @@ export declare const env: {
   readonly TURNSTILE_SECRET_KEY: string | undefined;
   readonly PII_ENCRYPTION_KEY: string | undefined;
   readonly PII_HMAC_PEPPER: string | undefined;
+  readonly CHECKOUT_ENABLED: 'true' | 'false';
   readonly NEXT_PUBLIC_APP_URL: string;
   readonly NEXT_PUBLIC_SUPABASE_URL: string;
   readonly NEXT_PUBLIC_SUPABASE_ANON_KEY: string;

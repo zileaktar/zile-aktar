@@ -86,11 +86,15 @@ function buildSections(kargoCevabi: string): { title: string; items: QA[] }[] {
       },
       {
         q: 'İade sürecini nasıl başlatırım?',
-        a: `${LEGAL.iadeIcinIletisim} üzerinden sipariş numaranızla bize ulaşın. Size iade adresini ve adımları ileteceğiz. Ürünü orijinal ambalajıyla, faturasıyla birlikte gönderin.`
+        a: `Hesabım → Siparişlerim sayfasından iade talebi oluşturabilir veya ${LEGAL.iadeIcinIletisim} üzerinden sipariş numaranızla bize ulaşabilirsiniz. Size ${LEGAL.iadeKargoFirmasi} anlaşmalı iade kodunu ileteceğiz. Ürünü orijinal ambalajıyla, faturasıyla birlikte ${LEGAL.iadeKargoFirmasi} şubesine bu kodla teslim edin.`
+      },
+      {
+        q: 'İade kargo ücretini kim öder?',
+        a: `Ürünü ${LEGAL.iadeKargoFirmasi} ile anlaşmalı iade kodumuzla gönderdiğinizde iade kargo ücreti ödemezsiniz. Bulunduğunuz yerde ${LEGAL.iadeKargoFirmasi} şubesi yoksa, ürünün ek ücret alınmadan sizden teslim alınmasını biz sağlarız.`
       },
       {
         q: 'Param ne zaman iade edilir?',
-        a: `İade ettiğiniz ürün bize ulaşıp kontrol edildikten sonra, ödemeyi yaptığınız yönteme (kart veya havale) en geç ${LEGAL.caymaSuresiGun} gün içinde iade edilir.`
+        a: `Cayma bildiriminiz bize ulaştıktan sonra en geç ${LEGAL.caymaSuresiGun} gün içinde, ödemeyi yaptığınız yönteme (kart veya havale) iade edilir. Kart iadelerinin hesabınıza yansıma süresi bankanıza bağlıdır.`
       },
       {
         q: 'Ürün hasarlı veya yanlış geldi, ne yapmalıyım?',

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { formatPriceFromCents, formatDateTR } from '@/lib/format';
+import { formatUnitPrice } from '@/lib/unit-price';
 import { getProductImageUrl } from '@/lib/media';
 import { dealBadgeText, dealFromRow } from '@/lib/pricing';
 import { trackAddToCart } from '@/lib/analytics';
@@ -133,6 +134,9 @@ export function ProductDetailClient({
                 )}
                 {formatPriceFromCents(v.price_cents)}
               </span>
+              {formatUnitPrice(v.price_cents, v.label) && (
+                <span className="block text-[10px] text-carbon/45">{formatUnitPrice(v.price_cents, v.label)}</span>
+              )}
             </button>
           );
         })}
@@ -157,6 +161,17 @@ export function ProductDetailClient({
           <span className="text-xs font-bold text-red-600">%{discountPct} indirim</span>
         )}
       </div>
+      {/* Fiyat Etiketi Yön.: birim fiyat + indirimde referans fiyatın ne olduğu */}
+      {(formatUnitPrice(selectedVariant.price_cents, selectedVariant.label) || hasDiscount) && (
+        <p className="text-[11px] text-carbon/50 -mt-3 mb-4">
+          {formatUnitPrice(selectedVariant.price_cents, selectedVariant.label) && (
+            <>Birim fiyat — {formatUnitPrice(selectedVariant.price_cents, selectedVariant.label)}</>
+          )}
+          {formatUnitPrice(selectedVariant.price_cents, selectedVariant.label) && hasDiscount && ' · '}
+          {hasDiscount && <>Üstü çizili fiyat: son 30 günün en düşük fiyatı</>}
+          {' · KDV dahil'}
+        </p>
+      )}
 
       {deal && (
         <p className="text-xs font-medium text-primary bg-primary/5 border border-primary/15 rounded-xl px-3 py-2 mb-4">

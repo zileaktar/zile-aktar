@@ -14,6 +14,7 @@ export default async function DistanceSalesAgreementPage() {
         <b>SATICI:</b> {LEGAL.unvan} (&quot;{LEGAL.markaAdi}&quot;) — {LEGAL.adres} — Tel: {LEGAL.telefon} — E-posta:{' '}
         {LEGAL.eposta} — Vergi Dairesi/No: {LEGAL.vergiDairesi}/{LEGAL.vergiNo} — MERSİS: {LEGAL.mersisNo} — Ticaret Sicil No:{' '}
         {LEGAL.ticaretSicilNo}
+        {LEGAL.kepAdresi && <> — KEP: {LEGAL.kepAdresi}</>}
       </p>
       <p>
         <b>ALICI:</b> {LEGAL.webAdresi} üzerinden sipariş veren, ad-soyad ve adres bilgilerini sipariş formunda beyan eden
@@ -54,9 +55,16 @@ export default async function DistanceSalesAgreementPage() {
       <p>
         Cayma hakkının kullanılması halinde Satıcı, cayma bildiriminin kendisine ulaşmasından itibaren en geç 14 gün
         içinde, Alıcı&apos;nın malı tedarik ederken ödediği <b>ürün bedeli ile teslimat masrafları dâhil tüm bedeli</b>{' '}
-        Alıcı&apos;ya iade eder. Alıcı, ürünü cayma bildirimini yönelttiği tarihten itibaren 10 gün içinde{' '}
-        {LEGAL.kargoFirmasi} ile Satıcı&apos;nın adresine geri gönderir; <b>geri gönderim (iade kargo) masrafı
-        Alıcı&apos;ya aittir</b> (ayıplı/yanlış ürün hâli hariç).
+        Alıcı&apos;ya iade eder. Alıcı, ürünü cayma bildirimini yönelttiği tarihten itibaren 10 gün içinde
+        Satıcı&apos;nın adresine geri gönderir.
+      </p>
+      <p>
+        Satıcı&apos;nın iade için belirlediği taşıyıcı <b>{LEGAL.iadeKargoFirmasi}</b>&apos;dır. Ürün{' '}
+        {LEGAL.iadeKargoFirmasi} ile Satıcı&apos;nın ileteceği anlaşmalı iade koduyla gönderildiğinde{' '}
+        <b>Alıcı iade kargo masrafından sorumlu tutulmaz</b>. Alıcı&apos;nın bulunduğu yerde {LEGAL.iadeKargoFirmasi}{' '}
+        şubesi bulunmuyorsa Satıcı, ilave hiçbir masraf talep etmeksizin ürünün Alıcı&apos;dan teslim alınmasını sağlar.
+        Alıcı&apos;nın kendi tercihiyle başka bir taşıyıcı kullanması hâlinde o gönderimin masrafı Alıcı&apos;ya aittir.
+        Ayıplı ürünün iadesindeki masraflar hiçbir durumda Alıcı&apos;dan talep edilmez.
       </p>
       <p>
         <b>Cayma hakkının istisnaları:</b> Ambalajı/koruyucu bandı açılmış gıda ürünleri (baharat, çay, bitki, yağ,
@@ -73,7 +81,9 @@ export default async function DistanceSalesAgreementPage() {
       <h2>7. Yetkili Mahkeme</h2>
       <p>
         İşbu sözleşmeden doğabilecek uyuşmazlıklarda, Ticaret Bakanlığı&apos;nca ilan edilen değere kadar Alıcı&apos;nın
-        veya Satıcı&apos;nın yerleşim yerindeki Tüketici Hakem Heyetleri, aşan durumlarda Tüketici Mahkemeleri yetkilidir.
+        yerleşim yerindeki veya işlemin yapıldığı yerdeki Tüketici Hakem Heyetleri, aşan durumlarda 6502 sayılı
+        Kanun&apos;un 73/A maddesi uyarınca dava öncesi arabuluculuğa başvurulması şartıyla Tüketici Mahkemeleri
+        yetkilidir.
       </p>
 
       <h2>8. Yürürlük</h2>

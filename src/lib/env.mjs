@@ -61,7 +61,13 @@ export const env = createEnv({
     // Şimdilik opsiyonel; şifreli/hash'li bir sütun kullanılmaya başlanınca zorunluya çevir.
     // ASLA rotasyon yapma (mevcut şifreli veriler çözülemez hale gelir) — gerekirse veri taşıması yaz.
     PII_ENCRYPTION_KEY: z.string().regex(/^[0-9a-fA-F]{64}$/, 'PII_ENCRYPTION_KEY 64 hex karakter olmalı').optional(),
-    PII_HMAC_PEPPER: z.string().min(16, 'PII_HMAC_PEPPER en az 16 karakter olmalı').optional()
+    PII_HMAC_PEPPER: z.string().min(16, 'PII_HMAC_PEPPER en az 16 karakter olmalı').optional(),
+
+    // SATIŞ ŞALTERİ: "false" yapılırsa ödeme sayfası müşterilere kapanır ve /api/checkout
+    // sipariş oluşturmaz (ETBİS kaydı vb. tamamlanana kadar). Yalnız admin hesabı
+    // (canlı test çekimi için) sipariş verebilir. Boş/"true" = satış açık.
+    // Vercel → Settings → Environment Variables'ta değiştirip YENİDEN DEPLOY edin.
+    CHECKOUT_ENABLED: z.enum(['true', 'false']).default('true')
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().url(),
@@ -102,6 +108,7 @@ export const env = createEnv({
     TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY,
     PII_ENCRYPTION_KEY: process.env.PII_ENCRYPTION_KEY,
     PII_HMAC_PEPPER: process.env.PII_HMAC_PEPPER,
+    CHECKOUT_ENABLED: process.env.CHECKOUT_ENABLED,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,

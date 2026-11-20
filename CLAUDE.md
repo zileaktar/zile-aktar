@@ -49,6 +49,15 @@ Kullanıcının portu 3000'de takılırsa: `npx kill-port 3000`. `NEXT_PUBLIC_AP
 - İstemciden **asla fiyat/toplam kabul edilmez**. Sepet (Zustand, localStorage) yalnızca önizleme. Gerçek toplam `public.create_order(...)` Postgres fonksiyonunda `FOR UPDATE` satır kilidiyle DB'den hesaplanır; bu RPC yalnızca `service_role` çağırabilir, istemci `orders`'a doğrudan INSERT yapamaz (RLS'de INSERT politikası yok).
 - **Kargo ücreti AĞIRLIĞA göre ve admin panelden ayarlanır** (migration 0043): `shipping_settings` (tek satır: ücretsiz kargo eşiği, varsayılan ürün ağırlığı, koli payı, ek kg ücreti) + `shipping_rates` ("X g'a kadar Y kuruş"); `product_variants.weight_grams`. Hesap TEK yerde: SQL `calc_shipping_cents()` (create_order, preview_coupon, quote_cart çağırır) ↔ TS aynası `src/lib/shipping.ts` `calcShippingCents` (önizleme/yapısal veri; birim testli). Sepet/ödeme sayfası ücreti `/api/shipping-quote`'tan alır. Metinler `getShippingConfig()` + `describeShippingFees()` — kodda sabit kargo tutarı YAZMA. Admin: Ayarlar → Kargo Ücretleri (`save_shipping_config` RPC, is_admin+AAL2).
 
+### Sözleşme arşivi & satış şalteri (migration 0044)
+- `/api/checkout`, `create_order`'dan hemen sonra `archiveOrderLegalDocuments()` ile siparişe özel ÖBF + MSS'yi (`src/lib/legal-documents.ts` — saf, istemci önizlemesi de aynı fonksiyonu kullanır) `order_legal_documents`'a yazar. Tablo trigger'la DEĞİŞTİRİLEMEZ (yalnız `emailed_at` bir kez), `retain_until` = onay + 10 yıl'dan önce silinemez, `orders` FK `ON DELETE RESTRICT`. Arşiv yazılamazsa sipariş `mark_order_failed` ile iptal edilir. Metin değişirse `LEGAL_DOCS_VERSION`'ı artır.
+- Belgeler `sendOrderPlacedEmail` sonunda `sendOrderLegalDocumentsEmail` ile ayrı e-postada gider (kart: ödeme onayında, havale: sipariş anında).
+- `CHECKOUT_ENABLED=false` (env) → `/checkout` bilgi notu, `/api/checkout` 503; yalnız `admin` rolü geçer (`src/lib/checkout-gate.ts`).
+
+### Fiyat gösterimi (migration 0045)
+- `product_variants.compare_at_price_cents` bir "indirim göster" işaretidir: DB trigger'ı onu mevcut fiyatın başladığı andan önceki 30 günün EN DÜŞÜK fiyatına eşitler (yoksa/yüksek değilse NULL). Fiyat geçmişi `product_variant_price_history` (trigger yazar). Kodda üstü çizili tutarı ELLE hesaplama/düzeltme.
+- Birim fiyat: `formatUnitPrice(priceCents, label)` (`src/lib/unit-price.ts`) — net miktar varyant etiketinden okunur ("100 g", "50 ml"); "adet"te gösterilmez.
+
 ### Supabase istemci üçlüsü (`src/lib/supabase/server.ts`)
 - `createSupabaseServerClient()` — kullanıcının çerezli oturumu, RLS'e tabi. Server Component / Route Handler / Server Action.
 - `createSupabaseAnonServerClient()` — çerezsiz anon; `unstable_cache` içinde kullanılır (cookies() cache scope'ta yasak).

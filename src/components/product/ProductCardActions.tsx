@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { getProductImageUrl } from '@/lib/media';
 import { formatPriceFromCents } from '@/lib/format';
+import { formatUnitPrice } from '@/lib/unit-price';
 import { dealFromRow } from '@/lib/pricing';
 import { trackAddToCart } from '@/lib/analytics';
 import { useCartStore } from '@/store/cart-store';
@@ -76,11 +77,15 @@ export function ProductCardActions({ product }: { product: ProductWithVariants }
       <div className="flex items-center justify-between gap-2">
         <span className="flex flex-col leading-tight">
           {hasDiscount && (
-            <span className="text-[11px] text-carbon/40 line-through">{formatPriceFromCents(compareAt)}</span>
+            <span className="text-[11px] text-carbon/40 line-through" title="Son 30 günün en düşük fiyatı">{formatPriceFromCents(compareAt)}</span>
           )}
           <span className={`font-display font-bold text-base sm:text-lg ${hasDiscount ? 'text-red-600' : 'text-primary'}`}>
             {formatPriceFromCents(selectedVariant.price_cents)}
           </span>
+          {/* Fiyat Etiketi Yönetmeliği: birim (kg/lt) fiyat */}
+          {formatUnitPrice(selectedVariant.price_cents, selectedVariant.label) && (
+            <span className="text-[10px] text-carbon/45">{formatUnitPrice(selectedVariant.price_cents, selectedVariant.label)}</span>
+          )}
         </span>
         <button
           onClick={handleAdd}

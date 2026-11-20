@@ -11,6 +11,8 @@ import { notifyNewOrder } from '@/lib/notify';
 import { env } from '@/lib/env.mjs';
 import { redactPII, redactPIIString } from '@/lib/mask';
 import { signOrderNumber, signPaymentReturn, PAYMENT_RETURN_TTL_MS } from '@/lib/order-token';
+import { canPlaceOrder, CHECKOUT_CLOSED_MESSAGE } from '@/lib/checkout-gate';
+import { archiveOrderLegalDocuments } from '@/lib/order-legal-archive';
 
 export const runtime = 'nodejs';
 
@@ -55,6 +57,18 @@ export async function POST(request: Request) {
   }
   const { items, address, billingAddress, paymentMethod, couponCode, captchaToken } = parsed.data;
 
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
+
+  // SATIŞ ŞALTERİ (CHECKOUT_ENABLED=false): müşteri siparişi alınmaz; yalnız admin
+  // canlı test için geçebilir. Stok rezervi/ödeme başlatılmadan ÖNCE kontrol edilir.
+  const gate = await canPlaceOrder(supabase, user?.id ?? null);
+  if (!gate.allowed) {
+    return NextResponse.json({ error: CHECKOUT_CLOSED_MESSAGE, checkoutClosed: true }, { status: 503 });
+  }
+
   // "Robot değilim" kontrolü — stok rezerve eden create_order'dan ÖNCE.
   if (!(await verifyTurnstileToken(captchaToken, ip))) {
     return NextResponse.json(
@@ -62,11 +76,6 @@ export async function POST(request: Request) {
       { status: 403 }
     );
   }
-
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
 
   const serviceClient = createSupabaseServiceRoleClient();
 
@@ -157,6 +166,18 @@ export async function POST(request: Request) {
         }
       })
       .eq('id', orderId);
+  }
+
+  // SÖZLEŞME ARŞİVİ (MSY m.20): müşterinin onayladığı ÖBF + MSS, siparişin gerçek
+  // verisiyle üretilip değiştirilemez tabloya yazılır. Yazılamazsa satış YAPILMAZ —
+  // sipariş iptal edilir (stok geri döner), müşteriye tekrar denemesi söylenir.
+  try {
+    await archiveOrderLegalDocuments(orderId, { ip, userAgent: request.headers.get('user-agent') });
+  } catch (err) {
+    console.error('[checkout] sözleşme arşivi hatası:', err instanceof Error ? redactPIIString(err.message) : redactPII(err));
+    Sentry.captureException(err);
+    await serviceClient.rpc('mark_order_failed', { p_order_id: orderId });
+    return NextResponse.json({ error: 'Sipariş oluşturulamadı, lütfen tekrar deneyin.' }, { status: 500 });
   }
 
   // Havale/EFT: VakıfBank'a istek gitmez. Sipariş 'pending' oluşturuldu; müşteri

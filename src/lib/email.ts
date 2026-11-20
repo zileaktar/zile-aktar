@@ -14,10 +14,11 @@ const REPLY_TO = { email: LEGAL.eposta, name: LEGAL.markaAdi };
 // Yönetici bildirimi: ayrı env verilmişse oraya, yoksa gönderen adresine.
 const ADMIN_EMAIL = env.ORDER_NOTIFY_EMAIL || LEGAL.eposta;
 
-async function sendBrevo(payload: Record<string, unknown>): Promise<void> {
+/** true = Brevo kabul etti. Hata fırlatmaz (best-effort). */
+async function sendBrevo(payload: Record<string, unknown>): Promise<boolean> {
   if (!env.BREVO_API_KEY) {
     console.warn('[email] BREVO_API_KEY yok — e-posta atlanıyor');
-    return;
+    return false;
   }
   try {
     const res = await fetch(BREVO_URL, {
@@ -32,10 +33,13 @@ async function sendBrevo(payload: Record<string, unknown>): Promise<void> {
       // Brevo hata gövdesi alıcı e-postasını yansıtabilir — maskeleyerek logla.
       console.error('[email] Brevo hata:', res.status, redactPIIString(body).slice(0, 400));
       Sentry.captureMessage(`Brevo e-posta gönderilemedi: HTTP ${res.status}`, { level: 'error' });
+      return false;
     }
+    return true;
   } catch (err) {
     console.error('[email] Brevo istisna:', err instanceof Error ? redactPIIString(err.message) : redactPII(err));
     Sentry.captureException(err);
+    return false;
   }
 }
 
@@ -185,6 +189,70 @@ export async function sendOrderPlacedEmail(orderId: string): Promise<void> {
         <p><a href="${env.NEXT_PUBLIC_APP_URL}/admin/siparisler">Yönetim paneli</a></p>
       </div>`
   });
+
+  // Sözleşme belgeleri (ÖBF + MSS) — kalıcı veri saklayıcısı olarak ayrı e-posta.
+  await sendOrderLegalDocumentsEmail(orderId);
+}
+
+/**
+ * Siparişe özel, ARŞİVLENMİŞ ÖBF + Mesafeli Satış Sözleşmesi'ni müşteriye
+ * e-postayla gönderir (6502 m.48/4, MSY m.7/1: sözleşme kurulunca belgeler
+ * kalıcı veri saklayıcısıyla tüketiciye iletilir). İçerik `order_legal_documents`
+ * tablosundaki birebir kopyadır (yeniden üretilmez). Gönderim başarılıysa
+ * `emailed_at` bir kez yazılır; zaten gönderilmişse tekrar gitmez.
+ * Kart siparişinde ödeme onaylanınca, havalede sipariş anında çağrılır.
+ */
+export async function sendOrderLegalDocumentsEmail(orderId: string): Promise<void> {
+  const supabase = createSupabaseServiceRoleClient();
+  const [{ data: order }, { data: docs }] = await Promise.all([
+    supabase.from('orders').select('order_number, contact_email').eq('id', orderId).single(),
+    supabase
+      .from('order_legal_documents')
+      .select('id, doc_type, content_html, content_sha256, emailed_at')
+      .eq('order_id', orderId)
+  ]);
+  if (!order || !docs || docs.length === 0) {
+    Sentry.captureMessage(`Sözleşme e-postası: ${orderId} için arşiv kaydı bulunamadı`, { level: 'error' });
+    return;
+  }
+  const pending = docs.filter((d) => !d.emailed_at);
+  if (pending.length === 0) return;
+
+  // Önce ÖBF, sonra MSS.
+  const ordered = [...docs].sort((a, b) => (a.doc_type === 'preliminary_info' ? -1 : b.doc_type === 'preliminary_info' ? 1 : 0));
+  const body = ordered
+    .map(
+      (d) =>
+        `${d.content_html}<p style="font-size:11px;color:#999;font-family:monospace;margin:6px 0 24px">Belge özeti (SHA-256): ${d.content_sha256}</p>`
+    )
+    .join('<hr style="border:none;border-top:2px solid #1b4332;margin:24px 0">');
+
+  const html = `
+    <div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto;color:#222">
+      <p style="font-size:14px">Sayın müşterimiz, <b>${escapeHtml(order.order_number)}</b> numaralı siparişinizde onayladığınız
+      <b>Ön Bilgilendirme Formu</b> ve <b>Mesafeli Satış Sözleşmesi</b> aşağıdadır. Lütfen bu e-postayı saklayınız.</p>
+      <hr style="border:none;border-top:2px solid #1b4332;margin:16px 0">
+      ${body}
+    </div>`;
+
+  const sent = await sendBrevo({
+    sender: SENDER,
+    to: [{ email: order.contact_email }],
+    subject: `${LEGAL.markaAdi} — Sözleşme belgeleriniz (${order.order_number})`,
+    htmlContent: html,
+    replyTo: REPLY_TO
+  });
+  if (!sent) return;
+
+  const now = new Date().toISOString();
+  const { error } = await supabase
+    .from('order_legal_documents')
+    .update({ emailed_at: now })
+    .in(
+      'id',
+      pending.map((d) => d.id)
+    );
+  if (error) Sentry.captureMessage(`Sözleşme e-postası gönderildi ama emailed_at yazılamadı: ${error.message}`, { level: 'warning' });
 }
 
 interface ShippedRow {
