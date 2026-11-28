@@ -54,7 +54,7 @@ export const LEGAL = {
   //
   // KEP (Kayıtlı Elektronik Posta) adresi — ör. 'suzan.esat@hs01.kep.tr'.
   // Gerçek kişi tacir için zorunlu değil; alındığında buraya yazın.
-  kepAdresi: '' as string,
+  kepAdresi: 'suzan.esat@hs01.kep.tr',
   // ETBİS: Ticaret Bakanlığı karekod uygulamasını Eylül 2025'te sonlandırdı — sitede
   // karekod GÖSTERME zorunluluğu artık yok, ama KAYIT zorunluluğu sürüyor.
   // Kayıt sonrası Bakanlık yeni bir doğrulama bağlantısı/görseli verirse:
